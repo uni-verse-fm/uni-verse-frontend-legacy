@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: uni-verse-ingress
+  labels:
+    name: uni-verse-ingress
+spec:
+  rules:
+  - host: uni-verse.vagahbond.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: uni-verse-frontend
+            port: 
+              number: 3334
+  - host: uni-verse.api.vagahbond.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: uni-verse-api
+            port:
+              number: 3222
