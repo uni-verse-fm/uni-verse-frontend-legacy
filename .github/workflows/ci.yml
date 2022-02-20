@@ -1,4 +1,4 @@
-name: tests
+name: ci
 
 on:
   pull_request:
@@ -13,8 +13,9 @@ jobs:
       - name: deps
         run: npm ci
 
-      - name: tests
-        run: npm run test
+      # No tests yet
+      # - name: tests
+      #   run: npm run test
 
       - name: eslint
         run: npm run lint
