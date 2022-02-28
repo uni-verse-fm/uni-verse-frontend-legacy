@@ -36,8 +36,8 @@ body {
     height: 10px;
     border-radius: 10px;
     cursor: ew-resize;
-    background: #43e5f7;
-    box-shadow: -80px 0 0 80px #43e5f7;
+    background: #1BC47D;
+    box-shadow: -80px 0 0 80px #1BC47D;
   }
 
 }
@@ -52,20 +52,20 @@ body {
 input[type='range']::-moz-range-thumb {
   overflow: hidden;
   /* -webkit-appearance: none; */
-  background-color: #43e5f7;
+  background-color: #1BC47D;
 }
 
 input[type="range"]::-moz-range-progress {
-  background-color: #43e5f7;
+  background-color: #1BC47D;
 }
 
 input[type="range"]::-moz-range-track {
-  background-color: rgb(75 85 99);
+  background-color: #616161;
 }
 
 /* IE*/
 input[type="range"]::-ms-fill-lower {
-  background-color: #43e5f7;
+  background-color: #1BC47D;
 }
 
 input[type="range"]::-ms-fill-upper {

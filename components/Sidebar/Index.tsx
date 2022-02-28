@@ -15,9 +15,9 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="w-64 absolute sm:relative bg-gray-800 shadow md:h-screen flex-col hidden sm:flex">
+      <div className="w-64 absolute sm:relative bg-gry md:h-screen flex-col hidden sm:flex">
         <div className="flex flex-row h-16">
-          <div className="inline-block h-12 w-12 ml-2 mt-auto mb-auto overflow-hidden rounded-full ring-2 ring-white">
+          <div className="inline-block h-12 w-12 ml-2 mt-auto mb-auto overflow-hidden rounded-full ring-2 ring-grn">
             <Image
               src="https://picsum.photos/200/300"
               alt="Uni-verse user avatar"
@@ -25,7 +25,7 @@ const Sidebar = () => {
               height={48}
             />
           </div>
-          <h1 className="text-white mr-auto mt-auto mb-auto ml-5">Uni-verse</h1>
+          <h1 className="text-grn mr-auto mt-auto mb-auto ml-5">Uni-verse</h1>
         </div>
         <div className="mt-6 flex flex-col">
           <SideMenuEntry
