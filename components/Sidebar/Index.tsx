@@ -7,7 +7,7 @@ import {
   faChartLine,
 } from '@fortawesome/free-solid-svg-icons'
 import SideMenuEntry from './SideMenuEntry'
-import Player from './Player'
+import Player from '../Player/Index'
 import Image from 'next/image'
 
 const Sidebar = () => {

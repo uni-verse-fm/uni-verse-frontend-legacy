@@ -32,7 +32,7 @@ const Player = ({ className }: PlayerProps) => {
   return (
     <div className={`flex flex-col h-max w-full text-white ${className}`}>
       <div className="overflow-hidden mx-4">
-        <DefilingText value="Iron Maiden - Hallowed be The Name" />
+        <DefilingText value="The pretty Reckless - The great gig in the sky" />
       </div>
       <ReaderTimeline />
       <div className="w-full h-16 flex">
