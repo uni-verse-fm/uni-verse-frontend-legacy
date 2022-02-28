@@ -1,17 +1,17 @@
-import { useState } from 'react'
+import { useState } from "react";
 import {
   faHome,
   faList,
   faRecordVinyl,
   faFileWaveform,
   faChartLine,
-} from '@fortawesome/free-solid-svg-icons'
-import SideMenuEntry from './SideMenuEntry'
-import Player from '../Player/Index'
-import Image from 'next/image'
+} from "@fortawesome/free-solid-svg-icons";
+import SideMenuEntry from "./SideMenuEntry";
+import Player from "../Player/Index";
+import Image from "next/image";
 
 const Sidebar = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState(false)
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <>
@@ -30,28 +30,28 @@ const Sidebar = () => {
         <div className="mt-6 flex flex-col">
           <SideMenuEntry
             icon={faHome}
-            onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+            onClick={(_: any) => console.log("NOT IMPLEMENTED")}
             title="Home"
           />
           <SideMenuEntry
             icon={faList}
-            onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+            onClick={(_: any) => console.log("NOT IMPLEMENTED")}
             title="Playlists"
             nbNotif={8}
           />
           <SideMenuEntry
             icon={faRecordVinyl}
-            onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+            onClick={(_: any) => console.log("NOT IMPLEMENTED")}
             title="Upload release"
           />
           <SideMenuEntry
             icon={faFileWaveform}
-            onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+            onClick={(_: any) => console.log("NOT IMPLEMENTED")}
             title="Upload sample or preset"
           />
           <SideMenuEntry
             icon={faChartLine}
-            onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+            onClick={(_: any) => console.log("NOT IMPLEMENTED")}
             title="Analytics"
           />
         </div>
@@ -60,8 +60,8 @@ const Sidebar = () => {
       <div
         className={`w-64 z-40 h-screen absolute bg-gray-800 shadow flex-col sm:hidden transition duration-150 ease-in-out ${
           isSidebarOpen
-            ? 'transform translate-x-0'
-            : 'transform -translate-x-full'
+            ? "transform translate-x-0"
+            : "transform -translate-x-full"
         }`}
         id="mobile-nav"
       >
@@ -69,7 +69,7 @@ const Sidebar = () => {
           aria-label="toggle sidebar"
           id="openSideBar"
           className={`${
-            isSidebarOpen && 'hidden'
+            isSidebarOpen && "hidden"
           } h-10 w-10 bg-gray-800 absolute right-0 mt-16 -mr-10 flex items-center shadow rounded-br justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800`}
           onClick={(_) => setSidebarOpen(true)}
         >
@@ -83,7 +83,7 @@ const Sidebar = () => {
           aria-label="Close sidebar"
           id="closeSideBar"
           className={`${
-            !isSidebarOpen && 'hidden'
+            !isSidebarOpen && "hidden"
           } h-10 w-10 bg-gray-800 absolute right-0 mt-16 -mr-10 flex items-center shadow rounded-br justify-center cursor-pointer text-white`}
           onClick={(_) => setSidebarOpen(false)}
         >
@@ -112,34 +112,34 @@ const Sidebar = () => {
           <ul className="mt-6">
             <SideMenuEntry
               icon={faHome}
-              onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+              onClick={(_: any) => console.log("NOT IMPLEMENTED")}
               title="Home"
             />
             <SideMenuEntry
               icon={faList}
-              onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+              onClick={(_: any) => console.log("NOT IMPLEMENTED")}
               title="Playlists"
               nbNotif={8}
             />
             <SideMenuEntry
               icon={faRecordVinyl}
-              onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+              onClick={(_: any) => console.log("NOT IMPLEMENTED")}
               title="Upload release"
             />
             <SideMenuEntry
               icon={faFileWaveform}
-              onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+              onClick={(_: any) => console.log("NOT IMPLEMENTED")}
               title="Upload sample or preset"
             />
             <SideMenuEntry
               icon={faChartLine}
-              onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+              onClick={(_: any) => console.log("NOT IMPLEMENTED")}
               title="Analytics"
             />
           </ul>
         </div>
       </div>
     </>
-  )
-}
-export default Sidebar
+  );
+};
+export default Sidebar;

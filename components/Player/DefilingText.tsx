@@ -1,13 +1,15 @@
-import styles from './DefilingText.module.css'
+import styles from "./DefilingText.module.css";
 
 interface DefilingTextProps {
-  value: string
+  value: string;
 }
 
 const DefilingText = ({ value }: DefilingTextProps) => {
-  return value.length > 22 ?
-  <p className={styles.text}>{value}</p> : 
-  <p className="whitespace-nowrap">{value}</p>
-}
+  return value.length > 22 ? (
+    <p className={styles.text}>{value}</p>
+  ) : (
+    <p className="whitespace-nowrap">{value}</p>
+  );
+};
 
-export default DefilingText
+export default DefilingText;
