@@ -3,32 +3,32 @@ import {
   faArrowRight,
   faPause,
   faPlay,
-} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
-import DefilingText from './DefilingText'
-import ReaderTimeline from './ReaderTimeline'
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+import DefilingText from "./DefilingText";
+import ReaderTimeline from "./ReaderTimeline";
 
 interface PlayerProps {
-  className?: string
+  className?: string;
 }
 
 const Player = ({ className }: PlayerProps) => {
-  const [playing, setPlaying] = useState<boolean>(false)
+  const [playing, setPlaying] = useState<boolean>(false);
 
   const onPreviousClick = () => {
-    console.log('Playing previous song !')
-  }
+    console.log("Playing previous song !");
+  };
 
   const onNextClick = () => {
-    console.log('Skipping to next song ! ')
-  }
+    console.log("Skipping to next song ! ");
+  };
 
   const onPlayPauseClick = () => {
-    playing ? console.log('Pausing...') : console.log('Playing...')
+    playing ? console.log("Pausing...") : console.log("Playing...");
 
-    setPlaying(!playing)
-  }
+    setPlaying(!playing);
+  };
   return (
     <div className={`flex flex-col h-max w-full text-grn ${className}`}>
       <div className="overflow-hidden mx-4">
@@ -59,7 +59,7 @@ const Player = ({ className }: PlayerProps) => {
         </a>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Player
+export default Player;

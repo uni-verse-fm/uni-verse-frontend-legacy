@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 const ReaderTimeline = () => {
-  const [currentTime, setCurrentTime] = useState<number>(0)
+  const [currentTime, setCurrentTime] = useState<number>(0);
 
   return (
     <div className="w-max ml-auto mr-auto bg-gry">
@@ -14,7 +14,7 @@ const ReaderTimeline = () => {
         onChange={(e) => setCurrentTime(parseInt(e.target.value))}
       />
     </div>
-  )
-}
+  );
+};
 
-export default ReaderTimeline
+export default ReaderTimeline;

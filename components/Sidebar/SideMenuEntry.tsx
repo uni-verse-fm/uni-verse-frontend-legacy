@@ -1,10 +1,10 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface SideMenuEntryProps {
-  title: string
-  icon: any
-  onClick: (event: any) => void
-  nbNotif?: number
+  title: string;
+  icon: any;
+  onClick: (event: any) => void;
+  nbNotif?: number;
 }
 
 const SideMenuEntry = ({
@@ -22,13 +22,13 @@ const SideMenuEntry = ({
         <FontAwesomeIcon icon={icon} className="mr-2" />
         <span className="text-sm ml-2">{title}</span>
       </a>
-      { nbNotif && (
+      {nbNotif && (
         <div className="py-1 px-3 bg-blck rounded flex items-center justify-center text-xs">
           {nbNotif}
         </div>
-      ) }
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default SideMenuEntry
+export default SideMenuEntry;

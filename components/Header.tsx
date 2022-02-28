@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import Image from 'next/image'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 
 const Header = () => {
   return (
@@ -31,6 +31,6 @@ const Header = () => {
         />
       </div>
     </header>
-  )
-}
-export default Header
+  );
+};
+export default Header;
