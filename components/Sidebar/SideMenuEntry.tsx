@@ -14,7 +14,7 @@ const SideMenuEntry = ({
   nbNotif,
 }: SideMenuEntryProps) => {
   return (
-    <div className="flex w-full h-full justify-between text-gray-400 cursor-pointer items-center p-4 hover:bg-gray-600">
+    <div className="flex w-full h-full justify-between text-wht cursor-pointer items-center p-4 hover:bg-gry hover:text-grn">
       <a
         onClick={onClick}
         className="flex items-center focus:outline-none focus:ring-2 focus:ring-white"
@@ -23,7 +23,7 @@ const SideMenuEntry = ({
         <span className="text-sm ml-2">{title}</span>
       </a>
       { nbNotif && (
-        <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">
+        <div className="py-1 px-3 bg-blck rounded flex items-center justify-center text-xs">
           {nbNotif}
         </div>
       ) }

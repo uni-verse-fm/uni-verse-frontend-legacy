@@ -30,7 +30,7 @@ const Player = ({ className }: PlayerProps) => {
     setPlaying(!playing)
   }
   return (
-    <div className={`flex flex-col h-max w-full text-white ${className}`}>
+    <div className={`flex flex-col h-max w-full text-grn ${className}`}>
       <div className="overflow-hidden mx-4">
         <DefilingText value="The pretty Reckless - The great gig in the sky" />
       </div>
@@ -38,13 +38,13 @@ const Player = ({ className }: PlayerProps) => {
       <div className="w-full h-16 flex">
         <a
           onClick={onPreviousClick}
-          className="bg-gray-800 hover:bg-gray-600 rounded-lg m-auto h-12 w-12 flex cursor-pointer"
+          className="bg-gry hover:bg-blck rounded-lg m-auto h-12 w-12 flex cursor-pointer"
         >
           <FontAwesomeIcon icon={faArrowLeft} className="m-auto" />
         </a>
         <a
           onClick={onPlayPauseClick}
-          className="bg-gray-800 hover:bg-gray-600 rounded-lg m-auto h-12 w-12 flex cursor-pointer"
+          className="bg-gry hover:bg-blck rounded-lg m-auto h-12 w-12 flex cursor-pointer"
         >
           <FontAwesomeIcon
             icon={playing ? faPause : faPlay}
@@ -53,7 +53,7 @@ const Player = ({ className }: PlayerProps) => {
         </a>
         <a
           onClick={onNextClick}
-          className="bg-gray-800 hover:bg-gray-600 rounded-lg m-auto h-12 w-12 flex cursor-pointer"
+          className="bg-gry hover:bg-blck rounded-lg m-auto h-12 w-12 flex cursor-pointer"
         >
           <FontAwesomeIcon icon={faArrowRight} className="m-auto" />
         </a>
