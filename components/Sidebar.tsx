@@ -27,35 +27,33 @@ const Sidebar = () => {
           </div>
           <h1 className="text-white mr-auto mt-auto mb-auto ml-5">Uni-verse</h1>
         </div>
-        <div className="px-8">
-          <ul className="mt-6">
-            <SideMenuEntry
-              icon={faHome}
-              onClick={(_: any) => console.log('NOT IMPLEMENTED')}
-              title="Home"
-            />
-            <SideMenuEntry
-              icon={faList}
-              onClick={(_: any) => console.log('NOT IMPLEMENTED')}
-              title="Playlists"
-              nbNotif={8}
-            />
-            <SideMenuEntry
-              icon={faRecordVinyl}
-              onClick={(_: any) => console.log('NOT IMPLEMENTED')}
-              title="Upload release"
-            />
-            <SideMenuEntry
-              icon={faFileWaveform}
-              onClick={(_: any) => console.log('NOT IMPLEMENTED')}
-              title="Upload sample or preset"
-            />
-            <SideMenuEntry
-              icon={faChartLine}
-              onClick={(_: any) => console.log('NOT IMPLEMENTED')}
-              title="Analytics"
-            />
-          </ul>
+        <div className="mt-6 flex flex-col">
+          <SideMenuEntry
+            icon={faHome}
+            onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+            title="Home"
+          />
+          <SideMenuEntry
+            icon={faList}
+            onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+            title="Playlists"
+            nbNotif={8}
+          />
+          <SideMenuEntry
+            icon={faRecordVinyl}
+            onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+            title="Upload release"
+          />
+          <SideMenuEntry
+            icon={faFileWaveform}
+            onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+            title="Upload sample or preset"
+          />
+          <SideMenuEntry
+            icon={faChartLine}
+            onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+            title="Analytics"
+          />
         </div>
         <Player className="mt-auto" />
       </div>

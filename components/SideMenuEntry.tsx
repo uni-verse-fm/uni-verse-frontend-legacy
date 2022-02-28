@@ -14,7 +14,7 @@ const SideMenuEntry = ({
   nbNotif,
 }: SideMenuEntryProps) => {
   return (
-    <li className="flex w-full justify-between text-gray-400 cursor-pointer items-center mb-6">
+    <div className="flex w-full h-full justify-between text-gray-400 cursor-pointer items-center p-4 hover:bg-gray-600">
       <a
         onClick={onClick}
         className="flex items-center focus:outline-none focus:ring-2 focus:ring-white"
@@ -27,7 +27,7 @@ const SideMenuEntry = ({
           {nbNotif}
         </div>
       ) }
-    </li>
+    </div>
   )
 }
 

@@ -1,10 +1,13 @@
+import styles from './DefilingText.module.css'
+
 interface DefilingTextProps {
   value: string
-  className?: string
 }
 
-const DefilingText = ({ value, className }: DefilingTextProps) => {
-  return <p className={`${className} overflow-hidden`}>{value}</p>
+const DefilingText = ({ value }: DefilingTextProps) => {
+  return value.length > 22 ?
+  <p className={styles.text}>{value}</p> : 
+  <p className="whitespace-nowrap">{value}</p>
 }
 
 export default DefilingText
