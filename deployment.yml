@@ -11,6 +11,8 @@ spec:
       labels:
         app: uni-verse-frontend
     spec:
+      imagePullSecrets:
+          - name: regcred
       containers:
       - name: uni-verse-frontend
         image: registry.qtmsheep.com/vagahbond/uni-verse/frontend
