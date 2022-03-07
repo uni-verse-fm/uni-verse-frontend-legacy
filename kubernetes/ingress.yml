@@ -13,7 +13,7 @@ spec:
         path: "/"
         backend:
           service:
-            name: uni-verse-frontend
+            name: uni-verse-frontend-service
             port: 
               number: 3334
   - host: uni-verse.api.vagahbond.com
@@ -23,6 +23,6 @@ spec:
         path: "/"
         backend:
           service:
-            name: uni-verse-api
+            name: uni-verse-api-service
             port:
               number: 3222
