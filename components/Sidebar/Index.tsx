@@ -12,8 +12,7 @@ import Player from "../Player/Index";
 import Image from "next/image";
 import PlaylistsModal from "../PlayListsModal/PlayListsModal";
 import { Modal } from "react-bootstrap";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -21,7 +20,10 @@ const Sidebar = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleShowPx8 = () =>{ setShow(true); setSidebarOpen(false);}
+  const handleShowPx8 = () => {
+    setShow(true);
+    setSidebarOpen(false);
+  };
 
   return (
     <>
@@ -65,7 +67,7 @@ const Sidebar = () => {
             title="Analytics"
           />
         </div>
-        <Player className="mt-auto"/>
+        <Player className="mt-auto" />
       </div>
       <div
         className={`w-64 z-40 h-screen absolute bg-gray-800 shadow flex-col sm:hidden transition duration-150 ease-in-out ${
@@ -151,16 +153,23 @@ const Sidebar = () => {
       </div>
 
       {/** PlayLists Modal */}
-      <Modal show={show} className= "ModalPlayLists">
+      <Modal show={show} className="ModalPlayLists">
         <Modal.Header>
-          <button style={{float: 'right', marginRight: '2%', marginTop: '1%'}} onClick={handleClose} > <FontAwesomeIcon icon={faXmark}  style={{color: '#1BC47D', background : 'black'}} />
+          <button
+            style={{ float: "right", marginRight: "2%", marginTop: "1%" }}
+            onClick={handleClose}
+          >
+            {" "}
+            <FontAwesomeIcon
+              icon={faXmark}
+              style={{ color: "#1BC47D", background: "black" }}
+            />
           </button>
         </Modal.Header>
         <Modal.Body>
-         <PlaylistsModal/>
+          <PlaylistsModal />
         </Modal.Body>
       </Modal>
-
     </>
   );
 };

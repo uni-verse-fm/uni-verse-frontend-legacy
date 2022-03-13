@@ -6,23 +6,23 @@ metadata:
     name: uni-verse-ingress
 spec:
   rules:
-  - host: uni-verse.vagahbond.com
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: uni-verse-frontend-service
-            port: 
-              number: 3334
-  - host: uni-verse.api.vagahbond.com
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: uni-verse-api-service
-            port:
-              number: 3222
+    - host: uni-verse.vagahbond.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: uni-verse-frontend-service
+                port:
+                  number: 3334
+    - host: uni-verse.api.vagahbond.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: uni-verse-api-service
+                port:
+                  number: 3222

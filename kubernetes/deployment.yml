@@ -12,13 +12,13 @@ spec:
         app: uni-verse-frontend
     spec:
       imagePullSecrets:
-          - name: regcred
+        - name: regcred
       containers:
-      - name: uni-verse-frontend
-        image: registry.qtmsheep.com/vagahbond/uni-verse/frontend
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-        ports:
-        - containerPort: 3000
+        - name: uni-verse-frontend
+          image: registry.qtmsheep.com/vagahbond/uni-verse/frontend
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 3000
