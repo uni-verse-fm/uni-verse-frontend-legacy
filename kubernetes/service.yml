@@ -6,5 +6,5 @@ spec:
   selector:
     app: uni-verse-frontend
   ports:
-  - port: 3334
-    targetPort: 3000
+    - port: 3334
+      targetPort: 3000

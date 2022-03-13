@@ -1,0 +1,94 @@
+/*Chrome*/
+@media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
+
+  .AjoutPlaylist{
+    width: 200px;
+    margin-left: 40px;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    cursor: pointer;
+  }
+  
+  .AjoutPlaylist :hover {
+    color: aliceblue;
+  
+  }
+  
+  .IconePlus :hover {
+    color :black;
+  
+  }
+  .wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1rem));
+    gap: 2rem;
+    justify-content: center;
+  
+  }
+  
+  .card {
+    border-radius: 0.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+  
+  }
+  
+  .playlist_image {
+    height: 7rem;
+    width: 100%;
+    border-radius: 3px;
+    object-fit: cover
+  }
+  
+  .card__title {
+      padding: 1rem 1rem 0.5rem 0.5rem;
+      color: #1BC47D;
+      font-size: 0.8rem;
+     
+    }
+  
+  .card__Owner {
+      padding: 0 0.5rem;
+      color: #616161;
+      font-size: 0.7rem;
+    }
+  
+    
+  .card :hover {
+      transform: scale(1.03);
+  }
+  
+ 
+  
+  }
+  
+  
+  @media  screen and (max-width: 640px){
+    .wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(7rem, 1rem));
+      gap: 2rem;
+      justify-content: center;
+    
+    }
+    
+    .card {
+      border-radius: 0.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+    
+    }
+    
+    .playlist_image {
+      height: 6rem;
+      width: 100%;
+      border-radius: 3px;
+      object-fit: cover
+    }
+    
+   
+  }

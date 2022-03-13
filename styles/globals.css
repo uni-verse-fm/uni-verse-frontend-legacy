@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 html,
 body {
   height: 100vh;
@@ -11,8 +13,6 @@ body {
   height: 100vh;
 }
 
-
-/* Custom appearance for slider component :) */
 
 /*Chrome*/
 @media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
@@ -40,14 +40,50 @@ body {
     box-shadow: -80px 0 0 80px #1BC47D;
   }
 
+  .ModalPlayLists {
+   border-color:  #1BC47D;
+   background: black;
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   overflow-y: scroll;
+   overflow-x: hidden;
+   height: 70%;
+   width: 60%;
+   transform: translate(-50%, -50%);
+   border-width: 0.5px
 }
+ 
+
+}
+
+
 
 /** FF*/
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   input[type='range'] {
     border: none;
   }
+
 }
+
+
+@media  screen and (max-width: 640px){
+  .ModalPlayLists {
+    border-color:  #1BC47D;
+    background: black;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 70%;
+    width: 90%;
+    transform: translate(-50%, -50%);
+    border-width: 0.5px
+ }
+}
+
 
 input[type='range']::-moz-range-thumb {
   overflow: hidden;

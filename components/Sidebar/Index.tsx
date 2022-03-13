@@ -4,14 +4,26 @@ import {
   faList,
   faRecordVinyl,
   faFileWaveform,
+  faXmark,
   faChartLine,
 } from "@fortawesome/free-solid-svg-icons";
 import SideMenuEntry from "./SideMenuEntry";
 import Player from "../Player/Index";
 import Image from "next/image";
+import PlaylistsModal from "../PlayListsModal/PlayListsModal";
+import { Modal } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleShowPx8 = () => {
+    setShow(true);
+    setSidebarOpen(false);
+  };
 
   return (
     <>
@@ -35,7 +47,7 @@ const Sidebar = () => {
           />
           <SideMenuEntry
             icon={faList}
-            onClick={(_: any) => console.log("NOT IMPLEMENTED")}
+            onClick={handleShow}
             title="Playlists"
             nbNotif={8}
           />
@@ -117,7 +129,7 @@ const Sidebar = () => {
             />
             <SideMenuEntry
               icon={faList}
-              onClick={(_: any) => console.log("NOT IMPLEMENTED")}
+              onClick={handleShowPx8}
               title="Playlists"
               nbNotif={8}
             />
@@ -139,6 +151,25 @@ const Sidebar = () => {
           </ul>
         </div>
       </div>
+
+      {/** PlayLists Modal */}
+      <Modal show={show} className="ModalPlayLists">
+        <Modal.Header>
+          <button
+            style={{ float: "right", marginRight: "2%", marginTop: "1%" }}
+            onClick={handleClose}
+          >
+            {" "}
+            <FontAwesomeIcon
+              icon={faXmark}
+              style={{ color: "#1BC47D", background: "black" }}
+            />
+          </button>
+        </Modal.Header>
+        <Modal.Body>
+          <PlaylistsModal />
+        </Modal.Body>
+      </Modal>
     </>
   );
 };
