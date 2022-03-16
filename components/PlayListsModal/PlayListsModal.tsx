@@ -40,7 +40,7 @@ const PlaylistsModal = () => {
       style={{ width: "100%", height: "100%" }}
     >
       <div
-        className={styles.AjoutPlaylist}
+        className="w-20 ml-30 mt-10 mb-30 cursor-pointer hover:bg-red"
         onClick={(_: any) => console.log("NOT IMPLEMENTED")}
       >
         <h2 className="text-gry">
