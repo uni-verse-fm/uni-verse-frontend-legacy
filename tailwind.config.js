@@ -11,15 +11,7 @@ module.exports = {
       xs: { min: "0px", max: "639px" },
       ...defaultTheme.screens,
     },
-    extend: {
-      gridTemplateColumns: {
-        // Simple 16 column grid
-        16: "repeat(auto-fit, minmax(0, 1fr))",
-
-        // Complex site-specific column configuration
-        footer: "200px minmax(900px, 1fr) 100px",
-      },
-    },
+    extend: {},
     colors: {
       grn: "#1BC47D",
       gry: "#616161",
