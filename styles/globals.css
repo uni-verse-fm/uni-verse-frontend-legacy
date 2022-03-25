@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 html,
 body {
   height: 100vh;
@@ -13,64 +11,57 @@ body {
   height: 100vh;
 }
 
-
 /*Chrome*/
-@media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
-  input[type='range'] {
+@media screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dpcm) {
+  input[type="range"] {
     overflow: hidden;
     -webkit-appearance: none;
     border: 1px solid red;
     background-color: rgba(75 85 99, 1);
   }
 
-  input[type='range']::-webkit-slider-runnable-track {
+  input[type="range"]::-webkit-slider-runnable-track {
     height: 10px;
     -webkit-appearance: none;
     color: #13bba4;
     margin-top: -1px;
   }
 
-  input[type='range']::-webkit-slider-thumb {
+  input[type="range"]::-webkit-slider-thumb {
     width: 10px;
     -webkit-appearance: none;
     height: 10px;
     border-radius: 10px;
     cursor: ew-resize;
-    background: #1BC47D;
-    box-shadow: -80px 0 0 80px #1BC47D;
+    background: #1bc47d;
+    box-shadow: -80px 0 0 80px #1bc47d;
   }
 
   .ModalPlayLists {
-   border-color:  #1BC47D;
-   background: black;
-   position: absolute;
-   left: 50%;
-   top: 50%;
-   overflow-y: scroll;
-   overflow-x: hidden;
-   height: 70%;
-   width: 60%;
-   transform: translate(-50%, -50%);
-   border-width: 0.5px
+    border-color: #1bc47d;
+    background: black;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 70%;
+    width: 60%;
+    transform: translate(-50%, -50%);
+    border-width: 0.5px;
+  }
 }
- 
-
-}
-
-
 
 /** FF*/
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-  input[type='range'] {
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  input[type="range"] {
     border: none;
   }
-
 }
 
-
-@media  screen and (max-width: 640px){
+@media screen and (max-width: 640px) {
   .ModalPlayLists {
-    border-color:  #1BC47D;
+    border-color: #1bc47d;
     background: black;
     position: absolute;
     left: 50%;
@@ -80,19 +71,18 @@ body {
     height: 70%;
     width: 90%;
     transform: translate(-50%, -50%);
-    border-width: 0.5px
- }
+    border-width: 0.5px;
+  }
 }
 
-
-input[type='range']::-moz-range-thumb {
+input[type="range"]::-moz-range-thumb {
   overflow: hidden;
   /* -webkit-appearance: none; */
-  background-color: #1BC47D;
+  background-color: #1bc47d;
 }
 
 input[type="range"]::-moz-range-progress {
-  background-color: #1BC47D;
+  background-color: #1bc47d;
 }
 
 input[type="range"]::-moz-range-track {
@@ -101,7 +91,7 @@ input[type="range"]::-moz-range-track {
 
 /* IE*/
 input[type="range"]::-ms-fill-lower {
-  background-color: #1BC47D;
+  background-color: #1bc47d;
 }
 
 input[type="range"]::-ms-fill-upper {

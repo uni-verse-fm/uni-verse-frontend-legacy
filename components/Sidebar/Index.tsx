@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 import {
   faHome,
   faList,
@@ -6,28 +6,27 @@ import {
   faFileWaveform,
   faXmark,
   faChartLine,
-} from '@fortawesome/free-solid-svg-icons'
-import SideMenuEntry from './SideMenuEntry'
-import Player from '../Player/Index'
-import Image from 'next/image'
-import PlaylistsModal from '../PlayListsModal/PlayListsModal'
+} from "@fortawesome/free-solid-svg-icons";
+import SideMenuEntry from "./SideMenuEntry";
+import Player from "../Player/Index";
+import Image from "next/image";
+import PlaylistsModal from "../PlayListsModal/PlayListsModal";
 // import { Modal } from "react-bootstrap";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState(false)
-  const [showModal, setShowModal] = useState(false)
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  // const handleClose = () => setShow(false)
-  // const handleShow = () => setShow(true)
-  // const handleShowPx8 = () => {
-  //   setShow(true)
-  //   setSidebarOpen(false)
-  // }
-
-  useEffect(() => {
-    console.log(showModal)
-  }, [showModal])
+  {
+    /** PlayLists Modal handle*/
+  }
+  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = () => setShowModal(true);
+  const handleShowModalPx8 = () => {
+    setShowModal(true);
+    setSidebarOpen(false);
+  };
 
   return (
     <>
@@ -44,55 +43,30 @@ const Sidebar = () => {
           <h1 className="text-grn mr-auto mt-auto mb-auto ml-5">Uni-verse</h1>
         </div>
         <div className="mt-6 flex flex-col">
-          <button
-            type="button"
-            className="px-6
-      py-2.5
-      bg-blue-600
-      text-white
-      font-medium
-      text-xs
-      leading-tight
-      uppercase
-      rounded
-      shadow-md
-      hover:bg-blue-700 hover:shadow-lg
-      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-      active:bg-blue-800 active:shadow-lg
-      transition
-      duration-150
-      ease-in-out"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-          >
-            Launch demo modal
-          </button>
           <SideMenuEntry
             icon={faHome}
-            onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+            onClick={(_: any) => console.log("NOT IMPLEMENTED")}
             title="Home"
           />
           <SideMenuEntry
             icon={faList}
-            onClick={(e) => {
-              setShowModal(!showModal)
-            }}
+            onClick={handleShowModal}
             title="Playlists"
             nbNotif={8}
           />
           <SideMenuEntry
             icon={faRecordVinyl}
-            onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+            onClick={(_: any) => console.log("NOT IMPLEMENTED")}
             title="Upload release"
           />
           <SideMenuEntry
             icon={faFileWaveform}
-            onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+            onClick={(_: any) => console.log("NOT IMPLEMENTED")}
             title="Upload sample or preset"
           />
           <SideMenuEntry
             icon={faChartLine}
-            onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+            onClick={(_: any) => console.log("NOT IMPLEMENTED")}
             title="Analytics"
           />
         </div>
@@ -101,8 +75,8 @@ const Sidebar = () => {
       <div
         className={`w-64 z-40 h-screen absolute bg-gray-800 shadow flex-col sm:hidden transition duration-150 ease-in-out ${
           isSidebarOpen
-            ? 'transform translate-x-0'
-            : 'transform -translate-x-full'
+            ? "transform translate-x-0"
+            : "transform -translate-x-full"
         }`}
         id="mobile-nav"
       >
@@ -110,7 +84,7 @@ const Sidebar = () => {
           aria-label="toggle sidebar"
           id="openSideBar"
           className={`${
-            isSidebarOpen && 'hidden'
+            isSidebarOpen && "hidden"
           } h-10 w-10 bg-gray-800 absolute right-0 mt-16 -mr-10 flex items-center shadow rounded-br justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800`}
           onClick={(_) => setSidebarOpen(true)}
         >
@@ -124,7 +98,7 @@ const Sidebar = () => {
           aria-label="Close sidebar"
           id="closeSideBar"
           className={`${
-            !isSidebarOpen && 'hidden'
+            !isSidebarOpen && "hidden"
           } h-10 w-10 bg-gray-800 absolute right-0 mt-16 -mr-10 flex items-center shadow rounded-br justify-center cursor-pointer text-white`}
           onClick={(_) => setSidebarOpen(false)}
         >
@@ -153,30 +127,28 @@ const Sidebar = () => {
           <ul className="mt-6">
             <SideMenuEntry
               icon={faHome}
-              onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+              onClick={(_: any) => console.log("NOT IMPLEMENTED")}
               title="Home"
             />
             <SideMenuEntry
               icon={faList}
-              onClick={(e) => {
-                setShowModal(!showModal)
-              }}
+              onClick={handleShowModalPx8}
               title="Playlists"
               nbNotif={8}
             />
             <SideMenuEntry
               icon={faRecordVinyl}
-              onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+              onClick={(_: any) => console.log("NOT IMPLEMENTED")}
               title="Upload release"
             />
             <SideMenuEntry
               icon={faFileWaveform}
-              onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+              onClick={(_: any) => console.log("NOT IMPLEMENTED")}
               title="Upload sample or preset"
             />
             <SideMenuEntry
               icon={faChartLine}
-              onClick={(_: any) => console.log('NOT IMPLEMENTED')}
+              onClick={(_: any) => console.log("NOT IMPLEMENTED")}
               title="Analytics"
             />
           </ul>
@@ -184,11 +156,11 @@ const Sidebar = () => {
       </div>
 
       {/** PlayLists Modal */}
-      {/* <Modal show={show} className="ModalPlayLists">
-        <Modal.Header>
+      {showModal && (
+        <div className="ModalPlayLists">
           <button
             style={{ float: "right", marginRight: "2%", marginTop: "1%" }}
-            onClick={handleClose}
+            onClick={handleCloseModal}
           >
             {" "}
             <FontAwesomeIcon
@@ -196,18 +168,10 @@ const Sidebar = () => {
               style={{ color: "#1BC47D", background: "black" }}
             />
           </button>
-        </Modal.Header>
-        <Modal.Body>
           <PlaylistsModal />
-        </Modal.Body>
-      </Modal> */}
-{ showModal &&
-  <div className='bg-wht w-96 h-96 z-50 absolute right-0'>
-          blblblblblbbl
         </div>
-}
-        
+      )}
     </>
-  )
-}
-export default Sidebar
+  );
+};
+export default Sidebar;
