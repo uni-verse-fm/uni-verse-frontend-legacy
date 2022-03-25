@@ -2,7 +2,7 @@ import React from "react";
 
 const PlaylistCard = (props) => {
   return (
-    <div className="cursor-pointer hover:scale-[1.03]">
+    <div className="cursor-pointer hover:scale-[1.03] mb-1">
       <img
         className=" md:container md:mx-auto rounded w-full h-28"
         src={props.image}
