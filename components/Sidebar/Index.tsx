@@ -11,16 +11,16 @@ import SideMenuEntry from "./SideMenuEntry";
 import Player from "../Player/Index";
 import Image from "next/image";
 import PlaylistsModal from "../PlayListsModal/PlayListsModal";
-// import { Modal } from "react-bootstrap";
+import Playlist from "../PlayList/PlayList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [showModal, setShowModal] = useState(false);
 
   {
     /** PlayLists Modal handle*/
   }
+  const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
   const handleShowModalPx8 = () => {

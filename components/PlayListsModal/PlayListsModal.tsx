@@ -1,10 +1,23 @@
 import React from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faXmark,
+  faChevronLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import PlaylistCard from "../PlayListCard/PLayListCard";
+import Playlist from "../PlayList/PlayList";
 import styles from "./PlayListsModal.module.css";
 
 const PlaylistsModal = () => {
+  {
+    /** PlayLists Modal handle*/
+  }
+  const [showModal, setShowModal] = useState(false);
+  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = () => setShowModal(true);
+
   // Static data
   const urlImage = "https://i.ibb.co/K984Tcf/Play-List-img.png";
   let playLists = [
@@ -39,7 +52,8 @@ const PlaylistsModal = () => {
       <div className="w-full flex flex-col ml-10 mb-5">
         <h1 className="text-grn"> PlayLists </h1>
       </div>
-      <div className={styles.wrapper}>
+
+      <div className={styles.wrapper} onClick={handleShowModal}>
         {playLists.map(function (item) {
           return (
             <PlaylistCard
@@ -51,6 +65,27 @@ const PlaylistsModal = () => {
           );
         })}
       </div>
+      {/** PlayLists Modal */}
+      {showModal && (
+        <div className="ModalPlayLists2">
+          <button
+            style={{
+              float: "left",
+              marginLeft: "2%",
+              marginTop: "1%",
+              marginBottom: "1%",
+            }}
+            onClick={handleCloseModal}
+          >
+            {" "}
+            <FontAwesomeIcon
+              icon={faChevronLeft}
+              style={{ color: "#1BC47D", background: "black" }}
+            />
+          </button>
+          <Playlist />
+        </div>
+      )}
     </div>
   );
 };
