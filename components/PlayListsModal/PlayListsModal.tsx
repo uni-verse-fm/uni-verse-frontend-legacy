@@ -1,13 +1,27 @@
 import React from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faXmark,
+  faChevronLeft,
+} from "@fortawesome/free-solid-svg-icons";
+import PlaylistCard from "../PlayListCard/PLayListCard";
+import Playlist from "../PlayList/PlayList";
 import styles from "./PlayListsModal.module.css";
 
 const PlaylistsModal = () => {
+  {
+    /** PlayLists Modal handle*/
+  }
+  const [showModal, setShowModal] = useState(false);
+  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = () => setShowModal(true);
+
   // Static data
   const urlImage = "https://i.ibb.co/K984Tcf/Play-List-img.png";
   let playLists = [
-    { name: "Rock ", owner: "Naoual MEDJOUB", image: urlImage },
+    { name: " Ma PlayList N°1 ", owner: "Naoual MEDJOUB", image: urlImage },
     { name: " Ma PlayList N°1", owner: "Par Naoual MEDJOUB", image: urlImage },
     { name: " Ma PlayList N°2", owner: "Par Naoual MEDJOUB", image: urlImage },
     { name: " Ma PlayList N°3", owner: "Par Naoual MEDJOUB", image: urlImage },
@@ -20,43 +34,58 @@ const PlaylistsModal = () => {
     { name: " Ma PlayList N°6", owner: "Par Naoual MEDJOUB", image: urlImage },
     { name: " Ma PlayList N°7", owner: "Par Naoual MEDJOUB", image: urlImage },
   ];
-  ////// Static data
-
-  const renderCard = (card) => {
-    return (
-      <div className={styles.card}>
-        <div className={styles.card__body}>
-          <img className={styles.playlist_image} src={card.image} />
-          <h2 className={styles.card__title}> {card.name} </h2>
-          <h1 className={styles.card__Owner}> {card.owner} </h1>
-        </div>
-      </div>
-    );
-  };
 
   return (
-    <div
-      className="Global bg-grey w-full h-full flex flex-col  "
-      style={{ width: "100%", height: "100%" }}
-    >
+    <div className="Global bg-grey w-full h-full flex flex-col  ">
       <div
-        className={styles.AjoutPlaylist}
+        className="ml-10 mb-10 cursor-pointer"
         onClick={(_: any) => console.log("NOT IMPLEMENTED")}
       >
-        <h2 className="text-gry">
-          {" "}
+        <h2 className="text-gry hover:text-wht">
           <FontAwesomeIcon
-            className="IconePlus"
+            className="hover:text-black mr-4 text-black bg-wht"
             icon={faPlus}
-            style={{ marginRight: "10px", color: "black", background: "white" }}
-          />{" "}
-          Ajouter une playList{" "}
+          />
+          Ajouter une playList
         </h2>
       </div>
       <div className="w-full flex flex-col ml-10 mb-5">
         <h1 className="text-grn"> PlayLists </h1>
       </div>
-      <div className={styles.wrapper}>{playLists.map(renderCard)}</div>;
+
+      <div className={styles.wrapper} onClick={handleShowModal}>
+        {playLists.map(function (item) {
+          return (
+            <PlaylistCard
+              key={item}
+              name={item.name}
+              image={item.image}
+              owner={item.owner}
+            />
+          );
+        })}
+      </div>
+      {/** PlayLists Modal */}
+      {showModal && (
+        <div className="ModalPlayLists2">
+          <button
+            style={{
+              float: "left",
+              marginLeft: "2%",
+              marginTop: "1%",
+              marginBottom: "1%",
+            }}
+            onClick={handleCloseModal}
+          >
+            {" "}
+            <FontAwesomeIcon
+              icon={faChevronLeft}
+              style={{ color: "#1BC47D", background: "black" }}
+            />
+          </button>
+          <Playlist />
+        </div>
+      )}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   faHome,
   faList,
@@ -11,17 +11,20 @@ import SideMenuEntry from "./SideMenuEntry";
 import Player from "../Player/Index";
 import Image from "next/image";
 import PlaylistsModal from "../PlayListsModal/PlayListsModal";
-import { Modal } from "react-bootstrap";
+import Playlist from "../PlayList/PlayList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const handleShowPx8 = () => {
-    setShow(true);
+  {
+    /** PlayLists Modal handle*/
+  }
+  const [showModal, setShowModal] = useState(false);
+  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = () => setShowModal(true);
+  const handleShowModalPx8 = () => {
+    setShowModal(true);
     setSidebarOpen(false);
   };
 
@@ -47,7 +50,7 @@ const Sidebar = () => {
           />
           <SideMenuEntry
             icon={faList}
-            onClick={handleShow}
+            onClick={handleShowModal}
             title="Playlists"
             nbNotif={8}
           />
@@ -129,7 +132,7 @@ const Sidebar = () => {
             />
             <SideMenuEntry
               icon={faList}
-              onClick={handleShowPx8}
+              onClick={handleShowModalPx8}
               title="Playlists"
               nbNotif={8}
             />
@@ -153,11 +156,11 @@ const Sidebar = () => {
       </div>
 
       {/** PlayLists Modal */}
-      <Modal show={show} className="ModalPlayLists">
-        <Modal.Header>
+      {showModal && (
+        <div className="ModalPlayLists">
           <button
             style={{ float: "right", marginRight: "2%", marginTop: "1%" }}
-            onClick={handleClose}
+            onClick={handleCloseModal}
           >
             {" "}
             <FontAwesomeIcon
@@ -165,11 +168,9 @@ const Sidebar = () => {
               style={{ color: "#1BC47D", background: "black" }}
             />
           </button>
-        </Modal.Header>
-        <Modal.Body>
           <PlaylistsModal />
-        </Modal.Body>
-      </Modal>
+        </div>
+      )}
     </>
   );
 };
