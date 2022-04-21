@@ -22,14 +22,11 @@ const Header = () => {
           className="ml-4 w-64 h-8 px-4 rounded-lg text-grn m-auto w-5/6 bg-wht border-2 border-grn"
         />
       </div>
-
-      <div className="flex w-1/5 items-end text-wht m-auto ml-24 "></div>
-
-      <div className="flex w-1/5 items-end text-wht m-auto ml-24 ">
-        <div className="w-1/2 text-grn m-auto">
+      <div className="text-wht ">
+        <div className="m-auto text-grn ">
           <Link href="/signUp "> Sign Up </Link>
         </div>
-        <div className="w-1/2 m-auto text-grn -ml-10">
+        <div className="m-auto text-grn ">
           <Link href="/login"> Login </Link>
         </div>
       </div>

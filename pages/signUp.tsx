@@ -11,7 +11,7 @@ function SignUp() {
           onSubmit={(_: any) => console.log("NOT IMPLEMENTED")}
           className="flex justify-center rounded-md bg-wht w-auto h-auto"
         >
-          <div className="m-10">
+          <div className="m-10 ml-12 mr-12">
             <div className="flex items-start mb-5 flex-col w-64 h-16">
               <label className="mb-2 text-sm">User Name</label>
               <input
