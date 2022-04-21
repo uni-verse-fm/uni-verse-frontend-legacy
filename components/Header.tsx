@@ -23,17 +23,16 @@ const Header = () => {
         />
       </div>
 
-      <div className="flex w-1/5 items-end text-wht m-auto ml-24 ">
-      </div>
+      <div className="flex w-1/5 items-end text-wht m-auto ml-24 "></div>
 
       <div className="flex w-1/5 items-end text-wht m-auto ml-24 ">
-          <div className="w-1/2 text-grn m-auto">
-            <Link  href="/signUp "> Sign Up </Link>
-            </div>
-            <div className="w-1/2 m-auto text-grn -ml-10">
-            <Link  href="/login"> Login </Link>
-            </div>
-            </div>
+        <div className="w-1/2 text-grn m-auto">
+          <Link href="/signUp "> Sign Up </Link>
+        </div>
+        <div className="w-1/2 m-auto text-grn -ml-10">
+          <Link href="/login"> Login </Link>
+        </div>
+      </div>
 
       <div className="text-grn m-auto mr-5 xs:hidden">Username</div>
       <div className="inline-block h-12 w-12 overflow-hidden rounded-full ring-2 ring-grn">
