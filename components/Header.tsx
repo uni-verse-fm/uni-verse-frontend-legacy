@@ -18,7 +18,7 @@ const Header = () => {
         <input
           type="text"
           placeholder="Search"
-          className="ml-4 w-64 h-8 px-4 rounded-lg text-grn m-auto w-5/6 bg-wht border-2 border-grn"
+          className="ml-4 w-64 h-8 px-4 rounded-md text-grn m-auto w-5/6 bg-wht border-2 border-grn"
         />
       </div>
       <div className="text-grn m-auto mr-5 xs:hidden">Username</div>
