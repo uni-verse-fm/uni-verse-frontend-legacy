@@ -25,11 +25,12 @@ const SideMenuEntry = ({
       >
         <FontAwesomeIcon icon={icon} className="mr-2" />
         {pageName ? (
-            <Link href={`/${pageName}`}>
-                <span className="text-sm ml-2">{title}</span>
-            </Link>
-            
-        ) : <span className="text-sm ml-2">{title}</span>}
+          <Link href={`/${pageName}`}>
+            <span className="text-sm ml-2">{title}</span>
+          </Link>
+        ) : (
+          <span className="text-sm ml-2">{title}</span>
+        )}
       </a>
       {nbNotif && (
         <div className="py-1 px-3 bg-blck rounded flex items-center justify-center text-xs">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   faHome,
   faList,
@@ -14,11 +14,10 @@ import PlaylistsModal from "../PlayListsModal/PlayListsModal";
 import Playlist from "../PlayList/PlayList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-
 export enum Pages {
-    Home = " ",
-    UploadRelease = "UploadRelease",
-    UploadResourcePack = "UploadResourcePack"
+  Home = " ",
+  UploadRelease = "UploadRelease",
+  UploadResourcePack = "UploadResourcePack",
 }
 
 const Sidebar = () => {

@@ -154,8 +154,8 @@ const UploadReleaseForm = () => {
                   />
                 </div>
                 {errors.file ? (
-                    <div className="text-rd">{errors.file}</div>
-                  ) : null}
+                  <div className="text-rd">{errors.file}</div>
+                ) : null}
               </div>
             </div>
           </Form>
