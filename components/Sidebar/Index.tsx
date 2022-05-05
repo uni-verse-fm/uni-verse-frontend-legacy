@@ -14,6 +14,13 @@ import PlaylistsModal from "../PlayListsModal/PlayListsModal";
 import Playlist from "../PlayList/PlayList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+
+export enum Pages {
+    Home = " ",
+    UploadRelease = "UploadRelease",
+    UploadResourcePack = "UploadResourcePack"
+}
+
 const Sidebar = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
@@ -23,10 +30,6 @@ const Sidebar = () => {
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
-  const handleShowModalPx8 = () => {
-    setShowModal(true);
-    setSidebarOpen(false);
-  };
 
   return (
     <>
@@ -46,6 +49,7 @@ const Sidebar = () => {
           <SideMenuEntry
             icon={faHome}
             onClick={(_: any) => console.log("NOT IMPLEMENTED")}
+            pageName={Pages.Home}
             title="Home"
           />
           <SideMenuEntry
@@ -57,11 +61,13 @@ const Sidebar = () => {
           <SideMenuEntry
             icon={faRecordVinyl}
             onClick={(_: any) => console.log("NOT IMPLEMENTED")}
+            pageName={Pages.UploadRelease}
             title="Upload release"
           />
           <SideMenuEntry
             icon={faFileWaveform}
             onClick={(_: any) => console.log("NOT IMPLEMENTED")}
+            pageName={Pages.UploadResourcePack}
             title="Upload sample or preset"
           />
           <SideMenuEntry
@@ -124,34 +130,6 @@ const Sidebar = () => {
               </h1>
             </div>
           </div>
-          <ul className="mt-6">
-            <SideMenuEntry
-              icon={faHome}
-              onClick={(_: any) => console.log("NOT IMPLEMENTED")}
-              title="Home"
-            />
-            <SideMenuEntry
-              icon={faList}
-              onClick={handleShowModalPx8}
-              title="Playlists"
-              nbNotif={8}
-            />
-            <SideMenuEntry
-              icon={faRecordVinyl}
-              onClick={(_: any) => console.log("NOT IMPLEMENTED")}
-              title="Upload release"
-            />
-            <SideMenuEntry
-              icon={faFileWaveform}
-              onClick={(_: any) => console.log("NOT IMPLEMENTED")}
-              title="Upload sample or preset"
-            />
-            <SideMenuEntry
-              icon={faChartLine}
-              onClick={(_: any) => console.log("NOT IMPLEMENTED")}
-              title="Analytics"
-            />
-          </ul>
         </div>
       </div>
 

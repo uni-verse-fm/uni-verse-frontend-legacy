@@ -36,7 +36,7 @@ const PlaylistsModal = () => {
   ];
 
   return (
-    <div className="Global bg-grey w-full h-full flex flex-col  ">
+    <div className="Global bg-grey w-full h-full flex flex-col z-50">
       <div
         className="ml-10 mb-10 cursor-pointer"
         onClick={(_: any) => console.log("NOT IMPLEMENTED")}

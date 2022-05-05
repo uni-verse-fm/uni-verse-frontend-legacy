@@ -14,6 +14,7 @@ module.exports = {
     extend: {},
     colors: {
       grn: "#1BC47D",
+      segrn: "#18A167",
       gry: "#616161",
       blck: "#130301",
       rd: "#BF0000",
@@ -22,5 +23,7 @@ module.exports = {
       ...defaultColors,
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 };

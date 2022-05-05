@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
       <div className="flex flex-col h-full w-full ">
         <Header />
         {/* Allows having that sweet rounded corner */}
-        <div className="w-full h-full rounded-tl-lg overflow-hidden">
+        <div className="w-full h-full rounded-tl-md overflow-hidden">
           <Component {...pageProps} />
         </div>
       </div>
