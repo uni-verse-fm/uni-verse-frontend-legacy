@@ -18,6 +18,7 @@ module.exports = {
       gry: "#616161",
       blck: "#130301",
       rd: "#BF0000",
+      serd: "#9c0909",
       wht: "#F3E8EE",
       gryf: "#1A0404",
       ...defaultColors,

@@ -23,35 +23,38 @@ const UploadImageDisplayer = ({
 
   return (
     <>
-      <div className="relative md:h-60 md:w-60 m-8">
+      <div className="md:h-60 md:w-60 m-8">
         <img
           src={image ? URL.createObjectURL(image) : urlImage}
           className=" md:container md:mx-auto rounded"
         />
-        {image && (
-          <button
-            className="absolute top-0 right-0 m-2"
-            onClick={() => handleDeleteFile()}
-          >
-            <FontAwesomeIcon
-              className="cursor-pointer hover:scale-[1.40] text-rd"
-              icon={faClose}
-            />
-          </button>
-        )}
         <div className="text-center">
-          <label className="px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-grn hover:bg-segrn mx-4">
-            <span>Upload a file</span>
-            <input
-              id="image-upload"
-              name="image-upload"
-              type="file"
-              accept={fileExtensions.accept}
-              onChange={handleImageChange}
-              value=""
-              className="sr-only"
-            />
-          </label>
+          <div className="flex justify-center mt-2">
+            <div>
+              <label className="px-4 border border-transparent shadow-sm text-md font-medium inline-block rounded-md text-white bg-grn hover:bg-segrn mx-4">
+                <span>upload</span>
+                <input
+                  id="image-upload"
+                  name="image-upload"
+                  type="file"
+                  accept={fileExtensions.accept}
+                  onChange={handleImageChange}
+                  value=""
+                  className="sr-only"
+                />
+              </label>
+            </div>
+            {image && (
+              <div>
+                <button
+                  className="px-4 border border-transparent shadow-sm text-md font-medium rounded-md text-white bg-rd hover:bg-serd mx-4"
+                  onClick={() => handleDeleteFile()}
+                >
+                  delete
+                </button>
+              </div>
+            )}
+          </div>
           <p className="text-xs text-grn m-4">
             {fileExtensions.extensions.join(", ")} up to {maxFileSize}
             MB
