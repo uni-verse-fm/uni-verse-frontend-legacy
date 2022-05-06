@@ -1,4 +1,4 @@
-import { Messages, Pages } from './../common/constants';
+import { Messages, Pages } from "./../common/constants";
 import { useState } from "react";
 import {
   faHome,
@@ -11,9 +11,9 @@ import {
 import SideMenuEntry from "./SideMenuEntry";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NotificationType, notify } from '../Notifications';
-import Player from '../Player';
-import PlaylistsModal from '../PlayListsModal';
+import { NotificationType, notify } from "../Notifications";
+import Player from "../Player";
+import PlaylistsModal from "../PlayListsModal";
 
 const Sidebar = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -29,21 +29,25 @@ const Sidebar = () => {
     <>
       <div className="w-64 absolute sm:relative bg-gry md:h-screen flex-col hidden sm:flex">
         <div className="flex flex-row h-16">
-          <div className="inline-block h-16 w-16 ml-2 mt-auto mb-auto overflow-hidden rounded-full">                
+          <div className="inline-block h-16 w-16 ml-2 mt-auto mb-auto overflow-hidden rounded-full">
             <Image
               src="/universe.svg"
-              className='hover:motion-safe:animate-spin'
+              className="hover:motion-safe:animate-spin"
               alt="Uni-verse user avatar"
               width={70}
               height={70}
             />
           </div>
-          <h1 className="text-grn mr-auto mt-auto mb-auto ml-2 uppercase decoration-solid">uni-verse</h1>
+          <h1 className="text-grn mr-auto mt-auto mb-auto ml-2 uppercase decoration-solid">
+            uni-verse
+          </h1>
         </div>
         <div className="mt-6 flex flex-col">
           <SideMenuEntry
             icon={faHome}
-            onClick={(_: any) => notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)}
+            onClick={(_: any) =>
+              notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
+            }
             pageName={Pages.Home}
             title="Home"
           />
@@ -60,13 +64,17 @@ const Sidebar = () => {
           />
           <SideMenuEntry
             icon={faFileWaveform}
-            onClick={(_: any) => notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)}
+            onClick={(_: any) =>
+              notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
+            }
             pageName={Pages.UploadResourcePack}
             title="Upload sample or preset"
           />
           <SideMenuEntry
             icon={faChartLine}
-            onClick={(_: any) => notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)}
+            onClick={(_: any) =>
+              notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
+            }
             title="Analytics"
           />
         </div>
