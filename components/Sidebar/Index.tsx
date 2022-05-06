@@ -1,3 +1,4 @@
+import { Messages, Pages } from './../common/constants';
 import { useState } from "react";
 import {
   faHome,
@@ -8,17 +9,11 @@ import {
   faChartLine,
 } from "@fortawesome/free-solid-svg-icons";
 import SideMenuEntry from "./SideMenuEntry";
-import Player from "../Player/Index";
 import Image from "next/image";
-import PlaylistsModal from "../PlayListsModal/PlayListsModal";
-import Playlist from "../PlayList/PlayList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-export enum Pages {
-  Home = " ",
-  UploadRelease = "UploadRelease",
-  UploadResourcePack = "UploadResourcePack",
-}
+import { NotificationType, notify } from '../Notifications';
+import Player from '../Player';
+import PlaylistsModal from '../PlayListsModal';
 
 const Sidebar = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -34,20 +29,21 @@ const Sidebar = () => {
     <>
       <div className="w-64 absolute sm:relative bg-gry md:h-screen flex-col hidden sm:flex">
         <div className="flex flex-row h-16">
-          <div className="inline-block h-12 w-12 ml-2 mt-auto mb-auto overflow-hidden rounded-full ring-2 ring-grn">
+          <div className="inline-block h-16 w-16 ml-2 mt-auto mb-auto overflow-hidden rounded-full">                
             <Image
-              src="https://picsum.photos/200/300"
+              src="/universe.svg"
+              className='hover:motion-safe:animate-spin'
               alt="Uni-verse user avatar"
-              width={48}
-              height={48}
+              width={70}
+              height={70}
             />
           </div>
-          <h1 className="text-grn mr-auto mt-auto mb-auto ml-5">Uni-verse</h1>
+          <h1 className="text-grn mr-auto mt-auto mb-auto ml-2 uppercase decoration-solid">uni-verse</h1>
         </div>
         <div className="mt-6 flex flex-col">
           <SideMenuEntry
             icon={faHome}
-            onClick={(_: any) => console.log("NOT IMPLEMENTED")}
+            onClick={(_: any) => notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)}
             pageName={Pages.Home}
             title="Home"
           />
@@ -59,19 +55,18 @@ const Sidebar = () => {
           />
           <SideMenuEntry
             icon={faRecordVinyl}
-            onClick={(_: any) => console.log("NOT IMPLEMENTED")}
             pageName={Pages.UploadRelease}
             title="Upload release"
           />
           <SideMenuEntry
             icon={faFileWaveform}
-            onClick={(_: any) => console.log("NOT IMPLEMENTED")}
+            onClick={(_: any) => notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)}
             pageName={Pages.UploadResourcePack}
             title="Upload sample or preset"
           />
           <SideMenuEntry
             icon={faChartLine}
-            onClick={(_: any) => console.log("NOT IMPLEMENTED")}
+            onClick={(_: any) => notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)}
             title="Analytics"
           />
         </div>
@@ -113,23 +108,6 @@ const Sidebar = () => {
             layout="fill"
           />
         </button>
-        <div className="px-8">
-          <div className="h-16 w-full flex items-center">
-            <div className="flex flex-row h-16">
-              <div className="inline-block h-12 w-12 mt-auto mb-auto mr-auto ml-2 overflow-hidden rounded-full ring-2 ring-white">
-                <Image
-                  src="https://picsum.photos/200/300"
-                  alt="Uni-verse user avatar"
-                  width={48}
-                  height={48}
-                />
-              </div>
-              <h1 className="text-white mr-auto mt-auto mb-auto ml-5">
-                Uni-verse
-              </h1>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/** PlayLists Modal */}

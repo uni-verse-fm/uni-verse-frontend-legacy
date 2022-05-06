@@ -3,12 +3,13 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
-  faXmark,
   faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import PlaylistCard from "../PlayListCard/PLayListCard";
-import Playlist from "../PlayList/PlayList";
 import styles from "./PlayListsModal.module.css";
+import { Messages } from "../common/constants";
+import { notify } from "../Notifications";
+import PlaylistCard from "../PlayListCard";
+import Playlist from "../PlayList";
 
 const PlaylistsModal = () => {
   {
@@ -39,7 +40,7 @@ const PlaylistsModal = () => {
     <div className="Global bg-grey w-full h-full flex flex-col z-50">
       <div
         className="ml-10 mb-10 cursor-pointer"
-        onClick={(_: any) => console.log("NOT IMPLEMENTED")}
+        onClick={(_: any) => notify(Messages.NOT_IMPLEMENTED)}
       >
         <h2 className="text-gry hover:text-wht">
           <FontAwesomeIcon

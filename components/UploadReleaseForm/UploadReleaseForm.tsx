@@ -1,103 +1,70 @@
 import { faFileAudio, faFileImage } from "@fortawesome/free-solid-svg-icons";
-import { Field, Form, Formik, useFormik } from "formik";
-import { useState } from "react";
+import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import UploadImageDisplayer from "../UploadImageDisplayer/UploadImageDisplayer";
-import UploadListDisplayer from "../UploadListDisplayer/UploadListDisplayer";
-
-export enum FileType {
-  Image = "image",
-  Audio = "audio",
-}
-
-export const MAX_FILE_SIZE = 10;
-
-export const Extensions = {
-  image: {
-    extensions: ["PNG", "JPG", "GIF"],
-    accept: "image/*",
-  },
-  audio: {
-    extensions: ["MP3", "WAV", "FLAC"],
-    accept: "audio/*",
-  },
-};
+import {
+  urlImage,
+  Messages,
+  MAX_FILE_SIZE,
+  MAX_IMAGE_SIZE,
+  Extensions,
+} from "../common/constants";
+import { NotificationType, notify } from "../Notifications";
+import UploadImageDisplayer from "../UploadImageDisplayer";
+import UploadListDisplayer from "../UploadListDisplayer";
 
 const UploadReleaseForm = () => {
-  const [files, setFiles] = useState([]);
-  const [image, setImage] = useState(null);
-
-  const pullFileFromUploader = (file) => {
-    setFiles([...files, file]);
-  };
-
-  const pullFilesFromDisplayer = (files) => {
-    setFiles(files);
-  };
-
-  const pullImageFromUploader = (image) => {
-    setImage(image);
-  };
-
-  const pullImageFromDisplayer = (state) => {
-    setImage(state);
-  };
-
-  const validateImage = () => {
-    if (image && image.size >= MAX_FILE_SIZE) {
-      return "Image is too large";
-    }
-    return "Please upload an image";
-  };
-
-  const validateFiles = () => {
-    if (
-      files.length > 0 &&
-      files.filter((file) => file.size >= MAX_FILE_SIZE).length > 0
-    ) {
-      return "One or more files are too large";
-    }
-    return "You must upload at least one file";
-  };
-
   return (
     <Formik
       initialValues={{
         title: "",
         description: "",
-        file: undefined,
-        image: undefined,
+        files: [],
+        image: urlImage,
       }}
       validationSchema={Yup.object().shape({
         title: Yup.string()
-          .max(15, "Must be 15 characters or less")
-          .min(5, "Must be at least 5 characters or less")
-          .required("Required"),
+          .max(15, Messages.TITLE)
+          .min(5, Messages.TITLE)
+          .required(Messages.REQUIRED),
         description: Yup.string()
-          .max(255, "Must be 255 characters or less")
-          .required("Required"),
+          .max(255, Messages.DESCRIPTION)
+          .required(Messages.REQUIRED),
+        files: Yup.mixed()
+          .test("filesNumber", Messages.NO_FILE, (value) => value?.length > 0)
+          .test("fileSize", Messages.LARGE_FILE_LIST, (value) => {
+            return (
+              value?.filter((file) => file.size >= MAX_FILE_SIZE).length === 0
+            );
+          }),
+        image: Yup.mixed().test("fileSize", Messages.LARGE_FILE, (value) =>
+          value ? value.size <= MAX_IMAGE_SIZE : true
+        ),
       })}
       onSubmit={(value) => {
-        console.log("Function not implemented.");
+        notify(
+          "Im on submit boy and i try to ake it",
+          NotificationType.LOADING
+        );
       }}
-      render={({ values, errors, handleChange, handleBlur }) => {
+      render={({ values, errors, handleChange, handleBlur, setFieldValue }) => {
         return (
           <Form>
             <div className="flex flex-row justify-between m-16">
-              <div className="basis-1/3 mr-4 mt-4 rounded h-full grid place-content-center">
+              <div className="basis-1/3 mr-4 mt-4 rounded h-full grid place-content-center text-center">
                 <Field
                   name="image"
                   component={UploadImageDisplayer}
                   id="image"
                   title="Cover photo"
                   icon={faFileImage}
-                  validate={validateImage}
                   maxFileSize="10"
                   fileExtensions={Extensions.image}
-                  image={image}
-                  onDelete={pullImageFromUploader}
-                  onChange={pullImageFromDisplayer}
+                  setFieldValue={setFieldValue}
+                  defaultImageSrc={urlImage}
                 />
+                {errors.image && (
+                  <div className="text-rd mt-4">{errors.image}</div>
+                )}
               </div>
               <div className="basis-1/3 mr-4 mt-4">
                 <div className="flex flex-col">
@@ -141,21 +108,18 @@ const UploadReleaseForm = () => {
               <div className="basis-1/3 ml-4 mt-4">
                 <div className="border-2 border-grn rounded h-full grid grid-cols-1 content-center basis-1/2 mr-2 text-center">
                   <Field
-                    name="file"
+                    name="files"
                     component={UploadListDisplayer}
                     id="audio"
                     title="Track"
                     icon={faFileAudio}
-                    validate={validateFiles}
-                    maxFileSize="10"
+                    setFieldValue={setFieldValue}
+                    maxFileSize={MAX_FILE_SIZE}
                     fileExtensions={Extensions.audio}
-                    func={pullFileFromUploader}
                     contentType={"track"}
                   />
                 </div>
-                {errors.file ? (
-                  <div className="text-rd">{errors.file}</div>
-                ) : null}
+                {errors.files && <div className="text-rd">{errors.files}</div>}
               </div>
             </div>
           </Form>

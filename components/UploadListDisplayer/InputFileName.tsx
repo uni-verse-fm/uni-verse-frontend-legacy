@@ -2,7 +2,7 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 
-export const InputFile = ({ id, file, onBlur }) => {
+export const InputFileName = ({ id, file, onBlur }) => {
   const [name, setName] = useState(file.name);
 
   useEffect(() => {

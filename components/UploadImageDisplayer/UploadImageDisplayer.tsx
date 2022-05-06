@@ -1,23 +1,18 @@
-import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 
-const UploadImageDisplayer = ({
-  image,
-  onDelete,
-  onChange,
-  fileExtensions,
-  maxFileSize,
-}) => {
-  const urlImage = "https://i.ibb.co/K984Tcf/Play-List-img.png";
+const UploadImageDisplayer = (props) => {
+  const [image, setImage] = useState(null);
 
   const handleDeleteFile = () => {
-    onDelete(null);
+    setImage(null);
+    props.setFieldValue(props.field.name, null);
   };
 
   const handleImageChange = (event) => {
     let image = event.target.files[0];
     if (image) {
-      onChange(image);
+      props.setFieldValue(props.field.name, image);
+      setImage(image);
     }
   };
 
@@ -25,7 +20,7 @@ const UploadImageDisplayer = ({
     <>
       <div className="md:h-60 md:w-60 m-8">
         <img
-          src={image ? URL.createObjectURL(image) : urlImage}
+          src={image ? URL.createObjectURL(image) : props.defaultImageSrc}
           className=" md:container md:mx-auto rounded"
         />
         <div className="text-center">
@@ -37,7 +32,7 @@ const UploadImageDisplayer = ({
                   id="image-upload"
                   name="image-upload"
                   type="file"
-                  accept={fileExtensions.accept}
+                  accept={props.fileExtensions.accept}
                   onChange={handleImageChange}
                   value=""
                   className="sr-only"
@@ -55,11 +50,11 @@ const UploadImageDisplayer = ({
               </div>
             )}
           </div>
-          <p className="text-xs text-grn m-4">
-            {fileExtensions.extensions.join(", ")} up to {maxFileSize}
-            MB
-          </p>
         </div>
+        <p className="text-xs text-grn m-1">
+          {props.fileExtensions.extensions.join(", ")} up to {props.maxFileSize}
+          MB
+        </p>
       </div>
     </>
   );

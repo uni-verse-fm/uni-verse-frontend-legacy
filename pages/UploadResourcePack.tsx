@@ -1,5 +1,5 @@
 import React from "react";
-import UploadReleaseForm from "../components/UploadReleaseForm/UploadReleaseForm";
+import UploadReleaseForm from "../components/UploadReleaseForm";
 
 export default function UploadResourcePackPage() {
   return (

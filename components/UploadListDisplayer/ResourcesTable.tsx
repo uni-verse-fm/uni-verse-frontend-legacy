@@ -1,7 +1,7 @@
 import { faClose, faGripLines } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { InputFile } from "./InputFile";
+import { InputFileName } from "./InputFileName";
 
 export const ResourcesTable = ({
   files,
@@ -44,7 +44,7 @@ export const ResourcesTable = ({
                     </td>
                     <td className="text-center">{index}</td>
                     <td>
-                      <InputFile
+                      <InputFileName
                         id={index}
                         file={file}
                         onBlur={onFileChange(file, index)}

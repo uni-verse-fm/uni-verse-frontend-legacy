@@ -1,23 +1,25 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { ResourcesTable } from "./ResourcesTable";
 
-const UploadListDisplayer = ({ contentType, func, fileExtensions }) => {
-  const fileRef = useRef(null);
+const UploadListDisplayer = (props) => {
   const [files, setFiles] = useState([]);
 
   const handleDeleteFile = (file) => {
+    const newFiles = files.filter((f) => f.name !== file.name);
     return () => {
-      setFiles(files.filter((f) => f.name !== file.name));
-      func(files);
+      setFiles(newFiles);
+      props.setFieldValue(props.field.name, newFiles);
     };
   };
 
   const handleAddFile = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setFiles([...files, file]);
+      const newFiles = [...files, file];
+      setFiles(newFiles);
+      props.setFieldValue(props.field.name, newFiles);
     }
   };
 
@@ -50,29 +52,28 @@ const UploadListDisplayer = ({ contentType, func, fileExtensions }) => {
         />
       ) : (
         <div className="text-wht text-center capitalize">
-          no {contentType}s uploaded
+          no {props.contentType}s uploaded
         </div>
       )}
-      <button
-        onClick={() => fileRef?.current.click()}
-        className="justify-center mt-4 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-grn hover:bg-segrn mx-4"
-      >
-        add track
-        <FontAwesomeIcon
-          className="cursor-pointer hover:scale-[1.40] text-wht mx-2"
-          icon={faPlus}
+      <label className="px-4 border border-transparent shadow-sm text-md font-medium inline-block rounded-md text-white bg-grn hover:bg-segrn mx-4">
+        <span>
+          add track
+          <FontAwesomeIcon
+            className="cursor-pointer hover:scale-[1.40] text-wht mx-2"
+            icon={faPlus}
+          />
+        </span>
+        <input
+          id="file"
+          name="file-upload"
+          type="file"
+          accept={props.fileExtensions.accept}
+          style={{ display: "none" }}
+          onChange={handleAddFile}
+          value=""
+          className="sr-only"
         />
-      </button>
-      <input
-        id="file"
-        name="file-upload"
-        type="file"
-        ref={fileRef}
-        accept={fileExtensions.accept}
-        style={{ display: "none" }}
-        onChange={handleAddFile}
-        value=""
-      />
+      </label>
     </>
   );
 };
