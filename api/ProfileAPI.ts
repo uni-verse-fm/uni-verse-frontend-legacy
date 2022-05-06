@@ -1,5 +1,3 @@
-const ProfileAPI = () =>{
-
-}
+const ProfileAPI = () => {};
 
 export default ProfileAPI;

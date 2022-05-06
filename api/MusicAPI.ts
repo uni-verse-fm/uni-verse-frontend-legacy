@@ -1,5 +1,3 @@
-const MusicAPI = () =>{
-
-}
+const MusicAPI = () => {};
 
 export default MusicAPI;

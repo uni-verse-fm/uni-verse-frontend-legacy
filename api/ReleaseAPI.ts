@@ -1,5 +1,3 @@
-const ReleaseAPI = () =>{
-
-}
+const ReleaseAPI = () => {};
 
 export default ReleaseAPI;

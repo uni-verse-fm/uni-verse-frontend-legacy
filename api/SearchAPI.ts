@@ -1,5 +1,3 @@
-const SearchAPI= () => {
-
-}
+const SearchAPI = () => {};
 
 export default SearchAPI;

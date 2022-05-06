@@ -1,5 +1,3 @@
-const PlaylistAPI = () =>{
-
-}
+const PlaylistAPI = () => {};
 
 export default PlaylistAPI;

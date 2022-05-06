@@ -1,5 +1,3 @@
-const ResourcePackAPI = () =>{
-
-}
+const ResourcePackAPI = () => {};
 
 export default ResourcePackAPI;

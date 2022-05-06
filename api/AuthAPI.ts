@@ -1,5 +1,3 @@
-const AuthAPI = () => {
-
-}
+const AuthAPI = () => {};
 
 export default AuthAPI;

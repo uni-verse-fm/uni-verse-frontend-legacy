@@ -1,5 +1,3 @@
-const UserAPI = () =>{
-
-}
+const UserAPI = () => {};
 
 export default UserAPI;
