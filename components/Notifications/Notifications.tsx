@@ -6,30 +6,29 @@ const Notifications = () => {
 
   return (
     <div onMouseEnter={startPause} onMouseLeave={endPause}>
-      {toasts.map(() => {
+      {toasts.map((toast) => {
         return (
-          <div>
-            <Toaster
-              position="bottom-right"
-              reverseOrder={false}
-              toastOptions={{
+          <Toaster
+            key={toast.id}
+            position="bottom-right"
+            reverseOrder={false}
+            toastOptions={{
+              className:
+                "bg-wht border-2 border-grn text-md font-medium rounded-md",
+              success: {
                 className:
                   "bg-wht border-2 border-grn text-md font-medium rounded-md",
-                success: {
-                  className:
-                    "bg-wht border-2 border-grn text-md font-medium rounded-md",
-                },
-                error: {
-                  className:
-                    "bg-wht border-2 border-rd text-md font-medium rounded-md",
-                },
-                loading: {
-                  className:
-                    "bg-wht border-2 border-gry text-md font-medium rounded-md",
-                },
-              }}
-            />
-          </div>
+              },
+              error: {
+                className:
+                  "bg-wht border-2 border-rd text-md font-medium rounded-md",
+              },
+              loading: {
+                className:
+                  "bg-wht border-2 border-gry text-md font-medium rounded-md",
+              },
+            }}
+          />
         );
       })}
     </div>
