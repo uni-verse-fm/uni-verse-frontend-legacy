@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { Pages } from "../common/constants";
+import { Pages } from "../../common/constants";
 
 interface SideMenuEntryProps {
   title: string;

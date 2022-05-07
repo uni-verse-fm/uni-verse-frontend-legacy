@@ -1,4 +1,4 @@
-import { Messages, Pages } from "./../common/constants";
+import { Messages, Pages } from "../../common/constants";
 import { useState } from "react";
 import {
   faHome,

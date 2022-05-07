@@ -2,12 +2,12 @@ import { faFileAudio, faFileImage } from "@fortawesome/free-solid-svg-icons";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import {
-  urlImage,
-  Messages,
+  Extensions,
   MAX_FILE_SIZE,
   MAX_IMAGE_SIZE,
-  Extensions,
-} from "../common/constants";
+  Messages,
+  urlImage,
+} from "../../common/constants";
 import { NotificationType, notify } from "../Notifications";
 import UploadImageDisplayer from "../UploadImageDisplayer";
 import UploadListDisplayer from "../UploadListDisplayer";

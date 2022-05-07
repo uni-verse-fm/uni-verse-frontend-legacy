@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import styles from "./PlayListsModal.module.css";
-import { Messages } from "../common/constants";
+import { Messages } from "../../common/constants";
 import { notify } from "../Notifications";
 import PlaylistCard from "../PlayListCard";
 import Playlist from "../PlayList";
