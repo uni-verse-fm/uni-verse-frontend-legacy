@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { Pages } from "./Index";
+import { Pages } from "../../common/constants";
 
 interface SideMenuEntryProps {
   title: string;
   icon: any;
-  onClick: (event: any) => void;
+  onClick?: (event: any) => void;
   pageName?: Pages;
   nbNotif?: number;
 }

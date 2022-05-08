@@ -1,8 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faClock } from "@fortawesome/free-solid-svg-icons";
-import PlaylistCard from "../PlayListCard/PLayListCard";
-import Image from "next/image";
 
 const Playlist = () => {
   // Static data
