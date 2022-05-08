@@ -8,7 +8,7 @@ const UploadListDisplayer = (props) => {
 
   const handleDeleteFile = (index) => {
     const newFiles = [...files];
-    newFiles.splice(index, 1)
+    newFiles.splice(index, 1);
     return () => {
       setFiles(newFiles);
       props.setFieldValue(props.field.name, newFiles);

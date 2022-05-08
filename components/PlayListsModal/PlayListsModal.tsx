@@ -26,7 +26,7 @@ const PlaylistsModal = () => {
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
-  
+
   const { status, data } = useQuery("repoData", () =>
     getPlaylists().then((res) => res.data)
   );

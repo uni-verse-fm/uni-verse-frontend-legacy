@@ -5,7 +5,7 @@ const axiosClient = axios.create({
   baseURL: MOCK_BASE_API,
   headers: {
     Accept: "application/json",
-    'Content-Type': "application/json",
+    "Content-Type": "application/json",
   },
 });
 
