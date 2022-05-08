@@ -1,8 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faClock } from "@fortawesome/free-solid-svg-icons";
-import PlaylistCard from "../PlayListCard/PLayListCard";
-import Image from "next/image";
 
 const Playlist = () => {
   // Static data
@@ -119,7 +117,7 @@ const Playlist = () => {
   return (
     <div className="Global bg-grey w-full h-full flex flex-col  ">
       <div className="ml-10 ">
-        <img className=" rounded w-28 h-28 mb-5" src={playList.image} />
+        <img className="rounded w-28 h-28 mb-5" src={playList.image} />
 
         <h2 className="text-wht">
           PlayList N° 1
