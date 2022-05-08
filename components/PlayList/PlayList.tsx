@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faClock } from "@fortawesome/free-solid-svg-icons";
 
-const Playlist = () => {
+const Playlist = ({ index }) => {
   // Static data
   const urlImage = "https://i.ibb.co/K984Tcf/Play-List-img.png";
 

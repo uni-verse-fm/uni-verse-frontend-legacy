@@ -1,27 +1,15 @@
-import React from "react";
-import { useState } from "react";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import styles from "./PlayListsModal.module.css";
+import { getPlaylists } from "../../api/PlaylistAPI";
 import { Messages } from "../../common/constants";
 import { notify } from "../Notifications";
 import PlaylistCard from "../PlayListCard";
-import Playlist from "../PlayList";
-import { getPlaylists } from "../../api/PlaylistAPI";
-import { useQuery } from "react-query";
 import Spinner from "../Spinner";
+import { useQuery } from "react-query";
+import styles from "./PlayListsModal.module.css";
 
-const PlaylistsModal = () => {
-  {
-    /** PlayLists Modal handle*/
-  }
-  const [showModal, setShowModal] = useState(false);
-  const handleCloseModal = () => setShowModal(false);
-  const handleShowModal = () => setShowModal(true);
-  const [playlistIndex, setPlaylistIndex] = useState(null);
-  const handleShowPlaylistContent = (index: number) => setPlaylistIndex(index);
-  const handleHidePlaylistContent = () => setPlaylistIndex(null);
 
+const Playlists = ({ handleShowPlaylistContent }) => {
   const { status, data } = useQuery("repoData", () =>
     getPlaylists().then((res) => res.data)
   );
@@ -44,7 +32,7 @@ const PlaylistsModal = () => {
         <h1 className="text-grn"> PlayLists </h1>
       </div>
 
-      <div className={styles.wrapper} onClick={handleShowModal}>
+      <div className={styles.wrapper}>
         {status === "loading" ? (
           <div className="flex justify-center items-center mt-10">
             <Spinner />
@@ -61,34 +49,15 @@ const PlaylistsModal = () => {
                 name={item.name}
                 image={item.image}
                 owner={item.owner}
+                onClick={(_: any) => handleShowPlaylistContent(item.id)}
               />
             );
           })
         )}
       </div>
-      {/** PlayLists Modal */}
-      {showModal && (
-        <div className="ModalPlayLists2">
-          <button
-            style={{
-              float: "left",
-              marginLeft: "2%",
-              marginTop: "1%",
-              marginBottom: "1%",
-            }}
-            onClick={handleCloseModal}
-          >
-            {" "}
-            <FontAwesomeIcon
-              icon={faChevronLeft}
-              style={{ color: "#1BC47D", background: "black" }}
-            />
-          </button>
-          <Playlist index={0} />
-        </div>
-      )}
     </div>
   );
 };
 
-export default PlaylistsModal;
+export default Playlists;
+

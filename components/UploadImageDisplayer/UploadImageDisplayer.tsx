@@ -42,7 +42,7 @@ const UploadImageDisplayer = (props) => {
             {image && (
               <div>
                 <button
-                  className="px-4 border border-transparent shadow-sm text-md font-medium rounded-md text-white bg-rd hover:bg-serd mx-4"
+                  className="px-4 border border-transparent shadow-sm text-md font-medium rounded-md text-gryf bg-rd hover:bg-serd mx-4"
                   onClick={() => handleDeleteFile()}
                 >
                   delete

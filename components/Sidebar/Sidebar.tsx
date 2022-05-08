@@ -15,15 +15,8 @@ import { NotificationType, notify } from "../Notifications";
 import Player from "../Player";
 import PlaylistsModal from "../PlayListsModal";
 
-const Sidebar = () => {
+const Sidebar = ({ isConnected,  handleShowModal}) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-
-  {
-    /** PlayLists Modal handle*/
-  }
-  const [showModal, setShowModal] = useState(false);
-  const handleCloseModal = () => setShowModal(false);
-  const handleShowModal = () => setShowModal(true);
 
   return (
     <>
@@ -51,32 +44,36 @@ const Sidebar = () => {
             pageName={Pages.Home}
             title="Home"
           />
-          <SideMenuEntry
-            icon={faList}
-            onClick={handleShowModal}
-            title="Playlists"
-            nbNotif={8}
-          />
-          <SideMenuEntry
-            icon={faRecordVinyl}
-            pageName={Pages.UploadRelease}
-            title="Upload release"
-          />
-          <SideMenuEntry
-            icon={faFileWaveform}
-            onClick={(_: any) =>
-              notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
-            }
-            pageName={Pages.UploadResourcePack}
-            title="Upload sample or preset"
-          />
-          <SideMenuEntry
-            icon={faChartLine}
-            onClick={(_: any) =>
-              notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
-            }
-            title="Analytics"
-          />
+          {isConnected && (
+            <>
+              <SideMenuEntry
+                icon={faList}
+                onClick={handleShowModal}
+                title="Playlists"
+                nbNotif={8}
+              />
+              <SideMenuEntry
+                icon={faRecordVinyl}
+                pageName={Pages.UploadRelease}
+                title="Upload release"
+              />
+              <SideMenuEntry
+                icon={faFileWaveform}
+                onClick={(_: any) =>
+                  notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
+                }
+                pageName={Pages.UploadResourcePack}
+                title="Upload sample or preset"
+              />
+              <SideMenuEntry
+                icon={faChartLine}
+                onClick={(_: any) =>
+                  notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
+                }
+                title="Analytics"
+              />
+            </>
+          )}
         </div>
         <Player className="mt-auto" />
       </div>
@@ -117,23 +114,6 @@ const Sidebar = () => {
           />
         </button>
       </div>
-
-      {/** PlayLists Modal */}
-      {showModal && (
-        <div className="ModalPlayLists">
-          <button
-            style={{ float: "right", marginRight: "2%", marginTop: "1%" }}
-            onClick={handleCloseModal}
-          >
-            {" "}
-            <FontAwesomeIcon
-              icon={faXmark}
-              style={{ color: "#1BC47D", background: "black" }}
-            />
-          </button>
-          <PlaylistsModal />
-        </div>
-      )}
     </>
   );
 };
