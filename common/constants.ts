@@ -26,6 +26,7 @@ export const Messages = {
   LARGE_FILE_LIST: "One or more files are too large",
   LARGE_FILE: "File is too large",
   NOT_IMPLEMENTED: "Not implemented",
+  ERROR_LOAD: "Sorry we couldn't load the data",
 };
 
 export enum Pages {

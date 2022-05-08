@@ -3,10 +3,10 @@ import axiosClient from "./apiClient";
 
 const playlistEndpoint = Endoints.Playlists;
 
+const getPlaylists =  () =>  axiosClient.get(playlistEndpoint);
+
 const createPlaylist =  (data) =>
    axiosClient.post(`${playlistEndpoint}`, JSON.stringify(data));
-
-const getPlaylists =  () =>  axiosClient.get(playlistEndpoint);
 
 const getPlaylistByTitle =  (title) =>
    axiosClient.get(`${playlistEndpoint}`, { params: { title } });

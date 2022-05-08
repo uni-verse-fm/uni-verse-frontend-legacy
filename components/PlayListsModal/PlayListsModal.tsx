@@ -7,6 +7,17 @@ import { Messages } from "../../common/constants";
 import { notify } from "../Notifications";
 import PlaylistCard from "../PlayListCard";
 import Playlist from "../PlayList";
+import { getPlaylists } from "../../api/PlaylistAPI";
+import { useQuery } from "react-query";
+import Spinner from "../Spinner";
+
+export async function loadPlaylists() {
+  // Call an external API endpoint to get posts
+  const res = await getPlaylists();
+  const data = await res.data;
+
+  return data;
+}
 
 const PlaylistsModal = () => {
   {
@@ -15,23 +26,10 @@ const PlaylistsModal = () => {
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
-
-  // Static data
-  const urlImage = "https://i.ibb.co/K984Tcf/Play-List-img.png";
-  let playLists = [
-    { name: " Ma PlayList N°1 ", owner: "Naoual MEDJOUB", image: urlImage },
-    { name: " Ma PlayList N°1", owner: "Par Naoual MEDJOUB", image: urlImage },
-    { name: " Ma PlayList N°2", owner: "Par Naoual MEDJOUB", image: urlImage },
-    { name: " Ma PlayList N°3", owner: "Par Naoual MEDJOUB", image: urlImage },
-    { name: " Ma PlayList N°4", owner: "Par Naoual MEDJOUB", image: urlImage },
-    { name: " Ma PlayList N°5", owner: "Par Naoual MEDJOUB", image: urlImage },
-    { name: " Ma PlayList N°6", owner: "Par Naoual MEDJOUB", image: urlImage },
-    { name: " Ma PlayList N°7", owner: "Par Naoual MEDJOUB", image: urlImage },
-    { name: " Ma PlayList N°4", owner: "Par Naoual MEDJOUB", image: urlImage },
-    { name: " Ma PlayList N°5", owner: "Par Naoual MEDJOUB", image: urlImage },
-    { name: " Ma PlayList N°6", owner: "Par Naoual MEDJOUB", image: urlImage },
-    { name: " Ma PlayList N°7", owner: "Par Naoual MEDJOUB", image: urlImage },
-  ];
+  
+  const { status, data } = useQuery("repoData", () =>
+    getPlaylists().then((res) => res.data)
+  );
 
   return (
     <div className="Global bg-grey w-full h-full flex flex-col z-50">
@@ -52,16 +50,26 @@ const PlaylistsModal = () => {
       </div>
 
       <div className={styles.wrapper} onClick={handleShowModal}>
-        {playLists.map(function (item) {
-          return (
-            <PlaylistCard
-              key={item}
-              name={item.name}
-              image={item.image}
-              owner={item.owner}
-            />
-          );
-        })}
+        {status === "loading" ? (
+          <div className="flex justify-center items-center mt-10">
+            <Spinner />
+          </div>
+        ) : status === "error" ? (
+          <div className="flex justify-center items-center mt-10">
+            <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
+          </div>
+        ) : (
+          data.map(function (item) {
+            return (
+              <PlaylistCard
+                key={item}
+                name={item.name}
+                image={item.image}
+                owner={item.owner}
+              />
+            );
+          })
+        )}
       </div>
       {/** PlayLists Modal */}
       {showModal && (
@@ -87,4 +95,5 @@ const PlaylistsModal = () => {
     </div>
   );
 };
+
 export default PlaylistsModal;

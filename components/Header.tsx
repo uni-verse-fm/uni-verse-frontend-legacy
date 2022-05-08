@@ -14,8 +14,8 @@ const Header = () => {
         />
       </div>
       <div className="flex">
-        <h1 className="text-grn ml-auto mt-auto mb-auto mr-2 uppercase decoration-solid">
-          Username
+        <h1 className="text-grn ml-auto mt-auto mb-auto mr-2 decoration-solid">
+          username
         </h1>
         <div className="inline-block h-16 w-16 overflow-hidden rounded-full">
           <Image

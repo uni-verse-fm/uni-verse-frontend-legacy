@@ -5,11 +5,11 @@ import { InputFileName } from "./InputFileName";
 
 export const ResourcesTable = ({
   files,
-  onFileChange,
-  onFileDelete,
-  onDragEnd,
+  handleTitleChange,
+  handleDeleteFile,
+  handleDragEnd,
 }) => (
-  <DragDropContext onDragEnd={onDragEnd}>
+  <DragDropContext onDragEnd={handleDragEnd}>
     <table className="text-gry text-sm">
       <thead>
         <tr className="text-grn border-b">
@@ -28,10 +28,10 @@ export const ResourcesTable = ({
             {...provider.droppableProps}
           >
             {files.map((file, index) => (
-              <Draggable key={file.name} draggableId={file.name} index={index}>
+              <Draggable key={index} draggableId={index} index>
                 {(provider) => (
                   <tr
-                    key={file.name}
+                    key={index}
                     className="h-10 hover:border-b hover:border-t"
                     {...provider.draggableProps}
                     ref={provider.innerRef}
@@ -47,7 +47,7 @@ export const ResourcesTable = ({
                       <InputFileName
                         id={index}
                         file={file}
-                        onBlur={onFileChange(file, index)}
+                        onBlur={handleTitleChange(file, index)}
                       />
                     </td>
                     <td>
@@ -59,7 +59,7 @@ export const ResourcesTable = ({
                           marginBottom: "1%",
                           textAlign: "center",
                         }}
-                        onClick={onFileDelete(file)}
+                        onClick={handleDeleteFile(index)}
                       >
                         <FontAwesomeIcon
                           className="cursor-pointer hover:scale-[1.40] text-rd"

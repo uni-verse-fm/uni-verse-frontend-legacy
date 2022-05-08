@@ -19,7 +19,7 @@ const UploadReleaseForm = () => {
         title: "",
         description: "",
         files: [],
-        image: urlImage,
+        image: null,
       }}
       validationSchema={Yup.object().shape({
         title: Yup.string()
@@ -37,13 +37,13 @@ const UploadReleaseForm = () => {
             );
           }),
         image: Yup.mixed().test("fileSize", Messages.LARGE_FILE, (value) =>
-          value ? value.size <= MAX_IMAGE_SIZE : true
+          value ? value.size >= MAX_IMAGE_SIZE : true
         ),
       })}
       onSubmit={(value) => {
         notify(
           "Im on submit boy and i try to ake it",
-          NotificationType.LOADING
+          NotificationType.DEFAULT
         );
       }}
       render={({ values, errors, handleChange, handleBlur, setFieldValue }) => {

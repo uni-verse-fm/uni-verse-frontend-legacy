@@ -38,7 +38,7 @@ const Sidebar = () => {
               height={70}
             />
           </div>
-          <h1 className="text-grn mr-auto mt-auto mb-auto ml-2 uppercase decoration-solid">
+          <h1 className="text-grn mr-auto mt-auto mb-auto ml-2 decoration-solid">
             uni-verse
           </h1>
         </div>
@@ -137,4 +137,5 @@ const Sidebar = () => {
     </>
   );
 };
+
 export default Sidebar;

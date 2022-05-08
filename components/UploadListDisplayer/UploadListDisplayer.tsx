@@ -6,8 +6,9 @@ import { ResourcesTable } from "./ResourcesTable";
 const UploadListDisplayer = (props) => {
   const [files, setFiles] = useState([]);
 
-  const handleDeleteFile = (file) => {
-    const newFiles = files.filter((f) => f.name !== file.name);
+  const handleDeleteFile = (index) => {
+    const newFiles = [...files];
+    newFiles.splice(index, 1)
     return () => {
       setFiles(newFiles);
       props.setFieldValue(props.field.name, newFiles);
@@ -46,9 +47,9 @@ const UploadListDisplayer = (props) => {
       {files.length ? (
         <ResourcesTable
           files={files}
-          onFileChange={handleTitleChange}
-          onFileDelete={handleDeleteFile}
-          onDragEnd={handleDragEnd}
+          handleTitleChange={handleTitleChange}
+          handleDeleteFile={handleDeleteFile}
+          handleDragEnd={handleDragEnd}
         />
       ) : (
         <div className="text-wht text-center capitalize">

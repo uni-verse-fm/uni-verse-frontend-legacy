@@ -1,6 +1,6 @@
 export enum NotificationType {
   ERROR = "error",
   SUCCESS = "success",
-  LOADING = "loading",
+  PROMISE = "promise",
   DEFAULT = "default",
 }
