@@ -12,15 +12,15 @@ const UserDropDown = ({ user }) => {
     setConnected(false);
   };
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className="inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center rounded-md px-2 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+        <Menu.Button className="inline-flex w-full justify-center rounded-md text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none">
           {user.avatar ? (
             <Image
               src={user.avatar}
               alt="Uni-verse user avatar"
-              width={53}
-              height={53}
+              width={60}
+              height={60}
             />
           ) : (
             <div className="text-grn m-auto justify-center">

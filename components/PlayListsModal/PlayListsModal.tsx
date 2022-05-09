@@ -54,7 +54,7 @@ const PlaylistsModal = ({ showModal, handleCloseModal }) => {
             </button>
           )}
         </div>
-        <div className="mt-4">
+        <div className="p-4">
           {playlistIndex ? (
             <Playlist index={playlistIndex} />
           ) : (

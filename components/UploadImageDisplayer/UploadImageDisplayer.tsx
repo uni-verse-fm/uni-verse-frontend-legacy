@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Image from "next/image";
 
 const UploadImageDisplayer = (props) => {
   const [image, setImage] = useState(null);
@@ -18,9 +19,11 @@ const UploadImageDisplayer = (props) => {
 
   return (
     <>
-      <div className="md:h-60 md:w-60 m-8">
-        <img
+      <div className="m-8">
+        <Image
           src={image ? URL.createObjectURL(image) : props.defaultImageSrc}
+          width={200}
+          height={200}
           className=" md:container md:mx-auto rounded"
         />
         <div className="text-center">

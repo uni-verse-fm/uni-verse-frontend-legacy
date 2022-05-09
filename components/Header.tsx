@@ -6,7 +6,7 @@ import Image from "next/image";
 const Header = ({ user }) => {
   return (
     <header className="bg-gry flex p-1 h-16 w-full">
-      <div className="ml-2 overflow-hidden rounded-full">
+      <div className="overflow-hidden rounded-full">
         <Image
           src="/universe.svg"
           className="hover:motion-safe:animate-spin"

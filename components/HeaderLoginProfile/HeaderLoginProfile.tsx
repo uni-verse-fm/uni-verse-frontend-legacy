@@ -6,11 +6,11 @@ const HeaderLoginProfile = ({ user }) => {
   const [connected] = useConnect();
 
   return connected ? (
-    <div className="fixed top-0 right-0 text-right">
+    <div className="top-0 right-0 text-right">
       <UserDropDown user={user} />
     </div>
   ) : (
-    <div className="fixed top-0 right-0 flex mt-4">
+    <div className="top-0 right-0 flex mt-3">
       <div
         className={`text-lg font-medium rounded-md text-white bg-grn hover:bg-segrn h-8 px-4 mx-2`}
       >

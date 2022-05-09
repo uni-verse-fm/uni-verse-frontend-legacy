@@ -19,7 +19,7 @@ const Sidebar = ({ handleShowModal }) => {
 
   return (
     <>
-      <div className="w-64 absolute sm:relative bg-gry md:h-screen flex-col hidden sm:flex">
+      <div className="w-64 sm:relative bg-gry flex-col hidden sm:flex">
         <div className="mt-6 flex flex-col">
           <SideMenuEntry
             icon={faHome}
@@ -62,7 +62,7 @@ const Sidebar = ({ handleShowModal }) => {
         </div>
         <Player className="mt-auto" />
       </div>
-      <div
+      {/* <div
         className={`w-64 z-40 h-screen absolute bg-gray-800 shadow flex-col sm:hidden transition duration-150 ease-in-out ${
           isSidebarOpen
             ? "transform translate-x-0"
@@ -98,7 +98,7 @@ const Sidebar = ({ handleShowModal }) => {
             layout="fill"
           />
         </button>
-      </div>
+      </div> */}
     </>
   );
 };

@@ -22,17 +22,23 @@ function MyApp({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
       <ConnectProvider>
-      <Header user={user} />
-
-        <div className="h-screen flex flex-row bg-gry">
-          <Sidebar handleShowModal={handleShowModal} />
-          <div className="flex flex-col h-full w-full ">
-            {/* Allows having that sweet rounded corner */}
-            <div className="w-full h-full rounded-tl-md overflow-hidden">
-              <Component {...pageProps} />
+        <div className="flex flex-col h-screen">
+          <div className="sticky top-0">
+            <Header user={user} />
+          </div>
+          <div className="flex flex-grow h-full">
+            <div className="flex flex-row bg-gry w-full">
+              <Sidebar handleShowModal={handleShowModal} />
+              <div className="flex flex-col h-full w-full ">
+                {/* Allows having that sweet rounded corner */}
+                <div className="w-full h-full rounded-tl-md overflow-hidden">
+                  <Component {...pageProps} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
         <Notifications />
         <PlaylistsModal
           showModal={showModal}
