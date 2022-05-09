@@ -28,6 +28,7 @@ export const Messages = {
   LARGE_FILE: "File is too large",
   NOT_IMPLEMENTED: "Not implemented",
   ERROR_LOAD: "Sorry we couldn't load the data",
+  FILE_NAME_DUPLICATE: "file name already exists",
 };
 
 export enum Pages {

@@ -26,11 +26,13 @@ const UploadListDisplayer = (props) => {
 
   const handleTitleChange = (file, index) => {
     return (event) => {
-      setFiles([
+      const newFiles = [
         ...files.slice(0, index),
         new File([file], event.target.value),
         ...files.slice(index + 1),
-      ]);
+      ];
+      setFiles(newFiles);
+      props.setFieldValue(props.field.name, newFiles);
     };
   };
 
