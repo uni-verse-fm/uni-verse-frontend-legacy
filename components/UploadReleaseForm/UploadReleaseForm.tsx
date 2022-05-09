@@ -37,11 +37,9 @@ const UploadReleaseForm = () => {
             );
           })
           .test("fileNameDuplicate", Messages.FILE_NAME_DUPLICATE, (value) => {
-            const names = value?.map((file) => file.name) 
+            const names = value?.map((file) => file.name);
 
-            return (
-                value && new Set(names).size === names.length
-            );
+            return value && new Set(names).size === names.length;
           }),
         image: Yup.mixed().test("fileSize", Messages.LARGE_FILE, (value) =>
           value ? value.size >= MAX_IMAGE_SIZE : true
