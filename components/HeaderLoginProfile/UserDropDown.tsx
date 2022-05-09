@@ -39,7 +39,7 @@ const UserDropDown = ({ user }) => {
             <div
               className={`${
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group items-center rounded-md px-2 py-2 font-semibold text-gryf`}
+              } group items-center px-2 py-2 font-semibold text-gryf`}
             >
               <Link href="/"> Dashboard </Link>
             </div>
@@ -50,7 +50,7 @@ const UserDropDown = ({ user }) => {
             <div
               className={`${
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group items-center rounded-md px-2 py-2 font-semibold text-gryf`}
+              } group items-center px-2 py-2 font-semibold text-gryf`}
             >
               <Link href="/"> Settings </Link>
             </div>
@@ -61,7 +61,7 @@ const UserDropDown = ({ user }) => {
             <div
               className={`${
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group items-center rounded-md px-2 py-2 font-semibold text-gryf`}
+              } group items-center px-2 py-2 font-semibold text-gryf`}
             >
               <Link href="/"> Earnings</Link>
             </div>
@@ -72,7 +72,7 @@ const UserDropDown = ({ user }) => {
             <div
               className={`${
                 active ? "bg-serd text-md" : "text-sm bg-rd"
-              } group items-center rounded-md px-2 py-2 text-wht font-semibold text-wht`}
+              } group items-center rounded-bl-md rounded-br-md px-2 py-2 text-wht font-semibold text-wht`}
               onClick={handleLogout}
             >
               <Link href="/"> Sign out</Link>
