@@ -31,7 +31,7 @@ export const Messages = {
 };
 
 export enum Pages {
-  Home = " ",
+  Home = "",
   UploadRelease = "UploadRelease",
   UploadResourcePack = "UploadResourcePack",
 }

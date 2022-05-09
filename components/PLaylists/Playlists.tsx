@@ -6,16 +6,15 @@ import { notify } from "../Notifications";
 import PlaylistCard from "../PlayListCard";
 import Spinner from "../Spinner";
 import { useQuery } from "react-query";
-import styles from "./PlayListsModal.module.css";
-
+import { styles } from "../PlayListsModal";
 
 const Playlists = ({ handleShowPlaylistContent }) => {
-  const { status, data } = useQuery("repoData", () =>
+  const { status, data } = useQuery("playlists", () =>
     getPlaylists().then((res) => res.data)
   );
 
   return (
-    <div className="Global bg-grey w-full h-full flex flex-col z-50">
+    <>
       <div
         className="ml-10 mb-10 cursor-pointer"
         onClick={(_: any) => notify(Messages.NOT_IMPLEMENTED)}
@@ -41,23 +40,25 @@ const Playlists = ({ handleShowPlaylistContent }) => {
           <div className="flex justify-center items-center mt-10">
             <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
           </div>
-        ) : (
-          data.map(function (item) {
-            return (
+        ) : status === "success" ? (
+          data.map((item) => (
+            <div onClick={() => handleShowPlaylistContent(item.id)}>
               <PlaylistCard
                 key={item.id}
                 name={item.name}
                 image={item.image}
                 owner={item.owner}
-                onClick={(_: any) => handleShowPlaylistContent(item.id)}
               />
-            );
-          })
+            </div>
+          ))
+        ) : (
+            <div className="flex justify-center items-center mt-10">
+              <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
+            </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
 export default Playlists;
-

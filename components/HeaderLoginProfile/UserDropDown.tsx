@@ -3,8 +3,14 @@ import { Menu } from "@headlessui/react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import useConnect from "../../common/providers/ConnectProvider";
 
 const UserDropDown = ({ user }) => {
+  const [connected, setConnected] = useConnect();
+
+  const handleLogout = () => {
+      setConnected(false);
+  }
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -67,8 +73,9 @@ const UserDropDown = ({ user }) => {
           {({ active }) => (
             <div
               className={`${
-                active ? " bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group items-center rounded-md px-2 py-2`}
+                active ? " bg-serd text-md" : "text-sm bg-rd"
+              } group items-center rounded-md px-2 py-2 text-wht`}
+              onClick={handleLogout}
             >
               <Link href="/"> Sign out</Link>
             </div>

@@ -5,18 +5,18 @@ import {
   faList,
   faRecordVinyl,
   faFileWaveform,
-  faXmark,
   faChartLine,
 } from "@fortawesome/free-solid-svg-icons";
 import SideMenuEntry from "./SideMenuEntry";
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NotificationType, notify } from "../Notifications";
 import Player from "../Player";
-import PlaylistsModal from "../PlayListsModal";
+import useConnect from "../../common/providers/ConnectProvider";
 
-const Sidebar = ({ isConnected,  handleShowModal}) => {
+const Sidebar = ({ handleShowModal}) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [connected] = useConnect()
+
 
   return (
     <>
@@ -44,7 +44,7 @@ const Sidebar = ({ isConnected,  handleShowModal}) => {
             pageName={Pages.Home}
             title="Home"
           />
-          {isConnected && (
+          {connected && (
             <>
               <SideMenuEntry
                 icon={faList}

@@ -1,8 +1,11 @@
 import Link from "next/link";
+import useConnect from "../../common/providers/ConnectProvider";
 import UserDropDown from "./UserDropDown";
 
-const HeaderLoginProfile = ({ user, isConnected }) => {
-  return isConnected ? (
+const HeaderLoginProfile = ({ user }) => {
+    const [connected] = useConnect()
+
+  return connected ? (
     <div className="fixed top-0 right-0 text-right">
       <UserDropDown user={user} />
     </div>

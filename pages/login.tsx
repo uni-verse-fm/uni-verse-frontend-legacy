@@ -1,6 +1,17 @@
+import { useRouter } from "next/router";
 import React from "react";
+import useConnect from "../common/providers/ConnectProvider";
 
 function Login() {
+  const [connected, setConnected] = useConnect();
+  const router = useRouter()
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setConnected(true);
+    router.push("/")
+  };
+
   return (
     <div className="bg-black w-full h-full flex flex-col">
       <div className="text-center flex justify-center flex-col items-center w-full h-full ">
@@ -15,7 +26,7 @@ function Login() {
           </h2>
         </div>
         <form
-          onSubmit={(_: any) => console.log("NOT IMPLEMENTED")}
+          onSubmit={handleSubmit}
           className="flex justify-center rounded-md bg-wht w-auto h-auto"
         >
           <div className="m-10">
