@@ -19,11 +19,10 @@ const UploadImageDisplayer = (props) => {
 
   return (
     <>
-      <div className="m-8">
         <Image
           src={image ? URL.createObjectURL(image) : props.defaultImageSrc}
-          width={200}
-          height={200}
+          width={props?.size || 250}
+          height={props?.size || 250}
           className=" md:container md:mx-auto rounded"
         />
         <div className="text-center">
@@ -58,7 +57,6 @@ const UploadImageDisplayer = (props) => {
           {props.fileExtensions.extensions.join(", ")} up to {props.maxFileSize}
           MB
         </p>
-      </div>
     </>
   );
 };
