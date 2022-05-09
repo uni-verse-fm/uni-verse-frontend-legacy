@@ -30,9 +30,6 @@ const Sidebar = ({ handleShowModal }) => {
               height={70}
             />
           </div>
-          <h1 className="text-grn mr-auto mt-auto mb-auto ml-2 decoration-solid">
-            uni-verse
-          </h1>
         </div>
         <div className="mt-6 flex flex-col">
           <SideMenuEntry
