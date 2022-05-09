@@ -1,10 +1,16 @@
 import React from "react";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faPlus,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import Playlist from "../PlayList";
 import Playlists from "../PLaylists";
 import useConnect from "../../common/providers/ConnectProvider";
+import { Messages } from "../../common/constants";
+import { notify } from "../Notifications";
 
 const PlaylistsModal = ({ showModal, handleCloseModal }) => {
   {
@@ -23,7 +29,7 @@ const PlaylistsModal = ({ showModal, handleCloseModal }) => {
           <button className="float-right mr-3 mt-1" onClick={handleCloseModal}>
             <FontAwesomeIcon icon={faXmark} className="bg-blk text-rd fa-lg" />
           </button>
-          {playlistIndex && (
+          {playlistIndex ? (
             <button
               className="float-left ml-3 mt-1"
               onClick={handleHidePlaylistContent}
@@ -32,6 +38,19 @@ const PlaylistsModal = ({ showModal, handleCloseModal }) => {
                 icon={faChevronLeft}
                 className="bg-blk text-grn"
               />
+            </button>
+          ) : (
+            <button
+              className="float-left ml-3 mt-1"
+              onClick={(_: any) => notify(Messages.NOT_IMPLEMENTED)}
+            >
+              <h2 className="text-gry hover:text-wht">
+                <FontAwesomeIcon
+                  className="hover:text-black mr-4 text-black bg-wht"
+                  icon={faPlus}
+                />
+                Ajouter une playList
+              </h2>
             </button>
           )}
         </div>

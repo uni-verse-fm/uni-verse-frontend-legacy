@@ -15,18 +15,6 @@ const Playlists = ({ handleShowPlaylistContent }) => {
 
   return (
     <>
-      <div
-        className="ml-10 mb-10 cursor-pointer"
-        onClick={(_: any) => notify(Messages.NOT_IMPLEMENTED)}
-      >
-        <h2 className="text-gry hover:text-wht">
-          <FontAwesomeIcon
-            className="hover:text-black mr-4 text-black bg-wht"
-            icon={faPlus}
-          />
-          Ajouter une playList
-        </h2>
-      </div>
       <div className="w-full flex flex-col ml-10 mb-5">
         <h1 className="text-grn"> PlayLists </h1>
       </div>
