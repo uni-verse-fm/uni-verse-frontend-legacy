@@ -12,10 +12,9 @@ const Playlists = ({ handleShowPlaylistContent }) => {
 
   return (
     <>
-      <div className="w-full flex flex-col ml-10 mb-5">
-        <h1 className="text-grn"> PlayLists </h1>
+      <div className="ml-10 mb-5 text-grn text-lg">
+        PlayLists
       </div>
-
       <div className={styles.wrapper}>
         {status === "loading" ? (
           <div className="flex justify-center items-center mt-10">
