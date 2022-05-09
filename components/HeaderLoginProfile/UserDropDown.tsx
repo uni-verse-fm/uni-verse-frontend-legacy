@@ -31,7 +31,7 @@ const UserDropDown = ({ user }) => {
       </div>
       <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
         <Menu.Item>
-          <div className="group items-center rounded-md px-2 py-2 text-sm">
+          <div className="group items-center rounded-md px-2 py-2 text-md">
             <div>{user.username}</div>
             <div className="font-medium truncate">{user.email}</div>
           </div>
@@ -41,7 +41,7 @@ const UserDropDown = ({ user }) => {
             <div
               className={`${
                 active ? " bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group items-center rounded-md px-2 py-2`}
+              } group items-center rounded-md px-2 py-2 font-semibold text-gryf`}
             >
               <Link href="/"> Dashboard </Link>
             </div>
@@ -52,7 +52,7 @@ const UserDropDown = ({ user }) => {
             <div
               className={`${
                 active ? " bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group items-center rounded-md px-2 py-2`}
+              } group items-center rounded-md px-2 py-2 font-semibold text-gryf`}
             >
               <Link href="/"> Settings </Link>
             </div>
@@ -63,7 +63,7 @@ const UserDropDown = ({ user }) => {
             <div
               className={`${
                 active ? " bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group items-center rounded-md px-2 py-2`}
+              } group items-center rounded-md px-2 py-2 font-semibold text-gry`}
             >
               <Link href="/"> Earnings</Link>
             </div>
@@ -74,7 +74,7 @@ const UserDropDown = ({ user }) => {
             <div
               className={`${
                 active ? " bg-serd text-md" : "text-sm bg-rd"
-              } group items-center rounded-md px-2 py-2 text-wht`}
+              } group items-center rounded-md px-2 py-2 text-wht font-semibold text-wht`}
               onClick={handleLogout}
             >
               <Link href="/"> Sign out</Link>
