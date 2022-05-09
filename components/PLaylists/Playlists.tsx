@@ -1,8 +1,5 @@
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getPlaylists } from "../../api/PlaylistAPI";
 import { Messages } from "../../common/constants";
-import { notify } from "../Notifications";
 import PlaylistCard from "../PlayListCard";
 import Spinner from "../Spinner";
 import { useQuery } from "react-query";
