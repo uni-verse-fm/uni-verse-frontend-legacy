@@ -10,7 +10,7 @@ const HeaderLoginProfile = ({ user }) => {
       <UserDropDown user={user} />
     </div>
   ) : (
-    <div className="flex mt-2">
+    <div className="fixed top-0 right-0 flex mt-4">
       <div
         className={`text-lg font-medium rounded-md text-white bg-grn hover:bg-segrn h-8 px-4 mx-2`}
       >

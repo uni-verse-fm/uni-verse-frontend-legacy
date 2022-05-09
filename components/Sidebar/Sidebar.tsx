@@ -20,17 +20,6 @@ const Sidebar = ({ handleShowModal }) => {
   return (
     <>
       <div className="w-64 absolute sm:relative bg-gry md:h-screen flex-col hidden sm:flex">
-        <div className="flex flex-row h-16">
-          <div className="inline-block h-16 w-16 ml-2 mt-auto mb-auto overflow-hidden rounded-full">
-            <Image
-              src="/universe.svg"
-              className="hover:motion-safe:animate-spin"
-              alt="Uni-verse user avatar"
-              width={70}
-              height={70}
-            />
-          </div>
-        </div>
         <div className="mt-6 flex flex-col">
           <SideMenuEntry
             icon={faHome}
