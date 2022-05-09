@@ -12,9 +12,8 @@ const UserDropDown = ({ user }) => {
     setConnected(false);
   };
   return (
-    <Menu as="div" className="inline-block text-left">
-      <div>
-        <Menu.Button className="inline-flex w-full justify-center rounded-md text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none">
+    <Menu as="div" className="text-left h-full w-auto">
+        <Menu.Button className="h-full w-auto">
           {user.avatar ? (
             <Image
               src={user.avatar}
@@ -23,12 +22,12 @@ const UserDropDown = ({ user }) => {
               height={60}
             />
           ) : (
-            <div className="text-grn m-auto justify-center">
-              <FontAwesomeIcon icon={faCircleUser} className="fa-3x" />
-            </div>
+              <div className="h-full text-lg">
+            <FontAwesomeIcon icon={faCircleUser} className="text-grn fa-3x"/>
+
+              </div>
           )}
         </Menu.Button>
-      </div>
       <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
         <Menu.Item>
           <div className="group items-center rounded-md px-2 py-2 text-md">
