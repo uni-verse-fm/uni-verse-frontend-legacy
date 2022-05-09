@@ -1,9 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useMemo,
-  useState,
-} from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 
 export const GlobalContext = createContext(null);
 
@@ -12,7 +7,11 @@ export const ConnectProvider = ({ children }) => {
 
   const connectedValue = useMemo(() => [connected, setConnected], [connected]);
 
-  return <GlobalContext.Provider value={connectedValue}>{children}</GlobalContext.Provider>;
+  return (
+    <GlobalContext.Provider value={connectedValue}>
+      {children}
+    </GlobalContext.Provider>
+  );
 };
 
 export default function useConnect() {

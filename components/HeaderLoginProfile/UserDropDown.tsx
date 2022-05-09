@@ -9,8 +9,8 @@ const UserDropDown = ({ user }) => {
   const [connected, setConnected] = useConnect();
 
   const handleLogout = () => {
-      setConnected(false);
-  }
+    setConnected(false);
+  };
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>

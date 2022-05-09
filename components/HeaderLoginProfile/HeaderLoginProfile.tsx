@@ -3,7 +3,7 @@ import useConnect from "../../common/providers/ConnectProvider";
 import UserDropDown from "./UserDropDown";
 
 const HeaderLoginProfile = ({ user }) => {
-    const [connected] = useConnect()
+  const [connected] = useConnect();
 
   return connected ? (
     <div className="fixed top-0 right-0 text-right">

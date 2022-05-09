@@ -13,10 +13,9 @@ import { NotificationType, notify } from "../Notifications";
 import Player from "../Player";
 import useConnect from "../../common/providers/ConnectProvider";
 
-const Sidebar = ({ handleShowModal}) => {
+const Sidebar = ({ handleShowModal }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [connected] = useConnect()
-
+  const [connected] = useConnect();
 
   return (
     <>

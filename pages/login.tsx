@@ -4,12 +4,12 @@ import useConnect from "../common/providers/ConnectProvider";
 
 function Login() {
   const [connected, setConnected] = useConnect();
-  const router = useRouter()
+  const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setConnected(true);
-    router.push("/")
+    router.push("/");
   };
 
   return (

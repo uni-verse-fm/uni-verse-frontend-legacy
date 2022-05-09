@@ -23,9 +23,7 @@ function MyApp({ Component, pageProps }) {
     <QueryClientProvider client={queryClient}>
       <ConnectProvider>
         <div className="h-screen flex flex-row bg-gry">
-          <Sidebar
-            handleShowModal={handleShowModal}
-          />
+          <Sidebar handleShowModal={handleShowModal} />
           <div className="flex flex-col h-full w-full ">
             <Header user={user} />
             {/* Allows having that sweet rounded corner */}

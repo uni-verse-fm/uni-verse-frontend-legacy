@@ -41,8 +41,8 @@ const Playlists = ({ handleShowPlaylistContent }) => {
             <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
           </div>
         ) : status === "success" ? (
-          data.map((item) => (
-            <div onClick={() => handleShowPlaylistContent(item.id)}>
+          data.map((item, index) => (
+            <div key={index} onClick={() => handleShowPlaylistContent(item.id)}>
               <PlaylistCard
                 key={item.id}
                 name={item.name}
@@ -52,9 +52,9 @@ const Playlists = ({ handleShowPlaylistContent }) => {
             </div>
           ))
         ) : (
-            <div className="flex justify-center items-center mt-10">
-              <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
-            </div>
+          <div className="flex justify-center items-center mt-10">
+            <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
+          </div>
         )}
       </div>
     </>

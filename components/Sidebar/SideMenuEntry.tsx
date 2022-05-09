@@ -25,7 +25,7 @@ const SideMenuEntry = ({
       >
         <FontAwesomeIcon icon={icon} className="mr-2" />
         {pageName ? (
-          <Link href={`/${pageName}`}>
+          <Link href={`/${pageName}`} passHref>
             <span className="text-sm ml-2">{title}</span>
           </Link>
         ) : (
