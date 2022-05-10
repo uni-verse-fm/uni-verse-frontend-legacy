@@ -1,24 +1,25 @@
-import axios from "axios";
-import { BASE_API, MOCK_BASE_API } from "../common/constants";
+import axios, { AxiosError } from "axios";
+import { BASE_API } from "../common/constants";
 
 const axiosClient = axios.create({
-  baseURL: MOCK_BASE_API,
+  baseURL: BASE_API,
   headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json",
+    "Access-Control-Allow-Credentials": true,
+    "Access-Control-Allow-Origin": "http://localhost:3005",
+    "Access-Control-Allow-Methods": "GET,OPTIONS,PATCH,DELETE,POST,PUT",
+    "Access-Control-Allow-Headers":
+      "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Set-Cookie",
   },
+  withCredentials: true,
 });
 
 axiosClient.interceptors.response.use(
   function (response) {
     return response;
   },
-  function (error) {
-    let res = error.response;
-    if (res.status == 401) {
-      //window.location.href = "https://example.com/login";
-    }
-    console.error("Looks like there was a problem. Status Code: " + res.status);
+  function(
+    error: AxiosError
+  ): Promise<AxiosError>{
     return Promise.reject(error);
   }
 );

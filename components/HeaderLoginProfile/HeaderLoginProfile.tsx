@@ -3,9 +3,9 @@ import useConnect from "../../common/providers/ConnectProvider";
 import UserDropDown from "./UserDropDown";
 
 const HeaderLoginProfile = ({ user }) => {
-  const [connected] = useConnect();
+  const [connect] = useConnect();
 
-  return connected ? (
+  return connect ? (
     <UserDropDown user={user} />
   ) : (
     <div className="top-0 right-0 flex mt-3">

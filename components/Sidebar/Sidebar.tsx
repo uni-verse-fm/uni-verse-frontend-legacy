@@ -15,7 +15,7 @@ import useConnect from "../../common/providers/ConnectProvider";
 
 const Sidebar = ({ handleShowModal }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [connected] = useConnect();
+  const [connect] = useConnect();
 
   return (
     <>
@@ -29,7 +29,7 @@ const Sidebar = ({ handleShowModal }) => {
             pageName={Pages.Home}
             title="Home"
           />
-          {connected && (
+          {connect && (
             <>
               <SideMenuEntry
                 icon={faList}

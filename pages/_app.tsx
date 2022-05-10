@@ -1,6 +1,10 @@
 import { useState } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ConnectProvider } from "../common/providers/ConnectProvider";
+import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { getPlaylists } from "../api/PlaylistAPI";
+import useConnect, {
+  ConnectProvider,
+} from "../common/providers/ConnectProvider";
 import Header from "../components/Header";
 import Notifications from "../components/Notifications";
 import PlaylistsModal from "../components/PlayListsModal";
@@ -38,15 +42,31 @@ function MyApp({ Component, pageProps }) {
             </div>
           </div>
         </div>
-
         <Notifications />
         <PlaylistsModal
+          playlists={pageProps.data}
           showModal={showModal}
           handleCloseModal={handleCloseModal}
         />
       </ConnectProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
+}
+
+export async function getServerSideProps() {
+  const response = await getPlaylists();
+  const [connect, setConnect] = useConnect();
+  if (response.status === 401) {
+    setConnect(false);
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+    };
+  }
+  return { props: { data: response.data } };
 }
 
 export default MyApp;

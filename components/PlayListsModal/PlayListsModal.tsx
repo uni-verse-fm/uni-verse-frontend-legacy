@@ -12,17 +12,17 @@ import useConnect from "../../common/providers/ConnectProvider";
 import { Messages } from "../../common/constants";
 import { notify } from "../Notifications";
 
-const PlaylistsModal = ({ showModal, handleCloseModal }) => {
+const PlaylistsModal = ({ showModal, handleCloseModal, playlists }) => {
   {
     /** PlayLists Modal handle*/
   }
   const [playlistIndex, setPlaylistIndex] = useState(null);
   const handleShowPlaylistContent = (index: number) => setPlaylistIndex(index);
   const handleHidePlaylistContent = () => setPlaylistIndex(null);
-  const [connected] = useConnect();
+  const [connect] = useConnect();
 
   return (
-    connected &&
+    connect &&
     showModal && (
       <div className="absolute justify-center items-center overflow-x-hidden overflow-y-auto h-2/3 bg-black -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 w-2/3 border-2 border-grn rounded-md">
         <div className="sticky top-0 bg-black h-9 z-50">
@@ -41,12 +41,12 @@ const PlaylistsModal = ({ showModal, handleCloseModal }) => {
             </button>
           ) : (
             <button
-              className="float-left ml-3 mt-1"
+              className="float-left ml-1 mt-1 "
               onClick={(_: any) => notify(Messages.NOT_IMPLEMENTED)}
             >
-              <h2 className="text-gry hover:text-wht">
+              <h2 className="text-gry hover:text-wht hover:bg-segrn bg-blur-sm rounded-sm gb bg-grn bg-opacity-20 px-2">
                 <FontAwesomeIcon
-                  className="hover:text-black mr-4 text-black bg-wht"
+                  className="hover:text-black mr-4"
                   icon={faPlus}
                 />
                 Ajouter une playList
@@ -58,7 +58,7 @@ const PlaylistsModal = ({ showModal, handleCloseModal }) => {
           {playlistIndex ? (
             <Playlist index={playlistIndex} />
           ) : (
-            <Playlists handleShowPlaylistContent={handleShowPlaylistContent} />
+            <Playlists handleShowPlaylistContent={handleShowPlaylistContent} playlists={playlists}/>
           )}
         </div>
       </div>

@@ -1,3 +1,5 @@
-const Utility = () => {};
+const util = () => {
 
-export default Utility;
+};
+
+export default util;
