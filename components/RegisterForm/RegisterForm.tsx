@@ -24,16 +24,16 @@ export interface IRegister {
 const RegisterForm = () => {
   const { mutate, isLoading } = useMutation("register", register, {
     onError: (error) => {
-        notify("there was an error" + error, NotificationType.ERROR);
-      },
-      onSuccess: (res) => {
-        if(res.status !== 201) {
-          notify(res.data.message, NotificationType.ERROR);
-        } else {
-          const message = "Subscribed successfully";
-          notify(message, NotificationType.SUCCESS);
-        }
-      },
+      notify("there was an error" + error, NotificationType.ERROR);
+    },
+    onSuccess: (res) => {
+      if (res.status !== 201) {
+        notify(res.data.message, NotificationType.ERROR);
+      } else {
+        const message = "Subscribed successfully";
+        notify(message, NotificationType.SUCCESS);
+      }
+    },
   });
 
   return (

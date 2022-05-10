@@ -58,7 +58,10 @@ const PlaylistsModal = ({ showModal, handleCloseModal, playlists }) => {
           {playlistIndex ? (
             <Playlist index={playlistIndex} />
           ) : (
-            <Playlists handleShowPlaylistContent={handleShowPlaylistContent} playlists={playlists}/>
+            <Playlists
+              handleShowPlaylistContent={handleShowPlaylistContent}
+              playlists={playlists}
+            />
           )}
         </div>
       </div>

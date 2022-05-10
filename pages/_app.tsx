@@ -2,9 +2,7 @@ import { useState } from "react";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { getPlaylists } from "../api/PlaylistAPI";
-import useConnect, {
-  ConnectProvider,
-} from "../common/providers/ConnectProvider";
+import { ConnectProvider } from "../common/providers/ConnectProvider";
 import Header from "../components/Header";
 import Notifications from "../components/Notifications";
 import PlaylistsModal from "../components/PlayListsModal";
@@ -56,9 +54,7 @@ function MyApp({ Component, pageProps }) {
 
 export async function getServerSideProps() {
   const response = await getPlaylists();
-  const [connect, setConnect] = useConnect();
   if (response.status === 401) {
-    setConnect(false);
     return {
       redirect: {
         permanent: false,

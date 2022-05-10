@@ -21,7 +21,7 @@ const LoginForm = () => {
       notify("there was an error" + error, NotificationType.ERROR);
     },
     onSuccess: (res) => {
-      if(res.status !== 201) {
+      if (res.status !== 201) {
         notify(res.data.message, NotificationType.ERROR);
       } else {
         const message = "Authenticated successfully";

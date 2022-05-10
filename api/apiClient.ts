@@ -17,9 +17,7 @@ axiosClient.interceptors.response.use(
   function (response) {
     return response;
   },
-  function(
-    error: AxiosError
-  ): Promise<AxiosError>{
+  function (error: AxiosError): Promise<AxiosError> {
     return Promise.reject(error);
   }
 );
