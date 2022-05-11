@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { BASE_API } from "../common/constants";
+import { notify } from "../components/Notifications";
 
 const axiosClient = axios.create({
   baseURL: BASE_API,
@@ -18,6 +19,7 @@ axiosClient.interceptors.response.use(
     return response;
   },
   function (error: AxiosError): Promise<AxiosError> {
+    console.log("apiClient: " + error.response);
     return Promise.reject(error);
   }
 );

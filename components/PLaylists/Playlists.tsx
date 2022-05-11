@@ -9,14 +9,12 @@ import router from "next/router";
 import { NotificationType, notify } from "../Notifications";
 import { AxiosError } from "axios";
 
-const Playlists = ({ handleShowPlaylistContent, playlists }) => {
+const Playlists = ({ handleShowPlaylistContent }) => {
   const [connect, setConnect] = useConnect();
-
   const { status, data } = useQuery(
     "playlists",
     () => getPlaylists().then((res) => res.data),
     {
-      initialData: playlists,
       onSuccess: (res) => {
         if (res.status === 401) {
           notify("Playlists bay from success");

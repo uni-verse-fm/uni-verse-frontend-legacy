@@ -1,6 +1,13 @@
 import { useState } from "react";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import {
+  dehydrate,
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { me } from "../api/AuthAPI";
 import { getPlaylists } from "../api/PlaylistAPI";
 import { ConnectProvider } from "../common/providers/ConnectProvider";
 import Header from "../components/Header";
@@ -23,46 +30,47 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ConnectProvider>
-        <div className="flex flex-col h-screen overflow-hidden">
-          <div className="sticky top-0">
-            <Header user={user} />
-          </div>
-          <div className="flex flex-grow h-full overflow-hidden">
-            <div className="flex flex-row bg-gry w-full overflow-hidden">
-              <Sidebar handleShowModal={handleShowModal} />
-              <div className="flex flex-col h-full w-full ">
-                {/* Allows having that sweet rounded corner */}
-                <div className="w-full h-full rounded-tl-md overflow-hidden">
-                  <Component {...pageProps} />
+      <Hydrate state={pageProps.dehydratedState}>
+        <ConnectProvider>
+          <div className="flex flex-col h-screen overflow-hidden">
+            <div className="sticky top-0">
+              <Header user={user} />
+            </div>
+            <div className="flex flex-grow h-full overflow-hidden">
+              <div className="flex flex-row bg-gry w-full overflow-hidden">
+                <Sidebar handleShowModal={handleShowModal} />
+                <div className="flex flex-col h-full w-full ">
+                  {/* Allows having that sweet rounded corner */}
+                  <div className="w-full h-full rounded-tl-md overflow-hidden">
+                    <Component {...pageProps} />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <Notifications />
-        <PlaylistsModal
-          playlists={pageProps.data}
-          showModal={showModal}
-          handleCloseModal={handleCloseModal}
-        />
-      </ConnectProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
+          <Notifications />
+          <PlaylistsModal
+            showModal={showModal}
+            handleCloseModal={handleCloseModal}
+          />
+        </ConnectProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </Hydrate>
     </QueryClientProvider>
   );
 }
 
 export async function getServerSideProps() {
-  const response = await getPlaylists();
-  if (response.status === 401) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/login",
-      },
-    };
-  }
-  return { props: { data: response.data } };
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery("me", me);
+  await queryClient.prefetchQuery("playlists", getPlaylists);
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 }
 
 export default MyApp;

@@ -9,5 +9,6 @@ const register = (data: IRegister) =>
   axiosClient.post(`${authEndpoint}/register`, data);
 const login = (data: ILogin) => axiosClient.post(`${authEndpoint}/login`, data);
 const logout = () => axiosClient.post(`${authEndpoint}/logout`);
+const me = () => axiosClient.get(`${authEndpoint}/me`);
 
-export { register, login, logout };
+export { register, login, logout, me };

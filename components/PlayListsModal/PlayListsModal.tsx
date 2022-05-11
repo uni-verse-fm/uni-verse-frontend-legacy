@@ -12,7 +12,7 @@ import useConnect from "../../common/providers/ConnectProvider";
 import { Messages } from "../../common/constants";
 import { notify } from "../Notifications";
 
-const PlaylistsModal = ({ showModal, handleCloseModal, playlists }) => {
+const PlaylistsModal = ({ showModal, handleCloseModal }) => {
   {
     /** PlayLists Modal handle*/
   }
@@ -58,10 +58,7 @@ const PlaylistsModal = ({ showModal, handleCloseModal, playlists }) => {
           {playlistIndex ? (
             <Playlist index={playlistIndex} />
           ) : (
-            <Playlists
-              handleShowPlaylistContent={handleShowPlaylistContent}
-              playlists={playlists}
-            />
+            <Playlists handleShowPlaylistContent={handleShowPlaylistContent} />
           )}
         </div>
       </div>

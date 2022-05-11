@@ -1,12 +1,20 @@
 import Link from "next/link";
+import { useQuery } from "react-query";
+import { reactQueryResponseHandler } from "../../api/APIUtils";
+import { me } from "../../api/AuthAPI";
 import useConnect from "../../common/providers/ConnectProvider";
 import UserDropDown from "./UserDropDown";
 
 const HeaderLoginProfile = ({ user }) => {
-  const [connect] = useConnect();
+  const [connect, setConnect] = useConnect();
+  const { status, data } = useQuery(
+    "me",
+    () => me().then((res) => res.data),
+    reactQueryResponseHandler(setConnect)
+  );
 
-  return connect ? (
-    <UserDropDown user={user} />
+  return connect && data ? (
+    <UserDropDown user={data} />
   ) : (
     <div className="top-0 right-0 flex mt-3">
       <div

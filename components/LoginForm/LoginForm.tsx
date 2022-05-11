@@ -50,7 +50,8 @@ const LoginForm = () => {
         //   setConnect(true);
         mutate(value);
       }}
-      render={({ values, errors, handleChange, handleBlur }) => {
+    >
+      {({ values, errors, handleChange, handleBlur }) => {
         return (
           <Form>
             <div className="flex justify-center rounded-md bg-white w-auto h-auto">
@@ -101,7 +102,7 @@ const LoginForm = () => {
           </Form>
         );
       }}
-    />
+    </Formik>
   );
 };
 
