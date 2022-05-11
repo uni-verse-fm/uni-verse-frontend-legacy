@@ -5,43 +5,21 @@ import {
   faList,
   faRecordVinyl,
   faFileWaveform,
-  faXmark,
   faChartLine,
 } from "@fortawesome/free-solid-svg-icons";
 import SideMenuEntry from "./SideMenuEntry";
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NotificationType, notify } from "../Notifications";
 import Player from "../Player";
-import PlaylistsModal from "../PlayListsModal";
+import useConnect from "../../common/providers/ConnectProvider";
 
-const Sidebar = () => {
+const Sidebar = ({ handleShowModal }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-
-  {
-    /** PlayLists Modal handle*/
-  }
-  const [showModal, setShowModal] = useState(false);
-  const handleCloseModal = () => setShowModal(false);
-  const handleShowModal = () => setShowModal(true);
+  const [connect] = useConnect();
 
   return (
     <>
-      <div className="w-64 absolute sm:relative bg-gry md:h-screen flex-col hidden sm:flex">
-        <div className="flex flex-row h-16">
-          <div className="inline-block h-16 w-16 ml-2 mt-auto mb-auto overflow-hidden rounded-full">
-            <Image
-              src="/universe.svg"
-              className="hover:motion-safe:animate-spin"
-              alt="Uni-verse user avatar"
-              width={70}
-              height={70}
-            />
-          </div>
-          <h1 className="text-grn mr-auto mt-auto mb-auto ml-2 decoration-solid">
-            uni-verse
-          </h1>
-        </div>
+      <div className="w-64 sm:relative bg-gry flex-col hidden sm:flex">
         <div className="mt-6 flex flex-col">
           <SideMenuEntry
             icon={faHome}
@@ -51,36 +29,40 @@ const Sidebar = () => {
             pageName={Pages.Home}
             title="Home"
           />
-          <SideMenuEntry
-            icon={faList}
-            onClick={handleShowModal}
-            title="Playlists"
-            nbNotif={8}
-          />
-          <SideMenuEntry
-            icon={faRecordVinyl}
-            pageName={Pages.UploadRelease}
-            title="Upload release"
-          />
-          <SideMenuEntry
-            icon={faFileWaveform}
-            onClick={(_: any) =>
-              notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
-            }
-            pageName={Pages.UploadResourcePack}
-            title="Upload sample or preset"
-          />
-          <SideMenuEntry
-            icon={faChartLine}
-            onClick={(_: any) =>
-              notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
-            }
-            title="Analytics"
-          />
+          {connect && (
+            <>
+              <SideMenuEntry
+                icon={faList}
+                onClick={handleShowModal}
+                title="Playlists"
+                nbNotif={8}
+              />
+              <SideMenuEntry
+                icon={faRecordVinyl}
+                pageName={Pages.UploadRelease}
+                title="Upload release"
+              />
+              <SideMenuEntry
+                icon={faFileWaveform}
+                onClick={(_: any) =>
+                  notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
+                }
+                pageName={Pages.UploadResourcePack}
+                title="Upload sample or preset"
+              />
+              <SideMenuEntry
+                icon={faChartLine}
+                onClick={(_: any) =>
+                  notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
+                }
+                title="Analytics"
+              />
+            </>
+          )}
         </div>
         <Player className="mt-auto" />
       </div>
-      <div
+      {/* <div
         className={`w-64 z-40 h-screen absolute bg-gray-800 shadow flex-col sm:hidden transition duration-150 ease-in-out ${
           isSidebarOpen
             ? "transform translate-x-0"
@@ -116,24 +98,7 @@ const Sidebar = () => {
             layout="fill"
           />
         </button>
-      </div>
-
-      {/** PlayLists Modal */}
-      {showModal && (
-        <div className="ModalPlayLists">
-          <button
-            style={{ float: "right", marginRight: "2%", marginTop: "1%" }}
-            onClick={handleCloseModal}
-          >
-            {" "}
-            <FontAwesomeIcon
-              icon={faXmark}
-              style={{ color: "#1BC47D", background: "black" }}
-            />
-          </button>
-          <PlaylistsModal />
-        </div>
-      )}
+      </div> */}
     </>
   );
 };

@@ -1,7 +1,7 @@
 export const MAX_FILE_SIZE = 2000000;
 export const MAX_IMAGE_SIZE = 2000000;
 
-export const BASE_API = "https://api.example.com";
+export const BASE_API = "http://localhost:3000/api/v2";
 
 export const MOCK_BASE_API =
   "https://6276b27f2f94a1d706062d0f.mockapi.io/api/v2";
@@ -22,16 +22,25 @@ export const urlImage = "https://i.ibb.co/K984Tcf/Play-List-img.png";
 export const Messages = {
   TITLE: "Must be 15 characters or less",
   DESCRIPTION: "Must be at least 5 characters or less",
+  USERNAME: "Must be 15 characters or less",
+  INVALID_EMAIL: "Invalid email format",
+  NO_PASSWORD: "No password provided.",
+  SHORT_PASWORD: "Password must be at least 8 characters",
   REQUIRED: "Required",
   NO_FILE: "No file uploaded",
   LARGE_FILE_LIST: "One or more files are too large",
   LARGE_FILE: "File is too large",
   NOT_IMPLEMENTED: "Not implemented",
   ERROR_LOAD: "Sorry we couldn't load the data",
+  FILE_NAME_DUPLICATE: "file name already exists",
+  PASSWORD_MISMATCH: "Passwords must match",
+  EMPTY_PLAYLIST: "You have no playlist",
+  DISCONNECTED: "Disconnected",
+  UNAUTHORIZED: "Unauthorized please login",
 };
 
 export enum Pages {
-  Home = " ",
+  Home = "",
   UploadRelease = "UploadRelease",
   UploadResourcePack = "UploadResourcePack",
 }
