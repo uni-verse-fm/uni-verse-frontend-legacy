@@ -1,4 +1,4 @@
-import { Endoints } from "../common/constants";
+import { Endoints, Pages } from "../common/constants";
 import { ILogin } from "../components/LoginForm/LoginForm";
 import { IRegister } from "../components/RegisterForm/RegisterForm";
 import axiosClient from "./apiClient";

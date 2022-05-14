@@ -38,27 +38,31 @@ const UserDropDown = ({ user }) => {
 
   return (
     <Menu as="div" className="text-left h-full w-auto">
-      <Menu.Button className="h-full w-auto">
-        {user.avatar ? (
-          <Image
-            src={user.avatar}
-            alt="Uni-verse user avatar"
-            width={60}
-            height={60}
-          />
-        ) : (
-          <div className="h-full text-lg">
-            <FontAwesomeIcon icon={faCircleUser} className="text-grn fa-3x" />
-          </div>
-        )}
-      </Menu.Button>
+      {user && (
+        <Menu.Button className="h-full w-auto">
+          {user.avatar ? (
+            <Image
+              src={user.avatar}
+              alt="Uni-verse user avatar"
+              width={60}
+              height={60}
+            />
+          ) : (
+            <div className="h-full text-lg">
+              <FontAwesomeIcon icon={faCircleUser} className="text-grn fa-3x" />
+            </div>
+          )}
+        </Menu.Button>
+      )}
       <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-        <Menu.Item>
-          <div className="group items-center rounded-md px-2 py-2 text-md">
-            <div>{user.username}</div>
-            <div className="font-medium truncate">{user.email}</div>
-          </div>
-        </Menu.Item>
+        {user && (
+          <Menu.Item>
+            <div className="group items-center rounded-md px-2 py-2 text-md">
+              <div>{user.username}</div>
+              <div className="font-medium truncate">{user.email}</div>
+            </div>
+          </Menu.Item>
+        )}
         <Menu.Item>
           {({ active }) => (
             <div

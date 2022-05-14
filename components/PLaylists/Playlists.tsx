@@ -1,5 +1,5 @@
 import { getPlaylists } from "../../api/PlaylistAPI";
-import { Messages } from "../../common/constants";
+import { Messages, Pages, urlImage } from "../../common/constants";
 import PlaylistCard from "../PlayListCard";
 import Spinner from "../Spinner";
 import { useQuery } from "react-query";
@@ -19,14 +19,14 @@ const Playlists = ({ handleShowPlaylistContent }) => {
         if (res.status === 401) {
           notify("Playlists bay from success");
           setConnect(false);
-          router.replace("/login");
+          router.replace(`/${Pages.Login}`);
         }
       },
       onError: (error: AxiosError) => {
         if (error.response.status === 401) {
           notify(Messages.UNAUTHORIZED, NotificationType.ERROR);
           setConnect(false);
-          router.replace("/login");
+          router.replace(`/${Pages.Login}`);
         }
       },
     }
@@ -53,9 +53,10 @@ const Playlists = ({ handleShowPlaylistContent }) => {
               >
                 <PlaylistCard
                   key={item.id}
-                  name={item.name}
+                  title={item.title}
                   image={item.image}
                   owner={item.owner}
+                  defaultImageSrc={urlImage}
                 />
               </div>
             ))

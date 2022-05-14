@@ -40,9 +40,11 @@ export const Messages = {
 };
 
 export enum Pages {
-  Home = "",
+  Home = " ",
   UploadRelease = "UploadRelease",
   UploadResourcePack = "UploadResourcePack",
+  Login = "Login",
+  SignUp = "SignUp",
 }
 
 export enum Endoints {
@@ -52,4 +54,5 @@ export enum Endoints {
   ResourcePacks = "/resource-packs",
   Playlists = "/playlists",
   Comments = "/comments",
+  Payments = "/payments",
 }

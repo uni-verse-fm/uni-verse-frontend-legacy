@@ -18,7 +18,7 @@ const LoginForm = () => {
 
   const { mutate, isLoading } = useMutation("login", login, {
     onError: (error) => {
-      notify("there was an error" + error, NotificationType.ERROR);
+      notify("Can't login", NotificationType.ERROR);
     },
     onSuccess: (res) => {
       if (res.status !== 201) {

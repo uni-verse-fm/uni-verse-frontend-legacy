@@ -12,7 +12,7 @@ import { NotificationType, notify } from "../Notifications";
 import UploadImageDisplayer from "../UploadImageDisplayer";
 import UploadListDisplayer from "../UploadListDisplayer";
 
-const UploadReleaseForm = () => {
+const UploadReleaseForm = ({ me }) => {
   return (
     <Formik
       initialValues={{

@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import { Extensions, Messages } from "../../common/constants";
+import { Extensions, Messages, Pages } from "../../common/constants";
 import * as Yup from "yup";
 import UploadImageDisplayer from "../UploadImageDisplayer";
 import { NotificationType, notify } from "../Notifications";
@@ -24,7 +24,7 @@ export interface IRegister {
 const RegisterForm = () => {
   const { mutate, isLoading } = useMutation("register", register, {
     onError: (error) => {
-      notify("there was an error" + error, NotificationType.ERROR);
+      notify("Can't register", NotificationType.ERROR);
     },
     onSuccess: (res) => {
       if (res.status !== 201) {
@@ -32,6 +32,7 @@ const RegisterForm = () => {
       } else {
         const message = "Subscribed successfully";
         notify(message, NotificationType.SUCCESS);
+        router.replace(`/${Pages.Login}`);
       }
     },
   });

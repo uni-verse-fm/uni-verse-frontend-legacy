@@ -4,7 +4,6 @@ import {
   Hydrate,
   QueryClient,
   QueryClientProvider,
-  useQuery,
 } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { me } from "../api/AuthAPI";
@@ -15,48 +14,61 @@ import Notifications from "../components/Notifications";
 import PlaylistsModal from "../components/PlayListsModal";
 import Sidebar from "../components/Sidebar";
 import "../styles/globals.css";
-
-const user = {
-  email: "96abdou96@gmail.com",
-  username: "96abdou96",
-  avatar: "https://www.pngall.com/wp-content/uploads/5/Profile-Avatar-PNG.png",
-};
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import DonateModal from "../components/DonateModal";
 
 function MyApp({ Component, pageProps }) {
-  const [showModal, setShowModal] = useState(false);
-  const handleCloseModal = () => setShowModal(false);
-  const handleShowModal = () => setShowModal(true);
+  const [showPlaylistsModal, setShowPlaylistsModal] = useState(false);
+  const handleClosePlaylistsModal = () => setShowPlaylistsModal(false);
+  const handleShowPlaylistsModal = () => setShowPlaylistsModal(true);
+
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const handleClosePaymentModal = () => setShowPaymentModal(false);
+  const handleShowPaymentModal = () => setShowPaymentModal(true);
+
   const queryClient = new QueryClient();
 
+  const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
+  const options = {
+    clientSecret: process.env.STRIPE_CLIENT_SECRET,
+  };
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <ConnectProvider>
-          <div className="flex flex-col h-screen overflow-hidden">
-            <div className="sticky top-0">
-              <Header user={user} />
-            </div>
-            <div className="flex flex-grow h-full overflow-hidden">
-              <div className="flex flex-row bg-gry w-full overflow-hidden">
-                <Sidebar handleShowModal={handleShowModal} />
-                <div className="flex flex-col h-full w-full ">
-                  {/* Allows having that sweet rounded corner */}
-                  <div className="w-full h-full rounded-tl-md overflow-hidden">
-                    <Component {...pageProps} />
+    <Elements stripe={stripePromise} options={options}>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <ConnectProvider>
+            <div className="flex flex-col h-screen overflow-hidden">
+              <div className="sticky top-0">
+                <Header handleShowModal={handleShowPaymentModal}/>
+              </div>
+              <div className="flex flex-grow h-full overflow-hidden">
+                <div className="flex flex-row bg-gry w-full overflow-hidden">
+                  <Sidebar handleShowModal={handleShowPlaylistsModal} />
+                  <div className="flex flex-col h-full w-full ">
+                    {/* Allows having that sweet rounded corner */}
+                    <div className="w-full h-full rounded-tl-md overflow-hidden">
+                      <Component {...pageProps} />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <Notifications />
-          <PlaylistsModal
-            showModal={showModal}
-            handleCloseModal={handleCloseModal}
-          />
-        </ConnectProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </Hydrate>
-    </QueryClientProvider>
+            <Notifications />
+            <PlaylistsModal
+              showModal={showPlaylistsModal}
+              handleCloseModal={handleClosePlaylistsModal}
+            />
+            <DonateModal
+              showModal={showPaymentModal}
+              handleCloseModal={handleClosePaymentModal}
+            />
+          </ConnectProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </Hydrate>
+      </QueryClientProvider>
+    </Elements>
   );
 }
 
