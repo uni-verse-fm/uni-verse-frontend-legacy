@@ -24,7 +24,7 @@ export default function UploadResourcePackPage() {
   });
 
   return (
-    <div className="bg-black w-full h-full flex flex-col">
+    <div className="bg-drk w-full h-full flex flex-col">
       <div className="w-full">
         {/* <UploadReleaseForm /> */}
       </div>

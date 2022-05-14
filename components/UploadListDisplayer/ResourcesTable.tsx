@@ -28,7 +28,7 @@ export const ResourcesTable = ({
             {...provider.droppableProps}
           >
             {files.map((file, index) => (
-              <Draggable key={index} draggableId={`${index}`} index>
+              <Draggable key={index} draggableId={`${index}`} index={index}>
                 {(provider) => (
                   <tr
                     key={index}
@@ -69,8 +69,10 @@ export const ResourcesTable = ({
                     </td>
                   </tr>
                 )}
+
               </Draggable>
             ))}
+            {provider.placeholder}
           </tbody>
         )}
       </Droppable>

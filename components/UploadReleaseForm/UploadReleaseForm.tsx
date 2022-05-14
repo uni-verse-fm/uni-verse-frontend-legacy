@@ -51,7 +51,8 @@ const UploadReleaseForm = ({ me }) => {
           NotificationType.DEFAULT
         );
       }}
-      render={({ values, errors, handleChange, handleBlur, setFieldValue }) => {
+    >
+      {({ values, errors, handleChange, handleBlur, setFieldValue }) => {
         return (
           <Form>
             <div className="flex flex-row justify-between m-16">
@@ -130,7 +131,7 @@ const UploadReleaseForm = ({ me }) => {
           </Form>
         );
       }}
-    />
+    </Formik>
   );
 };
 

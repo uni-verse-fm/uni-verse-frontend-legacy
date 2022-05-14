@@ -19,12 +19,12 @@ const HeaderLoginProfile = () => {
   ) : (
     <div className="top-0 right-0 flex mt-3">
       <div
-        className={`text-lg font-medium rounded-md text-white bg-grn hover:bg-segrn h-8 px-4 mx-2`}
+        className={`text-md font-medium rounded-full text-white bg-grn hover:bg-segrn h-8 px-3 mx-1 pt-1`}
       >
-        <Link href="/signUp ">Sign Up</Link>
+        <Link href="/SignUp ">Sign Up</Link>
       </div>
       <div
-        className={`text-lg font-medium rounded-md text-white bg-grn hover:bg-segrn h-8 px-4 mx-2`}
+        className={`text-md font-medium rounded-full text-white bg-grn hover:bg-segrn h-8 px-3 mx-1 pt-1`}
       >
         <Link href={`/${Pages.Login}`}>Login</Link>
       </div>

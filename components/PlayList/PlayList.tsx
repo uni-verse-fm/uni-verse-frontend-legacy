@@ -4,12 +4,10 @@ import { faPlay, faClock } from "@fortawesome/free-solid-svg-icons";
 import { getPlaylistById } from "../../api/PlaylistAPI";
 import { useQuery } from "react-query";
 import Spinner from "../Spinner";
-import { Messages } from "../../common/constants";
+import { Messages, urlImage } from "../../common/constants";
 import Image from "next/image";
 
 const Playlist = ({ index }) => {
-  // Static data
-  const urlImage = "https://i.ibb.co/K984Tcf/Play-List-img.png";
 
   const { status, data } = useQuery("playlist", () =>
     getPlaylistById(index).then((res) => res.data)
@@ -30,7 +28,7 @@ const Playlist = ({ index }) => {
           <div className="ml-10 ">
             <Image
               className="rounded mb-5"
-              src={data.image}
+              src={data.image || urlImage}
               width={150}
               height={150}
             />

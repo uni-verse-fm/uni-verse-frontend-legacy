@@ -1,12 +1,23 @@
-import { Endoints, Pages } from "../common/constants";
-import { ILogin } from "../components/LoginForm/LoginForm";
-import { IRegister } from "../components/RegisterForm/RegisterForm";
+import { Endoints } from "../common/constants";
 import axiosClient from "./apiClient";
 
 const authEndpoint = Endoints.Payments;
 
-const donate = (data: IRegister) =>
-  axiosClient.post(`${authEndpoint}/donate`, data);
-const buyResource = (data: ILogin) => axiosClient.post(`${authEndpoint}`, data);
+export interface IDonate {
+  amount: number;
+  paymentMethodId?: string;
+}
 
-export { donate, buyResource };
+export interface IPurchase {
+  amount: number;
+  paymentMethodId?: string;
+  targetCustomerId: string;
+  productId: string;
+}
+
+const donate = (data: IDonate) =>
+  axiosClient.post(`${authEndpoint}/donate`, data);
+const purchase = (data: IPurchase) =>
+  axiosClient.post(`${authEndpoint}/charge`, data);
+
+export { donate, purchase };

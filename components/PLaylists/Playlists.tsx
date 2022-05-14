@@ -49,10 +49,10 @@ const Playlists = ({ handleShowPlaylistContent }) => {
             data.map((item, index) => (
               <div
                 key={index}
-                onClick={() => handleShowPlaylistContent(item.id)}
+                onClick={() => handleShowPlaylistContent(item._id)}
               >
                 <PlaylistCard
-                  key={item.id}
+                  key={index}
                   title={item.title}
                   image={item.image}
                   owner={item.owner}

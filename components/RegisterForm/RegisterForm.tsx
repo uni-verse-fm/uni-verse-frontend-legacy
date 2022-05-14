@@ -64,7 +64,8 @@ const RegisterForm = () => {
       onSubmit={(value) => {
         mutate(value);
       }}
-      render={({ values, errors, handleChange, handleBlur }) => {
+    >
+      {({ values, errors, handleChange, handleBlur }) => {
         return (
           <Form className="flex justify-center rounded-md bg-white w-auto h-auto">
             <div className="m-10 ml-12 mr-12">
@@ -146,7 +147,7 @@ const RegisterForm = () => {
           </Form>
         );
       }}
-    />
+    </Formik>
   );
 };
 

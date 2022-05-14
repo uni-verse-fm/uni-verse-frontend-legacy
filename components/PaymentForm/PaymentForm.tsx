@@ -1,4 +1,6 @@
 import { CardElement } from "@stripe/react-stripe-js";
+import { useState } from "react";
+import { IPurchase } from "../../api/PaymentAPI";
 import usePaymentForm from "./usePaymentForm";
 
 export enum PaymentType {
@@ -6,8 +8,24 @@ export enum PaymentType {
   Purchase = "purchase",
 }
 
-const PaymentForm = ({ paymentType }) => {
-  const { handleSubmit } = usePaymentForm();
+export interface ICharge {
+  paymentType: PaymentType;
+  data?: IPurchase
+}
+
+const PaymentForm = ({
+  paymentType,
+  data
+}: ICharge) => {
+  const { handleSubmitDonation, handleSubmitPayment } = usePaymentForm();
+  const [donationAmount, setDonationAmount] = useState(1);
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    return paymentType === PaymentType.Donation
+      ? handleSubmitDonation(donationAmount * 100)(event)
+      : handleSubmitPayment(data.amount * 100, data.targetCustomerId, data.productId)(event);
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -18,6 +36,7 @@ const PaymentForm = ({ paymentType }) => {
           min="1"
           max="999"
           placeholder="1"
+          onChange={(e) => setDonationAmount(+e.target.value)}
         />
       )}
 
@@ -47,9 +66,15 @@ const PaymentForm = ({ paymentType }) => {
             }}
           />
         </div>
-        <button className="text-lg font-medium rounded-md text-white bg-grn hover:bg-segrn px-4 mx-2">
-          Pay
-        </button>
+        {paymentType === PaymentType.Donation ? (
+          <button className="text-lg font-medium rounded-md text-white bg-grn hover:bg-segrn px-4 mx-2">
+            Donate
+          </button>
+        ) : (
+          <button className="text-lg font-medium rounded-md text-white bg-grn hover:bg-segrn px-4 mx-2">
+            Pay
+          </button>
+        )}
       </div>
       <label className="text-grn mt-6">
         <input type="checkbox" className="accent-grn h-4 w-4 rounded-md" />

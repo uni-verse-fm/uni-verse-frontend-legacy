@@ -60,7 +60,7 @@ const UploadListDisplayer = (props) => {
       )}
       <label className="px-4 border border-transparent shadow-sm text-md font-medium inline-block rounded-md text-white bg-grn hover:bg-segrn mx-4">
         <span>
-          add track
+          Add track
           <FontAwesomeIcon
             className="cursor-pointer hover:scale-[1.40] text-wht mx-2"
             icon={faPlus}
