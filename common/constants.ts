@@ -40,7 +40,7 @@ export const Messages = {
   DONATION_ERROR: "Sorry the donation couldn't be done",
   PURCHASE_ERROR: "Sorry the purchase couldn't be done",
   DONATION_SUCCESS: "Thank you for your support",
-  PURCHASE_SUCCESS: "Thank you for your purchase"
+  PURCHASE_SUCCESS: "Thank you for your purchase",
 };
 
 export enum Pages {

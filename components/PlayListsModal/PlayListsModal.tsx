@@ -31,11 +31,11 @@ const PlaylistsModal = ({ showModal, handleCloseModal }) => {
           )
         }
       >
-          {playlistIndex ? (
-            <Playlist index={playlistIndex} />
-          ) : (
-            <Playlists handleShowPlaylistContent={handleShowPlaylistContent} />
-          )}
+        {playlistIndex ? (
+          <Playlist index={playlistIndex} />
+        ) : (
+          <Playlists handleShowPlaylistContent={handleShowPlaylistContent} />
+        )}
       </Modal>
     )
   );

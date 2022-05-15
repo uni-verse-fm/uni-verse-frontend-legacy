@@ -69,7 +69,6 @@ export const ResourcesTable = ({
                     </td>
                   </tr>
                 )}
-
               </Draggable>
             ))}
             {provider.placeholder}

@@ -1,17 +1,14 @@
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Counter = ({amount, setAmount}) => {
-
+const Counter = ({ amount, setAmount }) => {
   const buttonUp = (event: any) => {
     const value = amount || 0;
     setAmount(value + 1);
   };
 
   const buttonDown = (event: any) => {
-    amount - 1 > 0
-      ? setAmount(amount - 1)
-      : setAmount(amount);
+    amount - 1 > 0 ? setAmount(amount - 1) : setAmount(amount);
   };
 
   const inputOnChange = (event: any) => {

@@ -28,7 +28,11 @@ const UploadImageDisplayer = (props) => {
       <div className="text-center">
         <div className="flex justify-center mt-2">
           <div>
-            <label className={`${image ? "rounded-l-md" : "rounded-md"} px-4 border border-transparent shadow-sm text-md font-medium inline-block text-white bg-grn hover:bg-segrn`}>
+            <label
+              className={`${
+                image ? "rounded-l-md" : "rounded-md"
+              } px-4 border border-transparent shadow-sm text-md font-medium inline-block text-white bg-grn hover:bg-segrn`}
+            >
               <span>Upload</span>
               <input
                 id="image-upload"

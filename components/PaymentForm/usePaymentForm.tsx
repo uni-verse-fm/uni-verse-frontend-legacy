@@ -67,7 +67,12 @@ const usePaymentForm = () => {
     };
 
   const handleSubmitPayment =
-    (amount: number, targetCustomerId: string, productId: string, saveCard: boolean = false) =>
+    (
+      amount: number,
+      targetCustomerId: string,
+      productId: string,
+      saveCard: boolean = false
+    ) =>
     async (event: FormEvent) => {
       event.preventDefault();
 
@@ -95,7 +100,7 @@ const usePaymentForm = () => {
         targetCustomerId,
         productId,
         amount,
-        saveCard
+        saveCard,
       });
     };
 

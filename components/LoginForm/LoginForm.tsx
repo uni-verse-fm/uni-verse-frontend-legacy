@@ -47,7 +47,6 @@ const LoginForm = () => {
           .min(8, Messages.SHORT_PASWORD),
       })}
       onSubmit={(value: ILogin) => {
-        //   setConnect(true);
         mutate(value);
       }}
     >
@@ -63,7 +62,7 @@ const LoginForm = () => {
                     name="email"
                     type="email"
                     placeholder="Enter your email"
-                    className="text-sm bg-black w-full h-full text-white pl-2 rounded-md placeholder-gry"
+                    className="text-sm bg-black w-full h-full text-white pl-2 rounded-md placeholder-gry p-2"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.email}
@@ -79,7 +78,7 @@ const LoginForm = () => {
                     name="password"
                     type="password"
                     placeholder="Enter your password"
-                    className="text-sm bg-black w-full h-full text-white pl-2 rounded-md placeholder-gry"
+                    className="text-sm bg-black w-full h-16 text-white pl-2 rounded-md placeholder-gry p-2"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.password}

@@ -89,8 +89,4 @@ export async function getServerSideProps() {
   };
 }
 
-export function reportWebVitals(metric) {
-  console.log(metric);
-}
-
 export default MyApp;

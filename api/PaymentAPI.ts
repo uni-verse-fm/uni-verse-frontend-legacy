@@ -18,8 +18,8 @@ export interface IPurchase {
 }
 
 export interface IAddCard {
-    source: string;
-  }
+  source: string;
+}
 
 const donate = (data: IDonate) =>
   axiosClient.post(`${authEndpoint}/donate`, data);

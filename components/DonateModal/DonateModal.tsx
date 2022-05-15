@@ -3,10 +3,7 @@ import PaymentFormWrapper from "./PaymentFormWrapper";
 
 const DonateModal = ({ showModal, handleCloseModal }) => {
   return (
-    <Modal
-      showModal={showModal}
-      handleCloseModal={handleCloseModal}
-    >
+    <Modal showModal={showModal} handleCloseModal={handleCloseModal}>
       <PaymentFormWrapper />
     </Modal>
   );
