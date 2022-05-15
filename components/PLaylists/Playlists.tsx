@@ -3,7 +3,6 @@ import { Messages, Pages, urlImage } from "../../common/constants";
 import PlaylistCard from "../PlayListCard";
 import Spinner from "../Spinner";
 import { useQuery } from "react-query";
-import { styles } from "../PlayListsModal";
 import useConnect from "../../common/providers/ConnectProvider";
 import router from "next/router";
 import { NotificationType, notify } from "../Notifications";
@@ -35,13 +34,13 @@ const Playlists = ({ handleShowPlaylistContent }) => {
   return (
     <>
       <div className="ml-10 mb-5 text-grn text-lg">PlayLists</div>
-      <div className={styles.wrapper}>
+      <div className="grid grid-flow-col auto-cols-max gap-4 justify-center">
         {status === "loading" ? (
-          <div className="flex justify-center items-center mt-10">
+          <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
             <Spinner />
           </div>
         ) : status === "error" ? (
-          <div className="flex justify-center items-center mt-10">
+          <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
             <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
           </div>
         ) : status === "success" ? (
@@ -67,11 +66,7 @@ const Playlists = ({ handleShowPlaylistContent }) => {
               </h1>
             </div>
           )
-        ) : (
-          <div className="flex justify-center items-center mt-10">
-            <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
-          </div>
-        )}
+        ) : null}
       </div>
     </>
   );

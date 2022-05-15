@@ -18,6 +18,11 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import DonateModal from "../components/DonateModal";
 
+const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
+const options = {
+  clientSecret: process.env.STRIPE_CLIENT_SECRET,
+};
+
 function MyApp({ Component, pageProps }) {
   const [showPlaylistsModal, setShowPlaylistsModal] = useState(false);
   const handleClosePlaylistsModal = () => setShowPlaylistsModal(false);
@@ -29,19 +34,18 @@ function MyApp({ Component, pageProps }) {
 
   const queryClient = new QueryClient();
 
-  const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
-  const options = {
-    clientSecret: process.env.STRIPE_CLIENT_SECRET,
-  };
-
   return (
     <Elements stripe={stripePromise} options={options}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <ConnectProvider>
-            <div className="flex flex-col h-screen overflow-hidden">
+            <div
+              className={`${
+                (showPlaylistsModal || showPaymentModal) && "blur-md"
+              } flex flex-col h-screen overflow-hidden`}
+            >
               <div className="sticky top-0">
-                <Header handleShowModal={handleShowPaymentModal}/>
+                <Header handleShowModal={handleShowPaymentModal} />
               </div>
               <div className="flex flex-grow h-full overflow-hidden">
                 <div className="flex flex-row bg-gry w-full overflow-hidden">
@@ -83,6 +87,10 @@ export async function getServerSideProps() {
       dehydratedState: dehydrate(queryClient),
     },
   };
+}
+
+export function reportWebVitals(metric) {
+  console.log(metric);
 }
 
 export default MyApp;

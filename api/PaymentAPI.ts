@@ -6,6 +6,7 @@ const authEndpoint = Endoints.Payments;
 export interface IDonate {
   amount: number;
   paymentMethodId?: string;
+  saveCard?: boolean;
 }
 
 export interface IPurchase {
@@ -13,7 +14,12 @@ export interface IPurchase {
   paymentMethodId?: string;
   targetCustomerId: string;
   productId: string;
+  saveCard?: boolean;
 }
+
+export interface IAddCard {
+    source: string;
+  }
 
 const donate = (data: IDonate) =>
   axiosClient.post(`${authEndpoint}/donate`, data);

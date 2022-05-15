@@ -35,36 +35,39 @@ const usePaymentForm = () => {
     },
   });
 
-  const handleSubmitDonation = (amount: number) => async (event: FormEvent) => {
-    event.preventDefault();
+  const handleSubmitDonation =
+    (amount: number, saveCard: boolean = false, clientId?: string) =>
+    async (event: FormEvent) => {
+      event.preventDefault();
 
-    const cardElement = elements?.getElement(CardElement);
+      const cardElement = elements?.getElement(CardElement);
 
-    if (!stripe || !elements || !cardElement) {
-      return;
-    }
+      if (!stripe || !elements || !cardElement) {
+        return;
+      }
 
-    const stripeResponse = await stripe.createPaymentMethod({
-      type: "card",
-      card: cardElement,
-    });
+      const stripeResponse = await stripe.createPaymentMethod({
+        type: "card",
+        card: cardElement,
+      });
 
-    const { error, paymentMethod } = stripeResponse;
+      const { error, paymentMethod } = stripeResponse;
 
-    if (error || !paymentMethod) {
-      return;
-    }
+      if (error || !paymentMethod) {
+        return;
+      }
 
-    const paymentMethodId = paymentMethod.id;
+      const paymentMethodId = paymentMethod.id;
 
-    donateProps.mutate({
-      amount,
-      paymentMethodId,
-    });
-  };
+      donateProps.mutate({
+        amount,
+        paymentMethodId,
+        saveCard,
+      });
+    };
 
   const handleSubmitPayment =
-    (amount: number, targetCustomerId: string, productId: string) =>
+    (amount: number, targetCustomerId: string, productId: string, saveCard: boolean = false) =>
     async (event: FormEvent) => {
       event.preventDefault();
 
@@ -92,6 +95,7 @@ const usePaymentForm = () => {
         targetCustomerId,
         productId,
         amount,
+        saveCard
       });
     };
 

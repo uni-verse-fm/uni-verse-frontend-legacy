@@ -8,7 +8,6 @@ import { Messages, urlImage } from "../../common/constants";
 import Image from "next/image";
 
 const Playlist = ({ index }) => {
-
   const { status, data } = useQuery("playlist", () =>
     getPlaylistById(index).then((res) => res.data)
   );
@@ -34,7 +33,7 @@ const Playlist = ({ index }) => {
             />
 
             <h2 className="text-wht">
-              {data.name}
+              {data.title}
               <FontAwesomeIcon
                 className="cursor-pointer ml-5 hover:scale-[1.40] text-grn"
                 icon={faPlay}
@@ -56,25 +55,23 @@ const Playlist = ({ index }) => {
               </tr>
             </thead>
             <tbody>
-              {data.tracks.map(function (item) {
-                return (
-                  <tr
-                    key={item.name}
-                    className="h-10 cursor-pointer hover:text-wht hover:border-b hover:border-t"
-                  >
-                    <td>
-                      <FontAwesomeIcon
-                        className=" cursor-pointer hover:scale-[1.40] text-grn"
-                        icon={faPlay}
-                      />
-                    </td>
-                    <td>{item.name}</td>
-                    <td>Album 1</td>
-                    <td>{item.createdate}</td>
-                    <td>{item.duration}</td>
-                  </tr>
-                );
-              })}
+              {data.tracks.map((item) => (
+                <tr
+                  key={item.name}
+                  className="h-10 cursor-pointer hover:text-wht hover:border-b hover:border-t"
+                >
+                  <td>
+                    <FontAwesomeIcon
+                      className=" cursor-pointer hover:scale-[1.40] text-grn"
+                      icon={faPlay}
+                    />
+                  </td>
+                  <td>{item.name}</td>
+                  <td>Album 1</td>
+                  <td>{item.createdate}</td>
+                  <td>{item.duration}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </>
