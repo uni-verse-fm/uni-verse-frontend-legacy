@@ -28,8 +28,12 @@ const UploadImageDisplayer = (props) => {
       <div className="text-center">
         <div className="flex justify-center mt-2">
           <div>
-            <label className="px-4 border border-transparent shadow-sm text-md font-medium inline-block rounded-md text-white bg-grn hover:bg-segrn mx-4">
-              <span>upload</span>
+            <label
+              className={`${
+                image ? "rounded-l-md" : "rounded-md"
+              } px-4 border border-transparent shadow-sm text-md font-medium inline-block text-white bg-grn hover:bg-segrn`}
+            >
+              <span>Upload</span>
               <input
                 id="image-upload"
                 name="image-upload"
@@ -44,10 +48,10 @@ const UploadImageDisplayer = (props) => {
           {image && (
             <div>
               <button
-                className="px-4 border border-transparent shadow-sm text-md font-medium rounded-md text-gryf bg-rd hover:bg-serd mx-4"
+                className="px-4 border border-transparent shadow-sm text-md font-medium rounded-r-md text-white bg-rd hover:bg-serd"
                 onClick={() => handleDeleteFile()}
               >
-                delete
+                Delete
               </button>
             </div>
           )}

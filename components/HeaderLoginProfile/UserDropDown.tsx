@@ -38,8 +38,8 @@ const UserDropDown = ({ user }) => {
 
   return (
     <Menu as="div" className="text-left h-full w-auto">
-      <Menu.Button className="h-full w-auto">
-        {user.avatar ? (
+      <Menu.Button className="h-full w-auto p-2">
+        {user?.avatar ? (
           <Image
             src={user.avatar}
             alt="Uni-verse user avatar"
@@ -47,18 +47,21 @@ const UserDropDown = ({ user }) => {
             height={60}
           />
         ) : (
-          <div className="h-full text-lg">
-            <FontAwesomeIcon icon={faCircleUser} className="text-grn fa-3x" />
-          </div>
+          <FontAwesomeIcon
+            icon={faCircleUser}
+            className="text-grn fa-2xl hover:text-segrn"
+          />
         )}
       </Menu.Button>
       <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-        <Menu.Item>
-          <div className="group items-center rounded-md px-2 py-2 text-md">
-            <div>{user.username}</div>
-            <div className="font-medium truncate">{user.email}</div>
-          </div>
-        </Menu.Item>
+        {user && (
+          <Menu.Item>
+            <div className="group items-center rounded-md px-2 py-2 text-md">
+              <div>{user.username}</div>
+              <div className="font-medium truncate">{user.email}</div>
+            </div>
+          </Menu.Item>
+        )}
         <Menu.Item>
           {({ active }) => (
             <div
@@ -94,14 +97,14 @@ const UserDropDown = ({ user }) => {
         </Menu.Item>
         <Menu.Item>
           {({ active }) => (
-            <div
+            <button
               className={`${
                 active ? "bg-serd text-md" : "text-sm bg-rd"
-              } group items-center rounded-bl-md rounded-br-md px-2 py-2 text-wht font-semibold text-wht`}
+              } group items-center rounded-bl-md rounded-br-md px-2 py-2 font-semibold text-white w-full`}
               onClick={handleLogout}
             >
-              <Link href="/"> Sign out</Link>
-            </div>
+              Sign out
+            </button>
           )}
         </Menu.Item>
       </Menu.Items>

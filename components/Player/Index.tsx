@@ -38,13 +38,13 @@ const Player = ({ className }: PlayerProps) => {
       <div className="w-full h-16 flex">
         <a
           onClick={onPreviousClick}
-          className="bg-gry hover:bg-blck rounded-lg m-auto h-12 w-12 flex cursor-pointer"
+          className="bg-gry hover:bg-drk rounded-lg m-auto h-12 w-12 flex cursor-pointer"
         >
           <FontAwesomeIcon icon={faArrowLeft} className="m-auto" />
         </a>
         <a
           onClick={onPlayPauseClick}
-          className="bg-gry hover:bg-blck rounded-lg m-auto h-12 w-12 flex cursor-pointer"
+          className="bg-gry hover:bg-drk rounded-lg m-auto h-12 w-12 flex cursor-pointer"
         >
           <FontAwesomeIcon
             icon={playing ? faPause : faPlay}
@@ -53,7 +53,7 @@ const Player = ({ className }: PlayerProps) => {
         </a>
         <a
           onClick={onNextClick}
-          className="bg-gry hover:bg-blck rounded-lg m-auto h-12 w-12 flex cursor-pointer"
+          className="bg-gry hover:bg-drk rounded-lg m-auto h-12 w-12 flex cursor-pointer"
         >
           <FontAwesomeIcon icon={faArrowRight} className="m-auto" />
         </a>

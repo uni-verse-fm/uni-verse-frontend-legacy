@@ -14,17 +14,16 @@ module.exports = {
     extend: {},
     colors: {
       grn: "#1BC47D",
+      drk: "#011B27",
+      mdrk: "#01141D",
       segrn: "#18A167",
       gry: "#616161",
       blck: "#130301",
-      rd: "#BF0000",
-      serd: "#9c0909",
+      rd: "#9E2146",
+      serd: "#6B142E",
       wht: "#F3E8EE",
       gryf: "#1A0404",
       ...defaultColors,
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-  ],
 };
