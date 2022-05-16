@@ -26,8 +26,15 @@ const PlaylistsModal = ({ showModal, handleCloseModal }) => {
     /** PlayLists Modal handle*/
   }
   const [playlistIndex, setPlaylistIndex] = useState(null);
-
-  const handleShowPlaylistContent = (index: number) => setPlaylistIndex(index);
+  const handleShowPlaylistContent = (index: number) => {
+    console.log("ID_PlayList");
+    console.log(index);
+    console.log("playlistIndex");
+    console.log(playlistIndex);
+    setPlaylistIndex(index);
+    console.log("playlistIndex");
+    console.log(playlistIndex);
+  };
   const handleHidePlaylistContent = () => setPlaylistIndex(null);
 
   const [createPlaylistIndex, setCreatePlaylistIndex] = useState(false);

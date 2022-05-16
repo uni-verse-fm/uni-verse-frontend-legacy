@@ -8,7 +8,7 @@ import useConnect from "../../common/providers/ConnectProvider";
 import router from "next/router";
 import { NotificationType, notify } from "../Notifications";
 import { AxiosError } from "axios";
-
+import { urlImage } from "../../common/constants";
 
 const Playlists = ({ handleShowPlaylistContent }) => {
   const [connect, setConnect] = useConnect();
@@ -52,7 +52,7 @@ const Playlists = ({ handleShowPlaylistContent }) => {
             data.map((item, index) => (
               <div
                 key={index}
-                onClick={() => handleShowPlaylistContent(item.id)}
+                onClick={() => handleShowPlaylistContent(item._id)}
               >
                 <PlaylistCard
                   name={item.title}

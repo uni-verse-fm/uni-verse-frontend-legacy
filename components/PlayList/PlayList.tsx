@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import Spinner from "../Spinner";
 import { Messages } from "../../common/constants";
 import Image from "next/image";
+import { urlImage } from "../../common/constants";
 
 const Playlist = ({ index }) => {
   // Static data
@@ -29,20 +30,21 @@ const Playlist = ({ index }) => {
         <>
           <div className="ml-10 ">
             <Image
+              src={urlImage}
               className="rounded mb-5"
-              src={data.image}
               width={150}
               height={150}
             />
 
             <h2 className="text-wht">
-              {data.name}
+              {data.title}
               <FontAwesomeIcon
                 className="cursor-pointer ml-5 hover:scale-[1.40] text-grn"
                 icon={faPlay}
               />
             </h2>
-            <h2 className="text-gry mb-5"></h2>
+            <h2 className="text-gry mb-8">{data.owner}</h2>
+            <h2 className="text-wht mb-2">Tracks :</h2>
           </div>
 
           <table className=" ml-10 mr-10 text-gry text-sm ">
