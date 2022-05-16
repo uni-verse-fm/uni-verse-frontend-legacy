@@ -9,6 +9,7 @@ import router from "next/router";
 import { NotificationType, notify } from "../Notifications";
 import { AxiosError } from "axios";
 
+
 const Playlists = ({ handleShowPlaylistContent }) => {
   const [connect, setConnect] = useConnect();
   const { status, data } = useQuery(
@@ -34,7 +35,9 @@ const Playlists = ({ handleShowPlaylistContent }) => {
 
   return (
     <>
-      <div className="ml-10 mb-5 text-grn text-lg">PlayLists</div>
+      <div className="items-start mt-16 mb-5 ml-6 text-grn text-lg">
+        PlayLists
+      </div>
       <div className={styles.wrapper}>
         {status === "loading" ? (
           <div className="flex justify-center items-center mt-10">
@@ -52,8 +55,7 @@ const Playlists = ({ handleShowPlaylistContent }) => {
                 onClick={() => handleShowPlaylistContent(item.id)}
               >
                 <PlaylistCard
-                  key={item.id}
-                  name={item.name}
+                  name={item.title}
                   image={item.image}
                   owner={item.owner}
                 />

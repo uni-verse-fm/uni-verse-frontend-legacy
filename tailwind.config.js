@@ -11,6 +11,9 @@ module.exports = {
       xs: { min: "0px", max: "639px" },
       ...defaultTheme.screens,
     },
+    borderWidth: {
+      DEFAULT: "0.5px",
+    },
     extend: {},
     colors: {
       grn: "#1BC47D",
@@ -24,7 +27,5 @@ module.exports = {
       ...defaultColors,
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-  ],
+  plugins: [require("@tailwindcss/forms")],
 };

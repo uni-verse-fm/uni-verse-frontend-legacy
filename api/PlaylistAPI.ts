@@ -1,12 +1,13 @@
 import { Endoints } from "../common/constants";
+import { IPlaylist } from "../components/PlayListsModal/PlayListsModal";
 import axiosClient from "./apiClient";
 
 const playlistEndpoint = Endoints.Playlists;
 
 const getPlaylists = () => axiosClient.get(playlistEndpoint);
 
-const createPlaylist = (data) =>
-  axiosClient.post(`${playlistEndpoint}`, JSON.stringify(data));
+const createPlaylist = (data: IPlaylist) =>
+  axiosClient.post(`${playlistEndpoint}`, data);
 
 const getPlaylistByTitle = (title) =>
   axiosClient.get(`${playlistEndpoint}`, { params: { title } });
