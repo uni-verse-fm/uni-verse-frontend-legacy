@@ -101,7 +101,10 @@ const PlaylistsModal = ({ showModal, handleCloseModal }) => {
           {/** If playlistIndex Affichage de  PlayList content */}
           {/** Else Affichage de Playlists */}
           {playlistIndex ? (
-            <Playlist index={playlistIndex} handleClosePlaylistContent={handleHidePlaylistContent} />
+            <Playlist
+              index={playlistIndex}
+              handleClosePlaylistContent={handleHidePlaylistContent}
+            />
           ) : (
             <div className="w-full h-full">
               {/** If createPlaylistIndex Affichage de create PlayList */}

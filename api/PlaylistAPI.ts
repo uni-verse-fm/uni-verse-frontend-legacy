@@ -17,7 +17,8 @@ const getPlaylistById = (id) => axiosClient.get(`${playlistEndpoint}/${id}`);
 const updatePlaylist = (id, data) =>
   axiosClient.put(`${playlistEndpoint}/${id}`, JSON.stringify(data));
 
-const deletePlaylist = (id: String) => axiosClient.delete(`${playlistEndpoint}/${id}`);
+const deletePlaylist = (id: String) =>
+  axiosClient.delete(`${playlistEndpoint}/${id}`);
 
 export {
   createPlaylist,
