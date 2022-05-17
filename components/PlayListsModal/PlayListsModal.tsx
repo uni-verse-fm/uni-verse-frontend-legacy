@@ -58,7 +58,6 @@ const PlaylistsModal = ({ showModal, handleCloseModal }) => {
       }
     },
   });
-
   {
     /**  Si connection et Show modal Affichage de la liste des playlists  */
   }
@@ -66,7 +65,7 @@ const PlaylistsModal = ({ showModal, handleCloseModal }) => {
     connect &&
     showModal && (
       <div className="absolute justify-center items-center overflow-x-hidden overflow-y-auto h-2/3 bg-black -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 w-2/3 border border-grn">
-        <div className="sticky top-0 bg-black h-9 z-50">
+        <div className="sticky top-0 bg-black h-9 z-50 mt-1">
           <button className="float-right mr-3" onClick={handleCloseModal}>
             <FontAwesomeIcon icon={faXmark} className="bg-blk text-rd fa-lg" />
           </button>
@@ -102,7 +101,7 @@ const PlaylistsModal = ({ showModal, handleCloseModal }) => {
           {/** If playlistIndex Affichage de  PlayList content */}
           {/** Else Affichage de Playlists */}
           {playlistIndex ? (
-            <Playlist index={playlistIndex} />
+            <Playlist index={playlistIndex} handleClosePlaylistContent={handleHidePlaylistContent} />
           ) : (
             <div className="w-full h-full">
               {/** If createPlaylistIndex Affichage de create PlayList */}
