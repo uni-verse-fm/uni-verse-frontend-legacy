@@ -1,7 +1,7 @@
 import React from "react";
 import LoginForm from "../components/LoginForm";
-
 function Login() {
+  console.log(process.env.TEST)
   return (
     <div className="bg-drk w-full h-full flex flex-col">
       <div className="text-center flex justify-center flex-col items-center w-full h-full ">
