@@ -83,6 +83,8 @@ const PlaylistsModal = ({ showModal, handleCloseModal }) => {
               />
             </button>
           ) : (
+            <div>
+              {!(createPlaylistIndex) ? (
             <button
               className="float-left m-10"
               onClick={handleShowcreatePlaylistIndex}
@@ -95,6 +97,18 @@ const PlaylistsModal = ({ showModal, handleCloseModal }) => {
                 Create a playList
               </h2>
             </button>
+                    ):(
+                      <div
+              className="float-left m-10"
+            >
+              <h2 className=" text-gry hover:text-wht hover:bg-segrn bg-blur-sm rounded-sm gb bg-grn bg-opacity-20 px-2">
+                Edit a playList
+              </h2>
+            </div>
+               
+                    )}
+
+            </div>
           )}
         </div>
         <div className="p-4">

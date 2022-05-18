@@ -4,7 +4,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(8rem, 1rem));
     gap: 2rem;
-    justify-content: center;
+    justify-content: start;
+    padding-left: 1rem;
   }
 }
 
@@ -13,6 +14,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(7rem, 1rem));
     gap: 2rem;
-    justify-content: center;
+    justify-content: start;
+    padding-left: 5rem;
   }
 }
