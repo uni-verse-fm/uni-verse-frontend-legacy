@@ -1,6 +1,8 @@
 import { faFileAudio, faFileImage } from "@fortawesome/free-solid-svg-icons";
 import { Field, Form, Formik } from "formik";
+import { useMutation } from "react-query";
 import * as Yup from "yup";
+import { createRelease } from "../../api/ReleaseAPI";
 import {
   Extensions,
   MAX_FILE_SIZE,
@@ -11,14 +13,37 @@ import {
 import { NotificationType, notify } from "../Notifications";
 import UploadImageDisplayer from "../UploadImageDisplayer";
 import UploadListDisplayer from "../UploadListDisplayer";
+import { ITrack } from "../UploadListDisplayer/UploadListDisplayer";
+
+export interface ICreateRelease {
+  title: string;
+  description: string;
+  coverUrl: string;
+  feats?: string[];
+  tracks: ITrack[];
+}
 
 const UploadReleaseForm = ({ me }) => {
+  const { mutate, isLoading } = useMutation("uploadRelease", createRelease, {
+    onError: (error) => {
+      notify("Can't register", NotificationType.ERROR);
+    },
+    onSuccess: (res) => {
+      if (res.status !== 201) {
+        notify(res.data.message, NotificationType.ERROR);
+      } else {
+        const message = "Release uploader";
+        notify(message, NotificationType.SUCCESS);
+      }
+    },
+  });
+
   return (
     <Formik
       initialValues={{
         title: "",
         description: "",
-        files: [],
+        tracks: [],
         image: null,
       }}
       validationSchema={Yup.object().shape({
@@ -29,50 +54,68 @@ const UploadReleaseForm = ({ me }) => {
         description: Yup.string()
           .max(255, Messages.DESCRIPTION)
           .required(Messages.REQUIRED),
-        files: Yup.mixed()
-          .test("filesNumber", Messages.NO_FILE, (value) => value?.length > 0)
-          .test("fileSize", Messages.LARGE_FILE_LIST, (value) => {
+        tracks: Yup.mixed()
+          .test("tracksNumber", Messages.NO_FILE, (value) => value?.length > 0)
+          .test("trackFileSize", Messages.LARGE_FILE_LIST, (value) => {
             return (
-              value?.filter((file) => file.size >= MAX_FILE_SIZE).length === 0
+              value?.filter((track) => track.file.size >= MAX_FILE_SIZE)
+                .length === 0
             );
           })
           .test("fileNameDuplicate", Messages.FILE_NAME_DUPLICATE, (value) => {
-            const names = value?.map((file) => file.name);
-
-            return value && new Set(names).size === names.length;
+            const fileNames = value?.map((track) => track.file.name);
+            return value && new Set(fileNames).size === fileNames.length;
+          })
+          .test("titleDuplicate", Messages.TITLE_DUPLICATE, (value) => {
+            const titles = value?.map((track) => track.title);
+            return value && new Set(titles).size === titles.length;
           }),
         image: Yup.mixed().test("fileSize", Messages.LARGE_FILE, (value) =>
           value ? value.size >= MAX_IMAGE_SIZE : true
         ),
       })}
       onSubmit={(value) => {
-        notify(
-          "Im on submit boy and i try to ake it",
-          NotificationType.DEFAULT
+        const data = {
+          title: value.title,
+          description: value.description,
+          tracks: value.tracks.map((track) => ({
+            title: track.title,
+            originalFileName: track.file.name,
+            author: me._id,
+            feats: [],
+          })),
+        };
+        var bodyFormData = new FormData();
+        bodyFormData.append("data", JSON.stringify(data).replace(/ /g, ""));
+        value.tracks.forEach((track) =>
+          bodyFormData.append("files", track.file, track.file.originalFileName)
         );
+        console.log(JSON.stringify(bodyFormData.get("data")));
+        mutate(bodyFormData);
       }}
     >
       {({ values, errors, handleChange, handleBlur, setFieldValue }) => {
         return (
           <Form>
             <div className="flex flex-row justify-between m-16">
-              <div className="basis-1/3 mr-4 mt-4 rounded h-full grid place-content-center text-center">
-                <Field
-                  name="image"
-                  component={UploadImageDisplayer}
-                  id="image"
-                  title="Cover photo"
-                  icon={faFileImage}
-                  maxFileSize="10"
-                  fileExtensions={Extensions.image}
-                  setFieldValue={setFieldValue}
-                  defaultImageSrc={urlImage}
-                />
-                {errors.image && (
-                  <div className="text-rd mt-4">{errors.image}</div>
-                )}
-              </div>
+              {/* <div className="basis-1/3 mr-4 mt-4 rounded h-full grid place-content-center text-center"></div> */}
               <div className="basis-1/3 mr-4 mt-4">
+                <div className="rounded grid place-content-center text-center">
+                  <Field
+                    name="image"
+                    component={UploadImageDisplayer}
+                    id="image"
+                    title="Cover photo"
+                    icon={faFileImage}
+                    maxFileSize="10"
+                    fileExtensions={Extensions.image}
+                    setFieldValue={setFieldValue}
+                    defaultImageSrc={urlImage}
+                  />
+                  {errors.image && (
+                    <div className="text-rd mt-4">{errors.image}</div>
+                  )}
+                </div>
                 <div className="flex flex-col">
                   <label htmlFor="firstName" className="text-grn">
                     Release title
@@ -111,10 +154,10 @@ const UploadReleaseForm = ({ me }) => {
                   </button>
                 </div>
               </div>
-              <div className="basis-1/3 ml-4 mt-4">
+              <div className="basis-2/3 ml-4 mt-4">
                 <div className="border-2 border-grn rounded h-full grid grid-cols-1 content-center basis-1/2 mr-2 text-center">
                   <Field
-                    name="files"
+                    name="tracks"
                     component={UploadListDisplayer}
                     id="audio"
                     title="Track"
@@ -125,7 +168,9 @@ const UploadReleaseForm = ({ me }) => {
                     contentType={"track"}
                   />
                 </div>
-                {errors.files && <div className="text-rd">{errors.files}</div>}
+                {errors.tracks && (
+                  <div className="text-rd">{errors.tracks}</div>
+                )}
               </div>
             </div>
           </Form>

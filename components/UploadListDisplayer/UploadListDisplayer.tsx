@@ -3,54 +3,88 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { ResourcesTable } from "./ResourcesTable";
 
-const UploadListDisplayer = (props) => {
-  const [files, setFiles] = useState([]);
+export interface ITrack {
+  file: File;
+  title: string;
+}
 
-  const handleDeleteFile = (index) => {
-    const newFiles = [...files];
-    newFiles.splice(index, 1);
+const UploadListDisplayer = (props) => {
+  const [tracks, setTracks] = useState<ITrack[]>([]);
+
+  const handleDeleteTrack = (index) => {
+    const newTracks = [...tracks];
+    newTracks.splice(index, 1);
     return () => {
-      setFiles(newFiles);
-      props.setFieldValue(props.field.name, newFiles);
+      setTracks(newTracks);
+      props.setFieldValue(props.field.name, newTracks);
     };
   };
 
-  const handleAddFile = (event) => {
+  const handleAddTrack = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const newFiles = [...files, file];
-      setFiles(newFiles);
-      props.setFieldValue(props.field.name, newFiles);
+      const newTracks = [...tracks, { file, title: `Track-${tracks.length}` }];
+      setTracks(newTracks);
+      props.setFieldValue(
+        props.field.name,
+        newTracks
+      );
     }
   };
 
-  const handleTitleChange = (file, index) => {
+  const handleTrackTitleChange = (track, index) => {
     return (event) => {
-      const newFiles = [
-        ...files.slice(0, index),
-        new File([file], event.target.value),
-        ...files.slice(index + 1),
+        const value = event.target.value;
+      const newTracks = [
+        ...tracks.slice(0, index),
+        {
+          file: track.file,
+          title: value ? value : `Track-${index}`,
+        },
+        ...tracks.slice(index + 1),
       ];
-      setFiles(newFiles);
-      props.setFieldValue(props.field.name, newFiles);
+      setTracks(newTracks);
+      props.setFieldValue(
+        props.field.name,
+        newTracks
+      );
+    };
+  };
+
+  const handleTrackFileNameChange = (track, index) => {
+    return (event) => {
+      const newTracks = [
+        ...tracks.slice(0, index),
+        {
+          file: new File([track.file], event.target.value),
+          title: track.title,
+        },
+        ...tracks.slice(index + 1),
+      ];
+      setTracks(newTracks);
+      props.setFieldValue(
+        props.field.name,
+        newTracks
+      );
     };
   };
 
   const handleDragEnd = (e) => {
     if (!e.destination) return;
-    let tempData = Array.from(files);
+    let tempData = Array.from(tracks);
     let [source_data] = tempData.splice(e.source.index, 1);
     tempData.splice(e.destination.index, 0, source_data);
-    setFiles(tempData);
+    setTracks(tempData);
   };
 
   return (
     <>
-      {files.length ? (
+      {tracks.length ? (
         <ResourcesTable
-          files={files}
-          handleTitleChange={handleTitleChange}
-          handleDeleteFile={handleDeleteFile}
+          tracks={tracks}
+          handleTrackTitleChange={handleTrackTitleChange}
+          handleTrackFileNameChange={handleTrackFileNameChange}
+          handleDeleteFile={handleDeleteTrack}
           handleDragEnd={handleDragEnd}
         />
       ) : (
@@ -72,7 +106,7 @@ const UploadListDisplayer = (props) => {
           type="file"
           accept={props.fileExtensions.accept}
           style={{ display: "none" }}
-          onChange={handleAddFile}
+          onChange={handleAddTrack}
           value=""
           className="sr-only"
         />

@@ -2,15 +2,15 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 
-export const InputFileName = ({ id, track, onBlur }) => {
-  const [name, setName] = useState(track.file.name);
+export const InputTitle = ({ id, track, onBlur }) => {
+  const [title, setTitle] = useState(track.title);
 
   useEffect(() => {
-    setName(track.file.name);
+    setTitle(track.title);
   }, [track]);
 
   const onChange = (event) => {
-    setName(event.target.value);
+    setTitle(event.target.value);
   };
 
   return (
@@ -20,10 +20,9 @@ export const InputFileName = ({ id, track, onBlur }) => {
         name={`title-${id}`}
         type="text"
         className="appearance-none bg-transparent border-none text-wht w-32 mr-3 py-1 px-2 leading-tight focus:outline-none text-center"
-        max={50}
         onChange={onChange}
         onBlur={onBlur}
-        value={name}
+        value={title}
       />
       <FontAwesomeIcon
         className="cursor-pointer hover:scale-[1.40] text-wht"

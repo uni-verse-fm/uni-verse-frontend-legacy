@@ -4,7 +4,11 @@ import axiosClient from "./apiClient";
 const releaseEndpoint = Endoints.Releases;
 
 const createRelease = (data) =>
-  axiosClient.post(`${releaseEndpoint}`, JSON.stringify(data));
+  axiosClient.post(`${releaseEndpoint}`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
 const getReleases = () => axiosClient.get(releaseEndpoint);
 

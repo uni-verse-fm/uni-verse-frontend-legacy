@@ -33,6 +33,7 @@ export const Messages = {
   NOT_IMPLEMENTED: "Not implemented",
   ERROR_LOAD: "Sorry we couldn't load the data",
   FILE_NAME_DUPLICATE: "file name already exists",
+  TITLE_DUPLICATE: "title already exists",
   PASSWORD_MISMATCH: "Passwords must match",
   EMPTY_PLAYLIST: "You have no playlist",
   DISCONNECTED: "Disconnected",
