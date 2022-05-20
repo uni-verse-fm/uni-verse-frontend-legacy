@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import { Extensions, Messages } from "../../common/constants";
+import { Extensions, Messages, Pages } from "../../common/constants";
 import * as Yup from "yup";
 import UploadImageDisplayer from "../UploadImageDisplayer";
 import { NotificationType, notify } from "../Notifications";
@@ -24,7 +24,7 @@ export interface IRegister {
 const RegisterForm = () => {
   const { mutate, isLoading } = useMutation("register", register, {
     onError: (error) => {
-      notify("there was an error" + error, NotificationType.ERROR);
+      notify("Can't register", NotificationType.ERROR);
     },
     onSuccess: (res) => {
       if (res.status !== 201) {
@@ -32,6 +32,7 @@ const RegisterForm = () => {
       } else {
         const message = "Subscribed successfully";
         notify(message, NotificationType.SUCCESS);
+        router.replace(`/${Pages.Login}`);
       }
     },
   });
@@ -63,7 +64,8 @@ const RegisterForm = () => {
       onSubmit={(value) => {
         mutate(value);
       }}
-      render={({ values, errors, handleChange, handleBlur }) => {
+    >
+      {({ values, errors, handleChange, handleBlur }) => {
         return (
           <Form className="flex justify-center rounded-md bg-white w-auto h-auto">
             <div className="m-10 ml-12 mr-12">
@@ -75,7 +77,7 @@ const RegisterForm = () => {
                   name="username"
                   type="text"
                   placeholder="Enter your username"
-                  className="text-sm bg-black w-full h-full text-white pl-2 rounded-md placeholder-gry"
+                  className="text-sm bg-drk w-full h-full text-white pl-2 rounded-md placeholder-gry p-2"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.username}
@@ -91,7 +93,7 @@ const RegisterForm = () => {
                   name="email"
                   type="email"
                   placeholder="Enter your email"
-                  className="text-sm bg-black w-full h-full text-white pl-2 rounded-md placeholder-gry"
+                  className="text-sm bg-drk w-full h-full text-white pl-2 rounded-md placeholder-gry p-2"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.email}
@@ -107,7 +109,7 @@ const RegisterForm = () => {
                   name="password"
                   type="password"
                   placeholder="Enter your password"
-                  className="text-sm bg-black w-full h-full text-white pl-2 rounded-md placeholder-gry"
+                  className="text-sm bg-drk w-full h-full text-white pl-2 rounded-md placeholder-gry p-2"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
@@ -123,7 +125,7 @@ const RegisterForm = () => {
                   name="passwordConfirmation"
                   type="password"
                   placeholder="Enter your password"
-                  className="text-sm bg-black w-full h-full text-white pl-2 rounded-md placeholder-gry"
+                  className="text-sm bg-drk w-full h-full text-white pl-2 rounded-md placeholder-gry p-2"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.passwordConfirmation}
@@ -137,7 +139,7 @@ const RegisterForm = () => {
               <div className="justify-center"></div>
               <button
                 type="submit"
-                className="rounded bg-grn font-normal cursor-pointer w-64 h-8 text-white  "
+                className="rounded bg-grn font-normal cursor-pointer w-64 h-8 text-white"
               >
                 Sign up
               </button>
@@ -145,7 +147,7 @@ const RegisterForm = () => {
           </Form>
         );
       }}
-    />
+    </Formik>
   );
 };
 

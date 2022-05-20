@@ -17,13 +17,14 @@
     "@fortawesome/free-solid-svg-icons": "^6.0.0",
     "@fortawesome/react-fontawesome": "^0.1.17",
     "@headlessui/react": "^1.6.1",
+    "@stripe/react-stripe-js": "^1.8.0-0",
+    "@stripe/stripe-js": "^1.29.0",
     "axios": "^0.27.2",
     "formik": "^2.2.9",
     "next": "^12.1.0",
     "react": "^17.0.2",
     "react-admin": "^4.0.4",
     "react-beautiful-dnd": "^13.1.0",
-    "react-bootstrap": "^2.2.0",
     "react-dom": "^17.0.2",
     "react-hot-toast": "^2.2.0",
     "react-query": "^3.38.1",
@@ -31,7 +32,6 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@tailwindcss/forms": "^0.5.0",
     "@types/node": "^17.0.18",
     "@types/react": "^17.0.39",
     "autoprefixer": "^10.4.2",

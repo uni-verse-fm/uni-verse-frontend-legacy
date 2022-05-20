@@ -8,7 +8,6 @@ import {
   faChartLine,
 } from "@fortawesome/free-solid-svg-icons";
 import SideMenuEntry from "./SideMenuEntry";
-import Image from "next/image";
 import { NotificationType, notify } from "../Notifications";
 import Player from "../Player";
 import useConnect from "../../common/providers/ConnectProvider";

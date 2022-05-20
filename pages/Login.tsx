@@ -3,7 +3,7 @@ import LoginForm from "../components/LoginForm";
 
 function Login() {
   return (
-    <div className="bg-black w-full h-full flex flex-col">
+    <div className="bg-drk w-full h-full flex flex-col">
       <div className="text-center flex justify-center flex-col items-center w-full h-full ">
         <div className="-mt-28">
           <h1 className="text-xl font-bold not-italic text-grn ">

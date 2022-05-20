@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import router from "next/router";
-import { Messages } from "../common/constants";
+import { Messages, Pages } from "../common/constants";
 import { NotificationType, notify } from "../components/Notifications";
 
 export const reactQueryResponseHandler = (setConnect) => ({
@@ -8,7 +8,7 @@ export const reactQueryResponseHandler = (setConnect) => ({
     if (res.status === 401) {
       setConnect(false);
       notify(Messages.UNAUTHORIZED, NotificationType.ERROR);
-      router.replace("/login");
+      router.replace(`/${Pages.Login}`);
     }
   },
   onError: (error: AxiosError) => {
@@ -16,7 +16,7 @@ export const reactQueryResponseHandler = (setConnect) => ({
       setConnect(false);
 
       notify(Messages.UNAUTHORIZED, NotificationType.ERROR);
-      router.replace("/login");
+      router.replace(`/${Pages.Login}`);
     }
   },
 });

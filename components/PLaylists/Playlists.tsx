@@ -1,14 +1,13 @@
 import { getPlaylists } from "../../api/PlaylistAPI";
-import { Messages } from "../../common/constants";
+import { Messages, Pages, urlImage } from "../../common/constants";
 import PlaylistCard from "../PlayListCard";
 import Spinner from "../Spinner";
 import { useQuery } from "react-query";
-import { styles } from "../PlayListsModal";
 import useConnect from "../../common/providers/ConnectProvider";
 import router from "next/router";
 import { NotificationType, notify } from "../Notifications";
 import { AxiosError } from "axios";
-import { urlImage } from "../../common/constants";
+import { styles } from "../PlayListsModal";
 
 const Playlists = ({ handleShowPlaylistContent }) => {
   const [connect, setConnect] = useConnect();
@@ -20,14 +19,14 @@ const Playlists = ({ handleShowPlaylistContent }) => {
         if (res.status === 401) {
           notify("Playlists bay from success");
           setConnect(false);
-          router.replace("/login");
+          router.replace(`/${Pages.Login}`);
         }
       },
       onError: (error: AxiosError) => {
         if (error.response.status === 401) {
           notify(Messages.UNAUTHORIZED, NotificationType.ERROR);
           setConnect(false);
-          router.replace("/login");
+          router.replace(`/${Pages.Login}`);
         }
       },
     }
@@ -40,11 +39,11 @@ const Playlists = ({ handleShowPlaylistContent }) => {
       </div>
       <div className={styles.wrapper}>
         {status === "loading" ? (
-          <div className="flex justify-center items-center mt-10">
+          <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
             <Spinner />
           </div>
         ) : status === "error" ? (
-          <div className="flex justify-center items-center mt-10">
+          <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
             <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
           </div>
         ) : status === "success" ? (
@@ -55,9 +54,11 @@ const Playlists = ({ handleShowPlaylistContent }) => {
                 onClick={() => handleShowPlaylistContent(item._id)}
               >
                 <PlaylistCard
-                  name={item.title}
+                  key={index}
+                  title={item.title}
                   image={item.image}
                   owner={item.owner}
+                  defaultImageSrc={urlImage}
                 />
               </div>
             ))
@@ -68,11 +69,7 @@ const Playlists = ({ handleShowPlaylistContent }) => {
               </h1>
             </div>
           )
-        ) : (
-          <div className="flex justify-center items-center mt-10">
-            <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
-          </div>
-        )}
+        ) : null}
       </div>
     </>
   );

@@ -12,7 +12,7 @@ import { NotificationType, notify } from "../Notifications";
 import UploadImageDisplayer from "../UploadImageDisplayer";
 import UploadListDisplayer from "../UploadListDisplayer";
 
-const UploadReleaseForm = () => {
+const UploadReleaseForm = ({ me }) => {
   return (
     <Formik
       initialValues={{
@@ -51,7 +51,8 @@ const UploadReleaseForm = () => {
           NotificationType.DEFAULT
         );
       }}
-      render={({ values, errors, handleChange, handleBlur, setFieldValue }) => {
+    >
+      {({ values, errors, handleChange, handleBlur, setFieldValue }) => {
         return (
           <Form>
             <div className="flex flex-row justify-between m-16">
@@ -130,7 +131,7 @@ const UploadReleaseForm = () => {
           </Form>
         );
       }}
-    />
+    </Formik>
   );
 };
 

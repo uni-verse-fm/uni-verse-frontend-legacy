@@ -1,7 +1,7 @@
 export const MAX_FILE_SIZE = 2000000;
 export const MAX_IMAGE_SIZE = 2000000;
 
-export const BASE_API = "http://localhost:3000/api/v2";
+export const BASE_API = "http://localhost:3000";
 
 export const MOCK_BASE_API =
   "https://6276b27f2f94a1d706062d0f.mockapi.io/api/v2";
@@ -37,12 +37,18 @@ export const Messages = {
   EMPTY_PLAYLIST: "You have no playlist",
   DISCONNECTED: "Disconnected",
   UNAUTHORIZED: "Unauthorized please login",
+  DONATION_ERROR: "Sorry the donation couldn't be done",
+  PURCHASE_ERROR: "Sorry the purchase couldn't be done",
+  DONATION_SUCCESS: "Thank you for your support",
+  PURCHASE_SUCCESS: "Thank you for your purchase",
 };
 
 export enum Pages {
-  Home = "",
+  Home = " ",
   UploadRelease = "UploadRelease",
   UploadResourcePack = "UploadResourcePack",
+  Login = "Login",
+  SignUp = "SignUp",
 }
 
 export enum Endoints {
@@ -52,4 +58,5 @@ export enum Endoints {
   ResourcePacks = "/resource-packs",
   Playlists = "/playlists",
   Comments = "/comments",
+  Payments = "/payments",
 }

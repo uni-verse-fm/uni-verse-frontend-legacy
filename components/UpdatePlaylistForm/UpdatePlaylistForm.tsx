@@ -1,6 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faPlus,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import Playlist from "../PlayList";
+import Playlists from "../PLaylists";
 import useConnect from "../../common/providers/ConnectProvider";
 import { Messages } from "../../common/constants";
 import { notify, NotificationType } from "../Notifications";
@@ -8,27 +15,44 @@ import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useMutation } from "react-query";
 import { createPlaylist } from "../../api/PlaylistAPI";
+import { updatePlaylist } from "../../api/PlaylistAPI";
+import { Console } from "console";
 
 export interface IPlaylist {
   title: string;
 }
 
-const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex }) => {
+export interface IUpdatePayload {
+  id: string;
+  data: object;
+}
+
+export interface IUpdatePlaylistdata {
+  trackId: string;
+  action: string;
+  title: string;
+}
+
+const UpdatePlayListForm = ({
+  showForm,
+  handleHidecreatePlaylistIndex,
+  dataUpdate,
+}) => {
   {
     /** PlayLists Modal handle*/
   }
   const [connect] = useConnect();
 
-  const { mutate, isLoading } = useMutation("createPlaylist", createPlaylist, {
+  const { mutate, isLoading } = useMutation("updatePlaylist", updatePlaylist, {
     onError: (error) => {
       notify("there was an error" + error, NotificationType.ERROR);
     },
     onSuccess: (res) => {
-      if (res.status !== 201) {
+      if (res.status !== 200) {
         notify(res.data.message, NotificationType.ERROR);
       } else {
         handleHidecreatePlaylistIndex();
-        const message = "PlayList created successfully";
+        const message = "PlayList updated successfully";
         notify(message, NotificationType.SUCCESS);
       }
     },
@@ -40,15 +64,15 @@ const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex }) => {
 
   return (
     showForm && (
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-start">
         <div>
-          <h1 className="text-xl font-bold not-italic text-grn -ml-36 mb-3">
-            Add a playList
+          <h1 className="text-xl font-bold not-italic text-grn  mb-3 ml-14">
+            Edit playList
           </h1>
         </div>
         <Formik
           initialValues={{
-            title: "",
+            title: dataUpdate.title,
           }}
           validationSchema={Yup.object().shape({
             title: Yup.string()
@@ -57,13 +81,31 @@ const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex }) => {
               .required(Messages.REQUIRED),
           })}
           onSubmit={(value) => {
-            mutate(value);
+            let dataToUpdate = dataUpdate;
+            dataToUpdate.title = value.title;
+            console.log("New Data ");
+            console.log(dataToUpdate);
+
+            let dataFormUpdate: IUpdatePlaylistdata = {
+              trackId: "",
+              action: "",
+              title: dataToUpdate.title,
+            };
+
+            let dataForm: IUpdatePayload = {
+              id: dataUpdate._id,
+              data: dataFormUpdate,
+            };
+
+            console.log(dataForm);
+            //mutate(dataForm);
+            notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR);
           }}
           render={({ values, errors, handleChange, handleBlur }) => {
             return (
               <div className="bg-blk flex ml-6  w-full h-auto mr-10 mb-12 justify-center items-center  ">
                 <Form className="flex flex-col justify-center items-center rounded bg-wht w-auto h-auto">
-                  <div className="flex flex-col items-start p-6 w-72 h-auto">
+                  <div className="flex flex-col items-start p-6 pb-2 pt-4 w-72 h-auto">
                     <label className="mb-2 text-blck text-sm">
                       Playlist title
                     </label>
@@ -74,17 +116,14 @@ const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex }) => {
                       placeholder="Enter a title"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className="text-sm bg-drk w-full h-full text-wht pl-2  h-8 rounded placeholder-gry"
+                      className="text-sm bg-drk w-full h-full text-wht pl-2 rounded placeholder-gry h-8"
                       value={values.title}
                     />
-                    {errors.title && (
-                      <div className="text-rd">{errors.title}</div>
-                    )}
                   </div>
 
                   <div className="flex flex-row items-start w-72 h-auto">
                     <input
-                      className="mb-4 ml-6 rounded-sm bg-grn font-normal cursor-pointer h-8 w-32 text-wht"
+                      className="mb-4 ml-6 rounded bg-grn font-normal cursor-pointer h-8 w-32 text-wht"
                       type="submit"
                       value="Save"
                     ></input>
@@ -104,4 +143,5 @@ const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex }) => {
     )
   );
 };
-export default CreatePlayListForm;
+
+export default UpdatePlayListForm;
