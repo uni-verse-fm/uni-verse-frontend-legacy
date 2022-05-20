@@ -3,54 +3,127 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { ResourcesTable } from "./ResourcesTable";
 
-const UploadListDisplayer = (props) => {
-  const [files, setFiles] = useState([]);
+export interface ITrack {
+  file: File;
+  title: string;
+  feats: IFeat[];
+}
 
-  const handleDeleteFile = (index) => {
-    const newFiles = [...files];
-    newFiles.splice(index, 1);
-    return () => {
-      setFiles(newFiles);
-      props.setFieldValue(props.field.name, newFiles);
+export interface IFeat {
+  id: string;
+  username: string;
+  email: string;
+}
+
+const UploadListDisplayer = (props) => {
+  const [tracks, setTracks] = useState<ITrack[]>([]);
+
+  const handleDeleteTrack = (index: number) => {
+    const newTracks = [...tracks];
+    newTracks.splice(index, 1);
+    return (): void => {
+      setTracks(newTracks);
+      props.setFieldValue(props.field.name, newTracks);
     };
   };
 
-  const handleAddFile = (event) => {
+  const handleAddTrack = (event: any): void => {
     const file = event.target.files[0];
     if (file) {
-      const newFiles = [...files, file];
-      setFiles(newFiles);
-      props.setFieldValue(props.field.name, newFiles);
+      const newTracks = [
+        ...tracks,
+        { file, title: `Track-${tracks.length}`, feats: [] },
+      ];
+      setTracks(newTracks);
+      props.setFieldValue(props.field.name, newTracks);
     }
   };
 
-  const handleTitleChange = (file, index) => {
-    return (event) => {
-      const newFiles = [
-        ...files.slice(0, index),
-        new File([file], event.target.value),
-        ...files.slice(index + 1),
+  const handleTrackTitleChange =
+    (track: ITrack, index: number) =>
+    (event: any): void => {
+      const value = event.target.value;
+      const newTracks = [
+        ...tracks.slice(0, index),
+        {
+          ...track,
+          title: value ? value : `Track-${index}`,
+        },
+        ...tracks.slice(index + 1),
       ];
-      setFiles(newFiles);
-      props.setFieldValue(props.field.name, newFiles);
+      setTracks(newTracks);
+      props.setFieldValue(props.field.name, newTracks);
     };
-  };
+
+  const handleTrackFileNameChange =
+    (track: ITrack, index: number) => (event: any) => {
+      const newTracks = [
+        ...tracks.slice(0, index),
+        {
+          ...track,
+          file: new File([track.file], event.target.value),
+        },
+        ...tracks.slice(index + 1),
+      ];
+      setTracks(newTracks);
+      props.setFieldValue(props.field.name, newTracks);
+    };
+
+  const handleAddTrackFeat =
+    (track: ITrack, index: number) => (feat: IFeat) => {
+      let newTracks: ITrack[] = tracks;
+      if (track.feats.filter((f) => f.id === feat.id).length === 0) {
+        newTracks = [
+          ...tracks.slice(0, index),
+          {
+            ...track,
+            feats: [
+              ...track.feats,
+              { id: feat.id, username: feat.username, email: feat.email },
+            ],
+          },
+          ...tracks.slice(index + 1),
+        ];
+      }
+      setTracks(newTracks);
+      props.setFieldValue(props.field.name, newTracks);
+    };
+
+  const handleDeleteTrackFeat =
+    (track: ITrack, index: number) => (featIndex: number) => {
+      const newTracks = [
+        ...tracks.slice(0, index),
+        {
+          ...track,
+          feats: [
+            ...track.feats.slice(0, featIndex),
+            ...track.feats.slice(featIndex + 1),
+          ],
+        },
+        ...tracks.slice(index + 1),
+      ];
+      setTracks(newTracks);
+      props.setFieldValue(props.field.name, newTracks);
+    };
 
   const handleDragEnd = (e) => {
     if (!e.destination) return;
-    let tempData = Array.from(files);
+    let tempData = Array.from(tracks);
     let [source_data] = tempData.splice(e.source.index, 1);
     tempData.splice(e.destination.index, 0, source_data);
-    setFiles(tempData);
+    setTracks(tempData);
   };
 
   return (
     <>
-      {files.length ? (
+      {tracks.length ? (
         <ResourcesTable
-          files={files}
-          handleTitleChange={handleTitleChange}
-          handleDeleteFile={handleDeleteFile}
+          tracks={tracks}
+          handleTrackTitleChange={handleTrackTitleChange}
+          handleAddFeat={handleAddTrackFeat}
+          handleDeleteFeat={handleDeleteTrackFeat}
+          handleTrackFileNameChange={handleTrackFileNameChange}
+          handleDeleteFile={handleDeleteTrack}
           handleDragEnd={handleDragEnd}
         />
       ) : (
@@ -72,7 +145,7 @@ const UploadListDisplayer = (props) => {
           type="file"
           accept={props.fileExtensions.accept}
           style={{ display: "none" }}
-          onChange={handleAddFile}
+          onChange={handleAddTrack}
           value=""
           className="sr-only"
         />
