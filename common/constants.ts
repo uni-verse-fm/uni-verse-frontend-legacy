@@ -1,5 +1,5 @@
-export const MAX_FILE_SIZE = 2000000;
-export const MAX_IMAGE_SIZE = 2000000;
+export const MAX_FILE_SIZE = 2000000000;
+export const MAX_IMAGE_SIZE = 2000000000;
 
 export const BASE_API = "http://localhost:3000";
 
@@ -42,6 +42,7 @@ export const Messages = {
   PURCHASE_ERROR: "Sorry the purchase couldn't be done",
   DONATION_SUCCESS: "Thank you for your support",
   PURCHASE_SUCCESS: "Thank you for your purchase",
+  EMPTY_FUZZY_RESULT: "No results with those specifications"
 };
 
 export enum Pages {

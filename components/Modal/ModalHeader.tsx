@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ModalHeader = (props) => {
   return (
-    <div className="sticky top-0 bg-mdrk h-9 z-50">
+    <div className="sticky top-0 bg-mdrk z-50 h-auto">
       <button
         className="float-right mr-3 mt-1"
         onClick={props.handleCloseModal}

@@ -1,4 +1,5 @@
 import { faFileAudio, faFileImage } from "@fortawesome/free-solid-svg-icons";
+import { AxiosError } from "axios";
 import { Field, Form, Formik } from "formik";
 import { useMutation } from "react-query";
 import * as Yup from "yup";
@@ -23,10 +24,19 @@ export interface ICreateRelease {
   tracks: ITrack[];
 }
 
+export interface UniVerseError {
+  statusCode?: number;
+  message?: string;
+}
+
 const UploadReleaseForm = ({ me }) => {
   const { mutate, isLoading } = useMutation("uploadRelease", createRelease, {
-    onError: (error) => {
-      notify("Can't register", NotificationType.ERROR);
+    onError: (error: AxiosError) => {
+      const errorMessage: UniVerseError = error.response.data;
+      notify(
+        `Can't upload release: ${errorMessage.message}`,
+        NotificationType.ERROR
+      );
     },
     onSuccess: (res) => {
       if (res.status !== 201) {
@@ -70,9 +80,11 @@ const UploadReleaseForm = ({ me }) => {
             const titles = value?.map((track) => track.title);
             return value && new Set(titles).size === titles.length;
           }),
-        image: Yup.mixed().test("fileSize", Messages.LARGE_FILE, (value) =>
-          value ? value.size >= MAX_IMAGE_SIZE : true
-        ),
+        image: Yup.mixed()
+          .required()
+          .test("fileSize", Messages.LARGE_FILE, (value) =>
+            value ? value.size < MAX_IMAGE_SIZE : true
+          ),
       })}
       onSubmit={(value) => {
         const data = {
@@ -82,15 +94,16 @@ const UploadReleaseForm = ({ me }) => {
             title: track.title,
             originalFileName: track.file.name,
             author: me._id,
-            feats: [],
+            feats: track.feats,
           })),
         };
         var bodyFormData = new FormData();
         bodyFormData.append("data", JSON.stringify(data).replace(/ /g, ""));
         value.tracks.forEach((track) =>
-          bodyFormData.append("files", track.file, track.file.originalFileName)
+          bodyFormData.append("tracks", track.file, track.file.name)
         );
-        console.log(JSON.stringify(bodyFormData.get("data")));
+        value.image &&
+          bodyFormData.append("cover", value.image, value.image.name);
         mutate(bodyFormData);
       }}
     >
@@ -98,7 +111,6 @@ const UploadReleaseForm = ({ me }) => {
         return (
           <Form>
             <div className="flex flex-row justify-between m-16">
-              {/* <div className="basis-1/3 mr-4 mt-4 rounded h-full grid place-content-center text-center"></div> */}
               <div className="basis-1/3 mr-4 mt-4">
                 <div className="rounded grid place-content-center text-center">
                   <Field

@@ -19,7 +19,7 @@ export const InputFileName = ({ id, track, onBlur }) => {
         id={`title-${id}`}
         name={`title-${id}`}
         type="text"
-        className="appearance-none bg-transparent border-none text-wht w-32 mr-3 py-1 px-2 leading-tight focus:outline-none text-center"
+        className="appearance-none bg-transparent border-none text-wht w-32 mr-3 py-1 px-2 leading-tight focus:outline-none text-left"
         max={50}
         onChange={onChange}
         onBlur={onBlur}

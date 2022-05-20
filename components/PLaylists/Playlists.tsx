@@ -32,8 +32,8 @@ const Playlists = ({ handleShowPlaylistContent }) => {
   );
 
   return (
-    <>
-      <div className="ml-10 mb-5 text-grn text-lg">PlayLists</div>
+    <div>
+      <div className="ml-10 mb-5 text-grn text-lg">Playlists</div>
       <div className="grid grid-flow-col auto-cols-max gap-4 justify-center">
         {status === "loading" ? (
           <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
@@ -68,7 +68,7 @@ const Playlists = ({ handleShowPlaylistContent }) => {
           )
         ) : null}
       </div>
-    </>
+    </div>
   );
 };
 

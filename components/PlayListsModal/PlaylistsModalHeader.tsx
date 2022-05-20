@@ -7,7 +7,7 @@ import { notify } from "../Notifications";
 export const PlaylistsModalHeader = () => {
   return (
     <button
-      className="float-left ml-1 mt-1 "
+      className="ml-1"
       onClick={(_: any) => notify(Messages.NOT_IMPLEMENTED)}
     >
       <h2 className="text-gry hover:text-wht hover:bg-segrn bg-blur-sm rounded-sm gb bg-grn bg-opacity-20 px-2">

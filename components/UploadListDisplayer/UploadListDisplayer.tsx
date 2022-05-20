@@ -6,68 +6,105 @@ import { ResourcesTable } from "./ResourcesTable";
 export interface ITrack {
   file: File;
   title: string;
+  feats: IFeat[];
+}
+
+export interface IFeat {
+  id: string;
+  username: string;
+  email: string;
 }
 
 const UploadListDisplayer = (props) => {
   const [tracks, setTracks] = useState<ITrack[]>([]);
 
-  const handleDeleteTrack = (index) => {
+  const handleDeleteTrack = (index: number) => {
     const newTracks = [...tracks];
     newTracks.splice(index, 1);
-    return () => {
+    return (): void => {
       setTracks(newTracks);
       props.setFieldValue(props.field.name, newTracks);
     };
   };
 
-  const handleAddTrack = (event) => {
+  const handleAddTrack = (event: any): void => {
     const file = event.target.files[0];
     if (file) {
-      const newTracks = [...tracks, { file, title: `Track-${tracks.length}` }];
+      const newTracks = [
+        ...tracks,
+        { file, title: `Track-${tracks.length}`, feats: [] },
+      ];
       setTracks(newTracks);
-      props.setFieldValue(
-        props.field.name,
-        newTracks
-      );
+      props.setFieldValue(props.field.name, newTracks);
     }
   };
 
-  const handleTrackTitleChange = (track, index) => {
-    return (event) => {
-        const value = event.target.value;
+  const handleTrackTitleChange =
+    (track: ITrack, index: number) =>
+    (event: any): void => {
+      const value = event.target.value;
       const newTracks = [
         ...tracks.slice(0, index),
         {
-          file: track.file,
+          ...track,
           title: value ? value : `Track-${index}`,
         },
         ...tracks.slice(index + 1),
       ];
       setTracks(newTracks);
-      props.setFieldValue(
-        props.field.name,
-        newTracks
-      );
+      props.setFieldValue(props.field.name, newTracks);
     };
-  };
 
-  const handleTrackFileNameChange = (track, index) => {
-    return (event) => {
+  const handleTrackFileNameChange =
+    (track: ITrack, index: number) => (event: any) => {
       const newTracks = [
         ...tracks.slice(0, index),
         {
+          ...track,
           file: new File([track.file], event.target.value),
-          title: track.title,
         },
         ...tracks.slice(index + 1),
       ];
       setTracks(newTracks);
-      props.setFieldValue(
-        props.field.name,
-        newTracks
-      );
+      props.setFieldValue(props.field.name, newTracks);
     };
-  };
+
+  const handleAddTrackFeat =
+    (track: ITrack, index: number) => (feat: IFeat) => {
+      let newTracks: ITrack[] = tracks;
+      if (track.feats.filter((f) => f.id === feat.id).length === 0) {
+        newTracks = [
+          ...tracks.slice(0, index),
+          {
+            ...track,
+            feats: [
+              ...track.feats,
+              { id: feat.id, username: feat.username, email: feat.email },
+            ],
+          },
+          ...tracks.slice(index + 1),
+        ];
+      }
+      setTracks(newTracks);
+      props.setFieldValue(props.field.name, newTracks);
+    };
+
+  const handleDeleteTrackFeat =
+    (track: ITrack, index: number) => (featIndex: number) => {
+      const newTracks = [
+        ...tracks.slice(0, index),
+        {
+          ...track,
+          feats: [
+            ...track.feats.slice(0, featIndex),
+            ...track.feats.slice(featIndex + 1),
+          ],
+        },
+        ...tracks.slice(index + 1),
+      ];
+      setTracks(newTracks);
+      props.setFieldValue(props.field.name, newTracks);
+    };
 
   const handleDragEnd = (e) => {
     if (!e.destination) return;
@@ -83,6 +120,8 @@ const UploadListDisplayer = (props) => {
         <ResourcesTable
           tracks={tracks}
           handleTrackTitleChange={handleTrackTitleChange}
+          handleAddFeat={handleAddTrackFeat}
+          handleDeleteFeat={handleDeleteTrackFeat}
           handleTrackFileNameChange={handleTrackFileNameChange}
           handleDeleteFile={handleDeleteTrack}
           handleDragEnd={handleDragEnd}
