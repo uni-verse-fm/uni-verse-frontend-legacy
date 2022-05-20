@@ -7,7 +7,7 @@ import { notify } from "../Notifications";
 export const PlaylistsModalHeader = ({ handleShowcreatePlaylistIndex }) => {
   return (
     <button
-      className="float-left ml-1 mt-1 "
+      className="float-left ml-4 mt-6 "
       onClick={handleShowcreatePlaylistIndex}
     >
       <h2 className="text-gry hover:text-wht hover:bg-segrn bg-blur-sm rounded-sm gb bg-grn bg-opacity-20 px-2  ">

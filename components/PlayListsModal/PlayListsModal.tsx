@@ -35,24 +35,6 @@ const PlaylistsModal = ({
   };
   const [connect] = useConnect();
 
-  const { mutate, isLoading } = useMutation("createPlaylist", createPlaylist, {
-    onError: (error) => {
-      notify("there was an error" + error, NotificationType.ERROR);
-    },
-    onSuccess: (res) => {
-      if (res.status !== 201) {
-        notify(res.data.message, NotificationType.ERROR);
-      } else {
-        setCreatePlaylistIndex(false);
-        console.log(createPlaylistIndex);
-        const message = "PlayList created successfully";
-        notify(message, NotificationType.SUCCESS);
-      }
-    },
-  });
-  {
-    /**  Si connection et Show modal Affichage de la liste des playlists  */
-  }
   return (
     connect && (
       <Modal

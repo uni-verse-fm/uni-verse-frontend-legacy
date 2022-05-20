@@ -40,9 +40,9 @@ const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex }) => {
 
   return (
     showForm && (
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center mt-4">
         <div>
-          <h1 className="text-xl font-bold not-italic text-grn -ml-36 mb-3">
+          <h1 className="text-xl font-bold not-italic text-grn  -ml-40 mb-3">
             Add a playList
           </h1>
         </div>
@@ -61,7 +61,7 @@ const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex }) => {
           }}
           render={({ values, errors, handleChange, handleBlur }) => {
             return (
-              <div className="bg-blk flex ml-6  w-full h-auto mr-10 mb-12 justify-center items-center  ">
+              <div className="bg-blk flex w-full h-auto mr-10 mb-12 justify-center items-center    ">
                 <Form className="flex flex-col justify-center items-center rounded bg-wht w-auto h-auto">
                   <div className="flex flex-col items-start p-6 w-72 h-auto">
                     <label className="mb-2 text-blck text-sm">

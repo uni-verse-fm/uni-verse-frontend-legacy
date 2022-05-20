@@ -1,16 +1,12 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPlay,
-  faClock,
-  faTrashCan,
-  faPen,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faClock } from "@fortawesome/free-solid-svg-icons";
 import { getPlaylistById } from "../../api/PlaylistAPI";
 import { useQuery } from "react-query";
 import Spinner from "../Spinner";
 import { Messages, urlImage } from "../../common/constants";
 import Image from "next/image";
+import { faTrashCan, faPen } from "@fortawesome/free-solid-svg-icons";
 
 import ConfirmDialog from "../../components/ConfirmDialog";
 import { useState } from "react";
@@ -28,31 +24,6 @@ const Playlist = ({ index, handleClosePlaylistContent }) => {
       return res.data;
     })
   );
-  
-  const [showForm, setShowForm] = useState(false);
-  const handleShowForm = () => setShowForm(true);
-  const handleCloseDialog = () => setShowForm(false);
-
-  const handleConfirmDelete = () => {
-    console.log(data._id);
-    mutate(data._id);
-    handleCloseDialog();
-    handleClosePlaylistContent();
-  };
-
-  const { mutate, isLoading } = useMutation("deletePlaylist", deletePlaylist, {
-    onError: (error) => {
-      notify("there was an error" + error, NotificationType.ERROR);
-    },
-    onSuccess: (res) => {
-      if (res.status !== 201) {
-        notify(res.data.message, NotificationType.ERROR);
-      } else {
-        const message = "PlayList deleted";
-        notify(message, NotificationType.SUCCESS);
-      }
-    },
-  });
 
   const [showForm, setShowForm] = useState(false);
   const handleShowForm = () => setShowForm(true);
