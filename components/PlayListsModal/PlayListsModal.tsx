@@ -7,32 +7,33 @@ import Modal from "../Modal";
 import { PlaylistModalHeader } from "../PlayList/PlaylistModalHeader";
 import { PlaylistsModalHeader } from "./PlaylistsModalHeader";
 import CreatePlayListForm from "../CreatePlayListForm";
+import { IPlaylist } from "../CreatePlayListForm/CreatePlayListForm";
+import UpdatePlayListForm from "../UpdatePlaylistForm";
 
-const PlaylistsModal = ({ showModal, handleCloseModal }) => {
+const PlaylistsModal = ({
+  showModal,
+  handleCloseModal,
+  createPlaylistIndex,
+  handleShowcreatePlaylistIndex,
+  handleHidecreatePlaylistIndex,
+}) => {
   {
     /** PlayLists Modal handle*/
   }
+
   const [playlistIndex, setPlaylistIndex] = useState(null);
-  const handleShowPlaylistContent = (index: number) => 
-  
-  {
+
+  const handleShowPlaylistContent = (index: number) => {
     console.log("index");
     console.log(index);
     setPlaylistIndex(index);
-  }
-  const handleHidePlaylistContent = () => setPlaylistIndex(null);
-  const [connect] = useConnect();
+  };
 
-  const [createPlaylistIndex, setCreatePlaylistIndex] = useState(false);
-  const handleShowcreatePlaylistIndex = () =>
-  {
-    console.log("I'm in handleShowcreatePlaylistIndex ");
-    console.log("createPlaylistIndex");
-    console.log(createPlaylistIndex);
-    setCreatePlaylistIndex(true);
-    console.log(createPlaylistIndex);
-  } 
-  const handleHidecreatePlaylistIndex = () => setCreatePlaylistIndex(false);
+  const handleHidePlaylistContent = () => {
+    console.log(playlistIndex);
+    setPlaylistIndex(null);
+  };
+  const [connect] = useConnect();
 
   return (
     connect && (
@@ -43,33 +44,40 @@ const PlaylistsModal = ({ showModal, handleCloseModal }) => {
           playlistIndex ? (
             <PlaylistModalHeader
               handleHidePlaylistContent={handleHidePlaylistContent}
-             
             />
           ) : (
             <PlaylistsModalHeader
-            handleShowcreatePlaylistIndex={handleShowcreatePlaylistIndex}/>
+              handleShowcreatePlaylistIndex={handleShowcreatePlaylistIndex}
+            />
           )
         }
       >
         {playlistIndex ? (
-            <Playlist index={playlistIndex} />
-          ) : (
-            <div className="w-full h-full">
-              {/** If createPlaylistIndex Affichage de create PlayList */}
-              {/** Else Affichage de Playlists */}
-              {createPlaylistIndex ? (
-                <CreatePlayListForm
-                  showForm={createPlaylistIndex}
-                  handleHidecreatePlaylistIndex={handleHidecreatePlaylistIndex}
-                />
-              ) : (
-                <Playlists
-                  handleShowPlaylistContent={handleShowPlaylistContent}
-                 
-                />
-              )}
-            </div>
-          )}
+          <div className="w-full h-full">
+            {/** If createPlaylistIndex (update) Affichage de update PlayList */}
+            {/** Else Affichage de PlaylistContent */}
+            <Playlist
+              index={playlistIndex}
+              handleClosePlaylistContent={handleHidePlaylistContent}
+            />
+            {/** )} */}
+          </div>
+        ) : (
+          <div className="w-full h-full">
+            {/** If createPlaylistIndex Affichage de create PlayList */}
+            {/** Else Affichage de Playlists */}
+            {createPlaylistIndex ? (
+              <CreatePlayListForm
+                showForm={createPlaylistIndex}
+                handleHidecreatePlaylistIndex={handleHidecreatePlaylistIndex}
+              />
+            ) : (
+              <Playlists
+                handleShowPlaylistContent={handleShowPlaylistContent}
+              />
+            )}
+          </div>
+        )}
       </Modal>
     )
   );
