@@ -15,13 +15,12 @@ const updateUser = (id, data) =>
 
 const deleteUser = () => (id) => axiosClient.delete(`${userEndpoint}/${id}`);
 
-const searchUsers =
-  (text: string, { signal }) =>
-    axiosClient
-      .get(`${userEndpoint}/search?search=${text}`, {
-        signal,
-      })
-      .then((res) => res.data);
+const searchUsers = (text: string, { signal }) =>
+  axiosClient
+    .get(`${userEndpoint}/search?search=${text}`, {
+      signal,
+    })
+    .then((res) => res.data);
 
 export {
   getUsers,

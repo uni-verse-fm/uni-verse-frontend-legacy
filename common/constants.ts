@@ -42,7 +42,7 @@ export const Messages = {
   PURCHASE_ERROR: "Sorry the purchase couldn't be done",
   DONATION_SUCCESS: "Thank you for your support",
   PURCHASE_SUCCESS: "Thank you for your purchase",
-  EMPTY_FUZZY_RESULT: "No results with those specifications"
+  EMPTY_FUZZY_RESULT: "No results with those specifications",
 };
 
 export enum Pages {

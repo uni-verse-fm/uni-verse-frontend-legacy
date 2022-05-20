@@ -5,8 +5,7 @@ const playlistEndpoint = Endoints.Playlists;
 
 const getPlaylists = () => axiosClient.get(playlistEndpoint);
 
-const createPlaylist = (data) =>
-  axiosClient.post(`${playlistEndpoint}`, data);
+const createPlaylist = (data) => axiosClient.post(`${playlistEndpoint}`, data);
 
 const getPlaylistByTitle = (title) =>
   axiosClient.get(`${playlistEndpoint}`, { params: { title } });

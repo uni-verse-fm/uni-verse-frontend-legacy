@@ -13,10 +13,7 @@ interface ResourcesTableProps {
     index: number
   ) => (event: any) => void;
   handleAddFeat: (track: ITrack, index: number) => (feat: IFeat) => void;
-  handleDeleteFeat: (
-    track: ITrack,
-    index: number
-  ) => (index: number) => void;
+  handleDeleteFeat: (track: ITrack, index: number) => (index: number) => void;
   handleTrackFileNameChange: (
     track: ITrack,
     index: number

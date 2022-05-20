@@ -1,8 +1,8 @@
 import { IFeat } from "../UploadListDisplayer/UploadListDisplayer";
 
 interface IUsersList {
-    data: IFeat[],
-    onClick: (item: IFeat) => void,
+  data: IFeat[];
+  onClick: (item: IFeat) => void;
 }
 
 const UsersList = (props?: IUsersList) => {
