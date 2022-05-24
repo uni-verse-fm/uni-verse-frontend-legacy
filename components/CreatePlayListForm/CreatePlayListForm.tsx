@@ -57,6 +57,7 @@ const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex }) => {
               .required(Messages.REQUIRED),
           })}
           onSubmit={(value) => {
+            console.log(value);
             mutate(value);
           }}
           render={({ values, errors, handleChange, handleBlur }) => {

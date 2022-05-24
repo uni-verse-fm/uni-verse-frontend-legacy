@@ -28,8 +28,6 @@ export interface IUpdatePayload {
 }
 
 export interface IUpdatePlaylistdata {
-  trackId: string;
-  action: string;
   title: string;
 }
 
@@ -87,19 +85,23 @@ const UpdatePlayListForm = ({
             console.log(dataToUpdate);
 
             let dataFormUpdate: IUpdatePlaylistdata = {
-              trackId: "",
-              action: "",
               title: dataToUpdate.title,
             };
 
             let dataForm: IUpdatePayload = {
               id: dataUpdate._id,
-              data: dataFormUpdate,
+              data: value,
             };
 
+
+            console.log("dataForm");
             console.log(dataForm);
-            //mutate(dataForm);
-            notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR);
+            console.log("dataForm.id");
+            console.log(dataForm.id);
+            console.log("dataForm.data" );
+            console.log(dataForm.data);
+            mutate(dataForm);
+            //notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR);
           }}
           render={({ values, errors, handleChange, handleBlur }) => {
             return (

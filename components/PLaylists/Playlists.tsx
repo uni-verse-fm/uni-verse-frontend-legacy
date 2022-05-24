@@ -34,8 +34,8 @@ const Playlists = ({ handleShowPlaylistContent }) => {
 
   return (
     <>
-      <div className="items-start mt-16 mb-5 ml-6 text-grn text-lg">
-        PlayLists
+      <div className="items-start mt-10 mb-5 ml-6 text-grn text-lg">
+        Playlists :
       </div>
       <div className={styles.wrapper}>
         {status === "loading" ? (
@@ -65,7 +65,7 @@ const Playlists = ({ handleShowPlaylistContent }) => {
           ) : (
             <div className="flex justify-center items-center mt-10 text-lg">
               <h1 className="text-grn whitespace-nowrap">
-                {Messages.EMPTY_PLAYLIST}
+                {Messages.EMPTY_PLAYLISTS}
               </h1>
             </div>
           )

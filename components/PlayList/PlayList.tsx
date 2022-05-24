@@ -53,6 +53,7 @@ const Playlist = ({ index, handleClosePlaylistContent }) => {
       }
     },
   });
+
   return (
     <div>
       <div className="Global bg-grey w-full h-full flex flex-col  ">
@@ -114,7 +115,7 @@ const Playlist = ({ index, handleClosePlaylistContent }) => {
                 )}
               </div>
             </div>
-
+            {data.length ? (
             <table className=" ml-10 mr-10 text-gry text-sm ">
               <thead>
                 <tr className="text-grn border-b mb-10">
@@ -147,6 +148,13 @@ const Playlist = ({ index, handleClosePlaylistContent }) => {
                 ))}
               </tbody>
             </table>
+              ) : (
+                    <div className="flex justify-center items-center mt-10 text-lg">
+                     <h1 className="text-grn whitespace-nowrap">
+                        {Messages.EMPTY_PLAYLIST}
+                          </h1>
+                        </div>
+                    )}
           </>
         )}
       </div>
