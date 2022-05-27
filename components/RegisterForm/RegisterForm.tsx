@@ -10,7 +10,7 @@ import router from "next/router";
 const imageProps = {
   src: undefined,
   defaultImageSrc: "https://i.ibb.co/CQ0sg7L/pxlprostudio190106201.jpg",
-  size: 100,
+  size: 40,
   fileExtensions: Extensions.image,
   setFieldValue: () => notify(Messages.NOT_IMPLEMENTED),
 };

@@ -19,12 +19,14 @@ const UploadImageDisplayer = (props) => {
 
   return (
     <>
-      <Image
-        src={image ? URL.createObjectURL(image) : props.defaultImageSrc}
-        width={props?.size || 250}
-        height={props?.size || 250}
-        className=" md:container md:mx-auto rounded"
-      />
+      <div
+        className={`md:container h-${props?.size || 60} w-${props?.size || 60}`}
+      >
+        <img
+          src={image ? URL.createObjectURL(image) : props.defaultImageSrc}
+          className={"md:mx-auto h-full rounded-lg"}
+        />
+      </div>
       <div className="text-center">
         <div className="flex justify-center mt-2">
           <div>

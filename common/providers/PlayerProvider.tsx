@@ -3,7 +3,7 @@ import { Track } from "../../components/Player/Player";
 import { playerReducer, PlayerActions } from "../reducers/player-reducer";
 
 type PlayerType = {
-  className: string;
+  className?: string;
   tracks: Track[];
   trackIndex?: number;
 };
