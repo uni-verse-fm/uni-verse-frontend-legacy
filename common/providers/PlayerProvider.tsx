@@ -1,9 +1,6 @@
 import React, { createContext, useReducer, Dispatch } from "react";
 import { Track } from "../../components/Player/Player";
-import {
-  playerReducer,
-  PlayerActions,
-} from "../reducers/player-reducer";
+import { playerReducer, PlayerActions } from "../reducers/player-reducer";
 
 type PlayerType = {
   className: string;
@@ -31,10 +28,7 @@ const PlayerContext = createContext<{
   dispatch: () => null,
 });
 
-const mainReducer = (
-  { player }: InitialStateType,
-  action: PlayerActions
-) => ({
+const mainReducer = ({ player }: InitialStateType, action: PlayerActions) => ({
   player: playerReducer(player, action),
 });
 

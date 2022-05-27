@@ -1,5 +1,4 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { boolean } from "yup/lib/locale";
 
 type ReaderTimeLineParams = {
   duration: number;
@@ -34,7 +33,6 @@ const ReaderTimeline = ({
 }: ReaderTimeLineParams) => {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [sliding, setSliding] = useState<boolean>(false);
-//   const [intDuration, setIntDuration] = useState(0);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSliding(true);
@@ -46,10 +44,6 @@ const ReaderTimeline = ({
     setSliding(false);
     onSlide(currentTime);
   };
-
-//   useEffect(() => {
-//     duration && setIntDuration(duration);
-//   }, [duration]);
 
   useEffect(() => {
     duration && setCurrentTime(Math.floor((100 * playerTime) / duration));

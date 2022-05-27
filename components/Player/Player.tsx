@@ -21,17 +21,10 @@ export const enum SourceType {
   Random,
 }
 
-type PlayerProps = {
-  className?: string;
-  tracksList: Track[];
-  trackIndex?: number;
-};
-
 const source = "http://localhost:9000/tracks/";
 
-// const Player = ({ className, tracksList, trackIndex }: PlayerProps) => {
 const Player = () => {
-  const { state, dispatch } = useContext(PlayerContext);
+  const { state } = useContext(PlayerContext);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(
     state.player.trackIndex || 0
   );

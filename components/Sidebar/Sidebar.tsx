@@ -45,7 +45,7 @@ const Sidebar = ({ handleShowModal }) => {
             payload: {
               tracks: res?.tracks || [],
               className: "mt-auto",
-              trackIndex: 0
+              trackIndex: 0,
             },
           });
         }

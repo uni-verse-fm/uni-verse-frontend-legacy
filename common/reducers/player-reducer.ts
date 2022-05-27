@@ -48,10 +48,7 @@ type PlayerPayload = {
 export type PlayerActions =
   ActionMap<PlayerPayload>[keyof ActionMap<PlayerPayload>];
 
-export const playerReducer = (
-  state: PlayerType,
-  action: PlayerActions 
-) => {
+export const playerReducer = (state: PlayerType, action: PlayerActions) => {
   switch (action.type) {
     case Types.PlaylistPlay:
       return action.payload;
