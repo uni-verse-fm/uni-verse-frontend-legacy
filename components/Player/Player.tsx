@@ -28,7 +28,7 @@ const Player = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(
     state.player.trackIndex || 0
   );
-  const track = useRef(new Audio(""));
+  const track = useRef(typeof Audio !== "undefined" && new Audio(""));
   const [playing, setPlaying] = useState<boolean>(false);
   const [time, setTime] = useState<number>(0);
 
