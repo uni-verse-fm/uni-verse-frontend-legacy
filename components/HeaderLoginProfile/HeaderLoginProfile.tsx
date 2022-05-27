@@ -8,11 +8,10 @@ import UserDropDown from "./UserDropDown";
 
 const HeaderLoginProfile = () => {
   const [connect, setConnect] = useConnect();
-  const { status, data } = useQuery(
-    "me",
-    () => me().then((res) => res.data),
-    reactQueryResponseHandler(setConnect)
-  );
+  const { status, data } = useQuery("me", () => me().then((res) => res.data), {
+    enabled: Boolean(connect),
+    ...reactQueryResponseHandler(setConnect),
+  });
 
   return connect ? (
     <UserDropDown user={data} />

@@ -1,5 +1,5 @@
 import { Messages, Pages } from "../../common/constants";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   faHome,
   faList,
@@ -11,10 +11,47 @@ import SideMenuEntry from "./SideMenuEntry";
 import { NotificationType, notify } from "../Notifications";
 import Player from "../Player";
 import useConnect from "../../common/providers/ConnectProvider";
+import { getReleaseById } from "../../api/ReleaseAPI";
+import { useQuery } from "react-query";
+import { PlayerContext } from "../../common/providers/PlayerProvider";
+import { AxiosError } from "axios";
+import { UniVerseError } from "../UploadReleaseForm/UploadReleaseForm";
+import { Types } from "../../common/reducers/player-reducer";
+
+const releaseExample = "6290280ed7c7f7dedd333b8d";
 
 const Sidebar = ({ handleShowModal }) => {
+  // this is an example that should be removed
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const { state, dispatch } = useContext(PlayerContext);
   const [connect] = useConnect();
+  const { status, data } = useQuery(
+    "release",
+    () => getReleaseById(releaseExample).then((res) => res.data),
+    {
+      onError: (error: AxiosError) => {
+        const errorMessage: UniVerseError = error.response.data;
+        notify(
+          `Can't upload release: ${errorMessage.message}`,
+          NotificationType.ERROR
+        );
+      },
+      onSuccess: (res) => {
+        if (!res) {
+          notify("can't read you music", NotificationType.ERROR);
+        } else {
+          dispatch({
+            type: Types.ReleasePlay,
+            payload: {
+              tracks: res?.tracks || [],
+              className: "mt-auto",
+              trackIndex: 0,
+            },
+          });
+        }
+      },
+    }
+  );
 
   return (
     <>
@@ -59,7 +96,11 @@ const Sidebar = ({ handleShowModal }) => {
             </>
           )}
         </div>
-        <Player className="mt-auto" />
+        <Player
+        //   className="mt-auto"
+        //   tracksList={status === "success" && data.tracks}
+        //   trackIndex={0}
+        />
       </div>
       {/* <div
         className={`w-64 z-40 h-screen absolute bg-gray-800 shadow flex-col sm:hidden transition duration-150 ease-in-out ${
