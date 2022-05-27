@@ -61,4 +61,5 @@ export enum Endoints {
   Playlists = "/playlists",
   Comments = "/comments",
   Payments = "/payments",
+  Tracks = "/tracks",
 }
