@@ -22,6 +22,13 @@ const updateRelease = (id, data) =>
 
 const deleteRelease = (id) => axiosClient.delete(`${releaseEndpoint}/${id}`);
 
+const searchRelease = (text: string, { signal }) =>
+  axiosClient
+    .get(`${releaseEndpoint}/search?search=${text}`, {
+      signal,
+    })
+    .then((res) => res.data);
+
 export {
   createRelease,
   getReleases,
@@ -29,4 +36,5 @@ export {
   getReleaseById,
   updateRelease,
   deleteRelease,
+  searchRelease,
 };

@@ -19,28 +19,28 @@ export enum Types {
 }
 
 type PlayerType = {
-  className: string;
+  className?: string;
   tracks: Track[];
   trackIndex?: number;
 };
 
 type PlayerPayload = {
   [Types.PlaylistPlay]: {
-    className: string;
+    className?: string;
     tracks: Track[];
     trackIndex: number;
   };
   [Types.ReleasePlay]: {
-    className: string;
+    className?: string;
     tracks: Track[];
     trackIndex: number;
   };
   [Types.TrackPlay]: {
-    className: string;
+    className?: string;
     track: Track;
   };
   [Types.RandomPlay]: {
-    className: string;
+    className?: string;
     tracks: Track[];
   };
 };
@@ -51,17 +51,26 @@ export type PlayerActions =
 export const playerReducer = (state: PlayerType, action: PlayerActions) => {
   switch (action.type) {
     case Types.PlaylistPlay:
-      return action.payload;
+      return {
+        ...action.payload,
+        className: action.payload.className || "mt-auto",
+        trackIndex: action.payload.trackIndex || 0,
+      };
     case Types.ReleasePlay:
-      return action.payload;
+      return {
+        ...action.payload,
+        className: action.payload.className || "mt-auto",
+        trackIndex: action.payload.trackIndex || 0,
+      };
     case Types.TrackPlay:
       return {
-        className: action.payload.className,
+        className: action.payload.className || "mt-auto",
         tracks: [action.payload.track],
+        trackIndex: 0,
       };
     case Types.RandomPlay:
       return {
-        className: action.payload.className,
+        className: action.payload.className || "mt-auto",
         tracks: action.payload.tracks,
       };
     default:

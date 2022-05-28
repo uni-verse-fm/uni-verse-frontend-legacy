@@ -47,7 +47,7 @@ const ReaderTimeline = ({
 
   useEffect(() => {
     duration && setCurrentTime(Math.floor((100 * playerTime) / duration));
-  }, [playerTime]);
+  }, [playerTime, duration]);
 
   return (
     <div className="w-full mx-auto bg-gry px-2 flex content-center items-center">

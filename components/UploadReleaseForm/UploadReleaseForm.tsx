@@ -112,7 +112,7 @@ const UploadReleaseForm = ({ me }) => {
           <Form>
             <div className="flex flex-row justify-between m-16">
               <div className="basis-1/3 mr-4 mt-4">
-                <div className="rounded grid place-content-center text-center">
+                <div className="rounded text-center">
                   <Field
                     name="image"
                     component={UploadImageDisplayer}

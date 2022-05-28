@@ -28,7 +28,7 @@ const Player = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(
     state.player.trackIndex || 0
   );
-  const track = useRef(null);
+  const track = useRef(typeof Audio !== "undefined" && new Audio(""));
   const [playing, setPlaying] = useState<boolean>(false);
   const [time, setTime] = useState<number>(0);
 
@@ -44,10 +44,12 @@ const Player = () => {
 
   const onTracksChange = (newTracks) => {
     setTracks(newTracks);
-    track.current = new Audio(
-      source + newTracks[state.player.trackIndex].fileName
-    );
+    track.current?.pause();
+    const newUrl = source + newTracks[state.player.trackIndex].fileName;
+    track.current.src = newUrl;
     track.current.load();
+    track.current.play();
+    setPlaying(true);
   };
 
   useEffect(() => {
@@ -73,7 +75,7 @@ const Player = () => {
     if (track.current?.src) {
       playing ? track.current.pause() : track.current.play();
       setPlaying(!playing);
-    }
+    } else setPlaying(false);
   };
 
   const next = () => {

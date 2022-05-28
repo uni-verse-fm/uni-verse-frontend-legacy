@@ -5,7 +5,6 @@ import { useQuery } from "react-query";
 import { me } from "../api/AuthAPI";
 import { Messages, Pages } from "../common/constants";
 import { NotificationType, notify } from "../components/Notifications";
-import UploadReleaseForm from "../components/UploadReleaseForm";
 
 export default function UploadResourcePackPage() {
   const { status, data } = useQuery("me", () => me().then((res) => res.data), {

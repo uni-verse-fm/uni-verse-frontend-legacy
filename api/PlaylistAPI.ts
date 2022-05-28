@@ -17,6 +17,13 @@ const updatePlaylist = (id, data) =>
 
 const deletePlaylist = (id) => axiosClient.delete(`${playlistEndpoint}/${id}`);
 
+const searchPlaylist = (text: string, { signal }) =>
+  axiosClient
+    .get(`${playlistEndpoint}/search?search=${text}`, {
+      signal,
+    })
+    .then((res) => res.data);
+
 export {
   createPlaylist,
   getPlaylists,
@@ -24,4 +31,5 @@ export {
   getPlaylistById,
   updatePlaylist,
   deletePlaylist,
+  searchPlaylist,
 };
