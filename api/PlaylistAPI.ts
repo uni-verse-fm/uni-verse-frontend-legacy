@@ -16,8 +16,6 @@ const getPlaylistById = (id) => axiosClient.get(`${playlistEndpoint}/${id}`);
 const updatePlaylist = (param: IUpdatePayload) =>
   axiosClient.patch(`${playlistEndpoint}/${param.id}`, param.data);
 
-  
-
 const deletePlaylist = (id: String) =>
   axiosClient.delete(`${playlistEndpoint}/${id}`);
 

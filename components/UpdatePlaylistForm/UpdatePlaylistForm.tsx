@@ -93,15 +93,13 @@ const UpdatePlayListForm = ({
               data: value,
             };
 
-
             console.log("dataForm");
             console.log(dataForm);
             console.log("dataForm.id");
             console.log(dataForm.id);
-            console.log("dataForm.data" );
+            console.log("dataForm.data");
             console.log(dataForm.data);
             mutate(dataForm);
-            //notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR);
           }}
           render={({ values, errors, handleChange, handleBlur }) => {
             return (
@@ -125,12 +123,12 @@ const UpdatePlayListForm = ({
 
                   <div className="flex flex-row items-start w-72 h-auto">
                     <input
-                      className="mb-4 ml-6 rounded bg-grn font-normal cursor-pointer h-8 w-32 text-wht"
+                      className="mb-4 ml-6 rounded bg-grn font-normal cursor-pointer h-7 w-32 text-wht"
                       type="submit"
                       value="Save"
                     ></input>
                     <button
-                      className="mb-4 ml-4 mr-6 rounded-sm bg-grn font-normal cursor-pointer h-8 w-32 text-wht"
+                      className="mb-4 ml-4 mr-6 rounded-sm bg-grn font-normal cursor-pointer h-7 w-32 text-wht"
                       onClick={handleHidecreatePlaylistIndex}
                     >
                       Cancel

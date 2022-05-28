@@ -85,12 +85,12 @@ const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex }) => {
 
                   <div className="flex flex-row items-start w-72 h-auto">
                     <input
-                      className="mb-4 ml-6 rounded-sm bg-grn font-normal cursor-pointer h-8 w-32 text-wht"
+                      className="mb-4 ml-6 rounded-sm bg-grn font-normal cursor-pointer h-7 w-32 text-wht"
                       type="submit"
                       value="Save"
                     ></input>
                     <button
-                      className="mb-4 ml-4 mr-6 rounded-sm bg-grn font-normal cursor-pointer h-8 w-32 text-wht"
+                      className="mb-4 ml-4 mr-6 rounded-sm bg-grn font-normal cursor-pointer h-7 w-32 text-wht"
                       onClick={handleHidecreatePlaylistIndex}
                     >
                       Cancel

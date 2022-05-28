@@ -8,7 +8,6 @@ import { Messages, urlImage } from "../../common/constants";
 import Image from "next/image";
 import { faTrashCan, faPen } from "@fortawesome/free-solid-svg-icons";
 
-import ConfirmDialog from "../../components/ConfirmDialog";
 import { useState } from "react";
 import * as Yup from "yup";
 import { useMutation } from "react-query";
@@ -16,6 +15,8 @@ import { deletePlaylist } from "../../api/PlaylistAPI";
 import useConnect from "../../common/providers/ConnectProvider";
 import { notify, NotificationType } from "../Notifications";
 import UpdatePlayListForm from "../UpdatePlaylistForm";
+import Modal from "../Modal";
+import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
 
 const Playlist = ({ index, handleClosePlaylistContent }) => {
   const { status, data } = useQuery("playlist", () =>
@@ -57,12 +58,6 @@ const Playlist = ({ index, handleClosePlaylistContent }) => {
   return (
     <div>
       <div className="Global bg-grey w-full h-full flex flex-col  ">
-        <ConfirmDialog
-          showForm={showForm}
-          handleDialogClose={handleCloseDialog}
-          msg="Delete Playlist"
-          handleConfirm={handleConfirmDelete}
-        />
         {status === "loading" ? (
           <div className="flex justify-center items-center mt-10">
             <Spinner />
@@ -116,47 +111,58 @@ const Playlist = ({ index, handleClosePlaylistContent }) => {
               </div>
             </div>
             {data.length ? (
-            <table className=" ml-10 mr-10 text-gry text-sm ">
-              <thead>
-                <tr className="text-grn border-b mb-10">
-                  <td className="py-3"></td>
-                  <td className="py-3">Name</td>
-                  <td className="py-3">Album</td>
-                  <td className="py-3">Creation date</td>
-                  <td className="py-3">
-                    <FontAwesomeIcon className="ml-5 text-grn" icon={faClock} />
-                  </td>
-                </tr>
-              </thead>
-              <tbody>
-                {data.tracks.map((item) => (
-                  <tr
-                    key={item.name}
-                    className="h-10 cursor-pointer hover:text-wht hover:border-b hover:border-t"
-                  >
-                    <td>
+              <table className=" ml-10 mr-10 text-gry text-sm ">
+                <thead>
+                  <tr className="text-grn border-b mb-10">
+                    <td className="py-3"></td>
+                    <td className="py-3">Name</td>
+                    <td className="py-3">Album</td>
+                    <td className="py-3">Creation date</td>
+                    <td className="py-3">
                       <FontAwesomeIcon
-                        className=" cursor-pointer hover:scale-[1.40] text-grn"
-                        icon={faPlay}
+                        className="ml-5 text-grn"
+                        icon={faClock}
                       />
                     </td>
-                    <td>{item.name}</td>
-                    <td>Album 1</td>
-                    <td>{item.createdate}</td>
-                    <td>{item.duration}</td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-              ) : (
-                    <div className="flex justify-center items-center mt-10 text-lg">
-                     <h1 className="text-grn whitespace-nowrap">
-                        {Messages.EMPTY_PLAYLIST}
-                          </h1>
-                        </div>
-                    )}
+                </thead>
+                <tbody>
+                  {data.tracks.map((item) => (
+                    <tr
+                      key={item.name}
+                      className="h-10 cursor-pointer hover:text-wht hover:border-b hover:border-t"
+                    >
+                      <td>
+                        <FontAwesomeIcon
+                          className=" cursor-pointer hover:scale-[1.40] text-grn"
+                          icon={faPlay}
+                        />
+                      </td>
+                      <td>{item.name}</td>
+                      <td>Album 1</td>
+                      <td>{item.createdate}</td>
+                      <td>{item.duration}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <div className="flex justify-center items-center mt-10 text-lg">
+                <h1 className="text-grn whitespace-nowrap">
+                  {Messages.EMPTY_PLAYLIST}
+                </h1>
+              </div>
+            )}
           </>
         )}
+
+        <ConfirmDialogDelete
+          small={true}
+          showModal={showForm}
+          handleCloseDialog={handleCloseDialog}
+          handleConfirmDelete={handleConfirmDelete}
+          msg="Delete Playlist"
+        />
       </div>
     </div>
   );
