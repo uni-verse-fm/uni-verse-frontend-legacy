@@ -7,7 +7,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect, useRef, useState } from "react";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
-import { ITrack } from "../UploadListDisplayer/UploadListDisplayer";
+import { ITrack } from "../UploadTracksListDisplayer/UploadTracksListDisplayer";
 import DefilingText from "./DefilingText";
 import ReaderTimeline from "./ReaderTimeline";
 

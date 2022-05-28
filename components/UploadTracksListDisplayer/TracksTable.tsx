@@ -4,9 +4,9 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { InputFeats } from "./InputFeats";
 import { InputFileName } from "./InputFileName";
 import { InputTitle } from "./InputTitle";
-import { IFeat, ITrack } from "./UploadListDisplayer";
+import { IFeat, ITrack } from "./UploadTracksListDisplayer";
 
-interface ResourcesTableProps {
+interface TracksTableProps {
   tracks: ITrack[];
   handleTrackTitleChange: (
     track: ITrack,
@@ -21,7 +21,7 @@ interface ResourcesTableProps {
   handleDeleteFile: (index: number) => () => void;
   handleDragEnd;
 }
-export const ResourcesTable = (props: ResourcesTableProps) => (
+export const TracksTable = (props: TracksTableProps) => (
   <DragDropContext onDragEnd={props.handleDragEnd}>
     <table className="text-gry text-sm">
       <thead>

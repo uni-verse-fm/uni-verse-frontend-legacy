@@ -1,7 +1,7 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { ResourcesTable } from "./ResourcesTable";
+import { TracksTable } from "./TracksTable";
 
 export interface ITrack {
   file: File;
@@ -15,7 +15,7 @@ export interface IFeat {
   email: string;
 }
 
-const UploadListDisplayer = (props) => {
+const UploadTracksListDisplayer = (props) => {
   const [tracks, setTracks] = useState<ITrack[]>([]);
 
   const handleDeleteTrack = (index: number) => {
@@ -117,7 +117,7 @@ const UploadListDisplayer = (props) => {
   return (
     <>
       {tracks.length ? (
-        <ResourcesTable
+        <TracksTable
           tracks={tracks}
           handleTrackTitleChange={handleTrackTitleChange}
           handleAddFeat={handleAddTrackFeat}
@@ -140,8 +140,8 @@ const UploadListDisplayer = (props) => {
           />
         </span>
         <input
-          id="file"
-          name="file-upload"
+          id="track-file"
+          name="track-file-upload"
           type="file"
           accept={props.fileExtensions.accept}
           style={{ display: "none" }}
@@ -154,4 +154,4 @@ const UploadListDisplayer = (props) => {
   );
 };
 
-export default UploadListDisplayer;
+export default UploadTracksListDisplayer;
