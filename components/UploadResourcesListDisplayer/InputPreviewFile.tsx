@@ -20,9 +20,7 @@ export const InputPreviewFile = (props) => {
   return (
     <div className="flex justify-center">
       {previewFile && (
-        <div className="text-md group text-white px-2">
-          {previewFile?.name}
-        </div>
+        <div className="text-md group text-white px-2">{previewFile?.name}</div>
       )}
       <div>
         <label

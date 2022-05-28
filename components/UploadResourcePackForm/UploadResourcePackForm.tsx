@@ -21,9 +21,9 @@ export interface ICreateRelease {
   title: string;
   description: string;
   resources: IResource[];
-  image: File,
-  accessType: AccessType,
-  amount?: number,
+  image: File;
+  accessType: AccessType;
+  amount?: number;
 }
 
 const enum AccessType {
@@ -61,18 +61,17 @@ const UploadResourcePackForm = ({ me }) => {
   );
 
   const initialValues: ICreateRelease = {
-      title: "",
-      description: "",
-      resources: [],
-      image: null,
-      accessType: AccessType.Free,
-      amount: 0,
+    title: "",
+    description: "",
+    resources: [],
+    image: null,
+    accessType: AccessType.Free,
+    amount: 0,
   };
 
   return (
     <Formik
       initialValues={initialValues}
-      
       validationSchema={Yup.object().shape({
         title: Yup.string()
           .max(15, Messages.TITLE)
@@ -81,15 +80,14 @@ const UploadResourcePackForm = ({ me }) => {
         description: Yup.string()
           .max(255, Messages.DESCRIPTION)
           .required(Messages.REQUIRED),
-        accessType: Yup.string(),
+        accessType: Yup.string().required(Messages.REQUIRED),
         amount: Yup.number().test(
           "resourceFileSize",
           "The amount should be bigger than 0",
-          (value) => {
-            return (
-              Yup.ref("accessType").getValue.toString() !== AccessType.Free &&
-              value >= 1
-            );
+          (value, ctx) => {
+            return ctx.parent.accessType === AccessType.Free
+              ? true
+              : value >= 1;
           }
         ),
         resources: Yup.mixed()
@@ -142,10 +140,12 @@ const UploadResourcePackForm = ({ me }) => {
         const data = {
           title: value.title,
           description: value.description,
+          accessType: value.accessType,
+          amount: value.amount,
           resources: value.resources.map((resource) => ({
             title: resource.title,
             originalFileName: resource.file.name,
-            previwFileName: resource.previewFile.name,
+            previewFileName: resource.previewFile?.name,
             author: me._id,
           })),
         };
@@ -153,9 +153,8 @@ const UploadResourcePackForm = ({ me }) => {
         bodyFormData.append("data", JSON.stringify(data).replace(/ /g, ""));
         value.resources.forEach((resource) => {
           bodyFormData.append("resources", resource.file, resource.file.name);
-          resource.previewFile 
-        }
-        );
+          resource.previewFile;
+        });
         value.resources.forEach(
           (resource: IResource) =>
             resource.previewFile &&

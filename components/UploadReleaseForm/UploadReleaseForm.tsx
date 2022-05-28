@@ -13,7 +13,9 @@ import {
 } from "../../common/constants";
 import { NotificationType, notify } from "../Notifications";
 import UploadImageDisplayer from "../UploadImageDisplayer";
-import UploadTracksListDisplayer, { ITrack } from "../UploadTracksListDisplayer/UploadTracksListDisplayer";
+import UploadTracksListDisplayer, {
+  ITrack,
+} from "../UploadTracksListDisplayer/UploadTracksListDisplayer";
 
 export interface ICreateRelease {
   title: string;
