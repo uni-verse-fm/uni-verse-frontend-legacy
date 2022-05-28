@@ -9,7 +9,7 @@ import useConnect from "../../common/providers/ConnectProvider";
 import Modal from "../Modal";
 import Spinner from "../Spinner";
 import UsersList from "../UsersList";
-import { IFeat, ITrack } from "./UploadListDisplayer";
+import { IFeat, ITrack } from "./UploadTracksListDisplayer";
 
 const SearchBar = ({ onChange }) => {
   return (

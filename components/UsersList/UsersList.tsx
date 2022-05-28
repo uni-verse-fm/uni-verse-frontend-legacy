@@ -1,4 +1,4 @@
-import { IFeat } from "../UploadListDisplayer/UploadListDisplayer";
+import { IFeat } from "../UploadTracksListDisplayer/UploadTracksListDisplayer";
 
 interface IUsersList {
   data: IFeat[];
