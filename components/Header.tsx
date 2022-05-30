@@ -1,11 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHandHoldingDollar,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
+import { faHandHoldingDollar } from "@fortawesome/free-solid-svg-icons";
 import HeaderLoginProfile from "./HeaderLoginProfile";
 import Image from "next/image";
 import useConnect from "../common/providers/ConnectProvider";
+import SearchBar from "./SearchBar";
 
 const Header = ({ handleShowModal }) => {
   const [connect] = useConnect();
@@ -20,15 +18,8 @@ const Header = ({ handleShowModal }) => {
           height={60}
         />
       </div>
-      <div className="mr-auto mt-auto mb-auto ml-auto flex xs:w-max w-full col-start-3 col-end-5">
-        <div className="h-8 my-auto p-1 pl-2 bg-grn rounded-l-full">
-          <FontAwesomeIcon icon={faSearch} className="text-white h-full" />
-        </div>
-        <input
-          type="text"
-          placeholder="Search"
-          className="w-full h-8 px-4 rounded-r-full text-black my-auto bg-white focus:ring-1 focus:ring-grn focus:outline-none focus:border-sky-500"
-        />
+      <div className="w-full col-start-3 col-end-5">
+        <SearchBar />
       </div>
       <div className="flex flex-row-reverse col-start-6 col-end-7">
         <HeaderLoginProfile />

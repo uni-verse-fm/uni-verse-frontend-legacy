@@ -1,52 +1,34 @@
-import { AxiosError } from "axios";
-import router from "next/router";
 import React from "react";
 import { useQuery } from "react-query";
+import { reactQueryResponseHandler } from "../api/APIUtils";
 import { me } from "../api/AuthAPI";
-import { Messages, Pages } from "../common/constants";
-import { NotificationType, notify } from "../components/Notifications";
-import UploadReleaseForm from "../components/UploadReleaseForm";
+import { Messages } from "../common/constants";
+import useConnect from "../common/providers/ConnectProvider";
+import Spinner from "../components/Spinner";
+import UploadResourcePackForm from "../components/UploadResourcePackForm";
 
 export default function UploadResourcePackPage() {
-  const { status, data } = useQuery("me", () => me().then((res) => res.data), {
-    onSuccess: (res) => {
-      if (res.status === 401) {
-        notify("Playlists bay from success");
-        router.replace(`/${Pages.Login}`);
-      }
-    },
-    onError: (error: AxiosError) => {
-      if (error.response.status === 401) {
-        notify(Messages.UNAUTHORIZED, NotificationType.ERROR);
-        router.replace(`/${Pages.Login}`);
-      }
-    },
-  });
-
+  const [connect, setConnect] = useConnect();
+  const { status, data } = useQuery(
+    "me",
+    () => me().then((res) => res.data),
+    reactQueryResponseHandler(setConnect)
+  );
   return (
     <div className="bg-drk w-full h-full flex flex-col">
-      <div className="w-full">{/* <UploadReleaseForm /> */}</div>
+      <div className="w-full">
+        {status === "error" ? (
+          <div className="flex justify-center items-center mt-10">
+            <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
+          </div>
+        ) : status === "loading" ? (
+          <div className="flex justify-center items-center mt-10">
+            <Spinner />
+          </div>
+        ) : (
+          <UploadResourcePackForm me={data} />
+        )}
+      </div>
     </div>
   );
 }
-
-// export async function getServerSideProps() {
-//   const response = await me();
-//   if (response.status === 401) {
-//     return {
-//       redirect: {
-//         permanent: false,
-//         destination: "/login",
-//       },
-//     };
-//   }
-//   if (response.status === 404) {
-//     return {
-//       redirect: {
-//         permanent: false,
-//         destination: "/404",
-//       },
-//     };
-//   }
-//   return { props: { data: response.data } };
-// }

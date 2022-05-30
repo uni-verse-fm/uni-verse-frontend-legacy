@@ -1,3 +1,3 @@
-import Player from "./Index";
+import Player from "./Player";
 
 export default Player;

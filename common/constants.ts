@@ -1,5 +1,5 @@
-export const MAX_FILE_SIZE = 2000000000;
-export const MAX_IMAGE_SIZE = 2000000000;
+export const MAX_FILE_SIZE = 3_000_000;
+export const MAX_IMAGE_SIZE = 3_000_000;
 
 export const BASE_API = "http://localhost:3000";
 
@@ -63,4 +63,5 @@ export enum Endoints {
   Playlists = "/playlists",
   Comments = "/comments",
   Payments = "/payments",
+  Tracks = "/tracks",
 }

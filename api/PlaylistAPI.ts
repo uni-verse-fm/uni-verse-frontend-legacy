@@ -19,6 +19,13 @@ const updatePlaylist = (param: IUpdatePayload) =>
 const deletePlaylist = (id: String) =>
   axiosClient.delete(`${playlistEndpoint}/${id}`);
 
+const searchPlaylist = (text: string, { signal }) =>
+  axiosClient
+    .get(`${playlistEndpoint}/search?search=${text}`, {
+      signal,
+    })
+    .then((res) => res.data);
+
 export {
   createPlaylist,
   getPlaylists,
@@ -26,4 +33,5 @@ export {
   getPlaylistById,
   updatePlaylist,
   deletePlaylist,
+  searchPlaylist,
 };

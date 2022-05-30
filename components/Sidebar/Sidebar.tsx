@@ -43,9 +43,6 @@ const Sidebar = ({ handleShowModal }) => {
               />
               <SideMenuEntry
                 icon={faFileWaveform}
-                onClick={(_: any) =>
-                  notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
-                }
                 pageName={Pages.UploadResourcePack}
                 title="Upload sample or preset"
               />
@@ -59,7 +56,7 @@ const Sidebar = ({ handleShowModal }) => {
             </>
           )}
         </div>
-        <Player className="mt-auto" />
+        <Player />
       </div>
       {/* <div
         className={`w-64 z-40 h-screen absolute bg-gray-800 shadow flex-col sm:hidden transition duration-150 ease-in-out ${

@@ -13,8 +13,9 @@ import {
 } from "../../common/constants";
 import { NotificationType, notify } from "../Notifications";
 import UploadImageDisplayer from "../UploadImageDisplayer";
-import UploadListDisplayer from "../UploadListDisplayer";
-import { ITrack } from "../UploadListDisplayer/UploadListDisplayer";
+import UploadTracksListDisplayer, {
+  ITrack,
+} from "../UploadTracksListDisplayer/UploadTracksListDisplayer";
 
 export interface ICreateRelease {
   title: string;
@@ -112,7 +113,7 @@ const UploadReleaseForm = ({ me }) => {
           <Form>
             <div className="flex flex-row justify-between m-16">
               <div className="basis-1/3 mr-4 mt-4">
-                <div className="rounded grid place-content-center text-center">
+                <div className="rounded text-center">
                   <Field
                     name="image"
                     component={UploadImageDisplayer}
@@ -170,7 +171,7 @@ const UploadReleaseForm = ({ me }) => {
                 <div className="border-2 border-grn rounded h-full grid grid-cols-1 content-center basis-1/2 mr-2 text-center">
                   <Field
                     name="tracks"
-                    component={UploadListDisplayer}
+                    component={UploadTracksListDisplayer}
                     id="audio"
                     title="Track"
                     icon={faFileAudio}

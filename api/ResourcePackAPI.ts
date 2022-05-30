@@ -4,7 +4,11 @@ import axiosClient from "./apiClient";
 const resourcePackEndpoint = Endoints.ResourcePacks;
 
 const createResourcePack = (data) =>
-  axiosClient.post(`${resourcePackEndpoint}`, JSON.stringify(data));
+  axiosClient.post(`${resourcePackEndpoint}`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
 const getResourcePacks = () => axiosClient.get(resourcePackEndpoint);
 

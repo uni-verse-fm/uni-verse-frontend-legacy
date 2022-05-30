@@ -2,7 +2,7 @@ import { CardElement } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { IPurchase } from "../../api/PaymentAPI";
 import useConnect from "../../common/providers/ConnectProvider";
-import Counter from "./Counter";
+import Counter from "../Counter";
 import usePaymentForm from "./usePaymentForm";
 
 export enum PaymentType {
@@ -40,7 +40,10 @@ const PaymentForm = ({ paymentType, data }: ICharge) => {
   return (
     <form onSubmit={handleSubmit}>
       {paymentType === PaymentType.Donation && (
-        <Counter amount={donationAmount} setAmount={setDonationAmount} />
+        <div className="flex items-center">
+          <Counter amount={donationAmount} setAmount={setDonationAmount} />
+          <span className="ml-2 text-grn">Choose the amount to donate</span>
+        </div>
       )}
       <div className="flex">
         <div className="border-2 rounded-md border-grn p-2 w-full">
