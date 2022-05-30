@@ -52,6 +52,7 @@ export enum Pages {
   UploadResourcePack = "UploadResourcePack",
   Login = "Login",
   SignUp = "SignUp",
+  Profile= "Profile"
 }
 
 export enum Endoints {
