@@ -18,6 +18,7 @@ function Playlists  () {
         <Playlist
               index={id}
               handleClosePlaylistContent="{handleClosePlaylistContent}"
+              enableChange = "false"
             />
       </div>
     </div>

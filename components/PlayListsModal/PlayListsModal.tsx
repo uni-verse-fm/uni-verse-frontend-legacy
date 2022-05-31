@@ -59,6 +59,7 @@ const PlaylistsModal = ({
             <Playlist
               index={playlistIndex}
               handleClosePlaylistContent={handleHidePlaylistContent}
+              enableChange="true"
             />
             {/** )} */}
           </div>

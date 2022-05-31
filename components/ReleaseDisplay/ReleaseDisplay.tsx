@@ -18,7 +18,7 @@ import UpdatePlayListForm from "../UpdatePlaylistForm";
 import Modal from "../Modal";
 import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
 
-const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
+const ReleaseDisplay = ({ index, handleClosePlaylistContent, enableChange }) => {
   const { status, data } = useQuery("playlist", () =>
     getPlaylistById(index).then((res) => {
       console.log("PlayListSelected");
@@ -186,4 +186,4 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
     </div>
   );
 };
-export default Playlist;
+export default ReleaseDisplay;
