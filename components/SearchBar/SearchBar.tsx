@@ -10,6 +10,10 @@ import { searchUsers } from "../../api/UserAPI";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
 import { Types } from "../../common/reducers/player-reducer";
 import { Track } from "../Player/Player";
+import router from "next/router";
+
+
+import { Extensions, Messages, Pages } from "../../common/constants";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -82,6 +86,17 @@ const SearchBar = () => {
       },
     });
   };
+
+  const onClickDisplayPlaylist = (playlist) => () => {
+
+    router.push({
+      pathname: `/${Pages.Playlists}`,
+      query: { id: playlist._id },
+    })
+  };
+
+
+  
 
   return (
     <>
@@ -163,7 +178,7 @@ const SearchBar = () => {
             <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
               {taskQuery.status === "success" &&
                 taskQuery.data.map((track, index) => (
-                  <li key={"track-" + index} value={track}>
+                  <li key={"track-" + index} value={track}  >
                     <div className="hover:bg-grn hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
                       {`${track.author.username} - ${
                         track.title
@@ -201,8 +216,8 @@ const SearchBar = () => {
             <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
               {playlistQuery.status === "success" &&
                 playlistQuery.data.map((playlist, index) => (
-                  <li key={"playlist-" + index} value={playlist}>
-                    <div className="hover:bg-grn hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
+                  <li key={"playlist-" + index} value={playlist} >
+                    <div onClick={onClickDisplayPlaylist(playlist)} className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
                       {playlist.title}
                       <FontAwesomeIcon
                         className="cursor-pointer mr-5 hover:scale-[1.40] text-grn"
