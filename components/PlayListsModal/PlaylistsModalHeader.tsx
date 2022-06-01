@@ -4,15 +4,12 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Messages } from "../../common/constants";
 import { notify } from "../Notifications";
 
-export const PlaylistsModalHeader = () => {
+export const PlaylistsModalHeader = ({ handleShowcreatePlaylistIndex }) => {
   return (
-    <button
-      className="ml-1"
-      onClick={(_: any) => notify(Messages.NOT_IMPLEMENTED)}
-    >
-      <h2 className="text-gry hover:text-wht hover:bg-segrn bg-blur-sm rounded-sm gb bg-grn bg-opacity-20 px-2">
+    <button className="ml-5 mt-8" onClick={handleShowcreatePlaylistIndex}>
+      <h2 className="text-gry hover:text-wht hover:bg-segrn bg-blur-sm rounded-sm gb bg-grn bg-opacity-20 px-2  ">
         <FontAwesomeIcon className="hover:text-black mr-4" icon={faPlus} />
-        Ajouter une playlist
+        Add a playlist
       </h2>
     </button>
   );

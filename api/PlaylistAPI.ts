@@ -1,5 +1,6 @@
 import { Endoints } from "../common/constants";
 import axiosClient from "./apiClient";
+import { IUpdatePayload } from "../components/UpdatePlaylistForm/UpdatePlaylistForm";
 
 const playlistEndpoint = Endoints.Playlists;
 
@@ -12,10 +13,11 @@ const getPlaylistByTitle = (title) =>
 
 const getPlaylistById = (id) => axiosClient.get(`${playlistEndpoint}/${id}`);
 
-const updatePlaylist = (id, data) =>
-  axiosClient.put(`${playlistEndpoint}/${id}`, data);
+const updatePlaylist = (param: IUpdatePayload) =>
+  axiosClient.patch(`${playlistEndpoint}/${param.id}`, param.data);
 
-const deletePlaylist = (id) => axiosClient.delete(`${playlistEndpoint}/${id}`);
+const deletePlaylist = (id: String) =>
+  axiosClient.delete(`${playlistEndpoint}/${id}`);
 
 const searchPlaylist = (text: string, { signal }) =>
   axiosClient

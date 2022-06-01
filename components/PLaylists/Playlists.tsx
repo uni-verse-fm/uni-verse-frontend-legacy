@@ -7,6 +7,7 @@ import useConnect from "../../common/providers/ConnectProvider";
 import router from "next/router";
 import { NotificationType, notify } from "../Notifications";
 import { AxiosError } from "axios";
+import { styles } from "../PlayListsModal";
 
 const Playlists = ({ handleShowPlaylistContent }) => {
   const [connect, setConnect] = useConnect();
@@ -32,9 +33,11 @@ const Playlists = ({ handleShowPlaylistContent }) => {
   );
 
   return (
-    <div>
-      <div className="ml-10 mb-5 text-grn text-lg">Playlists</div>
-      <div className="grid grid-flow-col auto-cols-max gap-4 justify-center">
+    <>
+      <div className="items-start mt-10 mb-5 ml-6 text-grn text-lg">
+        Playlists :
+      </div>
+      <div className={styles.wrapper}>
         {status === "loading" ? (
           <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
             <Spinner />
@@ -62,13 +65,13 @@ const Playlists = ({ handleShowPlaylistContent }) => {
           ) : (
             <div className="flex justify-center items-center mt-10 text-lg">
               <h1 className="text-grn whitespace-nowrap">
-                {Messages.EMPTY_PLAYLIST}
+                {Messages.EMPTY_PLAYLISTS}
               </h1>
             </div>
           )
         ) : null}
       </div>
-    </div>
+    </>
   );
 };
 

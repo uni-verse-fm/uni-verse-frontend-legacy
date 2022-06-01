@@ -8,7 +8,7 @@ export default function Home() {
           <h1 className="text-grn">Hot releases</h1>
           <div className="flex flex-row">
             <div className="w-1/2">
-              <h2 className="text-gry"> Blackk sabbath - God is Dead</h2>
+              <h2 className="text-gry"> Maroon 5 - She Will Be </h2>
             </div>
           </div>
         </div>

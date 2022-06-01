@@ -9,6 +9,7 @@ import { NotificationType, notify } from "../Notifications";
 import { useMutation } from "react-query";
 import router from "next/router";
 import { Messages } from "../../common/constants";
+import { Pages } from "../../common/constants";
 
 const UserDropDown = ({ user }) => {
   const [connect, setConnect] = useConnect();
@@ -69,7 +70,8 @@ const UserDropDown = ({ user }) => {
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
               } group items-center px-2 py-2 font-semibold text-gryf`}
             >
-              <Link href="/"> Dashboard </Link>
+              {/*<Link href={`/${Pages.Profile}`}> Dashboard </Link>*/}
+              <Link href="/"> Dashboard</Link>
             </div>
           )}
         </Menu.Item>
@@ -80,7 +82,8 @@ const UserDropDown = ({ user }) => {
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
               } group items-center px-2 py-2 font-semibold text-gryf`}
             >
-              <Link href="/"> Settings </Link>
+              {/*<Link href={`/${Pages.Profile}`}> Settings </Link>*/}
+              <Link href="/"> Settings</Link>
             </div>
           )}
         </Menu.Item>

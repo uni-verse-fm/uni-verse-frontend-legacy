@@ -9,7 +9,7 @@ const nextConfig = {
       "www.pngall.com",
       "loremflickr.com",
       // TODO: to be replaced with dynamic value
-      "localhost:9000"
+      "localhost:9000",
     ],
   },
   env: {
