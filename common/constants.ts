@@ -1,5 +1,3 @@
-
-
 export const MAX_FILE_SIZE = 3_000_000;
 export const MAX_IMAGE_SIZE = 3_000_000;
 
@@ -54,8 +52,8 @@ export enum Pages {
   UploadResourcePack = "UploadResourcePack",
   Login = "Login",
   SignUp = "SignUp",
-  Profile= "Profile",
-  Playlists = "Playlists"
+  Profile = "Profile",
+  Playlists = "Playlists",
 }
 
 export enum Endoints {

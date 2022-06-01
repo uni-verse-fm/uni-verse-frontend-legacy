@@ -2,11 +2,11 @@ const ConfirmDialogDelete = (props) => {
   return (
     props.showModal && (
       <div
-        className={`absolute justify-center items-center overflow-x-hidden overflow-y-auto h-auto bg-wht -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 border border-grn ${
-          props.small ? "w-1/3" : "w-2/3"
+        className={`[config]="{ignoreBackdropClick: true, keyboard: false}" absolute justify-center items-center overflow-x-hidden overflow-y-auto h-auto bg-wht -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2  ${
+          props.small ? "w-auto" : "w-auto"
         } border-2 border-grn rounded-md`}
       >
-        <div className="bg-blk flex w-full h-auto mr-10 mt-4 justify-center items-center   ">
+        <div className="bg-blk flex w-full h-auto mr-10 justify-center items-center   ">
           <div className="flex flex-col items-start p-4 w-72 h-auto  ">
             <label className="mb-5 text-rd text-lg">{props.msg}</label>
 

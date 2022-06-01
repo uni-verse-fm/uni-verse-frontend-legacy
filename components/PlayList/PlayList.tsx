@@ -79,40 +79,35 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
               </div>
 
               <div className="ml-5 ">
-              <div className="flex flex-row mt-24 mb-1">
-                <h2 className="text-grn ">
-                  {data.title}
-                  <FontAwesomeIcon
-                    className="cursor-pointer ml-5 hover:scale-[1.40]  text-wht hover:text-grn"
-                    icon={faPlay}
-                  />
+                <div className="flex flex-row mt-24 mb-1">
+                  <h2 className="text-grn ">
+                    {data.title}
+                    <FontAwesomeIcon
+                      className="cursor-pointer ml-5 hover:scale-[1.40]  text-wht hover:text-grn"
+                      icon={faPlay}
+                    />
                   </h2>
 
-                  {(enableChange === "true")? (
+                  {enableChange === "true" ? (
                     <div className="flex flex-row">
-                 <h2 className="text-grn">
-                 <FontAwesomeIcon
-                   className="cursor-pointer ml-5 hover:scale-[1.40] hover:text-rd text-wht"
-                   icon={faTrashCan}
-                   onClick={handleShowForm}
-                 />
-
-               </h2>
-               <h2 className="text-grn">
-                 <FontAwesomeIcon
-                   className="cursor-pointer ml-5 hover:scale-[1.40] hover:text-gry text-wht"
-                   icon={faPen}
-                   onClick={handleShowUpdatPlayList}
-                 />
-               </h2>
-               </div>
-                ) : (
-                  <div></div>
-                )}
-
-                  
-
-
+                      <h2 className="text-grn">
+                        <FontAwesomeIcon
+                          className="cursor-pointer ml-5 hover:scale-[1.40] hover:text-rd text-wht"
+                          icon={faTrashCan}
+                          onClick={handleShowForm}
+                        />
+                      </h2>
+                      <h2 className="text-grn">
+                        <FontAwesomeIcon
+                          className="cursor-pointer ml-5 hover:scale-[1.40] hover:text-gry text-wht"
+                          icon={faPen}
+                          onClick={handleShowUpdatPlayList}
+                        />
+                      </h2>
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
                 <h2 className="text-gry mb-8">{data._id}</h2>
               </div>
@@ -176,6 +171,8 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
         )}
 
         <ConfirmDialogDelete
+          data-backdrop="static"
+          data-keyboard="false"
           small={true}
           showModal={showForm}
           handleCloseDialog={handleCloseDialog}

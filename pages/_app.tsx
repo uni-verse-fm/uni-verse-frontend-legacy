@@ -69,21 +69,19 @@ function MyApp({ Component, pageProps }) {
                 </div>
               </div>
 
-            <Notifications />
-            <PlaylistsModal
-              showModal={showPlaylistsModal}
-              handleCloseModal={handleClosePlaylistsModal}
-              createPlaylistIndex={createPlaylistIndex}
-              handleShowcreatePlaylistIndex={handleShowcreatePlaylistIndex}
-              handleHidecreatePlaylistIndex={handleHidecreatePlaylistIndex}
-            />
-            <DonateModal
-              showModal={showPaymentModal}
-              handleCloseModal={handleClosePaymentModal}
-            />
-
+              <Notifications />
+              <PlaylistsModal
+                showModal={showPlaylistsModal}
+                handleCloseModal={handleClosePlaylistsModal}
+                createPlaylistIndex={createPlaylistIndex}
+                handleShowcreatePlaylistIndex={handleShowcreatePlaylistIndex}
+                handleHidecreatePlaylistIndex={handleHidecreatePlaylistIndex}
+              />
+              <DonateModal
+                showModal={showPaymentModal}
+                handleCloseModal={handleClosePaymentModal}
+              />
             </PlayerProvider>
-
           </ConnectProvider>
           <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
         </Hydrate>
