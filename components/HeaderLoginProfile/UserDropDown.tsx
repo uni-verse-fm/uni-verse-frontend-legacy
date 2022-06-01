@@ -70,7 +70,8 @@ const UserDropDown = ({ user }) => {
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
               } group items-center px-2 py-2 font-semibold text-gryf`}
             >
-              <Link href={`/${Pages.Profile}`}> Dashboard </Link>
+              {/*<Link href={`/${Pages.Profile}`}> Dashboard </Link>*/}
+              <Link href="/"> Dashboard</Link>
             </div>
           )}
         </Menu.Item>
@@ -81,7 +82,8 @@ const UserDropDown = ({ user }) => {
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
               } group items-center px-2 py-2 font-semibold text-gryf`}
             >
-              <Link href={`/${Pages.Profile}`}> Settings </Link>
+              {/*<Link href={`/${Pages.Profile}`}> Settings </Link>*/}
+              <Link href="/"> Settings</Link>
             </div>
           )}
         </Menu.Item>

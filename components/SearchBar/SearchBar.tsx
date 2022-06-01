@@ -93,6 +93,13 @@ const SearchBar = () => {
     });
   };
 
+  const onClickDisplayUser = (user) => () => {
+    router.push({
+      pathname: `/${Pages.Profile}`,
+      query: { id: user._id },
+    });
+  };
+
   return (
     <>
       <div className="h-full flex xs:w-max w-full">
@@ -232,7 +239,10 @@ const SearchBar = () => {
               {userQuery.status === "success" &&
                 userQuery.data.map((user, index) => (
                   <li key={"user-" + index} value={user}>
-                    <div className="hover:bg-grn hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
+                    <div
+                      onClick={onClickDisplayUser(user)}
+                      className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"
+                    >
                       {`${user.username} - ${user.email}`}
                     </div>
                   </li>
