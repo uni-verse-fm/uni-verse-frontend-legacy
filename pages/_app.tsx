@@ -16,7 +16,6 @@ import Sidebar from "../components/Sidebar";
 import "../styles/globals.css";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import DonateModal from "../components/DonateModal";
 import { PlayerProvider } from "../common/providers/PlayerProvider";
 
 const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
@@ -29,10 +28,6 @@ function MyApp({ Component, pageProps }) {
   const handleClosePlaylistsModal = () => setShowPlaylistsModal(false);
   const handleShowPlaylistsModal = () => setShowPlaylistsModal(true);
 
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const handleClosePaymentModal = () => setShowPaymentModal(false);
-  const handleShowPaymentModal = () => setShowPaymentModal(true);
-
   const queryClient = new QueryClient();
 
   return (
@@ -43,11 +38,11 @@ function MyApp({ Component, pageProps }) {
             <PlayerProvider>
               <div
                 className={`${
-                  (showPlaylistsModal || showPaymentModal) && "blur-md"
+                  (showPlaylistsModal) && "blur-md"
                 } flex flex-col h-screen overflow-hidden`}
               >
                 <div className="sticky top-0">
-                  <Header handleShowModal={handleShowPaymentModal} />
+                  <Header />
                 </div>
                 <div className="flex flex-grow h-full overflow-hidden">
                   <div className="flex flex-row bg-gry w-full overflow-hidden">
@@ -65,10 +60,6 @@ function MyApp({ Component, pageProps }) {
               <PlaylistsModal
                 showModal={showPlaylistsModal}
                 handleCloseModal={handleClosePlaylistsModal}
-              />
-              <DonateModal
-                showModal={showPaymentModal}
-                handleCloseModal={handleClosePaymentModal}
               />
             </PlayerProvider>
           </ConnectProvider>

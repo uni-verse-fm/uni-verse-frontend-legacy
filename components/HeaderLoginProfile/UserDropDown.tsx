@@ -100,7 +100,7 @@ const UserDropDown = ({ user }) => {
             <button
               className={`${
                 active ? "bg-serd text-md" : "text-sm bg-rd"
-              } group items-center rounded-bl-md rounded-br-md px-2 py-2 font-semibold text-white w-full`}
+              } group items-center rounded-b-md px-2 py-2 font-semibold text-white w-full`}
               onClick={handleLogout}
             >
               Sign out

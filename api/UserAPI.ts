@@ -15,6 +15,8 @@ const updateUser = (id, data) =>
 
 const deleteUser = () => (id) => axiosClient.delete(`${userEndpoint}/${id}`);
 
+const onboardUser = () => axiosClient.post(`${userEndpoint}/onboard`);
+
 const searchUsers = (text: string, { signal }) =>
   axiosClient
     .get(`${userEndpoint}/search?search=${text}`, {
@@ -29,4 +31,5 @@ export {
   updateUser,
   deleteUser,
   searchUsers,
+  onboardUser,
 };

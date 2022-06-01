@@ -4,10 +4,9 @@ import axiosClient from "./apiClient";
 const authEndpoint = Endoints.Payments;
 
 export interface IDonate {
-  amount: number;
-  paymentMethodId?: string;
-  saveCard?: boolean;
-}
+    amount: number;
+    connectedAccountId?: string;
+  }
 
 export interface IPurchase {
   amount: number;
@@ -25,5 +24,7 @@ const donate = (data: IDonate) =>
   axiosClient.post(`${authEndpoint}/donate`, data);
 const purchase = (data: IPurchase) =>
   axiosClient.post(`${authEndpoint}/charge`, data);
+const accountDetails = () =>
+  axiosClient.get(`${authEndpoint}/account/me`);
 
-export { donate, purchase };
+export { donate, purchase, accountDetails };

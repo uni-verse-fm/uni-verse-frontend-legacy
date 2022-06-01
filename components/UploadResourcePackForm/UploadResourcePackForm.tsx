@@ -1,9 +1,11 @@
 import { faFileAudio, faFileImage } from "@fortawesome/free-solid-svg-icons";
 import { AxiosError } from "axios";
 import { Field, Form, Formik } from "formik";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import * as Yup from "yup";
+import { accountDetails } from "../../api/PaymentAPI";
 import { createResourcePack } from "../../api/ResourcePackAPI";
+import { onboardUser } from "../../api/UserAPI";
 import {
   Extensions,
   MAX_FILE_SIZE,
@@ -57,6 +59,27 @@ const UploadResourcePackForm = ({ me }) => {
           notify(message, NotificationType.SUCCESS);
         }
       },
+    }
+  );
+
+  const onboardMutation = useMutation("onboarding", onboardUser, {
+    onError: (error: AxiosError) => {
+      notify(`Can not do payment onboarding`, NotificationType.ERROR);
+    },
+    onSuccess: (res) => {
+      if (res.status !== 201) {
+        notify(res.data.message, NotificationType.ERROR);
+      } else {
+        window.location.href = res.data.onboardUrl;
+      }
+    },
+  });
+
+  const accountQuery = useQuery(
+    "accountDetails",
+    () => accountDetails().then((res) => res.data),
+    {
+      enabled: Boolean(me.stripeAccountId),
     }
   );
 
@@ -257,12 +280,26 @@ const UploadResourcePackForm = ({ me }) => {
                   {errors.description ? (
                     <div className="text-rd">{errors.description}</div>
                   ) : null}
-                  <button
-                    type="submit"
-                    className="justify-center mt-4 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-grn hover:bg-segrn"
-                  >
-                    Submit
-                  </button>
+                  {(values.accessType === AccessType.Free ||
+                    (me.stripeAccountId &&
+                      accountQuery.data?.details_submitted)) && (
+                    <button
+                      type="submit"
+                      className="justify-center mt-4 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-grn hover:bg-segrn"
+                    >
+                      Submit
+                    </button>
+                  )}
+                  {(!me.stripeAccountId ||
+                    !accountQuery.data?.details_submitted) && (
+                    <button
+                      type="button"
+                      className="justify-center mt-4 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-grn hover:bg-segrn"
+                      onClick={() => onboardMutation.mutate()}
+                    >
+                      Onboard
+                    </button>
+                  )}
                 </div>
               </div>
               <div className="basis-2/3 ml-4 mt-4">
