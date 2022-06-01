@@ -15,7 +15,7 @@ export default function UploadReleasePage() {
     reactQueryResponseHandler(setConnect)
   );
   return (
-    <div className="bg-drk w-full h-full flex flex-col">
+    <div className="bg-drk w-full h-full flex flex-col overflow-scroll">
       <div className="w-full">
         {status === "error" ? (
           <div className="flex justify-center items-center mt-10">

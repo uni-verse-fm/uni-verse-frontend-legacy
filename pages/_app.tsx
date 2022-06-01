@@ -26,12 +26,19 @@ const options = {
 
 function MyApp({ Component, pageProps }) {
   const [showPlaylistsModal, setShowPlaylistsModal] = useState(false);
-  const handleClosePlaylistsModal = () => setShowPlaylistsModal(false);
+  const handleClosePlaylistsModal = () => {
+    setShowPlaylistsModal(false);
+    setCreatePlaylistIndex(false);
+  };
   const handleShowPlaylistsModal = () => setShowPlaylistsModal(true);
 
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const handleClosePaymentModal = () => setShowPaymentModal(false);
   const handleShowPaymentModal = () => setShowPaymentModal(true);
+
+  const [createPlaylistIndex, setCreatePlaylistIndex] = useState(false);
+  const handleShowcreatePlaylistIndex = () => setCreatePlaylistIndex(true);
+  const handleHidecreatePlaylistIndex = () => setCreatePlaylistIndex(false);
 
   const queryClient = new QueryClient();
 
@@ -61,10 +68,14 @@ function MyApp({ Component, pageProps }) {
                   </div>
                 </div>
               </div>
+
               <Notifications />
               <PlaylistsModal
                 showModal={showPlaylistsModal}
                 handleCloseModal={handleClosePlaylistsModal}
+                createPlaylistIndex={createPlaylistIndex}
+                handleShowcreatePlaylistIndex={handleShowcreatePlaylistIndex}
+                handleHidecreatePlaylistIndex={handleHidecreatePlaylistIndex}
               />
               <DonateModal
                 showModal={showPaymentModal}

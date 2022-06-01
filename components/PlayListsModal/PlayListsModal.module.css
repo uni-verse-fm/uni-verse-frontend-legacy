@@ -5,6 +5,7 @@
     grid-template-columns: repeat(auto-fit, minmax(8rem, 1rem));
     gap: 2rem;
     justify-content: center;
+    padding-left: 1rem;
   }
 }
 
@@ -14,5 +15,6 @@
     grid-template-columns: repeat(auto-fit, minmax(7rem, 1rem));
     gap: 2rem;
     justify-content: center;
+    padding-left: 5rem;
   }
 }

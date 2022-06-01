@@ -77,7 +77,7 @@ const RegisterForm = () => {
                   name="username"
                   type="text"
                   placeholder="Enter your username"
-                  className="text-sm bg-black w-full h-full text-white pl-2 rounded-md placeholder-gry p-2"
+                  className="text-sm bg-drk w-full h-full text-white pl-2 rounded-md placeholder-gry p-2"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.username}
@@ -93,7 +93,7 @@ const RegisterForm = () => {
                   name="email"
                   type="email"
                   placeholder="Enter your email"
-                  className="text-sm bg-black w-full h-full text-white pl-2 rounded-md placeholder-gry p-2"
+                  className="text-sm bg-drk w-full h-full text-white pl-2 rounded-md placeholder-gry p-2"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.email}
@@ -109,7 +109,7 @@ const RegisterForm = () => {
                   name="password"
                   type="password"
                   placeholder="Enter your password"
-                  className="text-sm bg-black w-full h-full text-white pl-2 rounded-md placeholder-gry p-2"
+                  className="text-sm bg-drk w-full h-full text-white pl-2 rounded-md placeholder-gry p-2"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
@@ -125,7 +125,7 @@ const RegisterForm = () => {
                   name="passwordConfirmation"
                   type="password"
                   placeholder="Enter your password"
-                  className="text-sm bg-black w-full h-full text-white pl-2 rounded-md placeholder-gry p-2"
+                  className="text-sm bg-drk w-full h-full text-white pl-2 rounded-md placeholder-gry p-2"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.passwordConfirmation}
