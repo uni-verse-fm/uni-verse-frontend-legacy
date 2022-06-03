@@ -1,5 +1,5 @@
 import { getPlaylists } from "../../api/PlaylistAPI";
-import { Messages, Pages, urlImage } from "../../common/constants";
+import { Messages, Pages } from "../../common/constants";
 import PlaylistCard from "../PlayListCard";
 import Spinner from "../Spinner";
 import { useQuery } from "react-query";
@@ -23,7 +23,7 @@ const Playlists = ({ handleShowPlaylistContent }) => {
         }
       },
       onError: (error: AxiosError) => {
-        if (error.response.status === 401) {
+        if (error.response?.status === 401) {
           notify(Messages.UNAUTHORIZED, NotificationType.ERROR);
           setConnect(false);
           router.replace(`/${Pages.Login}`);
@@ -58,7 +58,7 @@ const Playlists = ({ handleShowPlaylistContent }) => {
                   title={item.title}
                   image={item.image}
                   owner={item.owner}
-                  defaultImageSrc={urlImage}
+                  defaultImageSrc={'/Playlist.png'}
                 />
               </div>
             ))

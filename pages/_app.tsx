@@ -31,11 +31,6 @@ function MyApp({ Component, pageProps }) {
   };
   const handleShowPlaylistsModal = () => setShowPlaylistsModal(true);
 
-
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const handleClosePaymentModal = () => setShowPaymentModal(false);
-  const handleShowPaymentModal = () => setShowPaymentModal(true);
-
   const [createPlaylistIndex, setCreatePlaylistIndex] = useState(false);
   const handleShowcreatePlaylistIndex = () => setCreatePlaylistIndex(true);
   const handleHidecreatePlaylistIndex = () => setCreatePlaylistIndex(false);
@@ -46,11 +41,11 @@ function MyApp({ Component, pageProps }) {
     <Elements stripe={stripePromise} options={options}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <ConnectProvider>
+          <ConnectProvider isConnected={!!pageProps.me}>
             <PlayerProvider>
               <div
                 className={`${
-                  (showPlaylistsModal) && "blur-md"
+                  showPlaylistsModal && "blur-md"
                 } flex flex-col h-screen overflow-hidden`}
               >
                 <div className="sticky top-0">
@@ -88,13 +83,24 @@ function MyApp({ Component, pageProps }) {
 
 export async function getServerSideProps() {
   const queryClient = new QueryClient();
-
+  const response = await me();
   await queryClient.prefetchQuery("me", me);
   await queryClient.prefetchQuery("playlists", getPlaylists);
+  const isConnected = response.status === 200;
+    console.log("VbhjHIBKkn   ", response);
+  if (!isConnected) {
+    return {
+      redirect: {
+        destination: "/Login",
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
+      me: response.data,
     },
   };
 }

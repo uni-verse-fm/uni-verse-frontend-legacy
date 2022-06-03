@@ -11,7 +11,6 @@ import {
   MAX_FILE_SIZE,
   MAX_IMAGE_SIZE,
   Messages,
-  urlImage,
 } from "../../common/constants";
 import Counter from "../Counter";
 import { NotificationType, notify } from "../Notifications";
@@ -207,7 +206,7 @@ const UploadResourcePackForm = ({ me }) => {
                     maxFileSize="10"
                     fileExtensions={Extensions.image}
                     setFieldValue={setFieldValue}
-                    defaultImageSrc={urlImage}
+                    defaultImageSrc={'/Playlist.png'}
                   />
                   {errors.image && (
                     <div className="text-rd mt-4">{errors.image}</div>

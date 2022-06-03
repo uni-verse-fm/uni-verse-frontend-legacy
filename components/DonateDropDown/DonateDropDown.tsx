@@ -12,7 +12,7 @@ const DonationAmount = {
     Three: 300,
     Four: 400,
   };
-  
+
 const DonateDropDown = () => {
     const { mutate } = useMutation("donate", donate, {
         onError: () => {
@@ -30,14 +30,14 @@ const DonateDropDown = () => {
       
     return (
         <Menu as="div" className="text-left h-full w-auto text-right">
-            <Menu.Button className=" h-full p-2">
-              <button className="right-0 text-md text-grn ml-3 border-2 border-grn rounded-full hover:border-white hover:text-white h-8 px-2 mx-2">
+            <Menu.Button className="h-full p-2">
+              <div className="right-0 text-md text-grn ml-3 border-2 border-grn rounded-full hover:border-white hover:text-white h-8 px-2 mx-2">
                 <FontAwesomeIcon
                   icon={faHandHoldingDollar}
                   className="text-grn fa-lg pr-2"
                 />
                 <span>Donate</span>
-              </button>
+              </div>
             </Menu.Button>
             <Menu.Items className="mt-2 w-36 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
               <Menu.Item>

@@ -17,8 +17,6 @@ export const Extensions = {
   },
 };
 
-export const urlImage = "https://i.ibb.co/K984Tcf/Play-List-img.png";
-
 export const Messages = {
   TITLE: "Must be 15 characters or less",
   DESCRIPTION: "Must be at least 5 characters or less",

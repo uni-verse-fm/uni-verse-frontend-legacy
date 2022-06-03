@@ -1,7 +1,7 @@
 import { faPlay, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tab } from "@headlessui/react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { searchPlaylist } from "../../api/PlaylistAPI";
 import { searchRelease } from "../../api/ReleaseAPI";
@@ -12,7 +12,7 @@ import { Types } from "../../common/reducers/player-reducer";
 import { Track } from "../Player/Player";
 import router from "next/router";
 
-import { Extensions, Messages, Pages } from "../../common/constants";
+import { Pages } from "../../common/constants";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -20,7 +20,28 @@ function classNames(...classes) {
 
 const SearchBar = () => {
   const [query, setQuery] = useState("");
-  const { state, dispatch } = useContext(PlayerContext);
+  const ref = useRef<HTMLDivElement>();
+  const { dispatch } = useContext(PlayerContext);
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  useEffect(() => {
+    const checkIfClickedOutside = e => {
+      if (isMenuOpen && ref.current && !ref.current.contains(e.target)) {
+        setIsMenuOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", checkIfClickedOutside)
+
+    return () => {
+      document.removeEventListener("mousedown", checkIfClickedOutside)
+    }
+  }, [isMenuOpen])
+
+  const onInputChange = (event) => {
+    setQuery(event.target.value);
+    setIsMenuOpen(true);
+  }
 
   const taskQuery = useQuery(
     ["searchTrack", query],
@@ -101,8 +122,8 @@ const SearchBar = () => {
   };
 
   return (
-    <>
-      <div className="h-full flex xs:w-max w-full">
+    <div ref={ref}>
+      <div className="h-full flex xs:w-max w-full p-3">
         <div className="h-8 my-auto p-1 pl-2 bg-grn rounded-l-full">
           <FontAwesomeIcon icon={faSearch} className="text-white h-full" />
         </div>
@@ -111,147 +132,147 @@ const SearchBar = () => {
           placeholder="Search"
           className="w-full h-8 px-4 rounded-r-full text-black my-auto bg-white focus:ring-1 focus:ring-grn focus:outline-none focus:border-sky-500"
           value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          onChange={onInputChange}
         />
       </div>
-      <Tab.Group>
-        {query?.length !== 0 && (
-          <Tab.List className="flex rounded-xl p-1 bg-white h-8">
-            <Tab
-              key="Tracks"
-              className={({ selected }) =>
-                classNames(
-                  "w-full rounded-lg text-sm font-medium leading-5 text-grn text-lg",
-                  "ring-white ring-opacity-60 ring-offset-2 ring-offset-grn focus:outline-none focus:ring-2 font-semibold",
-                  selected
-                    ? "bg-white shadow"
-                    : "text-black hover:bg-grn/[0.12] hover:text-segrn"
-                )
-              }
-            >
-              Tracks
-            </Tab>
-            <Tab
-              key="Releases"
-              className={({ selected }) =>
-                classNames(
-                  "w-full rounded-lg text-sm font-medium leading-5 text-grn text-lg",
-                  "ring-white ring-opacity-60 ring-offset-2 ring-offset-grn focus:outline-none focus:ring-2 font-semibold",
-                  selected
-                    ? "bg-white shadow"
-                    : "text-black hover:bg-grn/[0.12] hover:text-segrn"
-                )
-              }
-            >
-              Releases
-            </Tab>
-            <Tab
-              key="Playlists"
-              className={({ selected }) =>
-                classNames(
-                  "w-full rounded-lg text-sm font-medium leading-5 text-grn text-lg",
-                  "ring-white ring-opacity-60 ring-offset-2 ring-offset-grn focus:outline-none focus:ring-2 font-semibold",
-                  selected
-                    ? "bg-white shadow"
-                    : "text-black hover:bg-grn/[0.12] hover:text-segrn"
-                )
-              }
-            >
-              Playlists
-            </Tab>
-            <Tab
-              key="Users"
-              className={({ selected }) =>
-                classNames(
-                  "w-full rounded-lg text-sm font-medium leading-5 text-grn text-lg",
-                  "ring-white ring-opacity-60 ring-offset-2 ring-offset-grn focus:outline-none focus:ring-2 font-semibold",
-                  selected
-                    ? "bg-white shadow"
-                    : "text-black hover:bg-grn/[0.12] hover:text-segrn"
-                )
-              }
-            >
-              Users
-            </Tab>
-          </Tab.List>
-        )}
-        <Tab.Panels>
-          <Tab.Panel>
-            <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-              {taskQuery.status === "success" &&
-                taskQuery.data.map((track, index) => (
-                  <li key={"track-" + index} value={track}>
-                    <div className="hover:bg-grn hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
-                      {`${track.author.username} - ${
-                        track.title
-                      } ft.${track.feats
-                        .map((feat) => ` ${feat.username}`)
-                        .join()}`}
-                      <FontAwesomeIcon
-                        className="cursor-pointer mr-5 hover:scale-[1.40] text-grn"
-                        icon={faPlay}
-                        onClick={onClickTrack(track)}
-                      />
-                    </div>
-                  </li>
-                ))}
-            </ul>
-          </Tab.Panel>
-          <Tab.Panel>
-            <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-              {releaseQuery.status === "success" &&
-                releaseQuery.data.map((release, index) => (
-                  <li key={"release-" + index} value={release}>
-                    <div className="hover:bg-grn hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
-                      {`${release.title} by ${release.author.username}`}
-                      <FontAwesomeIcon
-                        className="cursor-pointer mr-5 hover:scale-[1.40] text-grn"
-                        icon={faPlay}
-                        onClick={onClickRelease(release)}
-                      />
-                    </div>
-                  </li>
-                ))}
-            </ul>
-          </Tab.Panel>
-          <Tab.Panel>
-            <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-              {playlistQuery.status === "success" &&
-                playlistQuery.data.map((playlist, index) => (
-                  <li key={"playlist-" + index} value={playlist}>
-                    <div
-                      onClick={onClickDisplayPlaylist(playlist)}
-                      className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"
-                    >
-                      {playlist.title}
-                      <FontAwesomeIcon
-                        className="cursor-pointer mr-5 hover:scale-[1.40] text-grn"
-                        icon={faPlay}
-                        onClick={onClickPlaylist(playlist)}
-                      />
-                    </div>
-                  </li>
-                ))}
-            </ul>
-          </Tab.Panel>
-          <Tab.Panel>
-            <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-              {userQuery.status === "success" &&
-                userQuery.data.map((user, index) => (
-                  <li key={"user-" + index} value={user}>
-                    <div
-                      onClick={onClickDisplayUser(user)}
-                      className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"
-                    >
-                      {`${user.username} - ${user.email}`}
-                    </div>
-                  </li>
-                ))}
-            </ul>
-          </Tab.Panel>
-        </Tab.Panels>
-      </Tab.Group>
-    </>
+        <Tab.Group>
+          {isMenuOpen && (
+            <Tab.List className="flex rounded-xl p-1 bg-white h-8 mt-3">
+              <Tab
+                key="Tracks"
+                className={({ selected }) =>
+                  classNames(
+                    "w-full rounded-lg text-sm font-medium leading-5 text-grn text-lg",
+                    "ring-white ring-opacity-60 ring-offset-2 ring-offset-grn focus:outline-none focus:ring-2 font-semibold",
+                    selected
+                      ? "bg-white shadow"
+                      : "text-black hover:bg-grn/[0.12] hover:text-segrn"
+                  )
+                }
+              >
+                Tracks
+              </Tab>
+              <Tab
+                key="Releases"
+                className={({ selected }) =>
+                  classNames(
+                    "w-full rounded-lg text-sm font-medium leading-5 text-grn text-lg",
+                    "ring-white ring-opacity-60 ring-offset-2 ring-offset-grn focus:outline-none focus:ring-2 font-semibold",
+                    selected
+                      ? "bg-white shadow"
+                      : "text-black hover:bg-grn/[0.12] hover:text-segrn"
+                  )
+                }
+              >
+                Releases
+              </Tab>
+              <Tab
+                key="Playlists"
+                className={({ selected }) =>
+                  classNames(
+                    "w-full rounded-lg text-sm font-medium leading-5 text-grn text-lg",
+                    "ring-white ring-opacity-60 ring-offset-2 ring-offset-grn focus:outline-none focus:ring-2 font-semibold",
+                    selected
+                      ? "bg-white shadow"
+                      : "text-black hover:bg-grn/[0.12] hover:text-segrn"
+                  )
+                }
+              >
+                Playlists
+              </Tab>
+              <Tab
+                key="Users"
+                className={({ selected }) =>
+                  classNames(
+                    "w-full rounded-lg text-sm font-medium leading-5 text-grn text-lg",
+                    "ring-white ring-opacity-60 ring-offset-2 ring-offset-grn focus:outline-none focus:ring-2 font-semibold",
+                    selected
+                      ? "bg-white shadow"
+                      : "text-black hover:bg-grn/[0.12] hover:text-segrn"
+                  )
+                }
+              >
+                Users
+              </Tab>
+            </Tab.List>
+          )}
+          <Tab.Panels>
+            <Tab.Panel>
+              <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                {taskQuery.status === "success" &&
+                  taskQuery.data.map((track, index) => (
+                    <li key={"track-" + index} value={track}>
+                      <div className="hover:bg-grn hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
+                        {`${track.author.username} - ${
+                          track.title
+                        } ft.${track.feats
+                          .map((feat) => ` ${feat.username}`)
+                          .join()}`}
+                        <FontAwesomeIcon
+                          className="cursor-pointer mr-5 hover:scale-[1.40] text-grn"
+                          icon={faPlay}
+                          onClick={onClickTrack(track)}
+                        />
+                      </div>
+                    </li>
+                  ))}
+              </ul>
+            </Tab.Panel>
+            <Tab.Panel>
+              <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                {releaseQuery.status === "success" &&
+                  releaseQuery.data.map((release, index) => (
+                    <li key={"release-" + index} value={release}>
+                      <div className="hover:bg-grn hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
+                        {`${release.title} by ${release.author.username}`}
+                        <FontAwesomeIcon
+                          className="cursor-pointer mr-5 hover:scale-[1.40] text-grn"
+                          icon={faPlay}
+                          onClick={onClickRelease(release)}
+                        />
+                      </div>
+                    </li>
+                  ))}
+              </ul>
+            </Tab.Panel>
+            <Tab.Panel>
+              <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                {playlistQuery.status === "success" &&
+                  playlistQuery.data.map((playlist, index) => (
+                    <li key={"playlist-" + index} value={playlist}>
+                      <div
+                        onClick={onClickDisplayPlaylist(playlist)}
+                        className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"
+                      >
+                        {playlist.title}
+                        <FontAwesomeIcon
+                          className="cursor-pointer mr-5 hover:scale-[1.40] text-grn"
+                          icon={faPlay}
+                          onClick={onClickPlaylist(playlist)}
+                        />
+                      </div>
+                    </li>
+                  ))}
+              </ul>
+            </Tab.Panel>
+            <Tab.Panel>
+              <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                {userQuery.status === "success" &&
+                  userQuery.data.map((user, index) => (
+                    <li key={"user-" + index} value={user}>
+                      <div
+                        onClick={onClickDisplayUser(user)}
+                        className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"
+                      >
+                        {`${user.username} - ${user.email}`}
+                      </div>
+                    </li>
+                  ))}
+              </ul>
+            </Tab.Panel>
+          </Tab.Panels>
+        </Tab.Group>
+    </div>
   );
 };
 

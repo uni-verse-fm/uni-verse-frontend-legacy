@@ -12,7 +12,7 @@ export const reactQueryResponseHandler = (setConnect) => ({
     }
   },
   onError: (error: AxiosError) => {
-    if (error.response.status === 401) {
+    if (error.response?.status === 401) {
       setConnect(false);
 
       notify(Messages.UNAUTHORIZED, NotificationType.ERROR);

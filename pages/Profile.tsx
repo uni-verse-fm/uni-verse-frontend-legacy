@@ -1,18 +1,14 @@
 import React from "react";
-import LoginForm from "../components/LoginForm";
 import { useQuery } from "react-query";
-import { me } from "../api/AuthAPI";
 import Spinner from "../components/Spinner";
-import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UploadImageDisplayer from "../components/UploadImageDisplayer";
 import { notify, NotificationType } from "../components/Notifications";
 import {
-  faTrashCan,
   faPen,
   faHandHoldingDollar,
 } from "@fortawesome/free-solid-svg-icons";
-import { Extensions, Messages, urlImage } from "../common/constants";
+import { Extensions, Messages } from "../common/constants";
 import { useRouter } from "next/router";
 import { getUserById } from "../api/UserAPI";
 

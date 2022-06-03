@@ -4,18 +4,15 @@ import { faPlay, faClock } from "@fortawesome/free-solid-svg-icons";
 import { getPlaylistById } from "../../api/PlaylistAPI";
 import { useQuery } from "react-query";
 import Spinner from "../Spinner";
-import { Messages, urlImage } from "../../common/constants";
+import { Messages } from "../../common/constants";
 import Image from "next/image";
 import { faTrashCan, faPen } from "@fortawesome/free-solid-svg-icons";
 
 import { useState } from "react";
-import * as Yup from "yup";
 import { useMutation } from "react-query";
 import { deletePlaylist } from "../../api/PlaylistAPI";
-import useConnect from "../../common/providers/ConnectProvider";
 import { notify, NotificationType } from "../Notifications";
 import UpdatePlayListForm from "../UpdatePlaylistForm";
-import Modal from "../Modal";
 import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
 
 const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
@@ -71,7 +68,7 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
             <div className="ml-10 flex flex-row ">
               <div>
                 <Image
-                  src={data.image || urlImage}
+                  src={data.image || '/Playlist.png'}
                   className="rounded mb-5"
                   width={150}
                   height={150}

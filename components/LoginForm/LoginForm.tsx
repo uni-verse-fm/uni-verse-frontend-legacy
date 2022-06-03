@@ -27,7 +27,8 @@ const LoginForm = () => {
         const message = "Authenticated successfully";
         notify(message, NotificationType.SUCCESS);
         setConnect(true);
-        router.replace("/");
+        router.back();
+        // router.replace("/");
       }
     },
   });

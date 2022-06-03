@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Image from "next/image";
 
 const UploadImageDisplayer = (props) => {
   const [image, setImage] = useState(null);
@@ -20,7 +19,7 @@ const UploadImageDisplayer = (props) => {
   return (
     <>
       <div
-        className={`md:container h-${props?.size || 60} w-${props?.size || 60}`}
+        className={`md:container h-${props.size || 60} w-${props.size || 60}`}
       >
         <img
           src={image ? URL.createObjectURL(image) : props.defaultImageSrc}
