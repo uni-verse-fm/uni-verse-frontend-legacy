@@ -29,7 +29,7 @@ axiosClient.interceptors.response.use(
 
 createAuthRefreshInterceptor(axiosClient, (failedRequest) =>
   axiosClient.get("/auth/refresh").then((resp) => {
-
+      
     if (axiosClient.defaults.headers.common["set-cookie"]) {
       delete axiosClient.defaults.headers.common["set-cookie"];
     }

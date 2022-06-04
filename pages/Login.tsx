@@ -1,7 +1,32 @@
 import React from "react";
+import { signIn, getCsrfToken } from "next-auth/react";
 import LoginForm from "../components/LoginForm";
+import { NotificationType, notify } from "../components/Notifications";
+import { useRouter } from "next/router";
 
-function Login() {
+export default function Login() {
+  const router = useRouter();
+
+  const signInRequest = async (values, setSubmitting) => {
+    const res = await signIn("credentials", {
+      redirect: false,
+      email: values.email,
+      password: values.password,
+      callbackUrl: `${window.location.origin}`,
+    });
+    if (res?.error) {
+      notify(`Can't login: ${res.error}`, NotificationType.ERROR);
+    }
+
+    if (res?.ok) {
+      setSubmitting(false);
+      notify("Authenticated successfully", NotificationType.SUCCESS);
+      router.replace("/");
+    }
+
+    setSubmitting(false);
+  };
+
   return (
     <div className="bg-drk w-full h-full flex flex-col">
       <div className="text-center flex justify-center flex-col items-center w-full h-full ">
@@ -13,9 +38,8 @@ function Login() {
             Sign in to your account to continue
           </h2>
         </div>
-        <LoginForm />
+        <LoginForm signIn={signInRequest} />
       </div>
     </div>
   );
 }
-export default Login;

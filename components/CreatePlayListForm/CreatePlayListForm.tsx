@@ -1,7 +1,4 @@
 import React from "react";
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import useConnect from "../../common/providers/ConnectProvider";
 import { Messages } from "../../common/constants";
 import { notify, NotificationType } from "../Notifications";
 import { Field, Form, Formik } from "formik";
@@ -14,11 +11,6 @@ export interface IPlaylist {
 }
 
 const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex }) => {
-  {
-    /** PlayLists Modal handle*/
-  }
-  const [connect] = useConnect();
-
   const { mutate, isLoading } = useMutation("createPlaylist", createPlaylist, {
     onError: (error) => {
       notify("there was an error" + error, NotificationType.ERROR);
@@ -33,10 +25,6 @@ const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex }) => {
       }
     },
   });
-
-  {
-    /**  Si connection et showForm  Affichage  */
-  }
 
   return (
     showForm && (

@@ -3,19 +3,13 @@ import { Menu } from "@headlessui/react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
-import useConnect from "../../common/providers/ConnectProvider";
 import { logout } from "../../api/AuthAPI";
 import { NotificationType, notify } from "../Notifications";
 import { useMutation } from "react-query";
-import router from "next/router";
 import { Messages } from "../../common/constants";
-import { Pages } from "../../common/constants";
+import { signOut } from "next-auth/react";
 
 const UserDropDown = ({ user }) => {
-  const [connect, setConnect] = useConnect();
-
-  const clientDisconnect = () =>
-    (document.cookie = "Authentication=; Max-Age=0;secure; path=/;");
 
   const { mutate, isLoading } = useMutation("logout", logout, {
     onError: (error) => {
@@ -30,11 +24,9 @@ const UserDropDown = ({ user }) => {
     },
   });
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     mutate();
-    setConnect(false);
-    router.replace("/");
-    clientDisconnect();
+    signOut({ callbackUrl: '/Login' });
   };
 
   return (

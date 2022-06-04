@@ -78,7 +78,7 @@ const UploadResourcePackForm = ({ me }) => {
     "accountDetails",
     () => accountDetails().then((res) => res.data),
     {
-      enabled: Boolean(me.stripeAccountId),
+      enabled: Boolean(me?.stripeAccountId),
     }
   );
 

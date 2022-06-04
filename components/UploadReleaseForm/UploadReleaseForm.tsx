@@ -29,7 +29,7 @@ export interface UniVerseError {
   message?: string;
 }
 
-const UploadReleaseForm = ({ me }) => {
+const UploadReleaseForm = ({ myId }) => {
   const { mutate, isLoading } = useMutation("uploadRelease", createRelease, {
     onError: (error: AxiosError) => {
       const errorMessage: UniVerseError = error.response.data;
@@ -93,7 +93,7 @@ const UploadReleaseForm = ({ me }) => {
           tracks: value.tracks.map((track) => ({
             title: track.title,
             originalFileName: track.file.name,
-            author: me._id,
+            author: myId,
             feats: track.feats,
           })),
         };

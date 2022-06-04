@@ -36,10 +36,6 @@ const UpdatePlayListForm = ({
   handleHidecreatePlaylistIndex,
   dataUpdate,
 }) => {
-  {
-    /** PlayLists Modal handle*/
-  }
-  const [connect] = useConnect();
 
   const { mutate, isLoading } = useMutation("updatePlaylist", updatePlaylist, {
     onError: (error) => {
@@ -55,10 +51,6 @@ const UpdatePlayListForm = ({
       }
     },
   });
-
-  {
-    /**  Si connection et showForm  Affichage  */
-  }
 
   return (
     showForm && (

@@ -10,11 +10,12 @@ import {
 import SideMenuEntry from "./SideMenuEntry";
 import { NotificationType, notify } from "../Notifications";
 import Player from "../Player";
-import useConnect from "../../common/providers/ConnectProvider";
+import { useSession } from "next-auth/react";
 
 const Sidebar = ({ handleShowModal }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [connect] = useConnect();
+  const { data: session } = useSession()
+
 
   return (
     <>
@@ -28,7 +29,7 @@ const Sidebar = ({ handleShowModal }) => {
             pageName={Pages.Home}
             title="Home"
           />
-          {connect && (
+          {!!session && (
             <>
               <SideMenuEntry
                 icon={faList}

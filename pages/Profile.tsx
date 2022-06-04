@@ -33,14 +33,6 @@ function Profile() {
     })
   );
 
-  /*const { status, data } = useQuery("me", () => me().then((res) => res.data), {
-    onSuccess: (res) => {
-      if (res.status === 401) {
-        notify("get your profile");
-      }
-    },
-  });*/
-
   return (
     <div className="bg-drk w-full h-full flex flex-col">
       <div className="text-start flex justify-start flex-col items-start w-full h-full ">

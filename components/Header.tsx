@@ -1,11 +1,11 @@
 import HeaderLoginProfile from "./HeaderLoginProfile";
 import Image from "next/image";
-import useConnect from "../common/providers/ConnectProvider";
 import SearchBar from "./SearchBar";
 import DonateDropDown from "./DonateDropDown";
+import { useSession } from "next-auth/react";
 
 const Header = () => {
-  const [connect] = useConnect();
+  const { data: session } = useSession()
 
   return (
     <header className="bg-gry grid grid-rows-1 grid-cols-6 gap-4 p-1 h-16 w-full col-start-1 col-span-2">
@@ -23,7 +23,7 @@ const Header = () => {
       </div>
       <div className="flex flex-row-reverse col-start-6 col-end-7">
         <HeaderLoginProfile />
-        {connect && <DonateDropDown />}
+        {session && <DonateDropDown />}
       </div>
     </header>
   );

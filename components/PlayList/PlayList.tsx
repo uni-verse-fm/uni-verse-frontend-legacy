@@ -18,7 +18,6 @@ import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
 const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
   const { status, data } = useQuery("playlist", () =>
     getPlaylistById(index).then((res) => {
-      console.log("PlayListSelected");
       return res.data;
     })
   );

@@ -8,7 +8,6 @@ import {
 import { ReactQueryDevtools } from "react-query/devtools";
 import { me } from "../api/AuthAPI";
 import { getPlaylists } from "../api/PlaylistAPI";
-import { ConnectProvider } from "../common/providers/ConnectProvider";
 import Header from "../components/Header";
 import Notifications from "../components/Notifications";
 import PlaylistsModal from "../components/PlayListsModal";
@@ -17,13 +16,14 @@ import "../styles/globals.css";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { PlayerProvider } from "../common/providers/PlayerProvider";
+import { SessionProvider } from "next-auth/react";
 
 const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
 const options = {
   clientSecret: process.env.STRIPE_CLIENT_SECRET,
 };
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [showPlaylistsModal, setShowPlaylistsModal] = useState(false);
   const handleClosePlaylistsModal = () => {
     setShowPlaylistsModal(false);
@@ -41,7 +41,7 @@ function MyApp({ Component, pageProps }) {
     <Elements stripe={stripePromise} options={options}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <ConnectProvider isConnected={!!pageProps.me}>
+          <SessionProvider session={session}>
             <PlayerProvider>
               <div
                 className={`${
@@ -73,7 +73,7 @@ function MyApp({ Component, pageProps }) {
                 handleHidecreatePlaylistIndex={handleHidecreatePlaylistIndex}
               />
             </PlayerProvider>
-          </ConnectProvider>
+          </SessionProvider>
           <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
         </Hydrate>
       </QueryClientProvider>
@@ -87,7 +87,7 @@ export async function getServerSideProps() {
   await queryClient.prefetchQuery("me", me);
   await queryClient.prefetchQuery("playlists", getPlaylists);
   const isConnected = response.status === 200;
-    console.log("VbhjHIBKkn   ", response);
+  console.log("VbhjHIBKkn   ", response);
   if (!isConnected) {
     return {
       redirect: {
