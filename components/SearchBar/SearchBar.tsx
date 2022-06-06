@@ -88,7 +88,7 @@ const SearchBar = () => {
 
   const onClickDisplayPlaylist = (playlist) => () => {
     router.push({
-      pathname: `/${Pages.Playlists}`,
+      pathname: `/${Pages.UserPlaylist}`,
       query: { id: playlist._id },
     });
   };

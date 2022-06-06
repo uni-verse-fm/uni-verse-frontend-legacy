@@ -11,12 +11,26 @@ import {
   faTrashCan,
   faPen,
   faHandHoldingDollar,
+  faClock,
+  faPlay
 } from "@fortawesome/free-solid-svg-icons";
 import { Extensions, Messages, urlImage } from "../common/constants";
 import { useRouter } from "next/router";
 import { getUserById } from "../api/UserAPI";
+import ArtistReleases from "../components/ArtistReleases";
+import Playlists from "../components/PLaylists";
 
-function Profile() {
+function Profile({ props }) {
+
+  let tracks = [
+    { name: " track N°1", Album: " Album 1", createdate: "22-10-2022", duration: "2:33" },
+    { name: " track N°2", Album: " Album 2", createdate: "22-10-2022", duration: "2:33" },
+    { name: " track N°2", Album: " Album 3", createdate: "22-10-2022", duration: "2:33"  },
+    { name: " track N°3", Album: " Album 4", createdate: "22-10-2022", duration: "2:33"  },
+    { name: " track N°4", Album: " Album 15", createdate: "22-10-2022", duration: "2:33"  }
+  ];
+
+
   const router = useRouter();
   const {
     query: { id },
@@ -36,18 +50,9 @@ function Profile() {
       return res.data;
     })
   );
-
-  /*const { status, data } = useQuery("me", () => me().then((res) => res.data), {
-    onSuccess: (res) => {
-      if (res.status === 401) {
-        notify("get your profile");
-      }
-    },
-  });*/
-
   return (
-    <div className="bg-drk w-full h-full flex flex-col">
-      <div className="text-start flex justify-start flex-col items-start w-full h-full ">
+    <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden" >
+      <div className="text-start flex justify-start flex-col items-start">
         {status === "loading" ? (
           <div className="flex justify-center items-center mt-10">
             <Spinner />
@@ -57,50 +62,100 @@ function Profile() {
             <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
           </div>
         ) : (
-          <div className="mt-6 ml-16">
-            <h1 className="text-xl font-bold not-italic text-grn ">
+          <div className="mt-20 ml-16">
+
+        <div className=" flex flex-row ">
+            <h1 className="text-xl font-bold not-italic text-grn mr-10">
               {data.username}
-              <FontAwesomeIcon
-                className="cursor-pointer ml-2 hover:scale-[1.40] hover:text-gry text-wht"
-                icon={faPen}
-              />
             </h1>
 
-            <h2 className="font-medium not-italic text-gry mt-5">Email</h2>
-            <h2 className="font-medium not-italic text-wht">
-              {data.email}
-              <FontAwesomeIcon
-                className="cursor-pointer ml-2 hover:scale-[1.40] hover:text-gry text-wht"
-                icon={faPen}
-              />
-            </h2>
 
-            <h2 className="font-medium not-italic text-gry mt-5 mb-5">
-              Password
-              <FontAwesomeIcon
-                className="cursor-pointer ml-2 hover:scale-[1.40] hover:text-gry text-wht"
-                icon={faPen}
-              />
-            </h2>
-            {/*
-          <h2 className="font-medium not-italic text-grn mt-5 mb-5">
-            Playlists :  
-          </h2>
-          
-<h2 className="font-medium not-italic text-grn mt-5 mb-5">
-            Releases :  
-          </h2>*/}
 
-            <button className="text-md text-grn border-2 border-grn rounded-full hover:border-white hover:text-white h-8 px-2 mx-2 mt-3">
-              <FontAwesomeIcon
-                icon={faHandHoldingDollar}
-                className="text-grn fa-lg pr-2"
-              />
-              <span>Donate</span>
+            <button className="text-md text-grn bg-wht rounded-full px-2 h-8">
+              <span> Donate </span>
             </button>
+            </div>
+
+            <h2 className="font-bold not-italic text-wht text-xl mt-10 ">
+              Populaires : 
+            </h2>
+
           </div>
         )}
       </div>
+      {tracks.length ? (
+              <table className=" ml-16 mr-10 text-gry text-sm mb-5 mt-2 ">
+                <thead>
+                  <tr className="text-grn border-b mb-10">
+                    <td className="py-3 " ></td>
+                    <td className="py-3 ">Name</td>
+                    <td className="py-3 ">Album</td>
+                    <td className="py-3">Creation date</td>
+                    <td className="py-3">
+                      <FontAwesomeIcon
+                        className="ml-5 text-grn"
+                        icon={faClock}
+                      />
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tracks.map((item) => (
+                    <tr
+                      key={item.name}
+                      className="h-10 cursor-pointer hover:text-wht hover:border-b hover:border-t"
+                    >
+                      <td>
+                        <FontAwesomeIcon
+                          className=" cursor-pointer hover:scale-[1.40] text-grn"
+                          icon={faPlay}
+                        />
+                      </td>
+                      <td>{item.name}</td>
+                      <td>Album 1</td>
+                      <td>{item.createdate}</td>
+                      <td>{item.duration}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <div className="flex justify-center items-center mt-10 text-lg">
+                <h1 className="text-grn whitespace-nowrap">
+                  {Messages.EMPTY_PLAYLIST}
+                </h1>
+              </div>
+            )}
+
+
+        <div className="text-start justify-start items-start w-full h-full ml-16 ">
+        <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5 ">
+              Albums (Releases) : 
+            </h2>
+            <div className="-ml-4 ">
+            <ArtistReleases   
+            />
+              </div>
+
+<h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5 ">
+              Playlists : 
+            </h2>
+
+            <div className="-ml-4 ">
+            <Playlists  className="w-full"
+              id_user={ id }
+              modalDisplay = "false"
+            />
+       </div>
+
+            <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-10  ">
+              RessoucesPacks : 
+            </h2>
+            <h2 className="font-bold not-italic text-wht text-xl  ">
+              ...
+            </h2>
+           
+    </div>
     </div>
   );
 }

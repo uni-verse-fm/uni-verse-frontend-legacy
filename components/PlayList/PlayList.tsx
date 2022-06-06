@@ -19,6 +19,23 @@ import Modal from "../Modal";
 import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
 
 const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
+
+
+  let tracks = [
+    { name: " track N°1", Album: " Album 1", createdate: "22-10-2022", duration: "2:33" },
+    { name: " track N°2", Album: " Album 2", createdate: "22-10-2022", duration: "2:33" },
+    { name: " track N°2", Album: " Album 3", createdate: "22-10-2022", duration: "2:33"  },
+    { name: " track N°3", Album: " Album 4", createdate: "22-10-2022", duration: "2:33"  },
+    { name: " track N°4", Album: " Album 15", createdate: "22-10-2022", duration: "2:33"  },
+    { name: " track N°5", Album: " Album 7", createdate: "22-10-2022", duration: "2:33"  },
+    { name: " track N°6", Album: " Album 9", createdate: "22-10-2022", duration: "2:33" },
+    { name: " track N°7", Album: " Album 4", createdate: "22-10-2022", duration: "2:33" },
+    { name: " track N°4", Album: " Album 9", createdate: "22-10-2022", duration: "2:33"  },
+    { name: " track N°5", Album: " Album 12", createdate: "22-10-2022", duration: "2:33" },
+    { name: " track N°6", Album: " Album 18", createdate: "22-10-2022", duration: "2:33" },
+    { name: " track N°7", Album: " Album 17", createdate: "22-10-2022", duration: "2:33" }
+  ];
+
   const { status, data } = useQuery("playlist", () =>
     getPlaylistById(index).then((res) => {
       console.log("PlayListSelected");
@@ -124,7 +141,7 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
                 )}
               </div>
             </div>
-            {data.length ? (
+            {tracks.length ? (
               <table className=" ml-10 mr-10 text-gry text-sm ">
                 <thead>
                   <tr className="text-grn border-b mb-10">
@@ -141,7 +158,7 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.tracks.map((item) => (
+                  {tracks.map((item) => (
                     <tr
                       key={item.name}
                       className="h-10 cursor-pointer hover:text-wht hover:border-b hover:border-t"

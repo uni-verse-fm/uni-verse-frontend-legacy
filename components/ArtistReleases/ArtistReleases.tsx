@@ -8,10 +8,26 @@ import router from "next/router";
 import { NotificationType, notify } from "../Notifications";
 import { AxiosError } from "axios";
 import { styles } from "../PlayListsModal";
+import ReleaseCard from "../ReleaseCard";
 
-const Playlists = (props) => {
+const ArtistReleases = (props) => {
 
-  
+
+    let releases = [
+        { name: " Release N°1 ", year: "2019", image: urlImage },
+        { name: " Release N°1", year: "2020", image: urlImage },
+        { name: " Release N°2", year: "2013", image: urlImage },
+        { name: " Release N°3", year: "2015", image: urlImage },
+        { name: " Release N°4", year: "2013", image: urlImage },
+        { name: " Release N°5", year: "2017", image: urlImage },
+        { name: " Release N°6", year: "2018", image: urlImage },
+        { name: " Release N°7", year: "2012", image: urlImage },
+        { name: " Release N°4", year: "2012", image: urlImage },
+        { name: " Release N°5", year: "2018", image: urlImage },
+        { name: " Release N°6", year: "2016", image: urlImage },
+        { name: " Release N°7", year: "2018", image: urlImage },
+      ];
+    
   const [connect, setConnect] = useConnect();
   const { status, data } = useQuery(
     "playlists",
@@ -35,13 +51,8 @@ const Playlists = (props) => {
   );
 
   return (
-    <>
-     {(props.modalDisplay  ===  "true") && (
-      <div className="items-start mt-10 mb-5 ml-6 text-grn text-lg">
-        Playlists :
-      </div>
-     )}
-
+    <div className="w-full">
+      
       <div className={styles.wrapper}>
         {status === "loading" ? (
           <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
@@ -49,26 +60,28 @@ const Playlists = (props) => {
           </div>
         ) : status === "error" ? (
           <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
-            <h1 className="text-rd whitespace-nowrap">{props.modall}</h1>
+            <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD} </h1>
           </div>
         ) : status === "success" ? (
-          data.length ? (
-            data.map((item, index) => (
+            releases.length ? (
+                releases.map((item, index) => (
               <div
                 key={index}
-                onClick={() => props.handleShowPlaylistContent(item._id)}
+                onClick={(_: any) =>
+                    notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
+                  }
               >
-                <PlaylistCard
+                <ReleaseCard
                   key={index}
-                  title={item.title}
+                  title={item.name}
                   image={item.image}
-                  owner={item.owner}
+                  year={item.year}
                   defaultImageSrc={urlImage}
                 />
               </div>
             ))
           ) : (
-            <div className="flex justify-start items-start mt-10 text-lg">
+            <div className="flex justify-center items-center mt-10 text-lg">
               <h1 className="text-grn whitespace-nowrap">
                 {Messages.EMPTY_PLAYLISTS}
               </h1>
@@ -76,8 +89,8 @@ const Playlists = (props) => {
           )
         ) : null}
       </div>
-    </>
+    </div>
   );
 };
 
-export default Playlists;
+export default ArtistReleases;
