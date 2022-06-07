@@ -100,6 +100,22 @@ const SearchBar = () => {
     });
   };
 
+  const onClickDisplayRelease = (release) => () => {
+    router.push({
+      pathname: `/${Pages.UserRelease}`,
+      query: { id: release._id },
+    });
+  };
+
+
+  
+  const onClickDisplayTrack = (track) => () => {
+    router.push({
+      pathname: `/${Pages.Track}`,
+      query: { id: track._id },
+    });
+  };
+
   return (
     <>
       <div className="h-full flex xs:w-max w-full">
@@ -181,7 +197,9 @@ const SearchBar = () => {
               {taskQuery.status === "success" &&
                 taskQuery.data.map((track, index) => (
                   <li key={"track-" + index} value={track}>
-                    <div className="hover:bg-grn hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
+                    <div 
+                     onClick={onClickDisplayTrack(track)}
+                    className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
                       {`${track.author.username} - ${
                         track.title
                       } ft.${track.feats
@@ -202,7 +220,9 @@ const SearchBar = () => {
               {releaseQuery.status === "success" &&
                 releaseQuery.data.map((release, index) => (
                   <li key={"release-" + index} value={release}>
-                    <div className="hover:bg-grn hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
+                    <div 
+                    onClick={onClickDisplayRelease(release)}
+                    className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
                       {`${release.title} by ${release.author.username}`}
                       <FontAwesomeIcon
                         className="cursor-pointer mr-5 hover:scale-[1.40] text-grn"

@@ -13,6 +13,7 @@ const Playlists = (props) => {
 
   
   const [connect, setConnect] = useConnect();
+  /* A remplacer par getPlaylists d'un User (by idUser) */
   const { status, data } = useQuery(
     "playlists",
     () => getPlaylists().then((res) => res.data),

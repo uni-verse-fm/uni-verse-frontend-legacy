@@ -1,8 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faClock, faEllipsis } from "@fortawesome/free-solid-svg-icons";
-
-import { getPlaylistById } from "../../api/PlaylistAPI";
+import { faPlay, faClock } from "@fortawesome/free-solid-svg-icons";
+import { getReleaseById } from "../../api/ReleaseAPI";
 import { useQuery } from "react-query";
 import Spinner from "../Spinner";
 import { Messages, urlImage } from "../../common/constants";
@@ -18,8 +17,9 @@ import { notify, NotificationType } from "../Notifications";
 import UpdatePlayListForm from "../UpdatePlaylistForm";
 import Modal from "../Modal";
 import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
+import ShowMoreMenu from "./ShowMoreMenu";
 
-const Playlist = (props) => {
+const ArtistRelease = (props) => {
 
   let tracks = [
     { name: " track N°1", Album: " Album 1", createdate: "22-10-2022", duration: "2:33" },
@@ -30,9 +30,9 @@ const Playlist = (props) => {
     { name: " track N°5", Album: " Album 7", createdate: "22-10-2022", duration: "2:33"  }
   ];
 
-  const { status, data } = useQuery("playlist", () =>
-    getPlaylistById(props.index).then((res) => {
-      console.log("PlayListSelected");
+  const { status, data } = useQuery("release", () =>
+      getReleaseById(props.index).then((res) => {
+      console.log("ReleaseSelected");
       return res.data;
     })
   );
@@ -45,14 +45,14 @@ const Playlist = (props) => {
   const handleShowUpdatPlayList = () => setShowUpdatPlayList(true);
   const handleHideUpdatPlayList = () => setShowUpdatPlayList(false);
 
-  const handleConfirmDelete = () => {
+  /*const handleConfirmDelete = () => {
     console.log(data._id);
     mutate(data._id);
     handleCloseDialog();
     props.handleClosePlaylistContent();
-  };
+  };*/
 
-  const { mutate, isLoading } = useMutation("deletePlaylist", deletePlaylist, {
+ /* const { mutate, isLoading } = useMutation("deletePlaylist", deletePlaylist, {
     onError: (error) => {
       notify("there was an error" + error, NotificationType.ERROR);
     },
@@ -64,8 +64,7 @@ const Playlist = (props) => {
         notify(message, NotificationType.SUCCESS);
       }
     },
-  });
-  const [style, setStyle] = useState({display: 'none'});
+  });*/
 
   return (
     <div>
@@ -80,20 +79,6 @@ const Playlist = (props) => {
           </div>
         ) : (
           <>
-            {/*
-          <h2>Hidden Button in the box. Move mouse in the box</h2>
-            <div style={{border: '1px solid gray', width: 300, height: 300, padding: 10, margin: 100}}
-                 onMouseEnter={e => {
-                     setStyle({display: 'block'});
-                 }}
-                 onMouseLeave={e => {
-                     setStyle({display: 'none'})
-                 }}
-            >
-                <button style={style}>Click</button>
-                </div>*/}
-
-
             <div className="ml-10 flex flex-row ">
               <div>
                 <Image
@@ -114,7 +99,7 @@ const Playlist = (props) => {
                     />
                   </h2>
 
-                  {(props.enableChange === "true") && (
+                  {props.enableChange === "true" ? (
                     <div className="flex flex-row">
                       <h2 className="text-grn">
                         <FontAwesomeIcon
@@ -131,28 +116,31 @@ const Playlist = (props) => {
                         />
                       </h2>
                     </div>
+                  ) : (
+                    <div></div>
                   )}
                 </div>
                 <h2 className="text-gry mb-8">{data._id}</h2>
               </div>
 
               <div className="ml-5 ">
-                {showUpdatPlayList && data && (
+                {showUpdatPlayList && data ? (
                   <UpdatePlayListForm
                     showForm={showUpdatPlayList}
                     handleHidecreatePlaylistIndex={handleHideUpdatPlayList}
                     dataUpdate={data}
                   />
+                ) : (
+                  <div></div>
                 )}
               </div>
             </div>
-            {tracks.length ? (
+            {data.tracks.length ? (
               <table className=" ml-10 mr-10 text-gry text-sm ">
                 <thead>
                   <tr className="text-grn border-b mb-10">
                     <td className="py-3"></td>
                     <td className="py-3">Name</td>
-                    <td className="py-3">Album</td>
                     <td className="py-3">Creation date</td>
                     <td className="py-3">
                       <FontAwesomeIcon
@@ -163,7 +151,7 @@ const Playlist = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {tracks.map((item) => (
+                  {data.tracks.map((item) => (
                     <tr
                       key={item.name}
                       className="h-10 cursor-pointer hover:text-wht hover:border-b hover:border-t"
@@ -174,17 +162,14 @@ const Playlist = (props) => {
                           icon={faPlay}
                         />
                       </td>
-                      <td>{item.name}</td>
-                      <td>Album 1</td>
-                      <td>{item.createdate}</td>
+                      <td>{item.title}</td>
+                      <td>{item._id}</td>
                       <td>{item.duration}</td>
                       <td>
-                        <FontAwesomeIcon
-                          className=" cursor-pointer hover:scale-[1.40] hover:text-grn text-gry"
-                          icon={faEllipsis}
+                        <ShowMoreMenu track= "inconnu"
                         />
-                      </td>
-                      
+</td>
+
                     </tr>
                   ))}
                 </tbody>
@@ -199,6 +184,7 @@ const Playlist = (props) => {
           </>
         )}
 
+{/*
         <ConfirmDialogDelete
           data-backdrop="static"
           data-keyboard="false"
@@ -208,8 +194,10 @@ const Playlist = (props) => {
           handleConfirmDelete={handleConfirmDelete}
           msg="Delete Playlist"
         />
+        */
+}
       </div>
     </div>
   );
 };
-export default Playlist;
+export default ArtistRelease;

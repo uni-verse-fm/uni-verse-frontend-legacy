@@ -1,4 +1,4 @@
-import { getPlaylists } from "../../api/PlaylistAPI";
+import { getReleases } from "../../api/ReleaseAPI";
 import { Messages, Pages, urlImage } from "../../common/constants";
 import PlaylistCard from "../PlayListCard";
 import Spinner from "../Spinner";
@@ -29,13 +29,15 @@ const ArtistReleases = (props) => {
       ];
     
   const [connect, setConnect] = useConnect();
+
+  /* A remplacer par getReleases d'un User (by idUser) */
   const { status, data } = useQuery(
-    "playlists",
-    () => getPlaylists().then((res) => res.data),
+    "Releases",
+    () => getReleases().then((res) => res.data),
     {
       onSuccess: (res) => {
         if (res.status === 401) {
-          notify("Playlists bay from success");
+          notify("Releases bay from success");
           setConnect(false);
           router.replace(`/${Pages.Login}`);
         }

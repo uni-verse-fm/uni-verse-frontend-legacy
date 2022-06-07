@@ -46,7 +46,7 @@ function MyProfile({ props }) {
   });*/
 
   return (
-    <div className="bg-drk w-full h-full flex flex-col">
+    <div className="bg-wht w-full h-full flex flex-col">
       <div className="text-start flex justify-start flex-col items-start w-full h-full ">
         {status === "loading" ? (
           <div className="flex justify-center items-center mt-10">
@@ -95,19 +95,13 @@ function MyProfile({ props }) {
               Populaires : 
             </h2>
 
-           
-
             <h2 className="font-medium not-italic text-wht text-xl mt-5 mb-5">
               Albums (Releases & ressoucesPacks) : 
             </h2>
 
-           
-
             <h2 className="font-medium not-italic text-grn mt-5 mb-5">
               Playlists : 
             </h2>
-
-
 
             <button className="text-md text-grn bg-wht rounded-full px-2 h-8 mt-3">
               <span> Donate </span>
