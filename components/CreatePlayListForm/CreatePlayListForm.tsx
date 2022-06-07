@@ -1,7 +1,7 @@
 import React from "react";
 import { Messages } from "../../common/constants";
 import { notify, NotificationType } from "../Notifications";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useMutation } from "react-query";
 import { createPlaylist } from "../../api/PlaylistAPI";
@@ -41,7 +41,7 @@ const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex }) => {
           validationSchema={Yup.object().shape({
             title: Yup.string()
               .max(15, Messages.TITLE)
-              .min(5, Messages.TITLE)
+              .min(1, Messages.TITLE)
               .required(Messages.REQUIRED),
           })}
           onSubmit={(value) => {

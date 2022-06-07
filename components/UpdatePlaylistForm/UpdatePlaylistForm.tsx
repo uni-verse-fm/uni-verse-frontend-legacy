@@ -1,22 +1,10 @@
 import React from "react";
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faPlus,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
-import Playlist from "../PlayList";
-import Playlists from "../PLaylists";
-import useConnect from "../../common/providers/ConnectProvider";
 import { Messages } from "../../common/constants";
 import { notify, NotificationType } from "../Notifications";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useMutation } from "react-query";
-import { createPlaylist } from "../../api/PlaylistAPI";
 import { updatePlaylist } from "../../api/PlaylistAPI";
-import { Console } from "console";
 
 export interface IPlaylist {
   title: string;
@@ -73,8 +61,6 @@ const UpdatePlayListForm = ({
           onSubmit={(value) => {
             let dataToUpdate = dataUpdate;
             dataToUpdate.title = value.title;
-            console.log("New Data ");
-            console.log(dataToUpdate);
 
             let dataFormUpdate: IUpdatePlaylistdata = {
               title: dataToUpdate.title,
@@ -85,12 +71,6 @@ const UpdatePlayListForm = ({
               data: value,
             };
 
-            console.log("dataForm");
-            console.log(dataForm);
-            console.log("dataForm.id");
-            console.log(dataForm.id);
-            console.log("dataForm.data");
-            console.log(dataForm.data);
             mutate(dataForm);
           }}
           render={({ values, errors, handleChange, handleBlur }) => {

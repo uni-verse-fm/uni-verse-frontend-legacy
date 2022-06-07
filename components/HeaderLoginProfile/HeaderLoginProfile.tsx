@@ -7,7 +7,7 @@ const HeaderLoginProfile = () => {
   const { data: session } = useSession()
 
   return session ? (
-    <UserDropDown user={session.user} />
+    <UserDropDown user={session?.user} />
   ) : (
     <div className="top-0 right-0 flex mt-3">
       <div

@@ -18,7 +18,7 @@ export default function UploadReleasePage() {
             <Spinner />
           </div>
         ) : (
-          <UploadReleaseForm myId={session.userId} />
+          <UploadReleaseForm myId={session?.userId} />
         )}
       </div>
     </div>

@@ -19,7 +19,7 @@ const Header = () => {
         />
       </div>
       <div className="w-full col-start-3 col-end-5">
-        <SearchBar />
+        <SearchBar isConnected={session} />
       </div>
       <div className="flex flex-row-reverse col-start-6 col-end-7">
         <HeaderLoginProfile />

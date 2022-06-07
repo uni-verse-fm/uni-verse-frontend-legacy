@@ -1,4 +1,4 @@
-import { getPlaylists } from "../../api/PlaylistAPI";
+import { getMyPlaylists } from "../../api/PlaylistAPI";
 import { Messages, Pages } from "../../common/constants";
 import PlaylistCard from "../PlayListCard";
 import Spinner from "../Spinner";
@@ -11,7 +11,7 @@ import { styles } from "../PlayListsModal";
 const Playlists = ({ handleShowPlaylistContent }) => {
   const { status, data } = useQuery(
     "playlists",
-    () => getPlaylists().then((res) => res.data),
+    () => getMyPlaylists().then((res) => res.data),
     {
       onSuccess: (res) => {
         if (res.status === 401) {

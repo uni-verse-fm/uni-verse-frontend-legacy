@@ -1,8 +1,10 @@
 import React from "react";
-import { signIn, getCsrfToken } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import LoginForm from "../components/LoginForm";
 import { NotificationType, notify } from "../components/Notifications";
 import { useRouter } from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle, faSpotify } from "@fortawesome/free-brands-svg-icons";
 
 export default function Login() {
   const router = useRouter();
@@ -38,6 +40,23 @@ export default function Login() {
             Sign in to your account to continue
           </h2>
         </div>
+        <div className="flex w-auto h-auto">
+          <button
+            className="font-bold rounded-md bg-white w-auto h-auto m-2 p-2"
+            onClick={() => signIn("spotify")}
+          >
+            <FontAwesomeIcon icon={faSpotify} className="text-grn fa-xl pr-2" />
+            <span>Spotify login</span>
+          </button>
+          <button
+            className="font-bold rounded-md bg-white w-auto h-auto m-2 p-2"
+            onClick={() => signIn("google")}
+          >
+            <FontAwesomeIcon icon={faGoogle} className="text-rd fa-xl pr-2 " />
+            <span>Google login</span>
+          </button>
+        </div>
+
         <LoginForm signIn={signInRequest} />
       </div>
     </div>
