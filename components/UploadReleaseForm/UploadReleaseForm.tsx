@@ -122,7 +122,7 @@ const UploadReleaseForm = ({ myId }) => {
                     maxFileSize="10"
                     fileExtensions={Extensions.image}
                     setFieldValue={setFieldValue}
-                    defaultImageSrc={'/Playlist.png'}
+                    defaultImageSrc={"/Playlist.png"}
                   />
                   {errors.image && (
                     <div className="text-rd mt-4">{errors.image}</div>

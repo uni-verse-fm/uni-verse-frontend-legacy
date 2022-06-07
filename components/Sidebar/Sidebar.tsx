@@ -14,8 +14,7 @@ import { useSession } from "next-auth/react";
 
 const Sidebar = ({ handleShowModal }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const { data: session } = useSession()
-
+  const { data: session } = useSession();
 
   return (
     <>

@@ -8,7 +8,6 @@ const getPlaylists = () => axiosClient.get(playlistEndpoint);
 
 const getMyPlaylists = () => axiosClient.get(`${playlistEndpoint}/myplaylists`);
 
-
 const createPlaylist = (data) => axiosClient.post(`${playlistEndpoint}`, data);
 
 const getPlaylistByTitle = (title) =>

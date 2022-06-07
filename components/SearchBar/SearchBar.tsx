@@ -180,7 +180,7 @@ const SearchBar = ({ isConnected }) => {
             >
               Playlists
             </Tab>
-            {isConnected && 
+            {isConnected && (
               <Tab
                 key="Users"
                 className={({ selected }) =>
@@ -195,7 +195,7 @@ const SearchBar = ({ isConnected }) => {
               >
                 Users
               </Tab>
-            }
+            )}
           </Tab.List>
         )}
         <Tab.Panels>

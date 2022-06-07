@@ -2,14 +2,13 @@ import { Form, Formik } from "formik";
 import { Messages } from "../../common/constants";
 import * as Yup from "yup";
 
-
 export interface ILogin {
   email: string;
   password: string;
 }
 
 interface ILoginForm {
-    signIn: any
+  signIn: any;
 }
 const LoginForm = (props: ILoginForm) => {
   return (
@@ -27,7 +26,7 @@ const LoginForm = (props: ILoginForm) => {
           .min(8, Messages.SHORT_PASWORD),
       })}
       onSubmit={(value: ILogin, { setSubmitting }) => {
-        props.signIn(value, setSubmitting)
+        props.signIn(value, setSubmitting);
       }}
     >
       {({ values, errors, handleChange, handleBlur }) => {

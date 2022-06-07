@@ -54,7 +54,7 @@ const Playlists = ({ handleShowPlaylistContent }) => {
                   title={item.title}
                   image={item.image}
                   owner={item.owner}
-                  defaultImageSrc={'/Playlist.png'}
+                  defaultImageSrc={"/Playlist.png"}
                 />
               </div>
             ))

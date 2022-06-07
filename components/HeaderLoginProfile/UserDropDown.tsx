@@ -10,7 +10,6 @@ import { Messages } from "../../common/constants";
 import { signOut } from "next-auth/react";
 
 const UserDropDown = ({ user }) => {
-
   const { mutate, isLoading } = useMutation("logout", logout, {
     onError: (error) => {
       notify("Your session will expire" + error, NotificationType.ERROR);
@@ -26,7 +25,7 @@ const UserDropDown = ({ user }) => {
 
   const handleLogout = async () => {
     mutate();
-    signOut({ callbackUrl: '/Login' });
+    signOut({ callbackUrl: "/Login" });
   };
 
   return (

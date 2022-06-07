@@ -24,7 +24,6 @@ const UpdatePlayListForm = ({
   handleHidecreatePlaylistIndex,
   dataUpdate,
 }) => {
-
   const { mutate, isLoading } = useMutation("updatePlaylist", updatePlaylist, {
     onError: (error) => {
       notify("there was an error" + error, NotificationType.ERROR);

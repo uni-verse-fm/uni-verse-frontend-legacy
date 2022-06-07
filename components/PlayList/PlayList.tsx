@@ -67,7 +67,7 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
             <div className="ml-10 flex flex-row ">
               <div>
                 <Image
-                  src={data.image || '/Playlist.png'}
+                  src={data.image || "/Playlist.png"}
                   className="rounded mb-5"
                   width={150}
                   height={150}

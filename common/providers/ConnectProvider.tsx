@@ -1,8 +1,14 @@
-import { createContext, ReactElement, useContext, useMemo, useState } from "react";
+import {
+  createContext,
+  ReactElement,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 
 interface ConnectProviderType {
-    children: ReactElement;
-    isConnected: boolean;
+  children: ReactElement;
+  isConnected: boolean;
 }
 export const ConnectContext = createContext(null);
 

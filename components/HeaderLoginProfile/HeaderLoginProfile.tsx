@@ -4,7 +4,7 @@ import { Pages } from "../../common/constants";
 import UserDropDown from "./UserDropDown";
 
 const HeaderLoginProfile = () => {
-  const { data: session } = useSession()
+  const { data: session } = useSession();
 
   return session ? (
     <UserDropDown user={session?.user} />

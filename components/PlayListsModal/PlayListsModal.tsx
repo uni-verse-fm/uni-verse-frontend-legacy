@@ -15,7 +15,6 @@ const PlaylistsModal = ({
   handleShowcreatePlaylistIndex,
   handleHidecreatePlaylistIndex,
 }) => {
-
   const [playlistIndex, setPlaylistIndex] = useState(null);
 
   const handleShowPlaylistContent = (index: number) => {
@@ -28,7 +27,7 @@ const PlaylistsModal = ({
     console.log(playlistIndex);
     setPlaylistIndex(null);
   };
-  const { data: session} = useSession();
+  const { data: session } = useSession();
 
   return (
     !!session && (
@@ -49,7 +48,6 @@ const PlaylistsModal = ({
       >
         {playlistIndex ? (
           <div className="w-full h-full">
-
             <Playlist
               index={playlistIndex}
               handleClosePlaylistContent={handleHidePlaylistContent}

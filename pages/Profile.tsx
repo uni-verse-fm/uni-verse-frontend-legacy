@@ -4,10 +4,7 @@ import Spinner from "../components/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UploadImageDisplayer from "../components/UploadImageDisplayer";
 import { notify, NotificationType } from "../components/Notifications";
-import {
-  faPen,
-  faHandHoldingDollar,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPen, faHandHoldingDollar } from "@fortawesome/free-solid-svg-icons";
 import { Extensions, Messages } from "../common/constants";
 import { useRouter } from "next/router";
 import { getUserById } from "../api/UserAPI";
