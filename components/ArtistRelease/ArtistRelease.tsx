@@ -166,9 +166,9 @@ const ArtistRelease = (props) => {
                       <td>{item._id}</td>
                       <td>{item.duration}</td>
                       <td>
-                        <ShowMoreMenu track= "inconnu"
+                        <ShowMoreMenu track= {item}
                         />
-</td>
+                      </td>
 
                     </tr>
                   ))}
