@@ -24,7 +24,7 @@ import { updatePlaylist } from "../../api/PlaylistAPI";
 export interface IUpdatePlaylistTrack {
   trackId: string;
   action: string;
-  title:string;
+ 
 }
 
 
@@ -93,9 +93,6 @@ const MenuSelectPlayList = ({ track }) => {
     },
   });
 
-
-
-
   return (
     <Menu as="div" className="text-left h-full w-auto">
       <Menu.Button className="h-full w-auto"  >
@@ -121,7 +118,7 @@ const MenuSelectPlayList = ({ track }) => {
                             let dataToUpdate: IUpdatePlaylistTrack = {
                               trackId: track._id,
                               action: "ADD",
-                              title: playlist.title,
+                             
                             };
                 
                             let dataForm: IUpdatePayload = {
@@ -129,12 +126,7 @@ const MenuSelectPlayList = ({ track }) => {
                               data: dataToUpdate,
                             };
                 
-                            console.log("dataForm");
-                            console.log(dataForm);
-                            console.log("dataForm.id");
-                            console.log(dataForm.id);
-                            console.log("dataForm.data");
-                            console.log(dataForm.data);
+                            
                             mutate(dataForm);
                           }
                         }>
@@ -142,30 +134,7 @@ const MenuSelectPlayList = ({ track }) => {
                         </button>
                     </div>)}
                   </Menu.Item>
-
-
-
-
-
-
-                 
-
-
-
-
-
                 ))}
-
-
-
-
-
-
-
-
-
-
-
 
 
           <Menu.Item>

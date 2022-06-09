@@ -18,21 +18,23 @@ import UpdatePlayListForm from "../UpdatePlaylistForm";
 import Modal from "../Modal";
 import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
 import ShowMoreMenu from "./ShowMoreMenu";
+import Link from "next/link";
+import { reactQueryResponseHandler } from "../../api/APIUtils";
+import { me } from "../../api/AuthAPI";
+import { Pages } from "../../common/constants";
 
 const ArtistRelease = (props) => {
 
-  let tracks = [
-    { name: " track N°1", Album: " Album 1", createdate: "22-10-2022", duration: "2:33" },
-    { name: " track N°2", Album: " Album 2", createdate: "22-10-2022", duration: "2:33" },
-    { name: " track N°2", Album: " Album 3", createdate: "22-10-2022", duration: "2:33"  },
-    { name: " track N°3", Album: " Album 4", createdate: "22-10-2022", duration: "2:33"  },
-    { name: " track N°4", Album: " Album 15", createdate: "22-10-2022", duration: "2:33"  },
-    { name: " track N°5", Album: " Album 7", createdate: "22-10-2022", duration: "2:33"  }
-  ];
+
+
+  const [connect, setConnect] = useConnect();
+
 
   const { status, data } = useQuery("release", () =>
       getReleaseById(props.index).then((res) => {
       console.log("ReleaseSelected");
+      console.log(res.data);
+     
       return res.data;
     })
   );
@@ -120,7 +122,7 @@ const ArtistRelease = (props) => {
                     <div></div>
                   )}
                 </div>
-                <h2 className="text-gry mb-8">{data._id}</h2>
+                <h2 className="text-gry mb-8">{data.author.username}</h2>
               </div>
 
               <div className="ml-5 ">
@@ -163,8 +165,8 @@ const ArtistRelease = (props) => {
                         />
                       </td>
                       <td>{item.title}</td>
-                      <td>{item._id}</td>
-                      <td>{item.duration}</td>
+                      <td>23-05-2022</td>
+                      <td> 3:28</td>
                       <td>
                         <ShowMoreMenu track= {item}
                         />

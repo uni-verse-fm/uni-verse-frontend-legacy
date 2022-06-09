@@ -18,17 +18,9 @@ import { notify, NotificationType } from "../Notifications";
 import UpdatePlayListForm from "../UpdatePlaylistForm";
 import Modal from "../Modal";
 import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
+import ShowMoreMenu from "./ShowMoreMenu";
 
 const Playlist = (props) => {
-
-  let tracks = [
-    { name: " track N°1", Album: " Album 1", createdate: "22-10-2022", duration: "2:33" },
-    { name: " track N°2", Album: " Album 2", createdate: "22-10-2022", duration: "2:33" },
-    { name: " track N°2", Album: " Album 3", createdate: "22-10-2022", duration: "2:33"  },
-    { name: " track N°3", Album: " Album 4", createdate: "22-10-2022", duration: "2:33"  },
-    { name: " track N°4", Album: " Album 15", createdate: "22-10-2022", duration: "2:33"  },
-    { name: " track N°5", Album: " Album 7", createdate: "22-10-2022", duration: "2:33"  }
-  ];
 
   const { status, data } = useQuery("playlist", () =>
     getPlaylistById(props.index).then((res) => {
@@ -146,13 +138,13 @@ const Playlist = (props) => {
                 )}
               </div>
             </div>
-            {tracks.length ? (
+            {data.tracks.length ? (
               <table className=" ml-10 mr-10 text-gry text-sm ">
                 <thead>
                   <tr className="text-grn border-b mb-10">
                     <td className="py-3"></td>
                     <td className="py-3">Name</td>
-                    <td className="py-3">Album</td>
+                    <td className="py-3">Album(Release)</td>
                     <td className="py-3">Creation date</td>
                     <td className="py-3">
                       <FontAwesomeIcon
@@ -163,7 +155,7 @@ const Playlist = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {tracks.map((item) => (
+                  {data.tracks.map((item) => (
                     <tr
                       key={item.name}
                       className="h-10 cursor-pointer hover:text-wht hover:border-b hover:border-t"
@@ -174,14 +166,12 @@ const Playlist = (props) => {
                           icon={faPlay}
                         />
                       </td>
-                      <td>{item.name}</td>
-                      <td>Album 1</td>
-                      <td>{item.createdate}</td>
-                      <td>{item.duration}</td>
+                      <td>{item.title}</td>
+                      <td>Release </td>
+                      <td>01-06-2022</td>
+                      <td>4:23</td>
                       <td>
-                        <FontAwesomeIcon
-                          className=" cursor-pointer hover:scale-[1.40] hover:text-grn text-gry"
-                          icon={faEllipsis}
+                        <ShowMoreMenu track= {item} playlist= {data}
                         />
                       </td>
                       

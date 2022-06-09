@@ -192,6 +192,7 @@ const SearchBar = () => {
           </Tab.List>
         )}
         <Tab.Panels>
+          
           <Tab.Panel>
             <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
               {taskQuery.status === "success" &&

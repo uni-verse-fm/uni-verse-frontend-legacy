@@ -10,42 +10,27 @@ import { useMutation } from "react-query";
 import router from "next/router";
 import { Messages } from "../../common/constants";
 import { Pages } from "../../common/constants";
+import { IUpdatePayload } from "../UpdatePlaylistForm/UpdatePlaylistForm";
 
-import MenuSelectPlaylist from "./MenuSelectPlaylist";
+import { updatePlaylist } from "../../api/PlaylistAPI";
+import { IUpdatePlaylistTrack } from "../ArtistRelease/MenuSelectPlaylist";
 
-const ShowMoreMenu = ({ track }) => {
-  /*const [connect, setConnect] = useConnect();
 
-  const clientDisconnect = () =>
-    (document.cookie = "Authentication=; Max-Age=0;secure; path=/;");
+const ShowMoreMenu = ({ track,playlist }) => {
 
-  const { mutate, isLoading } = useMutation("logout", logout, {
+  const { mutate, isLoading } = useMutation("updatePlaylist", updatePlaylist, {
     onError: (error) => {
-      notify("Your session will expire" + error, NotificationType.ERROR);
+      notify("there was an error" + error, NotificationType.ERROR);
     },
     onSuccess: (res) => {
       if (res.status !== 200) {
-        notify("Disconnected", NotificationType.ERROR);
+        notify(res.data.message, NotificationType.ERROR);
       } else {
-        notify(Messages.DISCONNECTED, NotificationType.SUCCESS);
+        const message = "track added to your plalist successfully";
+        notify(message, NotificationType.SUCCESS);
       }
     },
   });
-
-  const handleLogout = () => {
-    mutate();
-    setConnect(false);
-    router.replace("/");
-    clientDisconnect();
-  };*/
-  const onClickDisplayUser = () => {
-
-    router.push({
-      pathname: `/${Pages.Profile}`,
-      query: { id: track.author._id },
-    });
-  };
-
 
   return (
     <Menu as="div" className="text-left h-full w-auto">
@@ -61,7 +46,24 @@ const ShowMoreMenu = ({ track }) => {
             <div className={`${
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
               } group items-center px-2 py-2 font-semibold text-gryf`}>
-              <MenuSelectPlaylist track= {track} />  
+             <button
+                 onClick={(_: any) => {
+                
+                  let dataToUpdate: IUpdatePlaylistTrack = {
+                    trackId: track._id,
+                    action: "REMOVE",
+                   
+                  };
+      
+                  let dataForm: IUpdatePayload = {
+                    id: playlist._id,
+                    data: dataToUpdate,
+                  };  
+                  mutate(dataForm);
+                }}
+                >
+                  Remove
+                </button>
             </div>)}
           </Menu.Item>
           <Menu.Item>
@@ -69,8 +71,7 @@ const ShowMoreMenu = ({ track }) => {
             <div className={`${
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
               } group items-center px-2 py-2 font-semibold text-gryf`}>
-                <button
-                 onClick={onClickDisplayUser}>
+                <button>
                   Artist
                 </button>
             </div>)}
