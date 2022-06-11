@@ -8,11 +8,10 @@ import { searchRelease } from "../../api/ReleaseAPI";
 import { searchTrack } from "../../api/TrackAPI";
 import { searchUsers } from "../../api/UserAPI";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
-import { Types } from "../../common/reducers/player-reducer";
 import router from "next/router";
 import { me } from "../../api/AuthAPI";
 import { notify } from "../Notifications";
-import { Pages, Track } from "../../common/types";
+import { Pages, Track, Types } from "../../common/types";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");

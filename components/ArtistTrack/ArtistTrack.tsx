@@ -6,9 +6,8 @@ import { getTrackById } from "../../api/TrackAPI";
 import { useQuery } from "react-query";
 import Spinner from "../Spinner";
 import { Messages } from "../../common/constants";
-import { Types } from "../../common/reducers/player-reducer";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
-import { Track } from "../../common/types";
+import { Track, Types } from "../../common/types";
 
 const ArtistTrack = (props) => {
   const { dispatch } = useContext(PlayerContext);

@@ -216,3 +216,27 @@ export enum Endoints {
   Payments = "/payments",
   Tracks = "/tracks",
 }
+
+export type ActionMap<M extends { [index: string]: any }> = {
+  [Key in keyof M]: M[Key] extends undefined
+    ? {
+        type: Key;
+      }
+    : {
+        type: Key;
+        payload: M[Key];
+      };
+};
+
+export enum Types {
+  PlaylistPlay = "PLAY_PLAYLIST",
+  ReleasePlay = "PLAY_RELEASE",
+  TrackPlay = "PLAY_TRACK",
+  RandomPlay = "PLAY_RANDOM",
+}
+
+export type PlayerType = {
+  className?: string;
+  tracks: Track[];
+  trackIndex?: number;
+};

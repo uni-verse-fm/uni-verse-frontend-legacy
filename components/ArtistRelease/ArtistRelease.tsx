@@ -16,9 +16,8 @@ import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
 import router from "next/router";
 import { useSession } from "next-auth/react";
 import DisplayTracksTable from "../DisplayTracksTable";
-import { Types } from "../../common/reducers/player-reducer";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
-import { NotificationType, Pages } from "../../common/types";
+import { NotificationType, Pages, Types } from "../../common/types";
 
 const ArtistRelease = (props) => {
   const { data: session } = useSession();

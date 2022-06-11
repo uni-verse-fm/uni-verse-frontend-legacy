@@ -17,9 +17,8 @@ import UpdatePlayListForm from "../UpdatePlaylistForm";
 import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
 import ShowMoreMenu from "./ShowMoreMenu";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
-import { Types } from "../../common/reducers/player-reducer";
 import { isoDateToDate } from "../../utils/dateUtils";
-import { NotificationType, Track } from "../../common/types";
+import { NotificationType, Track, Types } from "../../common/types";
 
 const Playlist = (props) => {
   const { status, data } = useQuery(`playlist-${props.index}`, () =>

@@ -2,8 +2,7 @@ import { faClock, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
-import { Types } from "../../common/reducers/player-reducer";
-import { Track } from "../../common/types";
+import { Track, Types } from "../../common/types";
 import { isoDateToDate } from "../../utils/dateUtils";
 
 const DisplayTracksTable = ({ tracks }) => {
