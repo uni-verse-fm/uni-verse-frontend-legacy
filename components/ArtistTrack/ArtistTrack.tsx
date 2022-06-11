@@ -15,7 +15,6 @@ const ArtistTrack = (props) => {
 
   const { status, data } = useQuery("track", () =>
     getTrackById(props.index).then((res) => {
-      console.log("TrackSelected");
       return res.data;
     })
   );

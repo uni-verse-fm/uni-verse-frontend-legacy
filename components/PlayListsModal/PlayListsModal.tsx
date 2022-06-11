@@ -22,7 +22,6 @@ const PlaylistsModal = ({
   };
 
   const handleHidePlaylistContent = () => {
-    console.log(playlistIndex);
     setPlaylistIndex(null);
   };
   const { data: session } = useSession();
