@@ -2,10 +2,8 @@ import { Menu } from "@headlessui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import router from "next/router";
-
-import { Pages } from "../../common/constants";
-
 import MenuSelectPlaylist from "./MenuSelectPlaylist";
+import { Pages } from "../../common/types";
 
 const ShowMoreMenu = ({ track }) => {
   const onClickDisplayUser = () => {

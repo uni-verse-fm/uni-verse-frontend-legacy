@@ -1,8 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Messages } from "../../common/constants";
-import { notify } from "../Notifications";
 
 export const PlaylistsModalHeader = ({ handleShowcreatePlaylistIndex }) => {
   return (

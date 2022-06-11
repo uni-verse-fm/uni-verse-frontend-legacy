@@ -1,10 +1,11 @@
 import React from "react";
 import { signIn } from "next-auth/react";
 import LoginForm from "../components/LoginForm";
-import { NotificationType, notify } from "../components/Notifications";
+import { notify } from "../components/Notifications";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle, faSpotify } from "@fortawesome/free-brands-svg-icons";
+import { NotificationType } from "../common/types";
 
 export default function Login() {
   const router = useRouter();

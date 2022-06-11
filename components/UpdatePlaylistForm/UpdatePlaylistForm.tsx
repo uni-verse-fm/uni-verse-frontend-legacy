@@ -1,30 +1,18 @@
 import React from "react";
 import { Messages } from "../../common/constants";
-import { notify, NotificationType } from "../Notifications";
+import { notify } from "../Notifications";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useMutation } from "react-query";
 import { updatePlaylist } from "../../api/PlaylistAPI";
-
-export interface IPlaylist {
-  title: string;
-}
-
-export interface IUpdatePayload {
-  id: string;
-  data: object;
-}
-
-export interface IUpdatePlaylistdata {
-  title: string;
-}
+import { IUpdatePayload, NotificationType } from "../../common/types";
 
 const UpdatePlayListForm = ({
   showForm,
   handleHidecreatePlaylistIndex,
   dataUpdate,
 }) => {
-  const { mutate, isLoading } = useMutation("updatePlaylist", updatePlaylist, {
+  const { mutate } = useMutation("updatePlaylist", updatePlaylist, {
     onError: (error) => {
       notify("there was an error" + error, NotificationType.ERROR);
     },
@@ -61,10 +49,6 @@ const UpdatePlayListForm = ({
             let dataToUpdate = dataUpdate;
             dataToUpdate.title = value.title;
 
-            let dataFormUpdate: IUpdatePlaylistdata = {
-              title: dataToUpdate.title,
-            };
-
             let dataForm: IUpdatePayload = {
               id: dataUpdate._id,
               data: value,
@@ -72,7 +56,7 @@ const UpdatePlayListForm = ({
 
             mutate(dataForm);
           }}
-          render={({ values, errors, handleChange, handleBlur }) => {
+          render={({ values, handleChange, handleBlur }) => {
             return (
               <div className="bg-blk flex ml-6  w-full h-auto mr-10 mb-12 justify-center items-center  ">
                 <Form className="flex flex-col justify-center items-center rounded bg-wht w-auto h-auto">

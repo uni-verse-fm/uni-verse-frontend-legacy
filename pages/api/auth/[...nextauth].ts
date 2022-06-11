@@ -6,7 +6,8 @@ import * as cookie from "cookie";
 import GoogleProvider from "next-auth/providers/google";
 import SpotifyProvider from "next-auth/providers/spotify";
 import axios, { AxiosError } from "axios";
-import { BASE_API, Endoints } from "../../../common/constants";
+import { BASE_API } from "../../../common/constants";
+import { Endoints } from "../../../common/types";
 
 async function refreshAccessToken(token) {
   axiosClient.defaults.headers["cookie"] = cookie.serialize(

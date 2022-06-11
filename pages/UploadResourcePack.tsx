@@ -39,9 +39,19 @@ export default function UploadResourcePackPage() {
 }
 
 export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/Login",
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
-      session: await getSession(context),
+      session,
     },
   };
 }

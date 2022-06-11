@@ -24,6 +24,7 @@ const UploadImageDisplayer = (props) => {
         <img
           src={image ? URL.createObjectURL(image) : props.defaultImageSrc}
           className={"md:mx-auto h-full rounded-lg"}
+          alt="image to upload"
         />
       </div>
       <div className="text-center">

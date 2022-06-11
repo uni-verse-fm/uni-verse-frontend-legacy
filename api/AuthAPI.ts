@@ -1,7 +1,6 @@
 import axios from "axios";
-import { BASE_API, Endoints } from "../common/constants";
-import { ILogin } from "../components/LoginForm/LoginForm";
-import { IRegister } from "../components/RegisterForm/RegisterForm";
+import { BASE_API } from "../common/constants";
+import { Endoints, ILogin, IRegister } from "../common/types";
 import axiosClient from "./apiClient";
 
 const authEndpoint = Endoints.Auth;

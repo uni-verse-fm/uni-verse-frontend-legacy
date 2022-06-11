@@ -1,12 +1,10 @@
 import { Menu } from "@headlessui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
-import { NotificationType, notify } from "../Notifications";
+import { notify } from "../Notifications";
 import { useMutation } from "react-query";
-import { IUpdatePayload } from "../UpdatePlaylistForm/UpdatePlaylistForm";
-
 import { updatePlaylist } from "../../api/PlaylistAPI";
-import { IUpdatePlaylistTrack } from "../ArtistRelease/MenuSelectPlaylist";
+import { IUpdatePayload, IUpdatePlaylistTrack, NotificationType } from "../../common/types";
 
 const ShowMoreMenu = ({ track, playlist }) => {
   const { mutate } = useMutation("updatePlaylist", updatePlaylist, {

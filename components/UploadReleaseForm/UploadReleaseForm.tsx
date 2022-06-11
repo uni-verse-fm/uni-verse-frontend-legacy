@@ -10,27 +10,13 @@ import {
   MAX_IMAGE_SIZE,
   Messages,
 } from "../../common/constants";
-import { NotificationType, notify } from "../Notifications";
+import { NotificationType, UniVerseError } from "../../common/types";
+import { notify } from "../Notifications";
 import UploadImageDisplayer from "../UploadImageDisplayer";
-import UploadTracksListDisplayer, {
-  ITrack,
-} from "../UploadTracksListDisplayer/UploadTracksListDisplayer";
-
-export interface ICreateRelease {
-  title: string;
-  description: string;
-  coverUrl: string;
-  feats?: string[];
-  tracks: ITrack[];
-}
-
-export interface UniVerseError {
-  statusCode?: number;
-  message?: string;
-}
+import UploadTracksListDisplayer from "../UploadTracksListDisplayer/UploadTracksListDisplayer";
 
 const UploadReleaseForm = ({ myId }) => {
-  const { mutate, isLoading } = useMutation("uploadRelease", createRelease, {
+  const { mutate } = useMutation("uploadRelease", createRelease, {
     onError: (error: AxiosError) => {
       const errorMessage: UniVerseError = error.response.data;
       notify(

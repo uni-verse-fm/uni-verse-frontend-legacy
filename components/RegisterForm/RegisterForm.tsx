@@ -1,11 +1,12 @@
 import { Form, Formik } from "formik";
-import { Extensions, Messages, Pages } from "../../common/constants";
+import { Extensions, Messages } from "../../common/constants";
 import * as Yup from "yup";
 import UploadImageDisplayer from "../UploadImageDisplayer";
-import { NotificationType, notify } from "../Notifications";
+import { notify } from "../Notifications";
 import { useMutation } from "react-query";
 import { register } from "../../api/AuthAPI";
 import router from "next/router";
+import { NotificationType, Pages } from "../../common/types";
 
 const imageProps = {
   src: undefined,
@@ -15,15 +16,9 @@ const imageProps = {
   setFieldValue: () => notify(Messages.NOT_IMPLEMENTED),
 };
 
-export interface IRegister {
-  username: string;
-  email: string;
-  password: string;
-}
-
 const RegisterForm = () => {
   const { mutate } = useMutation("register", register, {
-    onError: (error) => {
+    onError: () => {
       notify("Can't register", NotificationType.ERROR);
     },
     onSuccess: (res) => {

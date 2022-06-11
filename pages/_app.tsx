@@ -1,13 +1,10 @@
 import { useState } from "react";
 import {
-  dehydrate,
   Hydrate,
   QueryClient,
   QueryClientProvider,
 } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { me } from "../api/AuthAPI";
-import { getPlaylists } from "../api/PlaylistAPI";
 import Header from "../components/Header";
 import Notifications from "../components/Notifications";
 import PlaylistsModal from "../components/PlayListsModal";
@@ -81,28 +78,27 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   );
 }
 
-export async function getServerSideProps() {
-  const queryClient = new QueryClient();
-  const response = await me();
-  await queryClient.prefetchQuery("me", me);
-  await queryClient.prefetchQuery("playlists", getPlaylists);
-  const isConnected = response.status === 200;
-  console.log("VbhjHIBKkn   ", response);
-  if (!isConnected) {
-    return {
-      redirect: {
-        destination: "/Login",
-        permanent: false,
-      },
-    };
-  }
+// export async function getServerSideProps() {
+//   const queryClient = new QueryClient();
+//   const response = await me();
+//   await queryClient.prefetchQuery("me", me);
+//   await queryClient.prefetchQuery("playlists", getPlaylists);
+//   const isConnected = response.status === 200;
+//   if (!isConnected) {
+//     return {
+//       redirect: {
+//         destination: "/Login",
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-      me: response.data,
-    },
-  };
-}
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//       me: response.data,
+//     },
+//   };
+// }
 
 export default MyApp;

@@ -1,12 +1,11 @@
-import { Endoints } from "../common/constants";
+import { Endoints, IUpdatePayload } from "../common/types";
 import axiosClient from "./apiClient";
-import { IUpdatePayload } from "../components/UpdatePlaylistForm/UpdatePlaylistForm";
 
 const playlistEndpoint = Endoints.Playlists;
 
 const getPlaylists = () => axiosClient.get(playlistEndpoint);
 
-const getMyPlaylists = () => axiosClient.get(`${playlistEndpoint}/myplaylists`);
+const getUserPlaylists = (id: string) => axiosClient.get(`${playlistEndpoint}/user/${id}`).then((res) => res.data);
 
 const createPlaylist = (data) => axiosClient.post(`${playlistEndpoint}`, data);
 
@@ -36,5 +35,5 @@ export {
   updatePlaylist,
   deletePlaylist,
   searchPlaylist,
-  getMyPlaylists,
+  getUserPlaylists,
 };

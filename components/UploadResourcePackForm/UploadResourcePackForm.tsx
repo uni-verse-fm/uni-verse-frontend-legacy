@@ -12,57 +12,39 @@ import {
   MAX_IMAGE_SIZE,
   Messages,
 } from "../../common/constants";
+import {
+  AccessType,
+  ICreateResource,
+  IResource,
+  NotificationType,
+  UniVerseError,
+} from "../../common/types";
 import Counter from "../Counter";
-import { NotificationType, notify } from "../Notifications";
+import { notify } from "../Notifications";
 import UploadImageDisplayer from "../UploadImageDisplayer";
 import UploadResourcesListDisplayer from "../UploadResourcesListDisplayer";
-import { IResource } from "../UploadResourcesListDisplayer/UploadResourcesListDisplayer";
-
-export interface ICreateRelease {
-  title: string;
-  description: string;
-  resources: IResource[];
-  image: File;
-  accessType: AccessType;
-  amount?: number;
-}
-
-const enum AccessType {
-  Free = "free",
-  Paid = "paid",
-  Donation = "donation",
-}
-
-export interface UniVerseError {
-  statusCode?: number;
-  message?: string;
-}
 
 const UploadResourcePackForm = ({ me }) => {
-  const { mutate, isLoading } = useMutation(
-    "uploadResourcePack",
-    createResourcePack,
-    {
-      onError: (error: AxiosError) => {
-        const errorMessage: UniVerseError = error.response.data;
-        notify(
-          `Can't upload resource-pack: ${errorMessage.message}`,
-          NotificationType.ERROR
-        );
-      },
-      onSuccess: (res) => {
-        if (res.status !== 201) {
-          notify(res.data.message, NotificationType.ERROR);
-        } else {
-          const message = "Resource-pack uploaded";
-          notify(message, NotificationType.SUCCESS);
-        }
-      },
-    }
-  );
+  const { mutate } = useMutation("uploadResourcePack", createResourcePack, {
+    onError: (error: AxiosError) => {
+      const errorMessage: UniVerseError = error.response.data;
+      notify(
+        `Can't upload resource-pack: ${errorMessage.message}`,
+        NotificationType.ERROR
+      );
+    },
+    onSuccess: (res) => {
+      if (res.status !== 201) {
+        notify(res.data.message, NotificationType.ERROR);
+      } else {
+        const message = "Resource-pack uploaded";
+        notify(message, NotificationType.SUCCESS);
+      }
+    },
+  });
 
   const onboardMutation = useMutation("onboarding", onboardUser, {
-    onError: (error: AxiosError) => {
+    onError: () => {
       notify(`Can not do payment onboarding`, NotificationType.ERROR);
     },
     onSuccess: (res) => {
@@ -82,7 +64,7 @@ const UploadResourcePackForm = ({ me }) => {
     }
   );
 
-  const initialValues: ICreateRelease = {
+  const initialValues: ICreateResource = {
     title: "",
     description: "",
     resources: [],
@@ -158,7 +140,7 @@ const UploadResourcePackForm = ({ me }) => {
             value ? value.size < MAX_IMAGE_SIZE : true
           ),
       })}
-      onSubmit={(value: ICreateRelease) => {
+      onSubmit={(value: ICreateResource) => {
         const data = {
           title: value.title,
           description: value.description,

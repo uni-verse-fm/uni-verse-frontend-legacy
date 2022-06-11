@@ -1,21 +1,34 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
-
 
 import { getTrackById } from "../../api/TrackAPI";
 import { useQuery } from "react-query";
 import Spinner from "../Spinner";
 import { Messages } from "../../common/constants";
-
+import { Types } from "../../common/reducers/player-reducer";
+import { PlayerContext } from "../../common/providers/PlayerProvider";
+import { Track } from "../../common/types";
 
 const ArtistTrack = (props) => {
+  const { dispatch } = useContext(PlayerContext);
+
   const { status, data } = useQuery("track", () =>
     getTrackById(props.index).then((res) => {
       console.log("TrackSelected");
       return res.data;
     })
   );
+
+  const onClickTrack = (track: Track) => () => {
+    dispatch({
+      type: Types.TrackPlay,
+      payload: {
+        className: "mt-auto",
+        track: track,
+      },
+    });
+  };
 
   return (
     <div>
@@ -38,6 +51,7 @@ const ArtistTrack = (props) => {
                     <FontAwesomeIcon
                       className="cursor-pointer ml-5 hover:scale-[1.40]  text-wht hover:text-grn"
                       icon={faPlay}
+                      onClick={onClickTrack(data)}
                     />
                   </h2>
                 </div>

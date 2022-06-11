@@ -1,25 +1,20 @@
-import { getMyPlaylists } from "../../api/PlaylistAPI";
-import { Messages, Pages } from "../../common/constants";
+import { Messages } from "../../common/constants";
 import PlaylistCard from "../PlayListCard";
 import Spinner from "../Spinner";
 import { useQuery } from "react-query";
 import router from "next/router";
-import { NotificationType, notify } from "../Notifications";
+import { notify } from "../Notifications";
 import { AxiosError } from "axios";
 import { styles } from "../PlayListsModal";
+import { getUserPlaylists } from "../../api/PlaylistAPI";
+import { NotificationType, Pages } from "../../common/types";
 
 
 const Playlists = (props) => {
-  const { status, data } = useQuery(
+  const { data, status } = useQuery(
     "playlists",
-    () => getMyPlaylists().then((res) => res.data),
+    () => getUserPlaylists(props.userId),
     {
-      onSuccess: (res) => {
-        if (res.status === 401) {
-          notify("Playlists bay from success");
-          router.replace(`/${Pages.Login}`);
-        }
-      },
       onError: (error: AxiosError) => {
         if (error.response?.status === 401) {
           notify(Messages.UNAUTHORIZED, NotificationType.ERROR);

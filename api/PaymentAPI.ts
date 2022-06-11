@@ -1,4 +1,4 @@
-import { Endoints } from "../common/constants";
+import { Endoints } from "../common/types";
 import axiosClient from "./apiClient";
 
 const authEndpoint = Endoints.Payments;

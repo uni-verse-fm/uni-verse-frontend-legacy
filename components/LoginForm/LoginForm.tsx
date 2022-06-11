@@ -1,15 +1,8 @@
 import { Form, Formik } from "formik";
 import { Messages } from "../../common/constants";
 import * as Yup from "yup";
+import { ILogin, ILoginForm } from "../../common/types";
 
-export interface ILogin {
-  email: string;
-  password: string;
-}
-
-interface ILoginForm {
-  signIn: any;
-}
 const LoginForm = (props: ILoginForm) => {
   return (
     <Formik

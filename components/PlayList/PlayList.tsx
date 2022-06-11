@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faClock } from "@fortawesome/free-solid-svg-icons";
 
@@ -12,17 +12,21 @@ import { faTrashCan, faPen } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { deletePlaylist } from "../../api/PlaylistAPI";
-import { notify, NotificationType } from "../Notifications";
+import { notify } from "../Notifications";
 import UpdatePlayListForm from "../UpdatePlaylistForm";
 import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
 import ShowMoreMenu from "./ShowMoreMenu";
+import { PlayerContext } from "../../common/providers/PlayerProvider";
+import { Types } from "../../common/reducers/player-reducer";
+import { isoDateToDate } from "../../utils/dateUtils";
+import { NotificationType, Track } from "../../common/types";
 
 const Playlist = (props) => {
-  const { status, data } = useQuery("playlist", () =>
-    getPlaylistById(index).then((res) => {
-      return res.data;
-    })
+  const { status, data } = useQuery(`playlist-${props.index}`, () =>
+    getPlaylistById(props.index).then((res) => res.data)
   );
+
+  const { dispatch } = useContext(PlayerContext);
 
   const [showForm, setShowForm] = useState(false);
   const handleShowForm = () => setShowForm(true);
@@ -51,7 +55,27 @@ const Playlist = (props) => {
       }
     },
   });
-  const [style, setStyle] = useState({ display: "none" });
+
+  const onClickTrack = (track: Track) => () => {
+    dispatch({
+      type: Types.TrackPlay,
+      payload: {
+        className: "mt-auto",
+        track: track,
+      },
+    });
+  };
+
+  const onClickPlaylist = (playlist) => () => {
+    dispatch({
+      type: Types.ReleasePlay,
+      payload: {
+        tracks: playlist.tracks || [],
+        className: "mt-auto",
+        trackIndex: 0,
+      },
+    });
+  };
 
   return (
     <div>
@@ -73,6 +97,7 @@ const Playlist = (props) => {
                   className="rounded mb-5"
                   width={150}
                   height={150}
+                  alt="playlist"
                 />
               </div>
 
@@ -83,6 +108,7 @@ const Playlist = (props) => {
                     <FontAwesomeIcon
                       className="cursor-pointer ml-5 hover:scale-[1.40]  text-wht hover:text-grn"
                       icon={faPlay}
+                      onClick={onClickPlaylist(data)}
                     />
                   </h2>
 
@@ -117,7 +143,7 @@ const Playlist = (props) => {
                 )}
               </div>
             </div>
-            {data.tracks.length ? (
+            {data.tracks?.length ? (
               <table className=" ml-10 mr-10 text-gry text-sm ">
                 <thead>
                   <tr className="text-grn border-b mb-10">
@@ -133,22 +159,23 @@ const Playlist = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.tracks.map((item) => (
+                  {data.tracks.map((track, index: number) => (
                     <tr
-                      key={item.name}
+                      key={index}
                       className="h-10 cursor-pointer hover:text-wht hover:border-b hover:border-t"
                     >
                       <td>
                         <FontAwesomeIcon
                           className=" cursor-pointer hover:scale-[1.40] text-grn"
                           icon={faPlay}
+                          onClick={onClickTrack(track)}
                         />
                       </td>
-                      <td>{item}</td>
-                      <td>01-06-2022</td>
+                      <td>{track.title}</td>
+                      <td>{isoDateToDate(track.createdAt)}</td>
                       <td>4:23</td>
                       <td>
-                        <ShowMoreMenu track={item} playlist={data} />
+                        <ShowMoreMenu track={track} playlist={data} />
                       </td>
                     </tr>
                   ))}
@@ -157,7 +184,7 @@ const Playlist = (props) => {
             ) : (
               <div className="flex justify-center items-center mt-10 text-lg">
                 <h1 className="text-grn whitespace-nowrap">
-                  {Messages.EMPTY_PLAYLIST}
+                  {Messages.EMPTY_TRACKS}
                 </h1>
               </div>
             )}

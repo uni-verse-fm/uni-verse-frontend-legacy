@@ -1,4 +1,4 @@
-import { Messages, Pages } from "../../common/constants";
+import { Messages } from "../../common/constants";
 import { useState } from "react";
 import {
   faHome,
@@ -8,9 +8,10 @@ import {
   faChartLine,
 } from "@fortawesome/free-solid-svg-icons";
 import SideMenuEntry from "./SideMenuEntry";
-import { NotificationType, notify } from "../Notifications";
+import { notify } from "../Notifications";
 import Player from "../Player";
 import { useSession } from "next-auth/react";
+import { NotificationType, Pages } from "../../common/types";
 
 const Sidebar = ({ handleShowModal }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);

@@ -1,13 +1,8 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { IResource } from "../../common/types";
 import { ResourcesTable } from "./ResourcesTable";
-
-export interface IResource {
-  file: File;
-  previewFile?: File;
-  title: string;
-}
 
 const UploadResourcesListDisplayer = (props) => {
   const [resources, setResources] = useState<IResource[]>([]);

@@ -18,8 +18,6 @@ const PlaylistsModal = ({
   const [playlistIndex, setPlaylistIndex] = useState(null);
 
   const handleShowPlaylistContent = (index: number) => {
-    console.log("index");
-    console.log(index);
     setPlaylistIndex(index);
   };
 
@@ -63,6 +61,7 @@ const PlaylistsModal = ({
               />
             ) : (
               <Playlists
+                userId={session.userId as string}
                 handleShowPlaylistContent={handleShowPlaylistContent}
                 modalDisplay="true"
               />

@@ -1,4 +1,4 @@
-import { Endoints } from "../common/constants";
+import { Endoints } from "../common/types";
 import axiosClient from "./apiClient";
 
 const userEndpoint = Endoints.Users;
@@ -8,7 +8,7 @@ const getUsers = () => axiosClient.get(userEndpoint);
 const getUserByUsername = (username) =>
   axiosClient.get(`${userEndpoint}`, { params: { username } });
 
-const getUserById = (id) => axiosClient.get(`${userEndpoint}/${id}`);
+const getUserById = (id: string) => axiosClient.get(`${userEndpoint}/${id}`);
 
 const updateUser = (id, data) =>
   axiosClient.put(`${userEndpoint}/${id}`, JSON.stringify(data));

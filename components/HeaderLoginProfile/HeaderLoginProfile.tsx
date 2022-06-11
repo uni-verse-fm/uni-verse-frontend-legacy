@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { Pages } from "../../common/constants";
+import { Pages } from "../../common/types";
 import UserDropDown from "./UserDropDown";
 
 const HeaderLoginProfile = () => {

@@ -1,10 +1,7 @@
+import { IDefilingText } from "../../common/types";
 import styles from "./DefilingText.module.css";
 
-interface DefilingTextProps {
-  value: string;
-}
-
-const DefilingText = ({ value }: DefilingTextProps) => {
+const DefilingText = ({ value }: IDefilingText) => {
   return value.length > 22 ? (
     <p className={styles.text}>{value}</p>
   ) : (

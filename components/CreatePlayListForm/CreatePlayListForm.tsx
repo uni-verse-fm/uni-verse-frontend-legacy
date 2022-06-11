@@ -1,14 +1,11 @@
 import React from "react";
 import { Messages } from "../../common/constants";
-import { notify, NotificationType } from "../Notifications";
+import { notify } from "../Notifications";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useMutation } from "react-query";
 import { createPlaylist } from "../../api/PlaylistAPI";
-
-export interface IPlaylist {
-  title: string;
-}
+import { NotificationType } from "../../common/types";
 
 const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex }) => {
   const { mutate, isLoading } = useMutation("createPlaylist", createPlaylist, {

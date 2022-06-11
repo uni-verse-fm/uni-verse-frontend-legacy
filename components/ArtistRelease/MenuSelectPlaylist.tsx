@@ -1,26 +1,18 @@
 import { Menu } from "@headlessui/react";
 import { getPlaylists } from "../../api/PlaylistAPI";
-import useConnect from "../../common/providers/ConnectProvider";
 
-import { NotificationType, notify } from "../Notifications";
+import { notify } from "../Notifications";
 import { useMutation } from "react-query";
 import router from "next/router";
 import { Messages } from "../../common/constants";
-import { Pages } from "../../common/constants";
 import { useQuery } from "react-query";
 import { AxiosError } from "axios";
 
-import { IUpdatePayload } from "../UpdatePlaylistForm/UpdatePlaylistForm";
 import { updatePlaylist } from "../../api/PlaylistAPI";
-
-export interface IUpdatePlaylistTrack {
-  trackId: string;
-  action: string;
-}
+import { IUpdatePayload, IUpdatePlaylistTrack, NotificationType, Pages } from "../../common/types";
 
 const MenuSelectPlayList = ({ track }) => {
 
-  const [connect, setConnect] = useConnect();
   const { status, data } = useQuery(
     "playlists",
     () => getPlaylists().then((res) => res.data),
@@ -28,14 +20,12 @@ const MenuSelectPlayList = ({ track }) => {
       onSuccess: (res) => {
         if (res.status === 401) {
           notify("Playlists bay from success");
-          setConnect(false);
           router.replace(`/${Pages.Login}`);
         }
       },
       onError: (error: AxiosError) => {
         if (error.response.status === 401) {
           notify(Messages.UNAUTHORIZED, NotificationType.ERROR);
-          setConnect(false);
           router.replace(`/${Pages.Login}`);
         }
       },

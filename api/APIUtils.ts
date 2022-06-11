@@ -1,7 +1,8 @@
 import { AxiosError } from "axios";
 import router from "next/router";
-import { Messages, Pages } from "../common/constants";
-import { NotificationType, notify } from "../components/Notifications";
+import { Messages } from "../common/constants";
+import { NotificationType, Pages } from "../common/types";
+import { notify } from "../components/Notifications";
 
 export const reactQueryResponseHandler = () => ({
   onSuccess: (res) => {

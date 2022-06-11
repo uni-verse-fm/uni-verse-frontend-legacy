@@ -4,10 +4,11 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { logout } from "../../api/AuthAPI";
-import { NotificationType, notify } from "../Notifications";
+import { notify } from "../Notifications";
 import { useMutation } from "react-query";
-import { Messages, Pages } from "../../common/constants";
+import { Messages } from "../../common/constants";
 import { signOut } from "next-auth/react";
+import { NotificationType, Pages } from "../../common/types";
 
 const UserDropDown = ({ user }) => {
   const { mutate } = useMutation("logout", logout, {
@@ -73,7 +74,7 @@ const UserDropDown = ({ user }) => {
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
               } group items-center px-2 py-2 font-semibold text-gryf`}
             >
-              <Link href="/"> Settings</Link>
+              <Link href={`/${Pages.MyProfile}`}> Settings</Link>
             </div>
           )}
         </Menu.Item>
@@ -84,7 +85,7 @@ const UserDropDown = ({ user }) => {
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
               } group items-center px-2 py-2 font-semibold text-gryf`}
             >
-              <Link href="/"> Earnings</Link>
+              <Link href={`/${Pages.Profile}`}> Earnings</Link>
             </div>
           )}
         </Menu.Item>

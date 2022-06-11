@@ -1,27 +1,12 @@
 import { faClose, faGripLines } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { ITracksTable } from "../../common/types";
 import { InputFeats } from "./InputFeats";
 import { InputFileName } from "./InputFileName";
 import { InputTitle } from "./InputTitle";
-import { IFeat, ITrack } from "./UploadTracksListDisplayer";
 
-interface TracksTableProps {
-  tracks: ITrack[];
-  handleTrackTitleChange: (
-    track: ITrack,
-    index: number
-  ) => (event: any) => void;
-  handleAddFeat: (track: ITrack, index: number) => (feat: IFeat) => void;
-  handleDeleteFeat: (track: ITrack, index: number) => (index: number) => void;
-  handleTrackFileNameChange: (
-    track: ITrack,
-    index: number
-  ) => (event: any) => void;
-  handleDeleteFile: (index: number) => () => void;
-  handleDragEnd;
-}
-export const TracksTable = (props: TracksTableProps) => (
+export const TracksTable = (props: ITracksTable) => (
   <DragDropContext onDragEnd={props.handleDragEnd}>
     <table className="text-gry text-sm">
       <thead>

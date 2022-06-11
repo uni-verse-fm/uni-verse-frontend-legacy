@@ -1,14 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { Pages } from "../../common/constants";
-
-interface SideMenuEntryProps {
-  title: string;
-  icon: any;
-  onClick?: (event: any) => void;
-  pageName?: Pages;
-  nbNotif?: number;
-}
+import { SideMenuEntryProps } from "../../common/types";
 
 const SideMenuEntry = ({
   title,
@@ -18,11 +10,11 @@ const SideMenuEntry = ({
   nbNotif,
 }: SideMenuEntryProps) => {
   return (
-    <div className="flex w-full h-full justify-between text-wht cursor-pointer items-center p-4 hover:bg-gry hover:text-grn">
-      <a
-        onClick={onClick}
-        className="flex items-center focus:outline-none focus:ring-2 focus:ring-white"
-      >
+    <div
+      className="flex w-full h-full justify-between text-wht cursor-pointer items-center p-4 hover:bg-gry hover:text-grn"
+      onClick={onClick}
+    >
+      <a className="flex items-center focus:outline-none focus:ring-2 focus:ring-white">
         <FontAwesomeIcon icon={icon} className="mr-2" />
         {pageName ? (
           <Link href={`/${pageName}`} passHref>
