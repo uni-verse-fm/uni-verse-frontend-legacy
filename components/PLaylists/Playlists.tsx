@@ -9,7 +9,6 @@ import { styles } from "../PlayListsModal";
 import { getUserPlaylists } from "../../api/PlaylistAPI";
 import { NotificationType, Pages } from "../../common/types";
 
-
 const Playlists = (props) => {
   const { data, status } = useQuery(
     "playlists",

@@ -1,14 +1,10 @@
-import {
-  faClose,
-  faGripLines,
-} from "@fortawesome/free-solid-svg-icons";
+import { faClose, faGripLines } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { IResourcesTable } from "../../common/types";
 import { InputFileName } from "./InputFileName";
 import { InputPreviewFile } from "./InputPreviewFile";
 import { InputTitle } from "./InputTitle";
-
 
 export const ResourcesTable = (props: IResourcesTable) => (
   <DragDropContext onDragEnd={props.handleDragEnd}>

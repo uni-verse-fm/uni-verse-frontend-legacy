@@ -4,7 +4,11 @@ import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { notify } from "../Notifications";
 import { useMutation } from "react-query";
 import { updatePlaylist } from "../../api/PlaylistAPI";
-import { IUpdatePayload, IUpdatePlaylistTrack, NotificationType } from "../../common/types";
+import {
+  IUpdatePayload,
+  IUpdatePlaylistTrack,
+  NotificationType,
+} from "../../common/types";
 
 const ShowMoreMenu = ({ track, playlist }) => {
   const { mutate } = useMutation("updatePlaylist", updatePlaylist, {

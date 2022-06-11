@@ -2,7 +2,6 @@ import React from "react";
 import { useRouter } from "next/router";
 import ArtistTrack from "../components/ArtistTrack/ArtistTrack";
 
-
 function Track() {
   const router = useRouter();
   const {

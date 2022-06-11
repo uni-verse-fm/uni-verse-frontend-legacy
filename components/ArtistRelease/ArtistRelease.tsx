@@ -23,7 +23,6 @@ const ArtistRelease = (props) => {
   const { data: session } = useSession();
   const { dispatch } = useContext(PlayerContext);
 
-
   const getRelease = useQuery("release", () =>
     getReleaseById(props.index).then((res) => res.data)
   );

@@ -9,10 +9,14 @@ import { useQuery } from "react-query";
 import { AxiosError } from "axios";
 
 import { updatePlaylist } from "../../api/PlaylistAPI";
-import { IUpdatePayload, IUpdatePlaylistTrack, NotificationType, Pages } from "../../common/types";
+import {
+  IUpdatePayload,
+  IUpdatePlaylistTrack,
+  NotificationType,
+  Pages,
+} from "../../common/types";
 
 const MenuSelectPlayList = ({ track }) => {
-
   const { status, data } = useQuery(
     "playlists",
     () => getPlaylists().then((res) => res.data),

@@ -21,11 +21,7 @@ const secondsToHMS = (timeInSec: number): string => {
   return timeInString;
 };
 
-const ReaderTimeline = ({
-  duration,
-  playerTime,
-  onSlide,
-}: IReaderTimeLine) => {
+const ReaderTimeline = ({ duration, playerTime, onSlide }: IReaderTimeLine) => {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [sliding, setSliding] = useState<boolean>(false);
 

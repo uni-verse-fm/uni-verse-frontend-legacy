@@ -229,7 +229,6 @@ const SearchBar = ({ isConnected }) => {
               {taskQuery.status === "success" &&
                 taskQuery.data.map((track, index) => (
                   <li key={"track-" + index} value={track}>
-
                     <div
                       onClick={onClickDisplayTrack(track)}
                       className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"
@@ -254,7 +253,6 @@ const SearchBar = ({ isConnected }) => {
               {releaseQuery.status === "success" &&
                 releaseQuery.data.map((release, index) => (
                   <li key={"release-" + index} value={release}>
-
                     <div
                       onClick={onClickDisplayRelease(release)}
                       className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"

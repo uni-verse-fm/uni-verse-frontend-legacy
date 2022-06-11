@@ -1,9 +1,5 @@
 import { useState } from "react";
-import {
-  Hydrate,
-  QueryClient,
-  QueryClientProvider,
-} from "react-query";
+import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import Header from "../components/Header";
 import Notifications from "../components/Notifications";
