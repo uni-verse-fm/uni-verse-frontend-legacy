@@ -27,7 +27,7 @@ import router from "next/router";
 
 const ArtistRelease = (props) => {
   const [connect, setConnect] = useConnect();
-  const getRelease = useQuery("release", () =>  
+  const getRelease = useQuery("release", () =>
     getReleaseById(props.index).then((res) => {
       console.log("ReleaseSelected");
       console.log(res.data);
@@ -35,8 +35,7 @@ const ArtistRelease = (props) => {
     })
   );
 
-
-  const getMe = useQuery("me",() => 
+  const getMe = useQuery("me", () =>
     me().then((res) => {
       console.log("Me");
       console.log(res.data);
@@ -48,14 +47,13 @@ const ArtistRelease = (props) => {
   const handleShowForm = () => setShowForm(true);
   const handleCloseDialog = () => setShowForm(false);
 
-
   const handleConfirmDelete = () => {
     console.log(getRelease.data._id);
     mutate(getRelease.data._id);
     handleCloseDialog();
   };
 
- const { mutate, isLoading } = useMutation("deleteRelease", deleteRelease, {
+  const { mutate, isLoading } = useMutation("deleteRelease", deleteRelease, {
     onError: (error) => {
       notify("there was an error" + error, NotificationType.ERROR);
     },
@@ -97,7 +95,7 @@ const ArtistRelease = (props) => {
                 <div className="flex flex-row mt-24 mb-1">
                   <h2 className="text-grn ">
                     {getRelease.data.title}
-                   
+
                     <FontAwesomeIcon
                       className="cursor-pointer ml-5 hover:scale-[1.40]  text-wht hover:text-grn"
                       icon={faPlay}
@@ -113,15 +111,15 @@ const ArtistRelease = (props) => {
                           onClick={handleShowForm}
                         />
                       </h2>
-
                     </div>
                   ) : (
                     <div></div>
                   )}
                 </div>
-                <h2 className="text-gry mb-8">{getRelease.data.author.username}</h2>
+                <h2 className="text-gry mb-8">
+                  {getRelease.data.author.username}
+                </h2>
               </div>
-
             </div>
             {getRelease.data.tracks.length ? (
               <table className=" ml-10 mr-10 text-gry text-sm ">
@@ -154,10 +152,8 @@ const ArtistRelease = (props) => {
                       <td>23-05-2022</td>
                       <td> 3:28</td>
                       <td>
-                        <ShowMoreMenu track= {item}
-                        />
+                        <ShowMoreMenu track={item} />
                       </td>
-
                     </tr>
                   ))}
                 </tbody>
@@ -172,7 +168,6 @@ const ArtistRelease = (props) => {
           </>
         )}
 
-
         <ConfirmDialogDelete
           data-backdrop="static"
           data-keyboard="false"
@@ -182,7 +177,6 @@ const ArtistRelease = (props) => {
           handleConfirmDelete={handleConfirmDelete}
           msg="Delete Release"
         />
-      
       </div>
     </div>
   );

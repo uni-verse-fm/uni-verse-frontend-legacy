@@ -10,8 +10,6 @@ import { AxiosError } from "axios";
 import { styles } from "../PlayListsModal";
 
 const Playlists = (props) => {
-
-  
   const [connect, setConnect] = useConnect();
   /* A remplacer par getPlaylists d'un User (by idUser) */
   const { status, data } = useQuery(
@@ -35,30 +33,24 @@ const Playlists = (props) => {
     }
   );
 
- 
-
-
   const onClickDisplayPlaylist = (idPlaylist) => () => {
-  if (props.modalDisplay  ===  "false") {
-    router.push({
-      pathname: `/${Pages.UserPlaylist}`,
-      query: { id: idPlaylist },
-    });
-  }
-  else {
-    props.handleShowPlaylistContent(idPlaylist);
+    if (props.modalDisplay === "false") {
+      router.push({
+        pathname: `/${Pages.UserPlaylist}`,
+        query: { id: idPlaylist },
+      });
+    } else {
+      props.handleShowPlaylistContent(idPlaylist);
+    }
   };
-}
-
-
 
   return (
     <>
-     {(props.modalDisplay  ===  "true") && (
-      <div className="items-start mt-10 mb-5 ml-6 text-grn text-lg">
-        Playlists :
-      </div>
-     )}
+      {props.modalDisplay === "true" && (
+        <div className="items-start mt-10 mb-5 ml-6 text-grn text-lg">
+          Playlists :
+        </div>
+      )}
 
       <div className={styles.wrapper}>
         {status === "loading" ? (
@@ -72,12 +64,7 @@ const Playlists = (props) => {
         ) : status === "success" ? (
           data.length ? (
             data.map((item, index) => (
-              
-              <div
-                key={index}
-                onClick={onClickDisplayPlaylist(item._id)}
-                
-              >
+              <div key={index} onClick={onClickDisplayPlaylist(item._id)}>
                 <PlaylistCard
                   key={index}
                   title={item.title}

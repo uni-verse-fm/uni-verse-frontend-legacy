@@ -11,7 +11,7 @@ import { PlayerContext } from "../../common/providers/PlayerProvider";
 import { Types } from "../../common/reducers/player-reducer";
 import { Track } from "../Player/Player";
 import router from "next/router";
-import {me}  from "../../api/AuthAPI";
+import { me } from "../../api/AuthAPI";
 import { notify } from "../Notifications";
 
 import { Extensions, Messages, Pages } from "../../common/constants";
@@ -24,7 +24,6 @@ const SearchBar = () => {
   const [query, setQuery] = useState("");
   const { state, dispatch } = useContext(PlayerContext);
 
-
   const { status, data } = useQuery("me", () => me().then((res) => res.data), {
     onSuccess: (res) => {
       if (res.status === 401) {
@@ -32,7 +31,6 @@ const SearchBar = () => {
       }
     },
   });
-
 
   const taskQuery = useQuery(
     ["searchTrack", query],
@@ -110,7 +108,6 @@ const SearchBar = () => {
     router.push({
       pathname: `/${Pages.Profile}`,
       query: { id: user._id },
-
     });
     setQuery("");
   };
@@ -130,7 +127,6 @@ const SearchBar = () => {
     });
     setQuery("");
   };
-  
 
   return (
     <>
@@ -208,15 +204,15 @@ const SearchBar = () => {
           </Tab.List>
         )}
         <Tab.Panels>
-          
           <Tab.Panel>
             <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
               {taskQuery.status === "success" &&
                 taskQuery.data.map((track, index) => (
                   <li key={"track-" + index} value={track}>
-                    <div 
-                     onClick={onClickDisplayTrack(track)}
-                    className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
+                    <div
+                      onClick={onClickDisplayTrack(track)}
+                      className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"
+                    >
                       {`${track.author.username} - ${
                         track.title
                       } ft.${track.feats
@@ -237,9 +233,10 @@ const SearchBar = () => {
               {releaseQuery.status === "success" &&
                 releaseQuery.data.map((release, index) => (
                   <li key={"release-" + index} value={release}>
-                    <div 
-                    onClick={onClickDisplayRelease(release)}
-                    className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
+                    <div
+                      onClick={onClickDisplayRelease(release)}
+                      className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"
+                    >
                       {`${release.title} by ${release.author.username}`}
                       <FontAwesomeIcon
                         className="cursor-pointer mr-5 hover:scale-[1.40] text-grn"

@@ -14,11 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Extensions, Messages, urlImage } from "../common/constants";
 import { useRouter } from "next/router";
-import {
- 
-  faClock,
-  faPlay
-} from "@fortawesome/free-solid-svg-icons";
+import { faClock, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { getUserById } from "../api/UserAPI";
 import ArtistReleases from "../components/ArtistReleases";
 import Playlists from "../components/PLaylists";
@@ -29,16 +25,38 @@ function MyProfile({ props }) {
     query: { id },
   } = router;
 
-
-
   let tracks = [
-    { name: " track N°1", Album: " Album 1", createdate: "22-10-2022", duration: "2:33" },
-    { name: " track N°2", Album: " Album 2", createdate: "22-10-2022", duration: "2:33" },
-    { name: " track N°2", Album: " Album 3", createdate: "22-10-2022", duration: "2:33"  },
-    { name: " track N°3", Album: " Album 4", createdate: "22-10-2022", duration: "2:33"  },
-    { name: " track N°4", Album: " Album 15", createdate: "22-10-2022", duration: "2:33"  }
+    {
+      name: " track N°1",
+      Album: " Album 1",
+      createdate: "22-10-2022",
+      duration: "2:33",
+    },
+    {
+      name: " track N°2",
+      Album: " Album 2",
+      createdate: "22-10-2022",
+      duration: "2:33",
+    },
+    {
+      name: " track N°2",
+      Album: " Album 3",
+      createdate: "22-10-2022",
+      duration: "2:33",
+    },
+    {
+      name: " track N°3",
+      Album: " Album 4",
+      createdate: "22-10-2022",
+      duration: "2:33",
+    },
+    {
+      name: " track N°4",
+      Album: " Album 15",
+      createdate: "22-10-2022",
+      duration: "2:33",
+    },
   ];
-
 
   const imageProps = {
     src: undefined,
@@ -48,9 +66,7 @@ function MyProfile({ props }) {
     setFieldValue: () => notify(Messages.NOT_IMPLEMENTED),
   };
 
-  
-
-  const getUser= useQuery("me", () => me().then((res) => res.data), {
+  const getUser = useQuery("me", () => me().then((res) => res.data), {
     onSuccess: (res) => {
       if (res.status === 401) {
         notify("get your profile");
@@ -103,89 +119,75 @@ function MyProfile({ props }) {
             Releases :  
           </h2>*/}
             <h2 className="font-medium not-italic text-wht text-xl mt-10 mb-5">
-              Populaires : 
+              Populaires :
             </h2>
           </div>
         )}
       </div>
 
-
       {tracks.length ? (
-              <table className=" ml-16 mr-10 text-gry text-sm mb-5 mt-2 ">
-                <thead>
-                  <tr className="text-grn border-b mb-10">
-                    <td className="py-3 " ></td>
-                    <td className="py-3 ">Name</td>
-                    <td className="py-3 ">Album</td>
-                    <td className="py-3">Creation date</td>
-                    <td className="py-3">
-                      <FontAwesomeIcon
-                        className="ml-5 text-grn"
-                        icon={faClock}
-                      />
-                    </td>
-                  </tr>
-                </thead>
-                <tbody>
-                  {tracks.map((item) => (
-                    <tr
-                      key={item.name}
-                      className="h-10 cursor-pointer hover:text-wht hover:border-b hover:border-t"
-                    >
-                      <td>
-                        <FontAwesomeIcon
-                          className=" cursor-pointer hover:scale-[1.40] text-grn"
-                          icon={faPlay}
-                        />
-                      </td>
-                      <td>{item.name}</td>
-                      <td>Album 1</td>
-                      <td>{item.createdate}</td>
-                      <td>{item.duration}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <div className="flex justify-center items-center mt-10 text-lg">
-                <h1 className="text-grn whitespace-nowrap">
-                  {Messages.EMPTY_PLAYLIST}
-                </h1>
-              </div>
-            )}
+        <table className=" ml-16 mr-10 text-gry text-sm mb-5 mt-2 ">
+          <thead>
+            <tr className="text-grn border-b mb-10">
+              <td className="py-3 "></td>
+              <td className="py-3 ">Name</td>
+              <td className="py-3 ">Album</td>
+              <td className="py-3">Creation date</td>
+              <td className="py-3">
+                <FontAwesomeIcon className="ml-5 text-grn" icon={faClock} />
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            {tracks.map((item) => (
+              <tr
+                key={item.name}
+                className="h-10 cursor-pointer hover:text-wht hover:border-b hover:border-t"
+              >
+                <td>
+                  <FontAwesomeIcon
+                    className=" cursor-pointer hover:scale-[1.40] text-grn"
+                    icon={faPlay}
+                  />
+                </td>
+                <td>{item.name}</td>
+                <td>Album 1</td>
+                <td>{item.createdate}</td>
+                <td>{item.duration}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <div className="flex justify-center items-center mt-10 text-lg">
+          <h1 className="text-grn whitespace-nowrap">
+            {Messages.EMPTY_PLAYLIST}
+          </h1>
+        </div>
+      )}
 
-
-        <div className="text-start justify-start items-start w-full h-full ml-16 ">
+      <div className="text-start justify-start items-start w-full h-full ml-16 ">
         <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5 ">
-              Albums (Releases) : 
-            </h2>
-            <div className="-ml-4 ">
-            <ArtistReleases   
-            />
-              </div>
+          Albums (Releases) :
+        </h2>
+        <div className="-ml-4 ">
+          <ArtistReleases />
+        </div>
 
-<h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5 ">
-              Playlists : 
-            </h2>
+        <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5 ">
+          Playlists :
+        </h2>
 
-            <div className="-ml-4 ">
-            <Playlists  className="w-full"
-              id_user={ id }
-              modalDisplay = "false"
-            />
-       </div>
+        <div className="-ml-4 ">
+          <Playlists className="w-full" id_user={id} modalDisplay="false" />
+        </div>
 
-            <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-10  ">
-              RessoucesPacks : 
-            </h2>
-            <h2 className="font-bold not-italic text-wht text-xl  ">
-              ...
-            </h2>
-           
+        <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-10  ">
+          RessoucesPacks :
+        </h2>
+        <h2 className="font-bold not-italic text-wht text-xl  ">...</h2>
+      </div>
     </div>
-    </div>
-
-
   );
 }
 export default MyProfile;

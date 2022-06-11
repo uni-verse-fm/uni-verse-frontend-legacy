@@ -20,22 +20,21 @@ import Modal from "../Modal";
 import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
 
 const ArtistTrack = (props) => {
-
   const { status, data } = useQuery("track", () =>
-  getTrackById(props.index).then((res) => {
+    getTrackById(props.index).then((res) => {
       console.log("TrackSelected");
       return res.data;
     })
   );
 
- /* const [showForm, setShowForm] = useState(false);
+  /* const [showForm, setShowForm] = useState(false);
   const handleShowForm = () => setShowForm(true);
   const handleCloseDialog = () => setShowForm(false);
 
   const [showUpdatPlayList, setShowUpdatPlayList] = useState(false);
   const handleShowUpdatPlayList = () => setShowUpdatPlayList(true);
   const handleHideUpdatPlayList = () => setShowUpdatPlayList(false);*/
-/*
+  /*
   const handleConfirmDelete = () => {
     console.log(data._id);
     mutate(data._id);
@@ -84,10 +83,7 @@ const ArtistTrack = (props) => {
                 <button style={style}>Click</button>
                 </div>*/}
 
-
             <div className="ml-10 flex flex-row ">
-             
-
               <div className="ml-5 ">
                 <div className="flex flex-row mt-24 mb-1">
                   <h2 className="text-grn ">
@@ -101,11 +97,8 @@ const ArtistTrack = (props) => {
                 <h2 className="text-gry mb-8">{data._id}</h2>
               </div>
             </div>
-
           </>
         )}
-
-       
       </div>
     </div>
   );

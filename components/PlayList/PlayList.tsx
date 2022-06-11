@@ -21,7 +21,6 @@ import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
 import ShowMoreMenu from "./ShowMoreMenu";
 
 const Playlist = (props) => {
-
   const { status, data } = useQuery("playlist", () =>
     getPlaylistById(props.index).then((res) => {
       console.log("PlayListSelected");
@@ -58,7 +57,7 @@ const Playlist = (props) => {
       }
     },
   });
-  const [style, setStyle] = useState({display: 'none'});
+  const [style, setStyle] = useState({ display: "none" });
 
   return (
     <div>
@@ -93,7 +92,7 @@ const Playlist = (props) => {
                     />
                   </h2>
 
-                  {(props.enableChange === "true") && (
+                  {props.enableChange === "true" && (
                     <div className="flex flex-row">
                       <h2 className="text-grn">
                         <FontAwesomeIcon
@@ -155,8 +154,7 @@ const Playlist = (props) => {
                       <td>01-06-2022</td>
                       <td>4:23</td>
                       <td>
-                        <ShowMoreMenu track= {item} playlist= {data}
-                        />
+                        <ShowMoreMenu track={item} playlist={data} />
                       </td>
                     </tr>
                   ))}

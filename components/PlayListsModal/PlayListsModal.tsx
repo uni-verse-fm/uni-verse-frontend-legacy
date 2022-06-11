@@ -75,7 +75,7 @@ const PlaylistsModal = ({
             ) : (
               <Playlists
                 handleShowPlaylistContent={handleShowPlaylistContent}
-                modalDisplay  ="true"
+                modalDisplay="true"
               />
             )}
           </div>

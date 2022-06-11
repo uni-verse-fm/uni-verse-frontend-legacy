@@ -11,21 +11,21 @@ import { styles } from "../PlayListsModal";
 import ReleaseCard from "../ReleaseCard";
 
 const ArtistReleases = (props) => {
-    let releases = [
-        { name: " Release N°1 ", year: "2019", image: urlImage },
-        { name: " Release N°1", year: "2020", image: urlImage },
-        { name: " Release N°2", year: "2013", image: urlImage },
-        { name: " Release N°3", year: "2015", image: urlImage },
-        { name: " Release N°4", year: "2013", image: urlImage },
-        { name: " Release N°5", year: "2017", image: urlImage },
-        { name: " Release N°6", year: "2018", image: urlImage },
-        { name: " Release N°7", year: "2012", image: urlImage },
-        { name: " Release N°4", year: "2012", image: urlImage },
-        { name: " Release N°5", year: "2018", image: urlImage },
-        { name: " Release N°6", year: "2016", image: urlImage },
-        { name: " Release N°7", year: "2018", image: urlImage },
-      ];
-    
+  let releases = [
+    { name: " Release N°1 ", year: "2019", image: urlImage },
+    { name: " Release N°1", year: "2020", image: urlImage },
+    { name: " Release N°2", year: "2013", image: urlImage },
+    { name: " Release N°3", year: "2015", image: urlImage },
+    { name: " Release N°4", year: "2013", image: urlImage },
+    { name: " Release N°5", year: "2017", image: urlImage },
+    { name: " Release N°6", year: "2018", image: urlImage },
+    { name: " Release N°7", year: "2012", image: urlImage },
+    { name: " Release N°4", year: "2012", image: urlImage },
+    { name: " Release N°5", year: "2018", image: urlImage },
+    { name: " Release N°6", year: "2016", image: urlImage },
+    { name: " Release N°7", year: "2018", image: urlImage },
+  ];
+
   const [connect, setConnect] = useConnect();
 
   /* A remplacer par getReleases d'un User (by idUser) */
@@ -50,7 +50,6 @@ const ArtistReleases = (props) => {
     }
   );
 
-
   const onClickDisplayRelease = (idRelease) => () => {
     router.push({
       pathname: `/${Pages.UserRelease}`,
@@ -59,7 +58,6 @@ const ArtistReleases = (props) => {
   };
   return (
     <div className="w-full">
-      
       <div className={styles.wrapper}>
         {status === "loading" ? (
           <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
@@ -67,16 +65,14 @@ const ArtistReleases = (props) => {
           </div>
         ) : status === "error" ? (
           <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
-            <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD} </h1>
+            <h1 className="text-rd whitespace-nowrap">
+              {Messages.ERROR_LOAD}{" "}
+            </h1>
           </div>
         ) : status === "success" ? (
           data.length ? (
             data.map((item, index) => (
-              <div
-                key={index}
-                  onClick={onClickDisplayRelease(item._id)}
-                  
-              >
+              <div key={index} onClick={onClickDisplayRelease(item._id)}>
                 <ReleaseCard
                   key={index}
                   title={item.title}

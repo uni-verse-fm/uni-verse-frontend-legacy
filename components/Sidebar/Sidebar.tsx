@@ -17,7 +17,6 @@ import router from "next/router";
 
 import { AxiosError } from "axios";
 
-
 const Sidebar = ({ handleShowModal }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [connect, setConnect] = useConnect();
@@ -43,17 +42,11 @@ const Sidebar = ({ handleShowModal }) => {
     }
   );
 
-
-  
   return (
     <>
       <div className="w-64 sm:relative bg-gry flex-col hidden sm:flex">
         <div className="mt-6 flex flex-col">
-          <SideMenuEntry
-            icon={faHome}
-            pageName={Pages.Home}
-            title="Home"
-          />
+          <SideMenuEntry icon={faHome} pageName={Pages.Home} title="Home" />
           {connect && data && (
             <>
               <SideMenuEntry
