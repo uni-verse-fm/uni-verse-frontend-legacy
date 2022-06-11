@@ -104,7 +104,7 @@ const Player = () => {
         <DefilingText
           value={
             state.player.tracks
-              ? `${tracks[currentTrackIndex]?.author.username} - ${tracks[currentTrackIndex]?.title}`
+              ? `${tracks[currentTrackIndex]?.author?.username} - ${tracks[currentTrackIndex]?.title}`
               : ""
           }
         />
