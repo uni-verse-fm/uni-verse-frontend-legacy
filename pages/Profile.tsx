@@ -50,6 +50,7 @@ function Profile({ props }) {
       return res.data;
     })
   );
+  
   return (
     <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden" >
       <div className="text-start flex justify-start flex-col items-start">
@@ -68,9 +69,6 @@ function Profile({ props }) {
             <h1 className="text-xl font-bold not-italic text-grn mr-10">
               {data.username}
             </h1>
-
-
-
             <button className="text-md text-grn bg-wht rounded-full px-2 h-8">
               <span> Donate </span>
             </button>
@@ -83,6 +81,7 @@ function Profile({ props }) {
           </div>
         )}
       </div>
+
       {tracks.length ? (
               <table className=" ml-16 mr-10 text-gry text-sm mb-5 mt-2 ">
                 <thead>

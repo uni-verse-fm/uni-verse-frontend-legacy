@@ -3,7 +3,7 @@ import React from "react";
 export default function Home() {
   return (
     <>
-      <div className="bg-drk w-full h-full flex flex-col">
+      <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden">
         <div className="w-full flex flex-col m-16">
           <h1 className="text-grn">Hot releases</h1>
           <div className="flex flex-row">

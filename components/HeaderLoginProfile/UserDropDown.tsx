@@ -37,6 +37,7 @@ const UserDropDown = ({ user }) => {
     clientDisconnect();
   };
 
+
   return (
     <Menu as="div" className="text-left h-full w-auto">
       <Menu.Button className="h-full w-auto p-2">
@@ -71,8 +72,8 @@ const UserDropDown = ({ user }) => {
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
               } group items-center px-2 py-2 font-semibold text-gryf`}
             >
-              {/*<Link href={`/${Pages.Profile}`}> Dashboard </Link>*/}
-              <Link href="/"> Dashboard</Link>
+             <Link href={`/${Pages.MyProfile}`}> Dashboard </Link>
+               {/*<Link href="/"> Dashboard</Link>*/}
             </div>
           )}
         </Menu.Item>

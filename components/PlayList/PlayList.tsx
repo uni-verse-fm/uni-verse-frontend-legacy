@@ -25,6 +25,7 @@ const Playlist = (props) => {
   const { status, data } = useQuery("playlist", () =>
     getPlaylistById(props.index).then((res) => {
       console.log("PlayListSelected");
+      console.log(data);
       return res.data;
     })
   );
@@ -61,7 +62,7 @@ const Playlist = (props) => {
 
   return (
     <div>
-      <div className="Global bg-grey w-full h-full flex flex-col  ">
+      <div className="Global bg-grey w-full h-full flex flex-col">
         {status === "loading" ? (
           <div className="flex justify-center items-center mt-10">
             <Spinner />
@@ -72,20 +73,6 @@ const Playlist = (props) => {
           </div>
         ) : (
           <>
-            {/*
-          <h2>Hidden Button in the box. Move mouse in the box</h2>
-            <div style={{border: '1px solid gray', width: 300, height: 300, padding: 10, margin: 100}}
-                 onMouseEnter={e => {
-                     setStyle({display: 'block'});
-                 }}
-                 onMouseLeave={e => {
-                     setStyle({display: 'none'})
-                 }}
-            >
-                <button style={style}>Click</button>
-                </div>*/}
-
-
             <div className="ml-10 flex flex-row ">
               <div>
                 <Image
@@ -125,9 +112,8 @@ const Playlist = (props) => {
                     </div>
                   )}
                 </div>
-                <h2 className="text-gry mb-8">{data._id}</h2>
+                <h2 className="text-gry mb-8">owner</h2>
               </div>
-
               <div className="ml-5 ">
                 {showUpdatPlayList && data && (
                   <UpdatePlayListForm
@@ -144,7 +130,6 @@ const Playlist = (props) => {
                   <tr className="text-grn border-b mb-10">
                     <td className="py-3"></td>
                     <td className="py-3">Name</td>
-                    <td className="py-3">Album(Release)</td>
                     <td className="py-3">Creation date</td>
                     <td className="py-3">
                       <FontAwesomeIcon
@@ -166,15 +151,13 @@ const Playlist = (props) => {
                           icon={faPlay}
                         />
                       </td>
-                      <td>{item.title}</td>
-                      <td>Release </td>
+                      <td>{item}</td>
                       <td>01-06-2022</td>
                       <td>4:23</td>
                       <td>
                         <ShowMoreMenu track= {item} playlist= {data}
                         />
                       </td>
-                      
                     </tr>
                   ))}
                 </tbody>
@@ -188,7 +171,6 @@ const Playlist = (props) => {
             )}
           </>
         )}
-
         <ConfirmDialogDelete
           data-backdrop="static"
           data-keyboard="false"

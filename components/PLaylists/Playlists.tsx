@@ -35,6 +35,23 @@ const Playlists = (props) => {
     }
   );
 
+ 
+
+
+  const onClickDisplayPlaylist = (idPlaylist) => () => {
+  if (props.modalDisplay  ===  "false") {
+    router.push({
+      pathname: `/${Pages.UserPlaylist}`,
+      query: { id: idPlaylist },
+    });
+  }
+  else {
+    props.handleShowPlaylistContent(idPlaylist);
+  };
+}
+
+
+
   return (
     <>
      {(props.modalDisplay  ===  "true") && (
@@ -55,9 +72,11 @@ const Playlists = (props) => {
         ) : status === "success" ? (
           data.length ? (
             data.map((item, index) => (
+              
               <div
                 key={index}
-                onClick={() => props.handleShowPlaylistContent(item._id)}
+                onClick={onClickDisplayPlaylist(item._id)}
+                
               >
                 <PlaylistCard
                   key={index}

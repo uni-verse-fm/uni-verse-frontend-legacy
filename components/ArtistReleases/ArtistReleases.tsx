@@ -11,8 +11,6 @@ import { styles } from "../PlayListsModal";
 import ReleaseCard from "../ReleaseCard";
 
 const ArtistReleases = (props) => {
-
-
     let releases = [
         { name: " Release N°1 ", year: "2019", image: urlImage },
         { name: " Release N°1", year: "2020", image: urlImage },
@@ -52,6 +50,13 @@ const ArtistReleases = (props) => {
     }
   );
 
+
+  const onClickDisplayRelease = (idRelease) => () => {
+    router.push({
+      pathname: `/${Pages.UserRelease}`,
+      query: { id: idRelease },
+    });
+  };
   return (
     <div className="w-full">
       
@@ -65,19 +70,18 @@ const ArtistReleases = (props) => {
             <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD} </h1>
           </div>
         ) : status === "success" ? (
-            releases.length ? (
-                releases.map((item, index) => (
+          data.length ? (
+            data.map((item, index) => (
               <div
                 key={index}
-                onClick={(_: any) =>
-                    notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
-                  }
+                  onClick={onClickDisplayRelease(item._id)}
+                  
               >
                 <ReleaseCard
                   key={index}
-                  title={item.name}
+                  title={item.title}
                   image={item.image}
-                  year={item.year}
+                  year="2013"
                   defaultImageSrc={urlImage}
                 />
               </div>

@@ -11,6 +11,8 @@ import { PlayerContext } from "../../common/providers/PlayerProvider";
 import { Types } from "../../common/reducers/player-reducer";
 import { Track } from "../Player/Player";
 import router from "next/router";
+import {me}  from "../../api/AuthAPI";
+import { notify } from "../Notifications";
 
 import { Extensions, Messages, Pages } from "../../common/constants";
 
@@ -21,6 +23,16 @@ function classNames(...classes) {
 const SearchBar = () => {
   const [query, setQuery] = useState("");
   const { state, dispatch } = useContext(PlayerContext);
+
+
+  const { status, data } = useQuery("me", () => me().then((res) => res.data), {
+    onSuccess: (res) => {
+      if (res.status === 401) {
+        notify("get your profile");
+      }
+    },
+  });
+
 
   const taskQuery = useQuery(
     ["searchTrack", query],
@@ -91,13 +103,16 @@ const SearchBar = () => {
       pathname: `/${Pages.UserPlaylist}`,
       query: { id: playlist._id },
     });
+    setQuery("");
   };
 
   const onClickDisplayUser = (user) => () => {
     router.push({
       pathname: `/${Pages.Profile}`,
       query: { id: user._id },
+
     });
+    setQuery("");
   };
 
   const onClickDisplayRelease = (release) => () => {
@@ -105,16 +120,17 @@ const SearchBar = () => {
       pathname: `/${Pages.UserRelease}`,
       query: { id: release._id },
     });
+    setQuery("");
   };
 
-
-  
   const onClickDisplayTrack = (track) => () => {
     router.push({
       pathname: `/${Pages.Track}`,
       query: { id: track._id },
     });
+    setQuery("");
   };
+  
 
   return (
     <>

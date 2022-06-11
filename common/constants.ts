@@ -58,7 +58,8 @@ export enum Pages {
   Profile = "Profile",
   UserPlaylist = "UserPlaylist",
   UserRelease = "UserRelease",
-  Track="Track"
+  Track="Track",
+  MyProfile= "MyProfile"
 }
 
 export enum Endoints {
