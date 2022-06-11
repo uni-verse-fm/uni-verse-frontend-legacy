@@ -40,7 +40,7 @@ export default function Login() {
             Sign in to your account to continue
           </h2>
         </div>
-        {/* <div className="flex w-auto h-auto">
+        <div className="flex w-auto h-auto">
           <button
             className="font-bold rounded-md bg-white w-auto h-auto m-2 p-2"
             onClick={() => signIn("spotify")}
@@ -55,7 +55,7 @@ export default function Login() {
             <FontAwesomeIcon icon={faGoogle} className="text-rd fa-xl pr-2 " />
             <span>Google login</span>
           </button>
-        </div> */}
+        </div>
 
         <LoginForm signIn={signInRequest} />
       </div>
