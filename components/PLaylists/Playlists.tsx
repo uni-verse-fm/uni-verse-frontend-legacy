@@ -8,7 +8,8 @@ import { NotificationType, notify } from "../Notifications";
 import { AxiosError } from "axios";
 import { styles } from "../PlayListsModal";
 
-const Playlists = ({ handleShowPlaylistContent }) => {
+
+const Playlists = (props) => {
   const { status, data } = useQuery(
     "playlists",
     () => getMyPlaylists().then((res) => res.data),
@@ -28,11 +29,25 @@ const Playlists = ({ handleShowPlaylistContent }) => {
     }
   );
 
+  const onClickDisplayPlaylist = (idPlaylist) => () => {
+    if (props.modalDisplay === "false") {
+      router.push({
+        pathname: `/${Pages.UserPlaylist}`,
+        query: { id: idPlaylist },
+      });
+    } else {
+      props.handleShowPlaylistContent(idPlaylist);
+    }
+  };
+
   return (
     <>
-      <div className="items-start mt-10 mb-5 ml-6 text-grn text-lg">
-        Playlists :
-      </div>
+      {props.modalDisplay === "true" && (
+        <div className="items-start mt-10 mb-5 ml-6 text-grn text-lg">
+          Playlists :
+        </div>
+      )}
+
       <div className={styles.wrapper}>
         {status === "loading" ? (
           <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
@@ -40,15 +55,12 @@ const Playlists = ({ handleShowPlaylistContent }) => {
           </div>
         ) : status === "error" ? (
           <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
-            <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
+            <h1 className="text-rd whitespace-nowrap">{props.modall}</h1>
           </div>
         ) : status === "success" ? (
           data.length ? (
             data.map((item, index) => (
-              <div
-                key={index}
-                onClick={() => handleShowPlaylistContent(item._id)}
-              >
+              <div key={index} onClick={onClickDisplayPlaylist(item._id)}>
                 <PlaylistCard
                   key={index}
                   title={item.title}
@@ -59,7 +71,7 @@ const Playlists = ({ handleShowPlaylistContent }) => {
               </div>
             ))
           ) : (
-            <div className="flex justify-center items-center mt-10 text-lg">
+            <div className="flex justify-start items-start mt-10 text-lg">
               <h1 className="text-grn whitespace-nowrap">
                 {Messages.EMPTY_PLAYLISTS}
               </h1>

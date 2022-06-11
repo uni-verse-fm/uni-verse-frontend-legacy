@@ -20,7 +20,8 @@ const getReleaseById = (id) => axiosClient.get(`${releaseEndpoint}/${id}`);
 const updateRelease = (id, data) =>
   axiosClient.put(`${releaseEndpoint}/${id}`, JSON.stringify(data));
 
-const deleteRelease = (id) => axiosClient.delete(`${releaseEndpoint}/${id}`);
+const deleteRelease = (id: String) =>
+  axiosClient.delete(`${releaseEndpoint}/${id}`);
 
 const searchRelease = (text: string, { signal }) =>
   axiosClient

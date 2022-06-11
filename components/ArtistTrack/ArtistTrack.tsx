@@ -2,10 +2,12 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
+
 import { getTrackById } from "../../api/TrackAPI";
 import { useQuery } from "react-query";
 import Spinner from "../Spinner";
 import { Messages } from "../../common/constants";
+
 
 const ArtistTrack = (props) => {
   const { status, data } = useQuery("track", () =>

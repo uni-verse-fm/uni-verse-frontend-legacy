@@ -20,7 +20,7 @@ export default function UploadResourcePackPage() {
     }
   );
   return (
-    <div className="bg-drk w-full h-full flex flex-col">
+    <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden">
       <div className="w-full">
         {status === "error" ? (
           <div className="flex justify-center items-center mt-10">

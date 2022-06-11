@@ -14,6 +14,7 @@ import Playlists from "../components/PLaylists";
 import ArtistReleases from "../components/ArtistReleases/ArtistReleases";
 
 function MyProfile() {
+
   const router = useRouter();
   const {
     query: { id },
@@ -51,7 +52,6 @@ function MyProfile() {
       duration: "2:33",
     },
   ];
-
 
   const getUser = useQuery("me", () => me().then((res) => res.data), {
     onSuccess: (res) => {
@@ -159,7 +159,7 @@ function MyProfile() {
         </h2>
 
         <div className="-ml-4 ">
-          <Playlists handleShowPlaylistContent={undefined} />
+          <Playlists className="w-full" id_user={id} modalDisplay="false" />
         </div>
 
         <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-10  ">

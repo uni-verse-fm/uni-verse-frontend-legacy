@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faClock } from "@fortawesome/free-solid-svg-icons";
+
 import { getPlaylistById } from "../../api/PlaylistAPI";
 import { useQuery } from "react-query";
 import Spinner from "../Spinner";
@@ -14,8 +15,9 @@ import { deletePlaylist } from "../../api/PlaylistAPI";
 import { notify, NotificationType } from "../Notifications";
 import UpdatePlayListForm from "../UpdatePlaylistForm";
 import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
+import ShowMoreMenu from "./ShowMoreMenu";
 
-const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
+const Playlist = (props) => {
   const { status, data } = useQuery("playlist", () =>
     getPlaylistById(index).then((res) => {
       return res.data;
@@ -33,7 +35,7 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
   const handleConfirmDelete = () => {
     mutate(data._id);
     handleCloseDialog();
-    handleClosePlaylistContent();
+    props.handleClosePlaylistContent();
   };
 
   const { mutate } = useMutation("deletePlaylist", deletePlaylist, {
@@ -49,10 +51,11 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
       }
     },
   });
+  const [style, setStyle] = useState({ display: "none" });
 
   return (
     <div>
-      <div className="Global bg-grey w-full h-full flex flex-col  ">
+      <div className="Global bg-grey w-full h-full flex flex-col">
         {status === "loading" ? (
           <div className="flex justify-center items-center mt-10">
             <Spinner />
@@ -83,7 +86,7 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
                     />
                   </h2>
 
-                  {enableChange === "true" ? (
+                  {props.enableChange === "true" && (
                     <div className="flex flex-row">
                       <h2 className="text-grn">
                         <FontAwesomeIcon
@@ -100,32 +103,26 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
                         />
                       </h2>
                     </div>
-                  ) : (
-                    <div></div>
                   )}
                 </div>
                 <h2 className="text-gry mb-8">{data.owner?.username}</h2>
               </div>
-
               <div className="ml-5 ">
-                {showUpdatPlayList && data ? (
+                {showUpdatPlayList && data && (
                   <UpdatePlayListForm
                     showForm={showUpdatPlayList}
                     handleHidecreatePlaylistIndex={handleHideUpdatPlayList}
                     dataUpdate={data}
                   />
-                ) : (
-                  <div></div>
                 )}
               </div>
             </div>
-            {data.length ? (
+            {data.tracks.length ? (
               <table className=" ml-10 mr-10 text-gry text-sm ">
                 <thead>
                   <tr className="text-grn border-b mb-10">
                     <td className="py-3"></td>
                     <td className="py-3">Name</td>
-                    <td className="py-3">Album</td>
                     <td className="py-3">Creation date</td>
                     <td className="py-3">
                       <FontAwesomeIcon
@@ -147,10 +144,12 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
                           icon={faPlay}
                         />
                       </td>
-                      <td>{item.name}</td>
-                      <td>Album 1</td>
-                      <td>{item.createdate}</td>
-                      <td>{item.duration}</td>
+                      <td>{item}</td>
+                      <td>01-06-2022</td>
+                      <td>4:23</td>
+                      <td>
+                        <ShowMoreMenu track={item} playlist={data} />
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -164,7 +163,6 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
             )}
           </>
         )}
-
         <ConfirmDialogDelete
           data-backdrop="static"
           data-keyboard="false"

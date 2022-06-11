@@ -2,12 +2,12 @@ import { Menu } from "@headlessui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import router from "next/router";
+
 import { Pages } from "../../common/constants";
 
 import MenuSelectPlaylist from "./MenuSelectPlaylist";
 
 const ShowMoreMenu = ({ track }) => {
-
   const onClickDisplayUser = () => {
     router.push({
       pathname: `/${Pages.Profile}`,

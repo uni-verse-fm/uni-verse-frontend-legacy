@@ -1,6 +1,7 @@
 import { Menu } from "@headlessui/react";
 import { getPlaylists } from "../../api/PlaylistAPI";
 import useConnect from "../../common/providers/ConnectProvider";
+
 import { NotificationType, notify } from "../Notifications";
 import { useMutation } from "react-query";
 import router from "next/router";
@@ -8,8 +9,8 @@ import { Messages } from "../../common/constants";
 import { Pages } from "../../common/constants";
 import { useQuery } from "react-query";
 import { AxiosError } from "axios";
-import { IUpdatePayload } from "../UpdatePlaylistForm/UpdatePlaylistForm";
 
+import { IUpdatePayload } from "../UpdatePlaylistForm/UpdatePlaylistForm";
 import { updatePlaylist } from "../../api/PlaylistAPI";
 
 export interface IUpdatePlaylistTrack {

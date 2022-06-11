@@ -10,6 +10,7 @@ import ReleaseCard from "../ReleaseCard/ReleaseCard";
 
 const ArtistReleases = (props) => {
 
+
   /* A remplacer par getReleases d'un User (by idUser) */
   const { status, data } = useQuery(
     "Releases",

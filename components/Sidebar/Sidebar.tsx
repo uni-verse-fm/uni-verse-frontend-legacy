@@ -34,7 +34,7 @@ const Sidebar = ({ handleShowModal }) => {
                 icon={faList}
                 onClick={handleShowModal}
                 title="Playlists"
-                nbNotif={8}
+                nbNotif={0}
               />
               <SideMenuEntry
                 icon={faRecordVinyl}

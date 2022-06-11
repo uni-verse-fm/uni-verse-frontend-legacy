@@ -30,7 +30,7 @@ export default function Login() {
   };
 
   return (
-    <div className="bg-drk w-full h-full flex flex-col">
+    <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden">
       <div className="text-center flex justify-center flex-col items-center w-full h-full ">
         <div className="-mt-28">
           <h1 className="text-xl font-bold not-italic text-grn ">

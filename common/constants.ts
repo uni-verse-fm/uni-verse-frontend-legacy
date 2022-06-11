@@ -46,15 +46,16 @@ export const Messages = {
 
 
 export enum Pages {
-    Home = " ",
-    UploadRelease = "UploadRelease",
-    UploadResourcePack = "UploadResourcePack",
-    Login = "Login",
-    SignUp = "SignUp",
-    Profile = "Profile",
-    MyProfile = "MyProfile",
-    Playlists = "Playlists",
-    UserRelease = "UserRelease"
+  Home = " ",
+  UploadRelease = "UploadRelease",
+  UploadResourcePack = "UploadResourcePack",
+  Login = "Login",
+  SignUp = "SignUp",
+  Profile = "Profile",
+  UserPlaylist = "UserPlaylist",
+  UserRelease = "UserRelease",
+  Track = "Track",
+  MyProfile = "MyProfile",
 }
 
 export enum Endoints {
