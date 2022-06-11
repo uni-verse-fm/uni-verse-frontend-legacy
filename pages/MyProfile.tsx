@@ -1,18 +1,19 @@
 import React from "react";
 import { useQuery } from "react-query";
+import { me } from "../api/AuthAPI";
 import Spinner from "../components/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { notify } from "../components/Notifications";
 import {
   faPen,
-  faHandHoldingDollar,
-  faClock,
-  faPlay,
 } from "@fortawesome/free-solid-svg-icons";
 import { Messages } from "../common/constants";
 import { useRouter } from "next/router";
-import { getUserById } from "../api/UserAPI";
+import { faClock, faPlay } from "@fortawesome/free-solid-svg-icons";
+import Playlists from "../components/PLaylists";
+import ArtistReleases from "../components/ArtistReleases/ArtistReleases";
 
-function Profile() {
+function MyProfile() {
   const router = useRouter();
   const {
     query: { id },
@@ -51,48 +52,61 @@ function Profile() {
     },
   ];
 
-  const { status, data } = useQuery("user", () =>
-    getUserById(id).then((res) => {
-      console.log("PlayListSelected");
-      return res.data;
-    })
-  );
+
+  const getUser = useQuery("me", () => me().then((res) => res.data), {
+    onSuccess: (res) => {
+      if (res.status === 401) {
+        notify("get your profile");
+      }
+    },
+  });
 
   return (
-    <div className="bg-drk w-full h-full flex flex-col">
+    <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden">
       <div className="text-start flex justify-start flex-col items-start w-full h-full ">
-        {status === "loading" ? (
+        {getUser.status === "loading" ? (
           <div className="flex justify-center items-center mt-10">
             <Spinner />
           </div>
-        ) : status === "error" ? (
+        ) : getUser.status === "error" ? (
           <div className="flex justify-center items-center mt-10">
             <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
           </div>
         ) : (
-          <div className="mt-6 ml-16">
-            <h1 className="text-xl font-bold not-italic text-grn ">
-              {data.username}
+          <div className="mt-20 ml-16">
+            <h1 className="text-xl font-bold not-italic text-grn">
+              {getUser.data.username}
               <FontAwesomeIcon
                 className="cursor-pointer ml-2 hover:scale-[1.40] hover:text-gry text-wht"
                 icon={faPen}
               />
             </h1>
 
-            <h2 className="font-medium not-italic text-gry mt-5">Email</h2>
+            <h2 className="font-medium not-italic text-wht mt-5">Email</h2>
             <h2 className="font-medium not-italic text-wht">
-              {data.email}
+              {getUser.data.email}
               <FontAwesomeIcon
                 className="cursor-pointer ml-2 hover:scale-[1.40] hover:text-gry text-wht"
                 icon={faPen}
               />
+            </h2>
+
+            <h2 className="font-medium not-italic text-wht mt-5 mb-5">
+              Password
+              <FontAwesomeIcon
+                className="cursor-pointer ml-2 hover:scale-[1.40] hover:text-gry text-wht"
+                icon={faPen}
+              />
+            </h2>
+            <h2 className="font-medium not-italic text-wht text-xl mt-10 mb-5">
+              Populaires :
             </h2>
           </div>
         )}
       </div>
 
       {tracks.length ? (
-        <table className="ml-16 mr-10 text-gry text-sm mb-5 mt-2 ">
+        <table className=" ml-16 mr-10 text-gry text-sm mb-5 mt-2 ">
           <thead>
             <tr className="text-grn border-b mb-10">
               <td className="py-3 "></td>
@@ -131,23 +145,29 @@ function Profile() {
           </h1>
         </div>
       )}
-      <div>
-        <h2 className="font-medium not-italic text-gry mt-5 mb-5">
-          Password
-          <FontAwesomeIcon
-            className="cursor-pointer ml-2 hover:scale-[1.40] hover:text-gry text-wht"
-            icon={faPen}
-          />
+
+      <div className="text-start justify-start items-start w-full h-full ml-16 ">
+        <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5 ">
+          Albums (Releases) :
         </h2>
-        <button className="text-md text-grn border-2 border-grn rounded-full hover:border-white hover:text-white h-8 px-2 mx-2 mt-3">
-          <FontAwesomeIcon
-            icon={faHandHoldingDollar}
-            className="text-grn fa-lg pr-2"
-          />
-          <span>Donate</span>
-        </button>
+        <div className="-ml-4 ">
+          <ArtistReleases />
+        </div>
+
+        <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5 ">
+          Playlists :
+        </h2>
+
+        <div className="-ml-4 ">
+          <Playlists handleShowPlaylistContent={undefined} />
+        </div>
+
+        <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-10  ">
+          RessoucesPacks :
+        </h2>
+        <h2 className="font-bold not-italic text-wht text-xl  ">...</h2>
       </div>
     </div>
   );
 }
-export default Profile;
+export default MyProfile;

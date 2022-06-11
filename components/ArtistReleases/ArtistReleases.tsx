@@ -1,26 +1,28 @@
-import { getMyPlaylists } from "../../api/PlaylistAPI";
+import { getReleases } from "../../api/ReleaseAPI";
 import { Messages, Pages } from "../../common/constants";
-import PlaylistCard from "../PlayListCard";
 import Spinner from "../Spinner";
 import { useQuery } from "react-query";
 import router from "next/router";
 import { NotificationType, notify } from "../Notifications";
 import { AxiosError } from "axios";
 import { styles } from "../PlayListsModal";
+import ReleaseCard from "../ReleaseCard/ReleaseCard";
 
-const Playlists = ({ handleShowPlaylistContent }) => {
+const ArtistReleases = (props) => {
+
+  /* A remplacer par getReleases d'un User (by idUser) */
   const { status, data } = useQuery(
-    "playlists",
-    () => getMyPlaylists().then((res) => res.data),
+    "Releases",
+    () => getReleases().then((res) => res.data),
     {
       onSuccess: (res) => {
         if (res.status === 401) {
-          notify("Playlists bay from success");
+          notify("Releases bay from success");
           router.replace(`/${Pages.Login}`);
         }
       },
       onError: (error: AxiosError) => {
-        if (error.response?.status === 401) {
+        if (error.response.status === 401) {
           notify(Messages.UNAUTHORIZED, NotificationType.ERROR);
           router.replace(`/${Pages.Login}`);
         }
@@ -28,11 +30,14 @@ const Playlists = ({ handleShowPlaylistContent }) => {
     }
   );
 
+  const onClickDisplayRelease = (idRelease) => () => {
+    router.push({
+      pathname: `/${Pages.UserRelease}`,
+      query: { id: idRelease },
+    });
+  };
   return (
-    <>
-      <div className="items-start mt-10 mb-5 ml-6 text-grn text-lg">
-        Playlists :
-      </div>
+    <div className="w-full">
       <div className={styles.wrapper}>
         {status === "loading" ? (
           <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
@@ -40,21 +45,20 @@ const Playlists = ({ handleShowPlaylistContent }) => {
           </div>
         ) : status === "error" ? (
           <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
-            <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
+            <h1 className="text-rd whitespace-nowrap">
+              {Messages.ERROR_LOAD}{" "}
+            </h1>
           </div>
         ) : status === "success" ? (
           data.length ? (
             data.map((item, index) => (
-              <div
-                key={index}
-                onClick={() => handleShowPlaylistContent(item._id)}
-              >
-                <PlaylistCard
+              <div key={index} onClick={onClickDisplayRelease(item._id)}>
+                <ReleaseCard
                   key={index}
                   title={item.title}
                   image={item.image}
-                  owner={item.owner?.username}
-                  defaultImageSrc={"/Playlist.png"}
+                  year="2013"
+                  defaultImageSrc={'/Playlist.png'}
                 />
               </div>
             ))
@@ -67,8 +71,8 @@ const Playlists = ({ handleShowPlaylistContent }) => {
           )
         ) : null}
       </div>
-    </>
+    </div>
   );
 };
 
-export default Playlists;
+export default ArtistReleases;

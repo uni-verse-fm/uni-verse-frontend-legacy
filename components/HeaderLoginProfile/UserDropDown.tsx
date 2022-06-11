@@ -6,11 +6,11 @@ import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { logout } from "../../api/AuthAPI";
 import { NotificationType, notify } from "../Notifications";
 import { useMutation } from "react-query";
-import { Messages } from "../../common/constants";
+import { Messages, Pages } from "../../common/constants";
 import { signOut } from "next-auth/react";
 
 const UserDropDown = ({ user }) => {
-  const { mutate, isLoading } = useMutation("logout", logout, {
+  const { mutate } = useMutation("logout", logout, {
     onError: (error) => {
       notify("Your session will expire" + error, NotificationType.ERROR);
     },
@@ -61,8 +61,7 @@ const UserDropDown = ({ user }) => {
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
               } group items-center px-2 py-2 font-semibold text-gryf`}
             >
-              {/*<Link href={`/${Pages.Profile}`}> Dashboard </Link>*/}
-              <Link href="/"> Dashboard</Link>
+              <Link href={`/${Pages.MyProfile}`}> Dashboard </Link>
             </div>
           )}
         </Menu.Item>
@@ -73,7 +72,6 @@ const UserDropDown = ({ user }) => {
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
               } group items-center px-2 py-2 font-semibold text-gryf`}
             >
-              {/*<Link href={`/${Pages.Profile}`}> Settings </Link>*/}
               <Link href="/"> Settings</Link>
             </div>
           )}

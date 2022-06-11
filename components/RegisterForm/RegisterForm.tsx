@@ -22,7 +22,7 @@ export interface IRegister {
 }
 
 const RegisterForm = () => {
-  const { mutate, isLoading } = useMutation("register", register, {
+  const { mutate } = useMutation("register", register, {
     onError: (error) => {
       notify("Can't register", NotificationType.ERROR);
     },
@@ -139,7 +139,7 @@ const RegisterForm = () => {
               <div className="justify-center"></div>
               <button
                 type="submit"
-                className="rounded bg-grn font-normal cursor-pointer w-64 h-8 text-white"
+                className="rounded bg-grn hover:bg-segrn font-normal cursor-pointer w-64 h-8 text-white"
               >
                 Sign up
               </button>

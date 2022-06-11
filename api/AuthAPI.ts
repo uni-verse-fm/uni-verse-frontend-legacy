@@ -1,4 +1,5 @@
-import { Endoints } from "../common/constants";
+import axios from "axios";
+import { BASE_API, Endoints } from "../common/constants";
 import { ILogin } from "../components/LoginForm/LoginForm";
 import { IRegister } from "../components/RegisterForm/RegisterForm";
 import axiosClient from "./apiClient";
@@ -11,7 +12,7 @@ interface IGoogleAuth {
 }
 
 const register = (data: IRegister) =>
-  axiosClient.post(`${authEndpoint}/register`, data);
+  axios.post(`${BASE_API}${authEndpoint}/register`, data);
 const googleAuth = (data: IGoogleAuth) =>
   axiosClient.post(`${authEndpoint}/google`, data);
 const login = (data: ILogin) => axiosClient.post(`${authEndpoint}/login`, data);

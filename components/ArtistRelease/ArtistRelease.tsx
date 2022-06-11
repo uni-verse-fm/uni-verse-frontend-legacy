@@ -1,23 +1,38 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faClock } from "@fortawesome/free-solid-svg-icons";
-import { getPlaylistById } from "../../api/PlaylistAPI";
+import { getReleaseById, deleteRelease } from "../../api/ReleaseAPI";
 import { useQuery } from "react-query";
 import Spinner from "../Spinner";
 import { Messages } from "../../common/constants";
 import Image from "next/image";
-import { faTrashCan, faPen } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import { useState } from "react";
 import { useMutation } from "react-query";
-import { deletePlaylist } from "../../api/PlaylistAPI";
+import useConnect from "../../common/providers/ConnectProvider";
 import { notify, NotificationType } from "../Notifications";
-import UpdatePlayListForm from "../UpdatePlaylistForm";
 import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
+import ShowMoreMenu from "./ShowMoreMenu";
+import { me } from "../../api/AuthAPI";
+import { Pages } from "../../common/constants";
 
-const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
-  const { status, data } = useQuery("playlist", () =>
-    getPlaylistById(index).then((res) => {
+import router from "next/router";
+
+const ArtistRelease = (props) => {
+  const [connect, setConnect] = useConnect();
+  const getRelease = useQuery("release", () =>
+    getReleaseById(props.index).then((res) => {
+      console.log("ReleaseSelected");
+      console.log(res.data);
+      return res.data;
+    })
+  );
+
+  const getMe = useQuery("me", () =>
+    me().then((res) => {
+      console.log("Me");
+      console.log(res.data);
       return res.data;
     })
   );
@@ -26,17 +41,13 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
   const handleShowForm = () => setShowForm(true);
   const handleCloseDialog = () => setShowForm(false);
 
-  const [showUpdatPlayList, setShowUpdatPlayList] = useState(false);
-  const handleShowUpdatPlayList = () => setShowUpdatPlayList(true);
-  const handleHideUpdatPlayList = () => setShowUpdatPlayList(false);
-
   const handleConfirmDelete = () => {
-    mutate(data._id);
+    console.log(getRelease.data._id);
+    mutate(getRelease.data._id);
     handleCloseDialog();
-    handleClosePlaylistContent();
   };
 
-  const { mutate } = useMutation("deletePlaylist", deletePlaylist, {
+  const { mutate, isLoading } = useMutation("deleteRelease", deleteRelease, {
     onError: (error) => {
       notify("there was an error" + error, NotificationType.ERROR);
     },
@@ -44,8 +55,9 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
       if (res.status !== 200) {
         notify(res.data.message, NotificationType.ERROR);
       } else {
-        const message = "PlayList deleted";
+        const message = "Release deleted";
         notify(message, NotificationType.SUCCESS);
+        router.replace(`/${Pages.Home}`);
       }
     },
   });
@@ -53,11 +65,11 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
   return (
     <div>
       <div className="Global bg-grey w-full h-full flex flex-col  ">
-        {status === "loading" ? (
+        {getRelease.status === "loading" ? (
           <div className="flex justify-center items-center mt-10">
             <Spinner />
           </div>
-        ) : status === "error" ? (
+        ) : getRelease.status === "error" ? (
           <div className="flex justify-center items-center mt-10">
             <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
           </div>
@@ -66,7 +78,7 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
             <div className="ml-10 flex flex-row ">
               <div>
                 <Image
-                  src={data.image || "/Playlist.png"}
+                  src={getRelease.data.image || '/Playlist.png'}
                   className="rounded mb-5"
                   width={150}
                   height={150}
@@ -76,14 +88,15 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
               <div className="ml-5 ">
                 <div className="flex flex-row mt-24 mb-1">
                   <h2 className="text-grn ">
-                    {data.title}
+                    {getRelease.data.title}
+
                     <FontAwesomeIcon
                       className="cursor-pointer ml-5 hover:scale-[1.40]  text-wht hover:text-grn"
                       icon={faPlay}
                     />
                   </h2>
 
-                  {enableChange === "true" ? (
+                  {getMe.data._id === getRelease.data.author._id ? (
                     <div className="flex flex-row">
                       <h2 className="text-grn">
                         <FontAwesomeIcon
@@ -92,40 +105,22 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
                           onClick={handleShowForm}
                         />
                       </h2>
-                      <h2 className="text-grn">
-                        <FontAwesomeIcon
-                          className="cursor-pointer ml-5 hover:scale-[1.40] hover:text-gry text-wht"
-                          icon={faPen}
-                          onClick={handleShowUpdatPlayList}
-                        />
-                      </h2>
                     </div>
                   ) : (
                     <div></div>
                   )}
                 </div>
-                <h2 className="text-gry mb-8">{data.owner?.username}</h2>
-              </div>
-
-              <div className="ml-5 ">
-                {showUpdatPlayList && data ? (
-                  <UpdatePlayListForm
-                    showForm={showUpdatPlayList}
-                    handleHidecreatePlaylistIndex={handleHideUpdatPlayList}
-                    dataUpdate={data}
-                  />
-                ) : (
-                  <div></div>
-                )}
+                <h2 className="text-gry mb-8">
+                  {getRelease.data.author.username}
+                </h2>
               </div>
             </div>
-            {data.length ? (
+            {getRelease.data.tracks.length ? (
               <table className=" ml-10 mr-10 text-gry text-sm ">
                 <thead>
                   <tr className="text-grn border-b mb-10">
                     <td className="py-3"></td>
                     <td className="py-3">Name</td>
-                    <td className="py-3">Album</td>
                     <td className="py-3">Creation date</td>
                     <td className="py-3">
                       <FontAwesomeIcon
@@ -136,7 +131,7 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.tracks.map((item) => (
+                  {getRelease.data.tracks.map((item) => (
                     <tr
                       key={item.name}
                       className="h-10 cursor-pointer hover:text-wht hover:border-b hover:border-t"
@@ -147,10 +142,12 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
                           icon={faPlay}
                         />
                       </td>
-                      <td>{item.name}</td>
-                      <td>Album 1</td>
-                      <td>{item.createdate}</td>
-                      <td>{item.duration}</td>
+                      <td>{item.title}</td>
+                      <td>23-05-2022</td>
+                      <td> 3:28</td>
+                      <td>
+                        <ShowMoreMenu track={item} />
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -172,10 +169,10 @@ const Playlist = ({ index, handleClosePlaylistContent, enableChange }) => {
           showModal={showForm}
           handleCloseDialog={handleCloseDialog}
           handleConfirmDelete={handleConfirmDelete}
-          msg="Delete Playlist"
+          msg="Delete Release"
         />
       </div>
     </div>
   );
 };
-export default Playlist;
+export default ArtistRelease;

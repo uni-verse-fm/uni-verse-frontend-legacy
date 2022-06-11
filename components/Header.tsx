@@ -1,8 +1,8 @@
 import HeaderLoginProfile from "./HeaderLoginProfile";
 import Image from "next/image";
-import SearchBar from "./SearchBar";
 import DonateDropDown from "./DonateDropDown";
 import { useSession } from "next-auth/react";
+import SearchBar from "./SearchBar";
 
 const Header = () => {
   const { data: session } = useSession();

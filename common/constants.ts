@@ -44,14 +44,17 @@ export const Messages = {
   EMPTY_FUZZY_RESULT: "No results with those specifications",
 };
 
+
 export enum Pages {
-  Home = " ",
-  UploadRelease = "UploadRelease",
-  UploadResourcePack = "UploadResourcePack",
-  Login = "Login",
-  SignUp = "SignUp",
-  Profile = "Profile",
-  Playlists = "Playlists",
+    Home = " ",
+    UploadRelease = "UploadRelease",
+    UploadResourcePack = "UploadResourcePack",
+    Login = "Login",
+    SignUp = "SignUp",
+    Profile = "Profile",
+    MyProfile = "MyProfile",
+    Playlists = "Playlists",
+    UserRelease = "UserRelease"
 }
 
 export enum Endoints {
