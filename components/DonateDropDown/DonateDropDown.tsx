@@ -4,7 +4,8 @@ import { Menu } from "@headlessui/react";
 import { useMutation } from "react-query";
 import { donate } from "../../api/PaymentAPI";
 import { Messages } from "../../common/constants";
-import { NotificationType, notify } from "../Notifications";
+import { NotificationType } from "../../common/types";
+import { notify } from "../Notifications";
 
 const DonationAmount = {
   One: 100,
