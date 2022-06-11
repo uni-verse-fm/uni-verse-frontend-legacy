@@ -11,30 +11,49 @@ import SideMenuEntry from "./SideMenuEntry";
 import { NotificationType, notify } from "../Notifications";
 import Player from "../Player";
 import useConnect from "../../common/providers/ConnectProvider";
+import { getPlaylists } from "../../api/PlaylistAPI";
+import { useQuery } from "react-query";
+import router from "next/router";
+
+import { AxiosError } from "axios";
 
 const Sidebar = ({ handleShowModal }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [connect] = useConnect();
+  const [connect, setConnect] = useConnect();
+
+  const { status, data } = useQuery(
+    "playlists",
+    () => getPlaylists().then((res) => res.data),
+    {
+      onSuccess: (res) => {
+        if (res.status === 401) {
+          notify("Playlists bay from success");
+          setConnect(false);
+          router.replace(`/${Pages.Login}`);
+        }
+      },
+      onError: (error: AxiosError) => {
+        if (error.response.status === 401) {
+          notify(Messages.UNAUTHORIZED, NotificationType.ERROR);
+          setConnect(false);
+          router.replace(`/${Pages.Login}`);
+        }
+      },
+    }
+  );
 
   return (
     <>
       <div className="w-64 sm:relative bg-gry flex-col hidden sm:flex">
         <div className="mt-6 flex flex-col">
-          <SideMenuEntry
-            icon={faHome}
-            onClick={(_: any) =>
-              notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
-            }
-            pageName={Pages.Home}
-            title="Home"
-          />
-          {connect && (
+          <SideMenuEntry icon={faHome} pageName={Pages.Home} title="Home" />
+          {connect && data && (
             <>
               <SideMenuEntry
                 icon={faList}
                 onClick={handleShowModal}
                 title="Playlists"
-                nbNotif={8}
+                nbNotif={data.length}
               />
               <SideMenuEntry
                 icon={faRecordVinyl}

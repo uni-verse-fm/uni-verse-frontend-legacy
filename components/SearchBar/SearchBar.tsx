@@ -11,6 +11,8 @@ import { PlayerContext } from "../../common/providers/PlayerProvider";
 import { Types } from "../../common/reducers/player-reducer";
 import { Track } from "../Player/Player";
 import router from "next/router";
+import { me } from "../../api/AuthAPI";
+import { notify } from "../Notifications";
 
 import { Extensions, Messages, Pages } from "../../common/constants";
 
@@ -21,6 +23,14 @@ function classNames(...classes) {
 const SearchBar = () => {
   const [query, setQuery] = useState("");
   const { state, dispatch } = useContext(PlayerContext);
+
+  const { status, data } = useQuery("me", () => me().then((res) => res.data), {
+    onSuccess: (res) => {
+      if (res.status === 401) {
+        notify("get your profile");
+      }
+    },
+  });
 
   const taskQuery = useQuery(
     ["searchTrack", query],
@@ -88,9 +98,10 @@ const SearchBar = () => {
 
   const onClickDisplayPlaylist = (playlist) => () => {
     router.push({
-      pathname: `/${Pages.Playlists}`,
+      pathname: `/${Pages.UserPlaylist}`,
       query: { id: playlist._id },
     });
+    setQuery("");
   };
 
   const onClickDisplayUser = (user) => () => {
@@ -98,6 +109,23 @@ const SearchBar = () => {
       pathname: `/${Pages.Profile}`,
       query: { id: user._id },
     });
+    setQuery("");
+  };
+
+  const onClickDisplayRelease = (release) => () => {
+    router.push({
+      pathname: `/${Pages.UserRelease}`,
+      query: { id: release._id },
+    });
+    setQuery("");
+  };
+
+  const onClickDisplayTrack = (track) => () => {
+    router.push({
+      pathname: `/${Pages.Track}`,
+      query: { id: track._id },
+    });
+    setQuery("");
   };
 
   return (
@@ -181,7 +209,10 @@ const SearchBar = () => {
               {taskQuery.status === "success" &&
                 taskQuery.data.map((track, index) => (
                   <li key={"track-" + index} value={track}>
-                    <div className="hover:bg-grn hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
+                    <div
+                      onClick={onClickDisplayTrack(track)}
+                      className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"
+                    >
                       {`${track.author.username} - ${
                         track.title
                       } ft.${track.feats
@@ -202,7 +233,10 @@ const SearchBar = () => {
               {releaseQuery.status === "success" &&
                 releaseQuery.data.map((release, index) => (
                   <li key={"release-" + index} value={release}>
-                    <div className="hover:bg-grn hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
+                    <div
+                      onClick={onClickDisplayRelease(release)}
+                      className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"
+                    >
                       {`${release.title} by ${release.author.username}`}
                       <FontAwesomeIcon
                         className="cursor-pointer mr-5 hover:scale-[1.40] text-grn"

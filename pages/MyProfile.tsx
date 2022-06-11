@@ -11,16 +11,20 @@ import {
   faTrashCan,
   faPen,
   faHandHoldingDollar,
-  faClock,
-  faPlay,
 } from "@fortawesome/free-solid-svg-icons";
 import { Extensions, Messages, urlImage } from "../common/constants";
 import { useRouter } from "next/router";
+import { faClock, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { getUserById } from "../api/UserAPI";
 import ArtistReleases from "../components/ArtistReleases";
 import Playlists from "../components/PLaylists";
 
-function Profile({ props }) {
+function MyProfile({ props }) {
+  const router = useRouter();
+  const {
+    query: { id },
+  } = router;
+
   let tracks = [
     {
       name: " track N°1",
@@ -54,11 +58,6 @@ function Profile({ props }) {
     },
   ];
 
-  const router = useRouter();
-  const {
-    query: { id },
-  } = router;
-
   const imageProps = {
     src: undefined,
     defaultImageSrc: "https://i.ibb.co/CQ0sg7L/pxlprostudio190106201.jpg",
@@ -67,36 +66,59 @@ function Profile({ props }) {
     setFieldValue: () => notify(Messages.NOT_IMPLEMENTED),
   };
 
-  const { status, data } = useQuery("user", () =>
-    getUserById(id).then((res) => {
-      console.log("PlayListSelected");
-      return res.data;
-    })
-  );
+  const getUser = useQuery("me", () => me().then((res) => res.data), {
+    onSuccess: (res) => {
+      if (res.status === 401) {
+        notify("get your profile");
+      }
+    },
+  });
 
   return (
     <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden">
-      <div className="text-start flex justify-start flex-col items-start">
-        {status === "loading" ? (
+      <div className="text-start flex justify-start flex-col items-start w-full h-full ">
+        {getUser.status === "loading" ? (
           <div className="flex justify-center items-center mt-10">
             <Spinner />
           </div>
-        ) : status === "error" ? (
+        ) : getUser.status === "error" ? (
           <div className="flex justify-center items-center mt-10">
             <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
           </div>
         ) : (
           <div className="mt-20 ml-16">
-            <div className=" flex flex-row ">
-              <h1 className="text-xl font-bold not-italic text-grn mr-10">
-                {data.username}
-              </h1>
-              <button className="text-md text-grn bg-wht rounded-full px-2 h-8">
-                <span> Donate </span>
-              </button>
-            </div>
+            <h1 className="text-xl font-bold not-italic text-grn">
+              {getUser.data.username}
+              <FontAwesomeIcon
+                className="cursor-pointer ml-2 hover:scale-[1.40] hover:text-gry text-wht"
+                icon={faPen}
+              />
+            </h1>
 
-            <h2 className="font-bold not-italic text-wht text-xl mt-10 ">
+            <h2 className="font-medium not-italic text-wht mt-5">Email</h2>
+            <h2 className="font-medium not-italic text-wht">
+              {getUser.data.email}
+              <FontAwesomeIcon
+                className="cursor-pointer ml-2 hover:scale-[1.40] hover:text-gry text-wht"
+                icon={faPen}
+              />
+            </h2>
+
+            <h2 className="font-medium not-italic text-wht mt-5 mb-5">
+              Password
+              <FontAwesomeIcon
+                className="cursor-pointer ml-2 hover:scale-[1.40] hover:text-gry text-wht"
+                icon={faPen}
+              />
+            </h2>
+            {/*
+          <h2 className="font-medium not-italic text-grn mt-5 mb-5">
+            Playlists :  
+          </h2>
+            <h2 className="font-medium not-italic text-grn mt-5 mb-5">
+            Releases :  
+          </h2>*/}
+            <h2 className="font-medium not-italic text-wht text-xl mt-10 mb-5">
               Populaires :
             </h2>
           </div>
@@ -168,4 +190,4 @@ function Profile({ props }) {
     </div>
   );
 }
-export default Profile;
+export default MyProfile;

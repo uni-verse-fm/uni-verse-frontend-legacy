@@ -1,4 +1,4 @@
-import { getPlaylists } from "../../api/PlaylistAPI";
+import { getReleases } from "../../api/ReleaseAPI";
 import { Messages, Pages, urlImage } from "../../common/constants";
 import PlaylistCard from "../PlayListCard";
 import Spinner from "../Spinner";
@@ -8,17 +8,34 @@ import router from "next/router";
 import { NotificationType, notify } from "../Notifications";
 import { AxiosError } from "axios";
 import { styles } from "../PlayListsModal";
+import ReleaseCard from "../ReleaseCard";
 
-const Playlists = (props) => {
+const ArtistReleases = (props) => {
+  let releases = [
+    { name: " Release N°1 ", year: "2019", image: urlImage },
+    { name: " Release N°1", year: "2020", image: urlImage },
+    { name: " Release N°2", year: "2013", image: urlImage },
+    { name: " Release N°3", year: "2015", image: urlImage },
+    { name: " Release N°4", year: "2013", image: urlImage },
+    { name: " Release N°5", year: "2017", image: urlImage },
+    { name: " Release N°6", year: "2018", image: urlImage },
+    { name: " Release N°7", year: "2012", image: urlImage },
+    { name: " Release N°4", year: "2012", image: urlImage },
+    { name: " Release N°5", year: "2018", image: urlImage },
+    { name: " Release N°6", year: "2016", image: urlImage },
+    { name: " Release N°7", year: "2018", image: urlImage },
+  ];
+
   const [connect, setConnect] = useConnect();
-  /* A remplacer par getPlaylists d'un User (by idUser) */
+
+  /* A remplacer par getReleases d'un User (by idUser) */
   const { status, data } = useQuery(
-    "playlists",
-    () => getPlaylists().then((res) => res.data),
+    "Releases",
+    () => getReleases().then((res) => res.data),
     {
       onSuccess: (res) => {
         if (res.status === 401) {
-          notify("Playlists bay from success");
+          notify("Releases bay from success");
           setConnect(false);
           router.replace(`/${Pages.Login}`);
         }
@@ -33,25 +50,14 @@ const Playlists = (props) => {
     }
   );
 
-  const onClickDisplayPlaylist = (idPlaylist) => () => {
-    if (props.modalDisplay === "false") {
-      router.push({
-        pathname: `/${Pages.UserPlaylist}`,
-        query: { id: idPlaylist },
-      });
-    } else {
-      props.handleShowPlaylistContent(idPlaylist);
-    }
+  const onClickDisplayRelease = (idRelease) => () => {
+    router.push({
+      pathname: `/${Pages.UserRelease}`,
+      query: { id: idRelease },
+    });
   };
-
   return (
-    <>
-      {props.modalDisplay === "true" && (
-        <div className="items-start mt-10 mb-5 ml-6 text-grn text-lg">
-          Playlists :
-        </div>
-      )}
-
+    <div className="w-full">
       <div className={styles.wrapper}>
         {status === "loading" ? (
           <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
@@ -59,23 +65,25 @@ const Playlists = (props) => {
           </div>
         ) : status === "error" ? (
           <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
-            <h1 className="text-rd whitespace-nowrap">{props.modall}</h1>
+            <h1 className="text-rd whitespace-nowrap">
+              {Messages.ERROR_LOAD}{" "}
+            </h1>
           </div>
         ) : status === "success" ? (
           data.length ? (
             data.map((item, index) => (
-              <div key={index} onClick={onClickDisplayPlaylist(item._id)}>
-                <PlaylistCard
+              <div key={index} onClick={onClickDisplayRelease(item._id)}>
+                <ReleaseCard
                   key={index}
                   title={item.title}
                   image={item.image}
-                  owner={item.owner}
+                  year="2013"
                   defaultImageSrc={urlImage}
                 />
               </div>
             ))
           ) : (
-            <div className="flex justify-start items-start mt-10 text-lg">
+            <div className="flex justify-center items-center mt-10 text-lg">
               <h1 className="text-grn whitespace-nowrap">
                 {Messages.EMPTY_PLAYLISTS}
               </h1>
@@ -83,8 +91,8 @@ const Playlists = (props) => {
           )
         ) : null}
       </div>
-    </>
+    </div>
   );
 };
 
-export default Playlists;
+export default ArtistReleases;

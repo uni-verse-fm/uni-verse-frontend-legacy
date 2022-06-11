@@ -19,6 +19,8 @@ export const Extensions = {
 
 export const urlImage = "https://i.ibb.co/K984Tcf/Play-List-img.png";
 
+//export const urlImage = "https://i.ibb.co/TvCBtNT/Playlist-Image.jpg";
+
 export const Messages = {
   TITLE: "Must be 15 characters or less",
   DESCRIPTION: "Must be at least 5 characters or less",
@@ -53,7 +55,10 @@ export enum Pages {
   Login = "Login",
   SignUp = "SignUp",
   Profile = "Profile",
-  Playlists = "Playlists",
+  UserPlaylist = "UserPlaylist",
+  UserRelease = "UserRelease",
+  Track = "Track",
+  MyProfile = "MyProfile",
 }
 
 export enum Endoints {
