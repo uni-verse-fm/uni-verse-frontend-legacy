@@ -7,19 +7,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect, useRef, useState } from "react";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
-import { ITrack } from "../UploadTracksListDisplayer/UploadTracksListDisplayer";
 import DefilingText from "./DefilingText";
 import ReaderTimeline from "./ReaderTimeline";
-
-export type Track = { fileName: string; author: any; id?: string } & ITrack;
-
-export const enum SourceType {
-  Playlist,
-  Release,
-  Track,
-  Preview,
-  Random,
-}
 
 const source = "http://localhost:9000/tracks/";
 
@@ -104,7 +93,7 @@ const Player = () => {
         <DefilingText
           value={
             state.player.tracks
-              ? `${tracks[currentTrackIndex]?.author.username} - ${tracks[currentTrackIndex]?.title}`
+              ? `${tracks[currentTrackIndex]?.author?.username} - ${tracks[currentTrackIndex]?.title}`
               : ""
           }
         />

@@ -3,21 +3,15 @@ import { Menu } from "@headlessui/react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
-import useConnect from "../../common/providers/ConnectProvider";
 import { logout } from "../../api/AuthAPI";
-import { NotificationType, notify } from "../Notifications";
+import { notify } from "../Notifications";
 import { useMutation } from "react-query";
-import router from "next/router";
 import { Messages } from "../../common/constants";
-import { Pages } from "../../common/constants";
+import { signOut } from "next-auth/react";
+import { NotificationType, Pages } from "../../common/types";
 
 const UserDropDown = ({ user }) => {
-  const [connect, setConnect] = useConnect();
-
-  const clientDisconnect = () =>
-    (document.cookie = "Authentication=; Max-Age=0;secure; path=/;");
-
-  const { mutate, isLoading } = useMutation("logout", logout, {
+  const { mutate } = useMutation("logout", logout, {
     onError: (error) => {
       notify("Your session will expire" + error, NotificationType.ERROR);
     },
@@ -30,11 +24,9 @@ const UserDropDown = ({ user }) => {
     },
   });
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     mutate();
-    setConnect(false);
-    router.replace("/");
-    clientDisconnect();
+    signOut({ callbackUrl: "/Login" });
   };
 
   return (
@@ -72,7 +64,6 @@ const UserDropDown = ({ user }) => {
               } group items-center px-2 py-2 font-semibold text-gryf`}
             >
               <Link href={`/${Pages.MyProfile}`}> Dashboard </Link>
-              {/*<Link href="/"> Dashboard</Link>*/}
             </div>
           )}
         </Menu.Item>
@@ -83,8 +74,7 @@ const UserDropDown = ({ user }) => {
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
               } group items-center px-2 py-2 font-semibold text-gryf`}
             >
-              {/*<Link href={`/${Pages.Profile}`}> Settings </Link>*/}
-              <Link href="/"> Settings</Link>
+              <Link href={`/${Pages.MyProfile}`}> Settings</Link>
             </div>
           )}
         </Menu.Item>
@@ -95,7 +85,7 @@ const UserDropDown = ({ user }) => {
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
               } group items-center px-2 py-2 font-semibold text-gryf`}
             >
-              <Link href="/"> Earnings</Link>
+              <Link href={`/${Pages.Profile}`}> Earnings</Link>
             </div>
           )}
         </Menu.Item>
@@ -104,7 +94,7 @@ const UserDropDown = ({ user }) => {
             <button
               className={`${
                 active ? "bg-serd text-md" : "text-sm bg-rd"
-              } group items-center rounded-bl-md rounded-br-md px-2 py-2 font-semibold text-white w-full`}
+              } group items-center rounded-b-md px-2 py-2 font-semibold text-white w-full`}
               onClick={handleLogout}
             >
               Sign out

@@ -1,23 +1,15 @@
+import { getSession, useSession } from "next-auth/react";
 import React from "react";
-import { useQuery } from "react-query";
-import { reactQueryResponseHandler } from "../api/APIUtils";
-import { me } from "../api/AuthAPI";
 import { Messages } from "../common/constants";
-import useConnect from "../common/providers/ConnectProvider";
 import Spinner from "../components/Spinner";
 import UploadReleaseForm from "../components/UploadReleaseForm";
 
 export default function UploadReleasePage() {
-  const [connect, setConnect] = useConnect();
-  const { status, data } = useQuery(
-    "me",
-    () => me().then((res) => res.data),
-    reactQueryResponseHandler(setConnect)
-  );
+  const { data: session, status } = useSession();
   return (
-    <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden">
+    <div className="bg-drk w-full h-full flex flex-col">
       <div className="w-full">
-        {status === "error" ? (
+        {status === "unauthenticated" ? (
           <div className="flex justify-center items-center mt-10">
             <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
           </div>
@@ -26,9 +18,27 @@ export default function UploadReleasePage() {
             <Spinner />
           </div>
         ) : (
-          <UploadReleaseForm me={data} />
+          <UploadReleaseForm myId={session?.userId} />
         )}
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/Login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
 }

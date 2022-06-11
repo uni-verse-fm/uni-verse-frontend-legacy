@@ -1,36 +1,12 @@
-import {
-  faClose,
-  faGripLines,
-  faPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faClose, faGripLines } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { VerificationSessionResult } from "@stripe/stripe-js";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { Extensions } from "../../common/constants";
+import { IResourcesTable } from "../../common/types";
 import { InputFileName } from "./InputFileName";
 import { InputPreviewFile } from "./InputPreviewFile";
 import { InputTitle } from "./InputTitle";
-import { IResource } from "./UploadResourcesListDisplayer";
 
-interface ResourcesTableProps {
-  resources: IResource[];
-  handleResourceTitleChange: (
-    resource: IResource,
-    index: number
-  ) => (event: any) => void;
-  handleResourceFileNameChange: (
-    resource: IResource,
-    index: number
-  ) => (event: any) => void;
-  handlePreviewFileChange: (
-    resource: IResource,
-    index: number
-  ) => (previewFile: File) => void;
-  handleDeleteFile: (index: number) => () => void;
-  handleDragEnd;
-}
-
-export const ResourcesTable = (props: ResourcesTableProps) => (
+export const ResourcesTable = (props: IResourcesTable) => (
   <DragDropContext onDragEnd={props.handleDragEnd}>
     <table className="text-gry text-sm">
       <thead>

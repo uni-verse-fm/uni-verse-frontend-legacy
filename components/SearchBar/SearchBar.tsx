@@ -1,28 +1,46 @@
 import { faPlay, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tab } from "@headlessui/react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { searchPlaylist } from "../../api/PlaylistAPI";
 import { searchRelease } from "../../api/ReleaseAPI";
 import { searchTrack } from "../../api/TrackAPI";
 import { searchUsers } from "../../api/UserAPI";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
-import { Types } from "../../common/reducers/player-reducer";
-import { Track } from "../Player/Player";
 import router from "next/router";
 import { me } from "../../api/AuthAPI";
 import { notify } from "../Notifications";
-
-import { Extensions, Messages, Pages } from "../../common/constants";
+import { Pages, Track, Types } from "../../common/types";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const SearchBar = () => {
+const SearchBar = ({ isConnected }) => {
   const [query, setQuery] = useState("");
-  const { state, dispatch } = useContext(PlayerContext);
+  const ref = useRef<HTMLDivElement>();
+  const { dispatch } = useContext(PlayerContext);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      if (isMenuOpen && ref.current && !ref.current.contains(e.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [isMenuOpen]);
+
+  const onInputChange = (event) => {
+    setQuery(event.target.value);
+    setIsMenuOpen(true);
+  };
 
   const { status, data } = useQuery("me", () => me().then((res) => res.data), {
     onSuccess: (res) => {
@@ -129,8 +147,8 @@ const SearchBar = () => {
   };
 
   return (
-    <>
-      <div className="h-full flex xs:w-max w-full">
+    <div ref={ref}>
+      <div className="h-full flex xs:w-max w-full p-3">
         <div className="h-8 my-auto p-1 pl-2 bg-grn rounded-l-full">
           <FontAwesomeIcon icon={faSearch} className="text-white h-full" />
         </div>
@@ -139,12 +157,12 @@ const SearchBar = () => {
           placeholder="Search"
           className="w-full h-8 px-4 rounded-r-full text-black my-auto bg-white focus:ring-1 focus:ring-grn focus:outline-none focus:border-sky-500"
           value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          onChange={onInputChange}
         />
       </div>
       <Tab.Group>
-        {query?.length !== 0 && (
-          <Tab.List className="flex rounded-xl p-1 bg-white h-8">
+        {isMenuOpen && (
+          <Tab.List className="flex rounded-xl p-1 bg-white h-8 mt-3">
             <Tab
               key="Tracks"
               className={({ selected }) =>
@@ -187,20 +205,22 @@ const SearchBar = () => {
             >
               Playlists
             </Tab>
-            <Tab
-              key="Users"
-              className={({ selected }) =>
-                classNames(
-                  "w-full rounded-lg text-sm font-medium leading-5 text-grn text-lg",
-                  "ring-white ring-opacity-60 ring-offset-2 ring-offset-grn focus:outline-none focus:ring-2 font-semibold",
-                  selected
-                    ? "bg-white shadow"
-                    : "text-black hover:bg-grn/[0.12] hover:text-segrn"
-                )
-              }
-            >
-              Users
-            </Tab>
+            {isConnected && (
+              <Tab
+                key="Users"
+                className={({ selected }) =>
+                  classNames(
+                    "w-full rounded-lg text-sm font-medium leading-5 text-grn text-lg",
+                    "ring-white ring-opacity-60 ring-offset-2 ring-offset-grn focus:outline-none focus:ring-2 font-semibold",
+                    selected
+                      ? "bg-white shadow"
+                      : "text-black hover:bg-grn/[0.12] hover:text-segrn"
+                  )
+                }
+              >
+                Users
+              </Tab>
+            )}
           </Tab.List>
         )}
         <Tab.Panels>
@@ -213,7 +233,7 @@ const SearchBar = () => {
                       onClick={onClickDisplayTrack(track)}
                       className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"
                     >
-                      {`${track.author.username} - ${
+                      {`${track.author?.username} - ${
                         track.title
                       } ft.${track.feats
                         .map((feat) => ` ${feat.username}`)
@@ -237,7 +257,7 @@ const SearchBar = () => {
                       onClick={onClickDisplayRelease(release)}
                       className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"
                     >
-                      {`${release.title} by ${release.author.username}`}
+                      {`${release.title} by ${release.author?.username}`}
                       <FontAwesomeIcon
                         className="cursor-pointer mr-5 hover:scale-[1.40] text-grn"
                         icon={faPlay}
@@ -285,7 +305,7 @@ const SearchBar = () => {
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
-    </>
+    </div>
   );
 };
 

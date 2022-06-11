@@ -1,37 +1,9 @@
 import { Form, Formik } from "formik";
-import { useRouter } from "next/router";
 import { Messages } from "../../common/constants";
 import * as Yup from "yup";
-import { NotificationType, notify } from "../Notifications";
-import { login } from "../../api/AuthAPI";
-import { useMutation } from "react-query";
-import useConnect from "../../common/providers/ConnectProvider";
+import { ILogin, ILoginForm } from "../../common/types";
 
-export interface ILogin {
-  email: string;
-  password: string;
-}
-
-const LoginForm = () => {
-  const [connect, setConnect] = useConnect();
-  const router = useRouter();
-
-  const { mutate, isLoading } = useMutation("login", login, {
-    onError: (error) => {
-      notify("Can't login", NotificationType.ERROR);
-    },
-    onSuccess: (res) => {
-      if (res.status !== 201) {
-        notify(res.data.message, NotificationType.ERROR);
-      } else {
-        const message = "Authenticated successfully";
-        notify(message, NotificationType.SUCCESS);
-        setConnect(true);
-        router.replace("/");
-      }
-    },
-  });
-
+const LoginForm = (props: ILoginForm) => {
   return (
     <Formik
       initialValues={{
@@ -46,8 +18,8 @@ const LoginForm = () => {
           .required(Messages.REQUIRED)
           .min(8, Messages.SHORT_PASWORD),
       })}
-      onSubmit={(value: ILogin) => {
-        mutate(value);
+      onSubmit={(value: ILogin, { setSubmitting }) => {
+        props.signIn(value, setSubmitting);
       }}
     >
       {({ values, errors, handleChange, handleBlur }) => {

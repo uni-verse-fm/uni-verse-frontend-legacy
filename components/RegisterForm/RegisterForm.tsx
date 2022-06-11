@@ -1,29 +1,24 @@
 import { Form, Formik } from "formik";
-import { Extensions, Messages, Pages } from "../../common/constants";
+import { Extensions, Messages } from "../../common/constants";
 import * as Yup from "yup";
 import UploadImageDisplayer from "../UploadImageDisplayer";
-import { NotificationType, notify } from "../Notifications";
+import { notify } from "../Notifications";
 import { useMutation } from "react-query";
 import { register } from "../../api/AuthAPI";
 import router from "next/router";
+import { NotificationType, Pages } from "../../common/types";
 
 const imageProps = {
   src: undefined,
-  defaultImageSrc: "https://i.ibb.co/CQ0sg7L/pxlprostudio190106201.jpg",
-  size: 40,
+  defaultImageSrc: "/profile.jpg",
+  size: 28,
   fileExtensions: Extensions.image,
   setFieldValue: () => notify(Messages.NOT_IMPLEMENTED),
 };
 
-export interface IRegister {
-  username: string;
-  email: string;
-  password: string;
-}
-
 const RegisterForm = () => {
-  const { mutate, isLoading } = useMutation("register", register, {
-    onError: (error) => {
+  const { mutate } = useMutation("register", register, {
+    onError: () => {
       notify("Can't register", NotificationType.ERROR);
     },
     onSuccess: (res) => {
@@ -139,7 +134,7 @@ const RegisterForm = () => {
               <div className="justify-center"></div>
               <button
                 type="submit"
-                className="rounded bg-grn font-normal cursor-pointer w-64 h-8 text-white"
+                className="rounded bg-grn hover:bg-segrn font-normal cursor-pointer w-64 h-8 text-white"
               >
                 Sign up
               </button>

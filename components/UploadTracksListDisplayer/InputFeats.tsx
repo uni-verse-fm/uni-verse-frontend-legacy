@@ -5,11 +5,10 @@ import { useQuery } from "react-query";
 import { reactQueryResponseHandler } from "../../api/APIUtils";
 import { searchUsers } from "../../api/UserAPI";
 import { Messages } from "../../common/constants";
-import useConnect from "../../common/providers/ConnectProvider";
+import { IFeatChange } from "../../common/types";
 import Modal from "../Modal";
 import Spinner from "../Spinner";
 import UsersList from "../UsersList";
-import { IFeat, ITrack } from "./UploadTracksListDisplayer";
 
 const SearchBar = ({ onChange }) => {
   return (
@@ -27,14 +26,7 @@ const SearchBar = ({ onChange }) => {
   );
 };
 
-interface IFeatChange {
-  handleAddFeat: (feat: IFeat) => void;
-  handleDeleteFeat: (index: number) => void;
-  track: ITrack;
-}
-
 export const InputFeats = (props: IFeatChange) => {
-  const [connect, setConnect] = useConnect();
   const [searchText, setSearchText] = useState("");
   const [showModal, setShowModal] = useState(false);
   const { status, data } = useQuery(
@@ -42,7 +34,7 @@ export const InputFeats = (props: IFeatChange) => {
     ({ signal }) => searchUsers(searchText, { signal }),
     {
       enabled: Boolean(searchText),
-      ...reactQueryResponseHandler(setConnect),
+      ...reactQueryResponseHandler(),
     }
   );
 

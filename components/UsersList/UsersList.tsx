@@ -1,9 +1,4 @@
-import { IFeat } from "../UploadTracksListDisplayer/UploadTracksListDisplayer";
-
-interface IUsersList {
-  data: IFeat[];
-  onClick: (item: IFeat) => void;
-}
+import { IUsersList } from "../../common/types";
 
 const UsersList = (props?: IUsersList) => {
   return (
@@ -12,7 +7,7 @@ const UsersList = (props?: IUsersList) => {
         <li key={index}>
           <div
             key={index}
-            className="flex text-white text-lg w-full text-sm group px-2 py-2 font-semibold text-gryf hover:bg-grn hover:bg-opacity-25 hover:text-xl"
+            className="flex text-black text-lg w-full text-sm group px-2 py-2 font-semibold text-gryf hover:bg-grn hover:bg-opacity-25 hover:text-xl"
             onClick={() => props.onClick(item)}
           >
             <div className="m-2">{item.username}</div>

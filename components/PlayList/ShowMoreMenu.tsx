@@ -1,19 +1,17 @@
-import Image from "next/image";
 import { Menu } from "@headlessui/react";
-import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleUser, faEllipsis } from "@fortawesome/free-solid-svg-icons";
-import useConnect from "../../common/providers/ConnectProvider";
-import { logout } from "../../api/AuthAPI";
-import { NotificationType, notify } from "../Notifications";
+import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import { notify } from "../Notifications";
 import { useMutation } from "react-query";
-import { IUpdatePayload } from "../UpdatePlaylistForm/UpdatePlaylistForm";
-
 import { updatePlaylist } from "../../api/PlaylistAPI";
-import { IUpdatePlaylistTrack } from "../ArtistRelease/MenuSelectPlaylist";
+import {
+  IUpdatePayload,
+  IUpdatePlaylistTrack,
+  NotificationType,
+} from "../../common/types";
 
 const ShowMoreMenu = ({ track, playlist }) => {
-  const { mutate, isLoading } = useMutation("updatePlaylist", updatePlaylist, {
+  const { mutate } = useMutation("updatePlaylist", updatePlaylist, {
     onError: (error) => {
       notify("there was an error" + error, NotificationType.ERROR);
     },

@@ -1,14 +1,6 @@
 import { useState } from "react";
-import {
-  dehydrate,
-  Hydrate,
-  QueryClient,
-  QueryClientProvider,
-} from "react-query";
+import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { me } from "../api/AuthAPI";
-import { getPlaylists } from "../api/PlaylistAPI";
-import { ConnectProvider } from "../common/providers/ConnectProvider";
 import Header from "../components/Header";
 import Notifications from "../components/Notifications";
 import PlaylistsModal from "../components/PlayListsModal";
@@ -16,25 +8,21 @@ import Sidebar from "../components/Sidebar";
 import "../styles/globals.css";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import DonateModal from "../components/DonateModal";
 import { PlayerProvider } from "../common/providers/PlayerProvider";
+import { SessionProvider } from "next-auth/react";
 
 const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
 const options = {
   clientSecret: process.env.STRIPE_CLIENT_SECRET,
 };
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [showPlaylistsModal, setShowPlaylistsModal] = useState(false);
   const handleClosePlaylistsModal = () => {
     setShowPlaylistsModal(false);
     setCreatePlaylistIndex(false);
   };
   const handleShowPlaylistsModal = () => setShowPlaylistsModal(true);
-
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const handleClosePaymentModal = () => setShowPaymentModal(false);
-  const handleShowPaymentModal = () => setShowPaymentModal(true);
 
   const [createPlaylistIndex, setCreatePlaylistIndex] = useState(false);
   const handleShowcreatePlaylistIndex = () => setCreatePlaylistIndex(true);
@@ -46,15 +34,15 @@ function MyApp({ Component, pageProps }) {
     <Elements stripe={stripePromise} options={options}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <ConnectProvider>
+          <SessionProvider session={session}>
             <PlayerProvider>
               <div
                 className={`${
-                  (showPlaylistsModal || showPaymentModal) && "blur-md"
+                  showPlaylistsModal && "blur-md"
                 } flex flex-col h-screen overflow-hidden`}
               >
                 <div className="sticky top-0">
-                  <Header handleShowModal={handleShowPaymentModal} />
+                  <Header />
                 </div>
                 <div className="flex flex-grow h-full overflow-hidden">
                   <div className="flex flex-row bg-gry w-full overflow-hidden">
@@ -77,12 +65,8 @@ function MyApp({ Component, pageProps }) {
                 handleShowcreatePlaylistIndex={handleShowcreatePlaylistIndex}
                 handleHidecreatePlaylistIndex={handleHidecreatePlaylistIndex}
               />
-              <DonateModal
-                showModal={showPaymentModal}
-                handleCloseModal={handleClosePaymentModal}
-              />
             </PlayerProvider>
-          </ConnectProvider>
+          </SessionProvider>
           <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
         </Hydrate>
       </QueryClientProvider>
@@ -90,17 +74,27 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export async function getServerSideProps() {
-  const queryClient = new QueryClient();
+// export async function getServerSideProps() {
+//   const queryClient = new QueryClient();
+//   const response = await me();
+//   await queryClient.prefetchQuery("me", me);
+//   await queryClient.prefetchQuery("playlists", getPlaylists);
+//   const isConnected = response.status === 200;
+//   if (!isConnected) {
+//     return {
+//       redirect: {
+//         destination: "/Login",
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  await queryClient.prefetchQuery("me", me);
-  await queryClient.prefetchQuery("playlists", getPlaylists);
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
-}
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//       me: response.data,
+//     },
+//   };
+// }
 
 export default MyApp;

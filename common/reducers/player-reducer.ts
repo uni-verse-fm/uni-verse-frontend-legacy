@@ -1,28 +1,4 @@
-import { Track } from "../../components/Player/Player";
-
-type ActionMap<M extends { [index: string]: any }> = {
-  [Key in keyof M]: M[Key] extends undefined
-    ? {
-        type: Key;
-      }
-    : {
-        type: Key;
-        payload: M[Key];
-      };
-};
-
-export enum Types {
-  PlaylistPlay = "PLAY_PLAYLIST",
-  ReleasePlay = "PLAY_RELEASE",
-  TrackPlay = "PLAY_TRACK",
-  RandomPlay = "PLAY_RANDOM",
-}
-
-type PlayerType = {
-  className?: string;
-  tracks: Track[];
-  trackIndex?: number;
-};
+import { ActionMap, PlayerType, Track, Types } from "../types";
 
 type PlayerPayload = {
   [Types.PlaylistPlay]: {

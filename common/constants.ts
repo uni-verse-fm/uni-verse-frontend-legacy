@@ -17,10 +17,6 @@ export const Extensions = {
   },
 };
 
-export const urlImage = "https://i.ibb.co/K984Tcf/Play-List-img.png";
-
-//export const urlImage = "https://i.ibb.co/TvCBtNT/Playlist-Image.jpg";
-
 export const Messages = {
   TITLE: "Must be 15 characters or less",
   DESCRIPTION: "Must be at least 5 characters or less",
@@ -37,8 +33,9 @@ export const Messages = {
   FILE_NAME_DUPLICATE: "file name already exists",
   TITLE_DUPLICATE: "title already exists",
   PASSWORD_MISMATCH: "Passwords must match",
-  EMPTY_PLAYLISTS: "You have no playlist",
-  EMPTY_PLAYLIST: "You have no track",
+  EMPTY_PLAYLISTS: "You have no playlists",
+  EMPTY_RELEASES: "You have no releases",
+  EMPTY_TRACKS: "You have no tracks",
   DISCONNECTED: "Disconnected",
   UNAUTHORIZED: "Unauthorized please login",
   DONATION_ERROR: "Sorry the donation couldn't be done",
@@ -47,27 +44,3 @@ export const Messages = {
   PURCHASE_SUCCESS: "Thank you for your purchase",
   EMPTY_FUZZY_RESULT: "No results with those specifications",
 };
-
-export enum Pages {
-  Home = " ",
-  UploadRelease = "UploadRelease",
-  UploadResourcePack = "UploadResourcePack",
-  Login = "Login",
-  SignUp = "SignUp",
-  Profile = "Profile",
-  UserPlaylist = "UserPlaylist",
-  UserRelease = "UserRelease",
-  Track = "Track",
-  MyProfile = "MyProfile",
-}
-
-export enum Endoints {
-  Auth = "/auth",
-  Users = "/users",
-  Releases = "/releases",
-  ResourcePacks = "/resource-packs",
-  Playlists = "/playlists",
-  Comments = "/comments",
-  Payments = "/payments",
-  Tracks = "/tracks",
-}
