@@ -26,3 +26,14 @@ spec:
                 name: uni-verse-api-service
                 port:
                   number: 3222
+      
+    - host: uni-verse.kibana.vagahbond.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: uni-verse-api-service
+                port:
+                  number: 3222
