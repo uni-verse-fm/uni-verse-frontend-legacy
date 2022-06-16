@@ -1,10 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-
-type ReaderTimeLineParams = {
-  duration: number;
-  playerTime: number;
-  onSlide: (value: number) => any;
-};
+import { IReaderTimeLine } from "../../common/types";
 
 const secondsToHMS = (timeInSec: number): string => {
   let timeInString: string = "";
@@ -26,11 +21,7 @@ const secondsToHMS = (timeInSec: number): string => {
   return timeInString;
 };
 
-const ReaderTimeline = ({
-  duration,
-  playerTime,
-  onSlide,
-}: ReaderTimeLineParams) => {
+const ReaderTimeline = ({ duration, playerTime, onSlide }: IReaderTimeLine) => {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [sliding, setSliding] = useState<boolean>(false);
 

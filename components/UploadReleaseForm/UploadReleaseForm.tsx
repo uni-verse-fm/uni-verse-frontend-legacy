@@ -9,29 +9,14 @@ import {
   MAX_FILE_SIZE,
   MAX_IMAGE_SIZE,
   Messages,
-  urlImage,
 } from "../../common/constants";
-import { NotificationType, notify } from "../Notifications";
+import { NotificationType, UniVerseError } from "../../common/types";
+import { notify } from "../Notifications";
 import UploadImageDisplayer from "../UploadImageDisplayer";
-import UploadTracksListDisplayer, {
-  ITrack,
-} from "../UploadTracksListDisplayer/UploadTracksListDisplayer";
+import UploadTracksListDisplayer from "../UploadTracksListDisplayer/UploadTracksListDisplayer";
 
-export interface ICreateRelease {
-  title: string;
-  description: string;
-  coverUrl: string;
-  feats?: string[];
-  tracks: ITrack[];
-}
-
-export interface UniVerseError {
-  statusCode?: number;
-  message?: string;
-}
-
-const UploadReleaseForm = ({ me }) => {
-  const { mutate, isLoading } = useMutation("uploadRelease", createRelease, {
+const UploadReleaseForm = ({ myId }) => {
+  const { mutate } = useMutation("uploadRelease", createRelease, {
     onError: (error: AxiosError) => {
       const errorMessage: UniVerseError = error.response.data;
       notify(
@@ -94,7 +79,7 @@ const UploadReleaseForm = ({ me }) => {
           tracks: value.tracks.map((track) => ({
             title: track.title,
             originalFileName: track.file.name,
-            author: me._id,
+            author: myId,
             feats: track.feats,
           })),
         };
@@ -123,7 +108,7 @@ const UploadReleaseForm = ({ me }) => {
                     maxFileSize="10"
                     fileExtensions={Extensions.image}
                     setFieldValue={setFieldValue}
-                    defaultImageSrc={urlImage}
+                    defaultImageSrc={"/Playlist.png"}
                   />
                   {errors.image && (
                     <div className="text-rd mt-4">{errors.image}</div>

@@ -1,66 +1,70 @@
 import { faFileAudio, faFileImage } from "@fortawesome/free-solid-svg-icons";
 import { AxiosError } from "axios";
 import { Field, Form, Formik } from "formik";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import * as Yup from "yup";
+import { accountDetails } from "../../api/PaymentAPI";
 import { createResourcePack } from "../../api/ResourcePackAPI";
+import { onboardUser } from "../../api/UserAPI";
 import {
   Extensions,
   MAX_FILE_SIZE,
   MAX_IMAGE_SIZE,
   Messages,
-  urlImage,
 } from "../../common/constants";
+import {
+  AccessType,
+  ICreateResource,
+  IResource,
+  NotificationType,
+  UniVerseError,
+} from "../../common/types";
 import Counter from "../Counter";
-import { NotificationType, notify } from "../Notifications";
+import { notify } from "../Notifications";
 import UploadImageDisplayer from "../UploadImageDisplayer";
 import UploadResourcesListDisplayer from "../UploadResourcesListDisplayer";
-import { IResource } from "../UploadResourcesListDisplayer/UploadResourcesListDisplayer";
-
-export interface ICreateRelease {
-  title: string;
-  description: string;
-  resources: IResource[];
-  image: File;
-  accessType: AccessType;
-  amount?: number;
-}
-
-const enum AccessType {
-  Free = "free",
-  Paid = "paid",
-  Donation = "donation",
-}
-
-export interface UniVerseError {
-  statusCode?: number;
-  message?: string;
-}
 
 const UploadResourcePackForm = ({ me }) => {
-  const { mutate, isLoading } = useMutation(
-    "uploadResourcePack",
-    createResourcePack,
+  const { mutate } = useMutation("uploadResourcePack", createResourcePack, {
+    onError: (error: AxiosError) => {
+      const errorMessage: UniVerseError = error.response.data;
+      notify(
+        `Can't upload resource-pack: ${errorMessage.message}`,
+        NotificationType.ERROR
+      );
+    },
+    onSuccess: (res) => {
+      if (res.status !== 201) {
+        notify(res.data.message, NotificationType.ERROR);
+      } else {
+        const message = "Resource-pack uploaded";
+        notify(message, NotificationType.SUCCESS);
+      }
+    },
+  });
+
+  const onboardMutation = useMutation("onboarding", onboardUser, {
+    onError: () => {
+      notify(`Can not do payment onboarding`, NotificationType.ERROR);
+    },
+    onSuccess: (res) => {
+      if (res.status !== 201) {
+        notify(res.data.message, NotificationType.ERROR);
+      } else {
+        window.location.href = res.data.onboardUrl;
+      }
+    },
+  });
+
+  const accountQuery = useQuery(
+    "accountDetails",
+    () => accountDetails().then((res) => res.data),
     {
-      onError: (error: AxiosError) => {
-        const errorMessage: UniVerseError = error.response.data;
-        notify(
-          `Can't upload resource-pack: ${errorMessage.message}`,
-          NotificationType.ERROR
-        );
-      },
-      onSuccess: (res) => {
-        if (res.status !== 201) {
-          notify(res.data.message, NotificationType.ERROR);
-        } else {
-          const message = "Resource-pack uploaded";
-          notify(message, NotificationType.SUCCESS);
-        }
-      },
+      enabled: Boolean(me?.stripeAccountId),
     }
   );
 
-  const initialValues: ICreateRelease = {
+  const initialValues: ICreateResource = {
     title: "",
     description: "",
     resources: [],
@@ -136,7 +140,7 @@ const UploadResourcePackForm = ({ me }) => {
             value ? value.size < MAX_IMAGE_SIZE : true
           ),
       })}
-      onSubmit={(value: ICreateRelease) => {
+      onSubmit={(value: ICreateResource) => {
         const data = {
           title: value.title,
           description: value.description,
@@ -184,7 +188,7 @@ const UploadResourcePackForm = ({ me }) => {
                     maxFileSize="10"
                     fileExtensions={Extensions.image}
                     setFieldValue={setFieldValue}
-                    defaultImageSrc={urlImage}
+                    defaultImageSrc={"/Playlist.png"}
                   />
                   {errors.image && (
                     <div className="text-rd mt-4">{errors.image}</div>
@@ -257,12 +261,26 @@ const UploadResourcePackForm = ({ me }) => {
                   {errors.description ? (
                     <div className="text-rd">{errors.description}</div>
                   ) : null}
-                  <button
-                    type="submit"
-                    className="justify-center mt-4 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-grn hover:bg-segrn"
-                  >
-                    Submit
-                  </button>
+                  {(values.accessType === AccessType.Free ||
+                    (me.stripeAccountId &&
+                      accountQuery.data?.details_submitted)) && (
+                    <button
+                      type="submit"
+                      className="justify-center mt-4 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-grn hover:bg-segrn"
+                    >
+                      Submit
+                    </button>
+                  )}
+                  {(!me.stripeAccountId ||
+                    !accountQuery.data?.details_submitted) && (
+                    <button
+                      type="button"
+                      className="justify-center mt-4 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-grn hover:bg-segrn"
+                      onClick={() => onboardMutation.mutate()}
+                    >
+                      Onboard
+                    </button>
+                  )}
                 </div>
               </div>
               <div className="basis-2/3 ml-4 mt-4">

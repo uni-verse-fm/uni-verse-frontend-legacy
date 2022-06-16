@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { NotificationType } from ".";
+import { NotificationType } from "../../common/types";
 
 const defaultPromiseMessage = {
   loading: "Loading",

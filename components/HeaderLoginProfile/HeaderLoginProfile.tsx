@@ -1,20 +1,13 @@
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useQuery } from "react-query";
-import { reactQueryResponseHandler } from "../../api/APIUtils";
-import { me } from "../../api/AuthAPI";
-import { Pages } from "../../common/constants";
-import useConnect from "../../common/providers/ConnectProvider";
+import { Pages } from "../../common/types";
 import UserDropDown from "./UserDropDown";
 
 const HeaderLoginProfile = () => {
-  const [connect, setConnect] = useConnect();
-  const { status, data } = useQuery("me", () => me().then((res) => res.data), {
-    enabled: Boolean(connect),
-    ...reactQueryResponseHandler(setConnect),
-  });
+  const { data: session } = useSession();
 
-  return connect ? (
-    <UserDropDown user={data} />
+  return session ? (
+    <UserDropDown user={session?.user} />
   ) : (
     <div className="top-0 right-0 flex mt-3">
       <div

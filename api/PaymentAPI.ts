@@ -1,12 +1,11 @@
-import { Endoints } from "../common/constants";
+import { Endoints } from "../common/types";
 import axiosClient from "./apiClient";
 
 const authEndpoint = Endoints.Payments;
 
 export interface IDonate {
   amount: number;
-  paymentMethodId?: string;
-  saveCard?: boolean;
+  connectedAccountId?: string;
 }
 
 export interface IPurchase {
@@ -25,5 +24,6 @@ const donate = (data: IDonate) =>
   axiosClient.post(`${authEndpoint}/donate`, data);
 const purchase = (data: IPurchase) =>
   axiosClient.post(`${authEndpoint}/charge`, data);
+const accountDetails = () => axiosClient.get(`${authEndpoint}/account/me`);
 
-export { donate, purchase };
+export { donate, purchase, accountDetails };

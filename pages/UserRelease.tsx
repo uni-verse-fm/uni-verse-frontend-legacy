@@ -2,6 +2,7 @@ import React from "react";
 import ArtistRelease from "../components/ArtistRelease";
 
 import { useRouter } from "next/router";
+import { getSession, GetSessionParams } from "next-auth/react";
 
 function UserRelease() {
   const router = useRouter();
@@ -25,4 +26,22 @@ function UserRelease() {
   );
 }
 
+export async function getServerSideProps(context: GetSessionParams) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/Login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
+}
 export default UserRelease;

@@ -1,8 +1,6 @@
 import React from "react";
-import ArtistRelease from "../components/ArtistRelease";
-
 import { useRouter } from "next/router";
-import ArtistTrack from "../components/ArtistTrack";
+import ArtistTrack from "../components/ArtistTrack/ArtistTrack";
 
 function Track() {
   const router = useRouter();

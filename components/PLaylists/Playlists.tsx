@@ -1,32 +1,22 @@
-import { getPlaylists } from "../../api/PlaylistAPI";
-import { Messages, Pages, urlImage } from "../../common/constants";
+import { Messages } from "../../common/constants";
 import PlaylistCard from "../PlayListCard";
 import Spinner from "../Spinner";
 import { useQuery } from "react-query";
-import useConnect from "../../common/providers/ConnectProvider";
 import router from "next/router";
-import { NotificationType, notify } from "../Notifications";
+import { notify } from "../Notifications";
 import { AxiosError } from "axios";
 import { styles } from "../PlayListsModal";
+import { getUserPlaylists } from "../../api/PlaylistAPI";
+import { NotificationType, Pages } from "../../common/types";
 
 const Playlists = (props) => {
-  const [connect, setConnect] = useConnect();
-  /* A remplacer par getPlaylists d'un User (by idUser) */
-  const { status, data } = useQuery(
+  const { data, status } = useQuery(
     "playlists",
-    () => getPlaylists().then((res) => res.data),
+    () => getUserPlaylists(props.userId),
     {
-      onSuccess: (res) => {
-        if (res.status === 401) {
-          notify("Playlists bay from success");
-          setConnect(false);
-          router.replace(`/${Pages.Login}`);
-        }
-      },
       onError: (error: AxiosError) => {
-        if (error.response.status === 401) {
+        if (error.response?.status === 401) {
           notify(Messages.UNAUTHORIZED, NotificationType.ERROR);
-          setConnect(false);
           router.replace(`/${Pages.Login}`);
         }
       },
@@ -69,8 +59,8 @@ const Playlists = (props) => {
                   key={index}
                   title={item.title}
                   image={item.image}
-                  owner={item.owner}
-                  defaultImageSrc={urlImage}
+                  owner={item.owner?.username}
+                  defaultImageSrc={"/Playlist.png"}
                 />
               </div>
             ))

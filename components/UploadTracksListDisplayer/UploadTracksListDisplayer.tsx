@@ -1,19 +1,8 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { IFeat, ITrack } from "../../common/types";
 import { TracksTable } from "./TracksTable";
-
-export interface ITrack {
-  file: File;
-  title: string;
-  feats: IFeat[];
-}
-
-export interface IFeat {
-  id: string;
-  username: string;
-  email: string;
-}
 
 const UploadTracksListDisplayer = (props) => {
   const [tracks, setTracks] = useState<ITrack[]>([]);
