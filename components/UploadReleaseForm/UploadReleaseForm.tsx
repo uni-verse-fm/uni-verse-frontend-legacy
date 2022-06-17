@@ -84,7 +84,12 @@ const UploadReleaseForm = ({ myId }) => {
           })),
         };
         var bodyFormData = new FormData();
-        bodyFormData.append("data", JSON.stringify(data).replace(/ /g, ""));
+        const spacesRegex = /\s+(?=([^"]*"[^"]*")*[^"]*$)/g;
+        const stringData = JSON.stringify(data).replace(spacesRegex, "").replace(/\s+/g, " ");
+        bodyFormData.append(
+          "data",
+          stringData
+        );
         value.tracks.forEach((track) =>
           bodyFormData.append("tracks", track.file, track.file.name)
         );
