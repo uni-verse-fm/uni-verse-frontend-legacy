@@ -20,7 +20,7 @@ const ArtistReleases = (props) => {
               <ReleaseCard
                 key={index}
                 title={item.title}
-                image={item.image}
+                image={item.coverName}
                 year="2013"
                 defaultImageSrc={"/Playlist.png"}
               />

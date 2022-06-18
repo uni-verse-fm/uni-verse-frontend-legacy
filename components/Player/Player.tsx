@@ -1,3 +1,4 @@
+import { trackSource } from './../../common/types';
 import {
   faArrowLeft,
   faArrowRight,
@@ -10,7 +11,6 @@ import { PlayerContext } from "../../common/providers/PlayerProvider";
 import DefilingText from "./DefilingText";
 import ReaderTimeline from "./ReaderTimeline";
 
-const source = "http://localhost:9000/tracks/";
 
 const Player = () => {
   const { state } = useContext(PlayerContext);
@@ -34,7 +34,7 @@ const Player = () => {
   const onTracksChange = (newTracks) => {
     setTracks(newTracks);
     track.current?.pause();
-    const newUrl = source + newTracks[state.player.trackIndex].fileName;
+    const newUrl = trackSource + newTracks[state.player.trackIndex].fileName;
     track.current.src = newUrl;
     track.current.load();
     track.current.play();
@@ -69,7 +69,7 @@ const Player = () => {
 
   const next = () => {
     if (currentTrackIndex + 1 < tracks.length) {
-      const newUrl = source + tracks[currentTrackIndex + 1].fileName;
+      const newUrl = trackSource + tracks[currentTrackIndex + 1].fileName;
       setCurrentTrackIndex(currentTrackIndex + 1);
       if (track.current.src !== newUrl) track.current.src = newUrl;
       track.current.load();
@@ -79,7 +79,7 @@ const Player = () => {
 
   const previous = () => {
     if (currentTrackIndex - 1 >= 0) {
-      const newUrl = source + tracks[currentTrackIndex - 1].fileName;
+      const newUrl = trackSource + tracks[currentTrackIndex - 1].fileName;
       setCurrentTrackIndex(currentTrackIndex - 1);
       if (track.current.src !== newUrl) track.current.src = newUrl;
       track.current.load();

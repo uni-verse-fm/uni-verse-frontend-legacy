@@ -5,7 +5,7 @@ import { PlayerContext } from "../../common/providers/PlayerProvider";
 import { Track, Types } from "../../common/types";
 import { isoDateToDate } from "../../utils/dateUtils";
 
-const DisplayTracksTable = ({ tracks }) => {
+const DisplayTracksTable = ({ tracks, releaseTitle }) => {
   const { dispatch } = useContext(PlayerContext);
 
   const onClickTrack = (track: Track) => () => {
@@ -34,7 +34,7 @@ const DisplayTracksTable = ({ tracks }) => {
       <tbody>
         {tracks.map((track) => (
           <tr
-            key={track.name}
+            key={track.title}
             className="h-10 cursor-pointer hover:text-wht hover:border-b hover:border-t"
           >
             <td>
@@ -44,8 +44,8 @@ const DisplayTracksTable = ({ tracks }) => {
                 onClick={onClickTrack(track)}
               />
             </td>
-            <td>{track.name}</td>
-            <td>Album 1</td>
+            <td>{track.title}</td>
+            <td>{releaseTitle}</td>
             <td>{isoDateToDate(track.createdAt)}</td>
             <td>4:23</td>
           </tr>

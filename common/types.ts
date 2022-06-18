@@ -240,3 +240,7 @@ export type PlayerType = {
   tracks: Track[];
   trackIndex?: number;
 };
+
+export const trackSource = "http://localhost:9000/tracks/";
+
+export const imageSource = "http://localhost:9000/images/";
