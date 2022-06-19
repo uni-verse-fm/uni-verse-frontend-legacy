@@ -12,7 +12,7 @@ const PlaylistsModal = ({
   showModal,
   handleCloseModal,
   createPlaylistIndex,
-  handleShowcreatePlaylistIndex,
+  handleShowCreatePlaylistIndex,
   handleHidecreatePlaylistIndex,
 }) => {
   const [playlistIndex, setPlaylistIndex] = useState(null);
@@ -38,7 +38,7 @@ const PlaylistsModal = ({
             />
           ) : (
             <PlaylistsModalHeader
-              handleShowcreatePlaylistIndex={handleShowcreatePlaylistIndex}
+              handleShowCreatePlaylistIndex={handleShowCreatePlaylistIndex}
             />
           )
         }

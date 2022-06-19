@@ -18,17 +18,19 @@ const options = {
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [showPlaylistsModal, setShowPlaylistsModal] = useState(false);
+  const [createPlaylistIndex, setCreatePlaylistIndex] = useState(false);
+
+
+  const handleShowPlaylistsModal = () => setShowPlaylistsModal(true);  
+  const handleShowCreatePlaylistIndex = () => setCreatePlaylistIndex(true);
+  const handleHidecreatePlaylistIndex = () => setCreatePlaylistIndex(false);
+
+  const queryClient = new QueryClient();
+
   const handleClosePlaylistsModal = () => {
     setShowPlaylistsModal(false);
     setCreatePlaylistIndex(false);
   };
-  const handleShowPlaylistsModal = () => setShowPlaylistsModal(true);
-
-  const [createPlaylistIndex, setCreatePlaylistIndex] = useState(false);
-  const handleShowcreatePlaylistIndex = () => setCreatePlaylistIndex(true);
-  const handleHidecreatePlaylistIndex = () => setCreatePlaylistIndex(false);
-
-  const queryClient = new QueryClient();
 
   return (
     <Elements stripe={stripePromise} options={options}>
@@ -62,7 +64,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                 showModal={showPlaylistsModal}
                 handleCloseModal={handleClosePlaylistsModal}
                 createPlaylistIndex={createPlaylistIndex}
-                handleShowcreatePlaylistIndex={handleShowcreatePlaylistIndex}
+                handleShowCreatePlaylistIndex={handleShowCreatePlaylistIndex}
                 handleHidecreatePlaylistIndex={handleHidecreatePlaylistIndex}
               />
             </PlayerProvider>
@@ -73,28 +75,5 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     </Elements>
   );
 }
-
-// export async function getServerSideProps() {
-//   const queryClient = new QueryClient();
-//   const response = await me();
-//   await queryClient.prefetchQuery("me", me);
-//   await queryClient.prefetchQuery("playlists", getPlaylists);
-//   const isConnected = response.status === 200;
-//   if (!isConnected) {
-//     return {
-//       redirect: {
-//         destination: "/Login",
-//         permanent: false,
-//       },
-//     };
-//   }
-
-//   return {
-//     props: {
-//       dehydratedState: dehydrate(queryClient),
-//       me: response.data,
-//     },
-//   };
-// }
 
 export default MyApp;
