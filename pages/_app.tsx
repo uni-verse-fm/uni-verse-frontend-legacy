@@ -20,8 +20,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [showPlaylistsModal, setShowPlaylistsModal] = useState(false);
   const [createPlaylistIndex, setCreatePlaylistIndex] = useState(false);
 
-
-  const handleShowPlaylistsModal = () => setShowPlaylistsModal(true);  
+  const handleShowPlaylistsModal = () => setShowPlaylistsModal(true);
   const handleShowCreatePlaylistIndex = () => setCreatePlaylistIndex(true);
   const handleHidecreatePlaylistIndex = () => setCreatePlaylistIndex(false);
 

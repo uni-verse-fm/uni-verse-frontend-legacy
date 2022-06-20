@@ -23,7 +23,9 @@ const UploadImageDisplayer = (props) => {
       >
         <img
           src={image ? URL.createObjectURL(image) : props.defaultImageSrc}
-          className={`md:mx-auto object-contain h-${props.size || 60} w-${props.size || 60} rounded-lg`}
+          className={`md:mx-auto object-contain h-${props.size || 60} w-${
+            props.size || 60
+          } rounded-lg`}
           alt="image to upload"
         />
       </div>

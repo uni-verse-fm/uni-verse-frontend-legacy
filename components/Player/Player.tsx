@@ -1,4 +1,4 @@
-import { trackSource } from './../../common/types';
+import { trackSource } from "./../../common/types";
 import {
   faArrowLeft,
   faArrowRight,
@@ -10,7 +10,6 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
 import DefilingText from "./DefilingText";
 import ReaderTimeline from "./ReaderTimeline";
-
 
 const Player = () => {
   const { state } = useContext(PlayerContext);
