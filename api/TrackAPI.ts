@@ -1,5 +1,5 @@
+import { axiosClient } from "../common/contexts/AxiosContext";
 import { Endoints } from "../common/types";
-import axiosClient from "./apiClient";
 
 const trackEndpoint = Endoints.Tracks;
 const getTrackById = (id: string) => axiosClient.get(`${trackEndpoint}/${id}`);
