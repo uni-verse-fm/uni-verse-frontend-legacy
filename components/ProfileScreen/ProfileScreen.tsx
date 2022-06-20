@@ -16,40 +16,34 @@ const imageProps = {
   setFieldValue: () => notify(Messages.NOT_IMPLEMENTED),
 };
 
-const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
-  let tracks = [
-    {
-      name: " track N°1",
-      Album: " Album 1",
-      createdate: "22-10-2022",
-      duration: "2:33",
-    },
-    {
-      name: " track N°2",
-      Album: " Album 2",
-      createdate: "22-10-2022",
-      duration: "2:33",
-    },
-    {
-      name: " track N°2",
-      Album: " Album 3",
-      createdate: "22-10-2022",
-      duration: "2:33",
-    },
-    {
-      name: " track N°3",
-      Album: " Album 4",
-      createdate: "22-10-2022",
-      duration: "2:33",
-    },
-    {
-      name: " track N°4",
-      Album: " Album 15",
-      createdate: "22-10-2022",
-      duration: "2:33",
-    },
-  ];
+let tracks = [
+  {
+    title: " track N°1",
+    Album: " Album 1",
+    createdate: "22-10-2022",
+    duration: "2:33",
+  },
+  {
+    title: " track N°2",
+    Album: " Album 3",
+    createdate: "22-10-2022",
+    duration: "2:33",
+  },
+  {
+    title: " track N°3",
+    Album: " Album 4",
+    createdate: "22-10-2022",
+    duration: "2:33",
+  },
+  {
+    title: " track N°4",
+    Album: " Album 15",
+    createdate: "22-10-2022",
+    duration: "2:33",
+  },
+];
 
+const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
   return (
     <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden">
       <div className="text-start flex justify-start flex-col items-start w-full h-full ">
@@ -94,7 +88,7 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
         Populaires :
       </h2>
       {tracks.length ? (
-        <DisplayTracksTable tracks={tracks} />
+        <DisplayTracksTable tracks={tracks} releaseTitle={""} />
       ) : (
         <div className="flex justify-center items-center mt-5 text-lg">
           <h1 className="text-grn whitespace-nowrap">
