@@ -1,3 +1,5 @@
+import { string } from "yup/lib/locale";
+
 export interface IUsersList {
   data: IFeat[];
   onClick: (item: IFeat) => void;
@@ -148,11 +150,20 @@ export interface IProfileScreen {
   isMe?: boolean;
 }
 
+export interface ICreateComment {
+  contentId: string;
+  isPositive: Boolean;
+  content: string,
+  typeOfContent: string;
+}
+
 export type IReaderTimeLine = {
   duration: number;
   playerTime: number;
   onSlide: (value: number) => any;
 };
+
+
 
 export type Track = { fileName: string; author: any; id?: string } & ITrack;
 

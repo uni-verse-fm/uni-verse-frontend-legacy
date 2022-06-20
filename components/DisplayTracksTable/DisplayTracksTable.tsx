@@ -44,8 +44,8 @@ const DisplayTracksTable = ({ tracks }) => {
                 onClick={onClickTrack(track)}
               />
             </td>
-            <td>{track.name}</td>
-            <td>Album 1</td>
+            <td>{track.title}</td>
+            <td>{track._id}</td>
             <td>{isoDateToDate(track.createdAt)}</td>
             <td>4:23</td>
           </tr>
