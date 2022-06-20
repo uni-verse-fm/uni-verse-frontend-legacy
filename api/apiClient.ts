@@ -6,13 +6,19 @@ import { BASE_API } from "../common/constants";
 
 const headers = {
   "Access-Control-Allow-Credentials": true,
-  "Access-Control-Allow-Origin": `http://localhost:${process.env.PORT || 3000}`,
+  "Access-Control-Allow-Origin": BASE_API,
   "Access-Control-Allow-Methods": "GET,OPTIONS,PATCH,DELETE,POST,PUT",
   "Access-Control-Allow-Headers":
     "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Set-Cookie",
 };
 
 const axiosClient = axios.create({
+  baseURL: BASE_API,
+  headers: { ...headers },
+  withCredentials: true,
+});
+
+export const axiosAuthClient = axios.create({
   baseURL: BASE_API,
   headers: { ...headers },
   withCredentials: true,
@@ -27,12 +33,34 @@ axiosClient.interceptors.response.use(
   }
 );
 
-createAuthRefreshInterceptor(axiosClient, (failedRequest) =>
-  axiosClient.get("/auth/refresh").then((resp) => {
+createAuthRefreshInterceptor(axiosClient, async (failedRequest) => {
+  console.debug(
+    "create refresh1: " +
+      JSON.stringify(JSON.stringify(axiosAuthClient.defaults.headers['cookie']))
+  );
+
+  console.debug(
+    "set cookie1: " +
+      JSON.stringify(JSON.stringify(axiosAuthClient.defaults.headers))
+  );
+
+  console.debug(
+    "set cookie2: " +
+      JSON.stringify(JSON.stringify(failedRequest.response.config.headers))
+  );
+
+  return await axiosAuthClient.get(`${BASE_API}/auth/refresh`).then((resp) => {
     if (axiosClient.defaults.headers.common["set-cookie"]) {
       delete axiosClient.defaults.headers.common["set-cookie"];
     }
 
+    console.debug(
+      "create refresh: " +
+        JSON.stringify(axiosAuthClient.defaults.headers.common["set-cookie"])
+    );
+    console.debug(
+      "set cookie: " + JSON.stringify(resp.headers["set-cookie"][0])
+    );
     const responseCookie = setCookie.parse(resp.headers["set-cookie"])[0];
 
     axiosClient.defaults.headers.common["set-cookie"] =
@@ -43,8 +71,13 @@ createAuthRefreshInterceptor(axiosClient, (failedRequest) =>
       responseCookie.value
     );
 
+    failedRequest.headers.cookie = cookie.serialize(
+      responseCookie.name,
+      responseCookie.value
+    );
+
     return Promise.resolve();
-  })
-);
+  });
+});
 
 export default axiosClient;

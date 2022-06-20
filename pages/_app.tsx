@@ -10,6 +10,8 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { PlayerProvider } from "../common/providers/PlayerProvider";
 import { SessionProvider } from "next-auth/react";
+import { AuthProvider } from "../common/contexts/AuthContext";
+import { AxiosProvider } from "../common/contexts/AxiosContext";
 
 const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
 const options = {
@@ -35,39 +37,48 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     <Elements stripe={stripePromise} options={options}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <SessionProvider session={session}>
-            <PlayerProvider>
-              <div
-                className={`${
-                  showPlaylistsModal && "blur-md"
-                } flex flex-col h-screen overflow-hidden`}
-              >
-                <div className="sticky top-0">
-                  <Header />
-                </div>
-                <div className="flex flex-grow h-full overflow-hidden">
-                  <div className="flex flex-row bg-gry w-full overflow-hidden">
-                    <Sidebar handleShowModal={handleShowPlaylistsModal} />
-                    <div className="flex flex-col h-full w-full ">
-                      {/* Allows having that sweet rounded corner */}
-                      <div className="w-full h-full rounded-tl-md overflow-hidden">
-                        <Component {...pageProps} />
+          <AuthProvider>
+            <AxiosProvider>
+              <SessionProvider session={session}>
+                <PlayerProvider>
+                  <div
+                    className={`${
+                      showPlaylistsModal && "blur-md"
+                    } flex flex-col h-screen overflow-hidden`}
+                  >
+                    <div className="sticky top-0">
+                      <Header />
+                    </div>
+                    <div className="flex flex-grow h-full overflow-hidden">
+                      <div className="flex flex-row bg-gry w-full overflow-hidden">
+                        <Sidebar handleShowModal={handleShowPlaylistsModal} />
+                        <div className="flex flex-col h-full w-full ">
+                          {/* Allows having that sweet rounded corner */}
+                          <div className="w-full h-full rounded-tl-md overflow-hidden">
+                            <Component {...pageProps} />
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
 
-              <Notifications />
-              <PlaylistsModal
-                showModal={showPlaylistsModal}
-                handleCloseModal={handleClosePlaylistsModal}
-                createPlaylistIndex={createPlaylistIndex}
-                handleShowCreatePlaylistIndex={handleShowCreatePlaylistIndex}
-                handleHidecreatePlaylistIndex={handleHidecreatePlaylistIndex}
-              />
-            </PlayerProvider>
-          </SessionProvider>
+                  <Notifications />
+                  <PlaylistsModal
+                    showModal={showPlaylistsModal}
+                    handleCloseModal={handleClosePlaylistsModal}
+                    createPlaylistIndex={createPlaylistIndex}
+                    handleShowCreatePlaylistIndex={
+                      handleShowCreatePlaylistIndex
+                    }
+                    handleHidecreatePlaylistIndex={
+                      handleHidecreatePlaylistIndex
+                    }
+                  />
+                </PlayerProvider>
+              </SessionProvider>
+            </AxiosProvider>
+          </AuthProvider>
+
           <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
         </Hydrate>
       </QueryClientProvider>

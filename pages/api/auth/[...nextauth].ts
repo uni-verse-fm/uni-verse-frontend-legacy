@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import axiosClient from "../../../api/apiClient";
+import { axiosAuthClient } from "../../../api/apiClient";
 import { login } from "../../../api/AuthAPI";
 import * as cookie from "cookie";
 import GoogleProvider from "next-auth/providers/google";
@@ -8,27 +8,31 @@ import SpotifyProvider from "next-auth/providers/spotify";
 import axios, { AxiosError } from "axios";
 import { BASE_API } from "../../../common/constants";
 import { Endoints } from "../../../common/types";
+import { NextApiRequest, NextApiResponse } from "next";
 
 async function refreshAccessToken(token) {
-  axiosClient.defaults.headers["cookie"] = cookie.serialize(
+
+  axiosAuthClient.defaults.headers["cookie"] = cookie.serialize(
     "Refresh",
     token.refreshToken
   );
-  return await axiosClient.get("/auth/refresh").then((response) => {
-    if (axiosClient.defaults.headers.common["set-cookie"]) {
-      delete axiosClient.defaults.headers.common["set-cookie"];
-    }
 
+  console.debug("set cookie " + JSON.stringify(axiosAuthClient.defaults.headers))
+  console.debug("cookie " + axiosAuthClient.defaults.headers["cookie"])
+
+
+  return await axiosAuthClient.get("/auth/refresh").then((response) => {
+    response.headers["cookie"] = axiosAuthClient.defaults.headers['cookie'];
     return {
       ...token,
       accessToken: response.data.accessToken,
       accessTokenExpires: Date.now() + 1000,
-      refreshToken: response.data.refreshToken,
+      refreshToken: token.refreshToken,
     };
   });
 }
 
-const nextAuthOptions = (req, res) => {
+const nextAuthOptions = (req: NextApiRequest, res: NextApiResponse) => {
   return {
     providers: [
       CredentialsProvider({
@@ -51,10 +55,16 @@ const nextAuthOptions = (req, res) => {
             .then((response) => {
               const cookies = response.headers["set-cookie"];
               res.setHeader("Set-Cookie", cookies);
+              res.setHeader(
+                "cookie",
+                [cookie.serialize("Authentication", response.data.accessToken),
+                cookie.serialize("Refresh", response.data.refreshToken)]
+              );
+
               return response.data;
             })
-            .catch(() => {
-              throw new Error(user.exception);
+            .catch((error) => {
+              throw new Error(error);
             });
           if (user) {
             return user;
@@ -84,21 +94,39 @@ const nextAuthOptions = (req, res) => {
       signIn: "/Login",
     },
     callbacks: {
+      async redirect({ url }) {
+        const baseUrl = process.env.NEXTAUTH_URL;
+        if (url.startsWith("/")) return `${baseUrl}${url}`;
+        return baseUrl;
+      },
+
       async jwt({ token, user, account }) {
+        console.debug("jwt");
+
+        console.debug("jwt token " + JSON.stringify(token));
+        console.debug("jwt user " + JSON.stringify(user));
+        console.debug("jwt to user " + JSON.stringify(token.user));
+        console.debug("jwt account " + JSON.stringify(account));
+
         if (user && account?.provider === "credentials") {
-          return await refreshAccessToken({
+          const response = await refreshAccessToken({
             ...token,
-            accessToken: user.accessToken,
-            refreshToken: user.refreshToken,
-            accessTokenExpires: user.accessTokenExpires,
-            user,
+            ...user,
           });
+          return response;
+        }
+
+        if (token.refreshToken) {
+          const response = await refreshAccessToken(token);
+          return response;
         }
 
         return token;
       },
 
       async signIn({ account, profile }) {
+        console.debug("signIn");
+
         if (account.provider === "google") {
           try {
             const status = await axios
@@ -140,17 +168,18 @@ const nextAuthOptions = (req, res) => {
         return true;
       },
 
-      async redirect({ url }) {
-        const baseUrl = process.env.REACT_APP_API_URL;
-        if (url.startsWith("/")) return `${baseUrl}${url}`;
-        return baseUrl;
-      },
-
       async session({ session, token }) {
+        console.debug("session");
         const meInfo = await axios
-          .get(`${BASE_API + Endoints.Auth}/me`, { headers: req.headers })
+          .get(`${BASE_API + Endoints.Auth}/me`, {
+            headers: {
+              Authorization: `${token.accessToken}`,
+            },
+          })
           .then((response) => response.data)
           .catch(() => ({}));
+        console.debug("session meInfo " + JSON.stringify(meInfo));
+
         session = {
           user: meInfo,
           ...session.user,
