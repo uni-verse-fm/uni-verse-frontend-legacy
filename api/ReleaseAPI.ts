@@ -1,5 +1,5 @@
+import { axiosClient } from "../common/contexts/AxiosContext";
 import { Endoints } from "../common/types";
-import axiosClient from "./apiClient";
 
 const releaseEndpoint = Endoints.Releases;
 

@@ -9,8 +9,6 @@ import { searchTrack } from "../../api/TrackAPI";
 import { searchUsers } from "../../api/UserAPI";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
 import router from "next/router";
-import { me } from "../../api/AuthAPI";
-import { notify } from "../Notifications";
 import { Pages, Track, Types } from "../../common/types";
 
 function classNames(...classes) {
@@ -41,14 +39,6 @@ const SearchBar = ({ isConnected }) => {
     setQuery(event.target.value);
     setIsMenuOpen(true);
   };
-
-  const { status, data } = useQuery("me", () => me().then((res) => res.data), {
-    onSuccess: (res) => {
-      if (res.status === 401) {
-        notify("get your profile");
-      }
-    },
-  });
 
   const taskQuery = useQuery(
     ["searchTrack", query],

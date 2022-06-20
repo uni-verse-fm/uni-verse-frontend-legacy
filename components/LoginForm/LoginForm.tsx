@@ -19,7 +19,6 @@ const LoginForm = (props: ILoginForm) => {
           .min(8, Messages.SHORT_PASWORD),
       })}
       onSubmit={(value: ILogin, { setSubmitting }) => {
-        console.log(value);
         props.signIn(value, setSubmitting);
       }}
     >
