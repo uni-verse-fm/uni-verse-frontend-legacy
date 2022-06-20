@@ -121,21 +121,22 @@ export default NextAuth({
     },
 
     async session({ session, token }) {
-      const meInfo = await axios
-        .get(`${BASE_API + Endoints.Auth}/me`, {
-          headers: {
-            Authorization: `${token.accessToken}`,
-          },
-        })
-        .then((response) => response.data)
-        .catch((error: AxiosError) => error.response.status);
-
-      return {
+      console.debug("session", session);
+      console.debug("token", token.refreshToken);
+      const customSession = {
         ...session,
-        ...token,
-        user: meInfo,
-        userId: (session.user as any).id,
+        refreshToken: token.refreshToken,
+        user: {
+          ...session.user,
+          username: token.username,
+          email: token.email,
+          id: token.id,
+          accountId: token.accountId,
+        },
       };
+      console.debug("session", customSession);
+      console.debug("token", token.refreshToken);
+      return customSession;
     },
   },
   debug: process.env.NODE_ENV === "development",

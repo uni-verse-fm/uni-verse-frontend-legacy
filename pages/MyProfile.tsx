@@ -12,22 +12,9 @@ function MyProfile(props) {
 
   const { status, data } = useQuery(
     "myReleases",
-    () => getUserReleases(session.userId as string),
-    { initialData: props.releases }
+    () => getUserReleases((session.user as any).id),
+    { initialData: props.releases, enabled: Boolean(session) }
   );
-
-  const profileParams = (session: Session, releases: any) => {
-    return {
-      user: {
-        id: session.userId as string,
-        username: (session.user as any).username,
-        email: session.email as string,
-        accountId: (session.user as any).accountId,
-      },
-      releases,
-      isMe: true,
-    };
-  };
 
   return status === "error" ? (
     <div className="flex justify-center items-center mt-10">
@@ -37,8 +24,19 @@ function MyProfile(props) {
     <div className="flex justify-center items-center mt-10">
       <Spinner />
     </div>
+  ) : session.user ? (
+    <ProfileScreen
+      user={{
+        id: (session.user as any).id,
+        username: (session.user as any).username,
+        email: (session.user as any).email,
+        accountId: (session.user as any).accountId,
+      }}
+      releases={data}
+      isMe={true}
+    />
   ) : (
-    <ProfileScreen {...profileParams(session, data)} />
+    <></>
   );
 }
 

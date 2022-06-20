@@ -107,7 +107,7 @@ const ArtistRelease = (props) => {
                     />
                   </h2>
 
-                  {session.userId === getRelease.data.author && (
+                  {(session.user as any).id === getRelease.data.author && (
                     <div className="flex flex-row">
                       <h2 className="text-grn">
                         <FontAwesomeIcon

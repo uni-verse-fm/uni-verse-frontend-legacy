@@ -56,39 +56,45 @@ const UserDropDown = ({ user }) => {
             </div>
           </Menu.Item>
         )}
-        <Menu.Item>
-          {({ active }) => (
-            <div
-              className={`${
-                active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group items-center px-2 py-2 font-semibold text-gryf`}
-            >
-              <Link href={`/${Pages.MyProfile}`}> Dashboard </Link>
-            </div>
-          )}
-        </Menu.Item>
-        <Menu.Item>
-          {({ active }) => (
-            <div
-              className={`${
-                active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group items-center px-2 py-2 font-semibold text-gryf`}
-            >
-              <Link href={`/${Pages.MyProfile}`}> Settings</Link>
-            </div>
-          )}
-        </Menu.Item>
-        <Menu.Item>
-          {({ active }) => (
-            <div
-              className={`${
-                active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group items-center px-2 py-2 font-semibold text-gryf`}
-            >
-              <Link href={`/${Pages.Profile}`}> Earnings</Link>
-            </div>
-          )}
-        </Menu.Item>
+        <Link href={`/${Pages.MyProfile}`}>
+          <Menu.Item>
+            {({ active }) => (
+              <div
+                className={`${
+                  active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
+                } group items-center px-2 py-2 font-semibold text-gryf`}
+              >
+                Dashboard
+              </div>
+            )}
+          </Menu.Item>
+        </Link>
+        <Link href={`/${Pages.MyProfile}`}>
+          <Menu.Item>
+            {({ active }) => (
+              <div
+                className={`${
+                  active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
+                } group items-center px-2 py-2 font-semibold text-gryf`}
+              >
+                Settings
+              </div>
+            )}
+          </Menu.Item>
+        </Link>
+        <Link href={`/${Pages.Profile}`}>
+          <Menu.Item>
+            {({ active }) => (
+              <div
+                className={`${
+                  active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
+                } group items-center px-2 py-2 font-semibold text-gryf`}
+              >
+                Earnings
+              </div>
+            )}
+          </Menu.Item>
+        </Link>
         <Menu.Item>
           {({ active }) => (
             <button

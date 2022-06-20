@@ -64,7 +64,8 @@ const AxiosProvider = (props: any) => {
       });
   };
 
-  createAuthRefreshInterceptor(axiosClient, refreshAuthLogic);
+  session?.refreshToken &&
+    createAuthRefreshInterceptor(axiosClient, refreshAuthLogic);
 
   return (
     <Provider

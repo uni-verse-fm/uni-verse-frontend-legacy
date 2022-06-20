@@ -60,7 +60,7 @@ const PlaylistsModal = ({
               />
             ) : (
               <Playlists
-                userId={session.userId as string}
+                userId={(session.user as any).id}
                 handleShowPlaylistContent={handleShowPlaylistContent}
                 modalDisplay="true"
               />
