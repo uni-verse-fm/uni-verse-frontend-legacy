@@ -5,6 +5,9 @@ import { PlayerContext } from "../../common/providers/PlayerProvider";
 import { Track, Types } from "../../common/types";
 import { isoDateToDate } from "../../utils/dateUtils";
 
+import ShowMoreMenu from "../ShowMoreMenu";
+
+
 const DisplayTracksTable = ({ tracks }) => {
   const { dispatch } = useContext(PlayerContext);
 
@@ -48,6 +51,9 @@ const DisplayTracksTable = ({ tracks }) => {
             <td>{track._id}</td>
             <td>{isoDateToDate(track.createdAt)}</td>
             <td>4:23</td>
+            <td>
+                <ShowMoreMenu track={track}  />
+            </td>
           </tr>
         ))}
       </tbody>
