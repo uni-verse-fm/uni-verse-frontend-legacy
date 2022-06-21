@@ -10,6 +10,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { PlayerProvider } from "../common/providers/PlayerProvider";
 import { SessionProvider } from "next-auth/react";
+import { AxiosProvider } from "../common/contexts/AxiosContext";
 
 const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
 const options = {
@@ -18,54 +19,57 @@ const options = {
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [showPlaylistsModal, setShowPlaylistsModal] = useState(false);
+  const [createPlaylistIndex, setCreatePlaylistIndex] = useState(false);
+
+  const handleShowPlaylistsModal = () => setShowPlaylistsModal(true);
+  const handleShowCreatePlaylistIndex = () => setCreatePlaylistIndex(true);
+  const handleHidecreatePlaylistIndex = () => setCreatePlaylistIndex(false);
+
+  const queryClient = new QueryClient();
+
   const handleClosePlaylistsModal = () => {
     setShowPlaylistsModal(false);
     setCreatePlaylistIndex(false);
   };
-  const handleShowPlaylistsModal = () => setShowPlaylistsModal(true);
-
-  const [createPlaylistIndex, setCreatePlaylistIndex] = useState(false);
-  const handleShowcreatePlaylistIndex = () => setCreatePlaylistIndex(true);
-  const handleHidecreatePlaylistIndex = () => setCreatePlaylistIndex(false);
-
-  const queryClient = new QueryClient();
 
   return (
     <Elements stripe={stripePromise} options={options}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <SessionProvider session={session}>
-            <PlayerProvider>
-              <div
-                className={`${
-                  showPlaylistsModal && "blur-md"
-                } flex flex-col h-screen overflow-hidden`}
-              >
-                <div className="sticky top-0">
-                  <Header />
-                </div>
-                <div className="flex flex-grow h-full overflow-hidden">
-                  <div className="flex flex-row bg-gry w-full overflow-hidden">
-                    <Sidebar handleShowModal={handleShowPlaylistsModal} />
-                    <div className="flex flex-col h-full w-full ">
-                      {/* Allows having that sweet rounded corner */}
-                      <div className="w-full h-full rounded-tl-md overflow-hidden">
-                        <Component {...pageProps} />
+            <AxiosProvider>
+              <PlayerProvider>
+                <div
+                  className={`${
+                    showPlaylistsModal && "blur-md"
+                  } flex flex-col h-screen overflow-hidden`}
+                >
+                  <div className="sticky top-0">
+                    <Header />
+                  </div>
+                  <div className="flex flex-grow h-full overflow-hidden">
+                    <div className="flex flex-row bg-gry w-full overflow-hidden">
+                      <Sidebar handleShowModal={handleShowPlaylistsModal} />
+                      <div className="flex flex-col h-full w-full ">
+                        {/* Allows having that sweet rounded corner */}
+                        <div className="w-full h-full rounded-tl-md overflow-hidden">
+                          <Component {...pageProps} />
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <Notifications />
-              <PlaylistsModal
-                showModal={showPlaylistsModal}
-                handleCloseModal={handleClosePlaylistsModal}
-                createPlaylistIndex={createPlaylistIndex}
-                handleShowcreatePlaylistIndex={handleShowcreatePlaylistIndex}
-                handleHidecreatePlaylistIndex={handleHidecreatePlaylistIndex}
-              />
-            </PlayerProvider>
+                <Notifications />
+                <PlaylistsModal
+                  showModal={showPlaylistsModal}
+                  handleCloseModal={handleClosePlaylistsModal}
+                  createPlaylistIndex={createPlaylistIndex}
+                  handleShowCreatePlaylistIndex={handleShowCreatePlaylistIndex}
+                  handleHidecreatePlaylistIndex={handleHidecreatePlaylistIndex}
+                />
+              </PlayerProvider>
+            </AxiosProvider>
           </SessionProvider>
           <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
         </Hydrate>
@@ -73,28 +77,5 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     </Elements>
   );
 }
-
-// export async function getServerSideProps() {
-//   const queryClient = new QueryClient();
-//   const response = await me();
-//   await queryClient.prefetchQuery("me", me);
-//   await queryClient.prefetchQuery("playlists", getPlaylists);
-//   const isConnected = response.status === 200;
-//   if (!isConnected) {
-//     return {
-//       redirect: {
-//         destination: "/Login",
-//         permanent: false,
-//       },
-//     };
-//   }
-
-//   return {
-//     props: {
-//       dehydratedState: dehydrate(queryClient),
-//       me: response.data,
-//     },
-//   };
-// }
 
 export default MyApp;
