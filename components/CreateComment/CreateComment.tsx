@@ -8,6 +8,7 @@ import { createComment } from "../../api/CommentAPI";
 import { NotificationType,ICreateComment } from "../../common/types";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import router from "next/router";
 
 
 const CreateComment = ({ idContent }) => {
@@ -21,6 +22,7 @@ const CreateComment = ({ idContent }) => {
       } else {
         const message = "Comment added successfully";
         notify(message, NotificationType.SUCCESS);
+        router.reload();
       }
     },
   });
@@ -79,7 +81,7 @@ const CreateComment = ({ idContent }) => {
                   </div>
                   <div className="flex flex-row items-start w-72 h-auto mt-3">
                     <input
-                      className="mb-4  rounded-sm bg-grn font-normal cursor-pointer h-6 w-28 text-wht"
+                      className="mb-4 rounded-sm bg-grn font-normal cursor-pointer h-6 w-20 text-wht"
                       type="submit"
                       value="Submit"
                     ></input>
