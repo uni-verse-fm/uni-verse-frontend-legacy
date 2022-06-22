@@ -107,7 +107,7 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
         Populaires :
       </h2>
       {tracks.length ? (
-        <DisplayTracksTable tracks={tracks} />
+        <DisplayTracksTable tracks={tracks} releaseTitle={""} />
       ) : (
         <div className="flex justify-center items-center mt-5 text-lg">
           <h1 className="text-grn whitespace-nowrap">

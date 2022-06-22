@@ -6,7 +6,7 @@ import { Track, Types } from "../../common/types";
 import { isoDateYear } from "../../utils/dateUtils";
 import ShowMoreMenu from "../ShowMoreMenu";
 
-const DisplayTracksTable = ({ tracks }) => {
+const DisplayTracksTable = ({ tracks, releaseTitle }) => {
   const { dispatch } = useContext(PlayerContext);
 
   const onClickTrack = (track: Track) => () => {
