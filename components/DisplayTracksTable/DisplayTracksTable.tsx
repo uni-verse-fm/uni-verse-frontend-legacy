@@ -4,11 +4,10 @@ import { useContext } from "react";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
 import { Track, Types } from "../../common/types";
 import { isoDateToDate } from "../../utils/dateUtils";
-
 import ShowMoreMenu from "../ShowMoreMenu";
 
 
-const DisplayTracksTable = ({ tracks }) => {
+const DisplayTracksTable = ({ tracks,isRelease  }) => {
   const { dispatch } = useContext(PlayerContext);
 
   const onClickTrack = (track: Track) => () => {
@@ -38,7 +37,7 @@ const DisplayTracksTable = ({ tracks }) => {
         {tracks.map((track) => (
           <tr
             key={track.name}
-            className="h-10 cursor-pointer hover:text-wht hover:border-b hover:border-t"
+            className="h-10 hover:text-wht hover:border-b hover:border-t"
           >
             <td>
               <FontAwesomeIcon
@@ -47,12 +46,12 @@ const DisplayTracksTable = ({ tracks }) => {
                 onClick={onClickTrack(track)}
               />
             </td>
-            <td>{track.title}</td>
+            <td className="cursor-pointer" >{track.title}</td>
             <td>{track._id}</td>
             <td>{isoDateToDate(track.createdAt)}</td>
             <td>4:23</td>
-            <td>
-                <ShowMoreMenu track={track}  />
+            <td className="cursor-pointer" >
+                <ShowMoreMenu track={track} isRelease = {isRelease} />
             </td>
           </tr>
         ))}

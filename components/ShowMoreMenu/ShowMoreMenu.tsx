@@ -5,12 +5,12 @@ import router from "next/router";
 import MenuSelectPlaylist from "./MenuSelectPlaylist";
 import { Pages } from "../../common/types";
 
-const ShowMoreMenu = ({ track }) => {
-  
+const ShowMoreMenu = ({ track, isRelease }) => {
+
   const onClickDisplayUser = () => {
     router.push({
       pathname: `/${Pages.Profile}`,
-      query: { id: track.author._id },
+      query: { id: track.author._id},
     });
   };
 
@@ -22,7 +22,7 @@ const ShowMoreMenu = ({ track }) => {
           icon={faEllipsis}
         />
       </Menu.Button>
-      <Menu.Items className="hover-text-grn text-blck absolute right-0 mt-2 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+      <Menu.Items className="hover-text-grn text-blck absolute right origin-top-left divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
         <Menu.Item>
           {({ active }) => (
             <div

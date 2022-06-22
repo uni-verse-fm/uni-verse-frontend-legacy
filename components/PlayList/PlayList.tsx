@@ -8,7 +8,6 @@ import Spinner from "../Spinner";
 import { Messages } from "../../common/constants";
 import Image from "next/image";
 import { faTrashCan, faPen } from "@fortawesome/free-solid-svg-icons";
-
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { deletePlaylist } from "../../api/PlaylistAPI";
@@ -174,7 +173,7 @@ const Playlist = (props) => {
                       <td>{isoDateToDate(track.createdAt)}</td>
                       <td>4:23</td>
                       <td>
-                        <ShowMoreMenu track={track} playlist={data} />
+                        <ShowMoreMenu track={track} playlist={data} isPage= {props.isPage} />
                       </td>
                     </tr>
                   ))}

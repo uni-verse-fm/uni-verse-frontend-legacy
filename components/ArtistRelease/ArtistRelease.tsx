@@ -118,7 +118,7 @@ const ArtistRelease = (props) => {
               </div>
             </div>
             {getRelease.data.tracks.length ? (
-              <DisplayTracksTable tracks={getRelease.data.tracks} />
+              <DisplayTracksTable tracks={getRelease.data.tracks} isRelease= {true}/>
             ) : (
               <div className="flex justify-center items-center mt-10 text-lg">
                 <h1 className="text-grn whitespace-nowrap">
@@ -128,7 +128,6 @@ const ArtistRelease = (props) => {
             )}
           </>
         )}
-
         <ConfirmDialogDelete
           data-backdrop="static"
           data-keyboard="false"

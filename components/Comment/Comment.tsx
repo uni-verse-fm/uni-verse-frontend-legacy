@@ -1,12 +1,8 @@
 import { faTrashCan,faComments } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Messages } from "../../common/constants";
-import { useQuery } from "react-query";
 import router from "next/router";
 import { notify } from "../Notifications";
-import { AxiosError } from "axios";
 import { useSession } from "next-auth/react";
-import { getComments } from "../../api/CommentAPI";
 import { NotificationType, Pages } from "../../common/types";
 import { useState } from "react";
 import { useMutation } from "react-query";
@@ -46,25 +42,6 @@ const Comment = ({ comment, trackId }) => {
     },
   });
 
-  {/* à remplacer par getSourceComments*/ }
-  const { status, data } = useQuery(
-    "comments",
-    () => getComments().then((res) => res.data),
-    {
-      onSuccess: (res) => {
-        if (res.status === 401) {
-          notify("Comments");
-          router.replace(`/${Pages.Login}`);
-        }
-      },
-      onError: (error: AxiosError) => {
-        if (error.response.status === 401) {
-          notify(Messages.UNAUTHORIZED, NotificationType.ERROR);
-          router.replace(`/${Pages.Login}`);
-        }
-      },
-    }
-  );
   return (  
 
        <div >
