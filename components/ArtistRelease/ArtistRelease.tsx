@@ -17,6 +17,7 @@ import DisplayTracksTable from "../DisplayTracksTable";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
 import { NotificationType, Pages, Types } from "../../common/types";
 import { isoDateToDate } from "../../utils/dateUtils";
+
 const ArtistRelease = (props) => {
   const { data: session } = useSession();
   const { dispatch } = useContext(PlayerContext);

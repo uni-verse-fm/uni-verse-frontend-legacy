@@ -141,7 +141,7 @@ const SearchBar = ({ isConnected }) => {
   const onClickDisplayTrack = (track) => () => {
     router.push({
       pathname: `/${Pages.Track}`,
-      query: { id: track._id, track: track },
+      query: { id: track._id },
     });
     setQuery("");
   };
