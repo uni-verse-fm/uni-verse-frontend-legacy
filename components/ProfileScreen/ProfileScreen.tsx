@@ -16,7 +16,7 @@ const imageProps = {
   setFieldValue: () => notify(Messages.NOT_IMPLEMENTED),
 };
 
-const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
+const ProfileScreen = ({user, releases, isMe}: IProfileScreen) => {
   let tracks = [
     {
       name: " track N°1",
@@ -49,7 +49,7 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
       duration: "2:33",
     },
   ];
-
+  
   return (
     <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden">
       <div className="text-start flex justify-start flex-col items-start w-full h-full ">

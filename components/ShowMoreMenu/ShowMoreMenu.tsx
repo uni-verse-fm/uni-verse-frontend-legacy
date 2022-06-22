@@ -5,7 +5,7 @@ import router from "next/router";
 import MenuSelectPlaylist from "./MenuSelectPlaylist";
 import { Pages } from "../../common/types";
 
-const ShowMoreMenu = ({ track, isRelease }) => {
+const ShowMoreMenu = ({ track }) => {
 
   const onClickDisplayUser = () => {
     router.push({

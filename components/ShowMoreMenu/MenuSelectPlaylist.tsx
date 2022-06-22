@@ -49,8 +49,6 @@ const MenuSelectPlayList = ({ track}) => {
       }
     },
   });
-
-
   const onClickRelease = (playlist) => () => {
     console.log("hhhhhhhhhh");
                       
@@ -63,10 +61,7 @@ const MenuSelectPlayList = ({ track}) => {
       id: playlist._id,
       data: dataToUpdate,
     };
-   
-
     mutate(dataForm);
-   
   };
 
   return (
@@ -84,7 +79,6 @@ const MenuSelectPlayList = ({ track}) => {
                   } group items-center px-2 py-2 font-semibold text-gryf`}
                 >
                   <button  >
-                    
                     {playlist.title}
                   </button>
                 </div>
@@ -92,40 +86,7 @@ const MenuSelectPlayList = ({ track}) => {
             </Menu.Item>
           ))}
 
-    {/*  <Menu.Item>
-          {({ active }) => (
-            <div
-              className={`${
-                active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group items-center px-2 py-2 font-semibold text-gryf`}
-            >
-              <button
-                onClick={(_: any) =>
-                  notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
-                }
-              >
-                PlayList 1
-              </button>
-            </div>
-          )}
-        </Menu.Item>
-        <Menu.Item>
-          {({ active }) => (
-            <div
-              className={`${
-                active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group items-center px-2 py-2 font-semibold text-gryf`}
-            >
-              <button
-                onClick={(_: any) =>
-                  notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
-                }
-              >
-                PlayList 2
-              </button>
-            </div>
-          )}
-        </Menu.Item>*/}   
+  
       </Menu.Items>
     </Menu>
   );

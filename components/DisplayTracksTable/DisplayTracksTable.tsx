@@ -6,7 +6,7 @@ import { Track, Types } from "../../common/types";
 import { isoDateToDate } from "../../utils/dateUtils";
 import ShowMoreMenu from "../ShowMoreMenu";
 
-const DisplayTracksTable = ({ tracks,isRelease  }) => {
+const DisplayTracksTable = ({ tracks  }) => {
   const { dispatch } = useContext(PlayerContext);
 
   const onClickTrack = (track: Track) => () => {
@@ -22,10 +22,10 @@ const DisplayTracksTable = ({ tracks,isRelease  }) => {
   return (
     <table className=" ml-16 mr-10 text-gry text-sm mb-5 mt-2 ">
       <thead>
+
         <tr className="text-grn border-b mb-10">
           <td className="py-3 "></td>
           <td className="py-3 ">Name</td>
-          <td className="py-3 ">Album</td>
           <td className="py-3">Creation date</td>
           <td className="py-3">
             <FontAwesomeIcon className="ml-5 text-grn" icon={faClock} />
@@ -46,11 +46,10 @@ const DisplayTracksTable = ({ tracks,isRelease  }) => {
               />
             </td>
             <td className="cursor-pointer" >{track.title}</td>
-            <td>{track._id}</td>
-            <td>{isoDateToDate(track.createdAt)}</td>
+            <td>{track.author.username} {isoDateToDate(track.createdAt)}</td>
             <td>4:23</td>
             <td className="cursor-pointer" >
-                <ShowMoreMenu track={track} isRelease = {isRelease} />
+                <ShowMoreMenu track={track}  />
             </td>
           </tr>
         ))}

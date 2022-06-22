@@ -7,18 +7,16 @@ import Spinner from "../Spinner";
 import { Messages } from "../../common/constants";
 import Image from "next/image";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
-
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { notify } from "../Notifications";
 import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
-
 import router from "next/router";
 import { useSession } from "next-auth/react";
 import DisplayTracksTable from "../DisplayTracksTable";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
 import { NotificationType, Pages, Types } from "../../common/types";
-
+import { isoDateToDate } from "../../utils/dateUtils";
 const ArtistRelease = (props) => {
   const { data: session } = useSession();
   const { dispatch } = useContext(PlayerContext);
@@ -112,13 +110,13 @@ const ArtistRelease = (props) => {
                 </div>
                 {getRelease.data?.author && (
                   <h2 className="text-gry mb-8">
-                    {getRelease.data.author.username}
+                    {getRelease.data.author.username}  {isoDateToDate(getRelease.data.createdAt)}
                   </h2>
                 )}
               </div>
             </div>
             {getRelease.data.tracks.length ? (
-              <DisplayTracksTable tracks={getRelease.data.tracks} isRelease= {true}/>
+              <DisplayTracksTable tracks={getRelease.data.tracks}/>
             ) : (
               <div className="flex justify-center items-center mt-10 text-lg">
                 <h1 className="text-grn whitespace-nowrap">
