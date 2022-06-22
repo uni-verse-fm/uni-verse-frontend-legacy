@@ -8,7 +8,7 @@ import { createPlaylist } from "../../api/PlaylistAPI";
 import { NotificationType } from "../../common/types";
 
 const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex }) => {
-  const { mutate, isLoading } = useMutation("createPlaylist", createPlaylist, {
+  const { mutate } = useMutation("createPlaylist", createPlaylist, {
     onError: (error) => {
       notify("there was an error" + error, NotificationType.ERROR);
     },

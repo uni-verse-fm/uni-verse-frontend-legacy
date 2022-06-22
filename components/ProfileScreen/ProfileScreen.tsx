@@ -16,6 +16,7 @@ const imageProps = {
   setFieldValue: () => notify(Messages.NOT_IMPLEMENTED),
 };
 
+
 const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
   {
     /** A remplacer par getPopularTracks */
@@ -63,6 +64,8 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
     },
   ];
 
+
+const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
   return (
     <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden">
       <div className="text-start flex justify-start flex-col items-start w-full h-full ">
@@ -107,7 +110,7 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
         Populaires :
       </h2>
       {tracks.length ? (
-        <DisplayTracksTable tracks={tracks} />
+        <DisplayTracksTable tracks={tracks} releaseTitle={""} />
       ) : (
         <div className="flex justify-center items-center mt-5 text-lg">
           <h1 className="text-grn whitespace-nowrap">

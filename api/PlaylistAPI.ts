@@ -1,5 +1,5 @@
 import { Endoints, IUpdatePayload } from "../common/types";
-import axiosClient from "./apiClient";
+import { axiosClient } from "../common/contexts/AxiosContext";
 
 const playlistEndpoint = Endoints.Playlists;
 

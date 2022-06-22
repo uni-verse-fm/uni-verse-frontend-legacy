@@ -6,7 +6,7 @@ import { Track, Types } from "../../common/types";
 import { isoDateYear } from "../../utils/dateUtils";
 import ShowMoreMenu from "../ShowMoreMenu";
 
-const DisplayTracksTable = ({ tracks }) => {
+const DisplayTracksTable = ({ tracks, releaseTitle }) => {
   const { dispatch } = useContext(PlayerContext);
 
   const onClickTrack = (track: Track) => () => {
@@ -34,8 +34,10 @@ const DisplayTracksTable = ({ tracks }) => {
       <tbody>
         {tracks.map((track) => (
           <tr
+
             key={track.name}
             className="h-10 hover:text-wht hover:border-b hover:border-t"
+
           >
             <td>
               <FontAwesomeIcon
@@ -44,10 +46,12 @@ const DisplayTracksTable = ({ tracks }) => {
                 onClick={onClickTrack(track)}
               />
             </td>
+
             <td className="cursor-pointer">{track.title}</td>
             <td>
               {track.author.username} {isoDateYear(track.createdAt)}
             </td>
+
             <td>4:23</td>
             <td className="cursor-pointer">
               <ShowMoreMenu track={track} />

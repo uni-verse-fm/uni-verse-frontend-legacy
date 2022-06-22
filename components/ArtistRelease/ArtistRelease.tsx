@@ -15,8 +15,10 @@ import router from "next/router";
 import { useSession } from "next-auth/react";
 import DisplayTracksTable from "../DisplayTracksTable";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
-import { NotificationType, Pages, Types } from "../../common/types";
+
+import { imageSource,NotificationType, Pages, Types } from "../../common/types";
 import { isoDateToDate } from "../../utils/dateUtils";
+
 
 const ArtistRelease = (props) => {
   const { data: session } = useSession();
@@ -77,7 +79,11 @@ const ArtistRelease = (props) => {
             <div className="ml-10 flex flex-row ">
               <div>
                 <Image
-                  src={getRelease.data.image || "/Playlist.png"}
+                  src={
+                    getRelease.data.coverName
+                      ? imageSource + getRelease.data.coverName
+                      : "/Playlist.png"
+                  }
                   className="rounded mb-5"
                   width={150}
                   height={150}
@@ -97,7 +103,7 @@ const ArtistRelease = (props) => {
                     />
                   </h2>
 
-                  {session.userId === getRelease.data.author && (
+                  {(session.user as any).id === getRelease.data.author && (
                     <div className="flex flex-row">
                       <h2 className="text-grn">
                         <FontAwesomeIcon
@@ -118,7 +124,10 @@ const ArtistRelease = (props) => {
               </div>
             </div>
             {getRelease.data.tracks.length ? (
-              <DisplayTracksTable tracks={getRelease.data.tracks} />
+              <DisplayTracksTable
+                tracks={getRelease.data.tracks}
+                releaseTitle={getRelease.data.title}
+              />
             ) : (
               <div className="flex justify-center items-center mt-10 text-lg">
                 <h1 className="text-grn whitespace-nowrap">
