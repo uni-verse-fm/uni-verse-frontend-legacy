@@ -20,7 +20,6 @@ import { isoDateToDate } from "../../utils/dateUtils";
 import { NotificationType, Track, Types } from "../../common/types";
 
 const Playlist = (props) => {
-
   const { status, data } = useQuery(`playlist-${props.index}`, () =>
     getPlaylistById(props.index).then((res) => res.data)
   );
@@ -170,10 +169,16 @@ const Playlist = (props) => {
                         />
                       </td>
                       <td>{track.title}</td>
-                      <td>{track.author.username} {isoDateToDate(track.createdAt)}</td>
+                      <td>
+                        {track.author.username} {isoDateToDate(track.createdAt)}
+                      </td>
                       <td>4:23</td>
                       <td>
-                        <ShowMoreMenu track={track} playlist={data} isPage= {props.isPage} />
+                        <ShowMoreMenu
+                          track={track}
+                          playlist={data}
+                          isPage={props.isPage}
+                        />
                       </td>
                     </tr>
                   ))}

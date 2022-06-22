@@ -1,4 +1,4 @@
-import { faTrashCan,faComments } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan, faComments } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import router from "next/router";
 import { notify } from "../Notifications";
@@ -11,16 +11,11 @@ import { deleteComment } from "../../api/CommentAPI";
 
 import { isoDateToDateHour } from "../../utils/dateUtils";
 
-
-
 const Comment = ({ comment, trackId }) => {
-
   const { data: session } = useSession();
 
   const [showForm, setShowForm] = useState(false);
-  const handleShowForm = () => 
-  
-  setShowForm(true);
+  const handleShowForm = () => setShowForm(true);
 
   const handleCloseDialog = () => setShowForm(false);
   const handleConfirmDelete = () => {
@@ -39,49 +34,47 @@ const Comment = ({ comment, trackId }) => {
         const message = "Comment deleted";
         notify(message, NotificationType.SUCCESS);
         router.reload();
- 
       }
     },
   });
 
-  return (  
-
-       <div >
-        <div className="flex flex-row "  >
-          <div className="text-sm font-normal not-italic text-grn"> 
-          nmedjoub {/* à remplacer par owner.name */ }
-          </div>
-          {session && (
-             <div >
-                  {session.userId === comment.owner && (
-                      <FontAwesomeIcon
-                        className="cursor-pointer ml-5 text-wht hover:scale-[1.40] hover:text-rd"
-                        icon={faTrashCan}
-                        onClick={handleShowForm}
-                      />
-                  )}  
-           </div>)}
-          
+  return (
+    <div>
+      <div className="flex flex-row ">
+        <div className="text-sm font-normal not-italic text-grn">
+          nmedjoub {/* à remplacer par owner.name */}
         </div>
-        <div className="text-xs font-normal not-italic  text-gry">
-           {/*(new Date(comment.createdAt)).toUTCString()*/}
-           {isoDateToDateHour(comment.createdAt)}
+        {session && (
+          <div>
+            {session.userId === comment.owner && (
+              <FontAwesomeIcon
+                className="cursor-pointer ml-5 text-wht hover:scale-[1.40] hover:text-rd"
+                icon={faTrashCan}
+                onClick={handleShowForm}
+              />
+            )}
           </div>
-        <div className="text-sm font-normal not-italic text-wht mb-5">
-           {comment.content}
-          </div>
-
-<ConfirmDialogDelete
-          data-backdrop="static"
-          data-keyboard="false"
-          small={true}
-          showModal={showForm}
-          handleCloseDialog={handleCloseDialog}
-          handleConfirmDelete={handleConfirmDelete}
-          msg="Delete Playlist"
-        />
+        )}
       </div>
-      )
+      <div className="text-xs font-normal not-italic  text-gry">
+        {/*(new Date(comment.createdAt)).toUTCString()*/}
+        {isoDateToDateHour(comment.createdAt)}
+      </div>
+      <div className="text-sm font-normal not-italic text-wht mb-5">
+        {comment.content}
+      </div>
+
+      <ConfirmDialogDelete
+        data-backdrop="static"
+        data-keyboard="false"
+        small={true}
+        showModal={showForm}
+        handleCloseDialog={handleCloseDialog}
+        handleConfirmDelete={handleConfirmDelete}
+        msg="Delete Playlist"
+      />
+    </div>
+  );
 };
 
 export default Comment;

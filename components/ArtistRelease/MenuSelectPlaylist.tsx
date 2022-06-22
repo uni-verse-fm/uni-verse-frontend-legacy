@@ -74,7 +74,6 @@ const MenuSelectPlayList = ({ track }) => {
                         id: playlist._id,
                         data: dataToUpdate,
                       };
-                      
 
                       mutate(dataForm);
                     }}
@@ -85,8 +84,6 @@ const MenuSelectPlayList = ({ track }) => {
               )}
             </Menu.Item>
           ))}
-
-
 
         {/*  
         <Menu.Item>
@@ -123,11 +120,6 @@ const MenuSelectPlayList = ({ track }) => {
             </div>
           )}
         </Menu.Item> */}
-
-
-
-
-
       </Menu.Items>
     </Menu>
   );

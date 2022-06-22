@@ -20,11 +20,7 @@ function Track() {
           handleClosePlaylistContent="{handleClosePlaylistContent}"
           enableChange="false"
         />
-        <Comments
-          idTrack={id}
-        />
-
-
+        <Comments idTrack={id} />
       </div>
     </div>
   );

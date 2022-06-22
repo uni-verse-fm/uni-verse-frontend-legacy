@@ -33,7 +33,7 @@ const ArtistTrack = (props) => {
   return (
     <div>
       <div className="Global bg-grey w-full h-full flex flex-col  ">
-      {/*
+        {/*
         {status === "loading" ? (
           <div className="flex justify-center items-center mt-10">
             <Spinner />
@@ -61,13 +61,7 @@ const ArtistTrack = (props) => {
             </div>
           </>
         )}*/}
-         <CreateComment
-                      idContent={props.index}
-        />
-
-
-
-
+        <CreateComment idContent={props.index} />
       </div>
     </div>
   );

@@ -110,13 +110,14 @@ const ArtistRelease = (props) => {
                 </div>
                 {getRelease.data?.author && (
                   <h2 className="text-gry mb-8">
-                    {getRelease.data.author.username}  {isoDateToDate(getRelease.data.createdAt)}
+                    {getRelease.data.author.username}{" "}
+                    {isoDateToDate(getRelease.data.createdAt)}
                   </h2>
                 )}
               </div>
             </div>
             {getRelease.data.tracks.length ? (
-              <DisplayTracksTable tracks={getRelease.data.tracks}/>
+              <DisplayTracksTable tracks={getRelease.data.tracks} />
             ) : (
               <div className="flex justify-center items-center mt-10 text-lg">
                 <h1 className="text-grn whitespace-nowrap">

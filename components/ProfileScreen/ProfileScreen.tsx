@@ -16,40 +16,53 @@ const imageProps = {
   setFieldValue: () => notify(Messages.NOT_IMPLEMENTED),
 };
 
-const ProfileScreen = ({user, releases, isMe}: IProfileScreen) => {
+const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
+  {
+    /** A remplacer par getPopularTracks */
+  }
   let tracks = [
     {
-      name: " track N°1",
-      Album: " Album 1",
-      createdate: "22-10-2022",
+      title: " track N°1",
+      author: {
+        username: " nmedjoub",
+      },
+      createdAt: "2022-01-01",
       duration: "2:33",
     },
     {
-      name: " track N°2",
-      Album: " Album 2",
-      createdate: "22-10-2022",
+      title: " track N°2",
+      author: {
+        username: " nmedjoub",
+      },
+      createdAt: "2022-01-01",
       duration: "2:33",
     },
     {
-      name: " track N°2",
-      Album: " Album 3",
-      createdate: "22-10-2022",
+      title: " track N°2",
+      author: {
+        username: " nmedjoub",
+      },
+      createdAt: "2022-01-01",
       duration: "2:33",
     },
     {
-      name: " track N°3",
-      Album: " Album 4",
-      createdate: "22-10-2022",
+      title: " track N°3",
+      author: {
+        username: " nmedjoub",
+      },
+      createdAt: "2022-01-01",
       duration: "2:33",
     },
     {
-      name: " track N°4",
-      Album: " Album 15",
-      createdate: "22-10-2022",
+      title: " track N°4",
+      author: {
+        username: " nmedjoub",
+      },
+      createdAt: "2022-01-01",
       duration: "2:33",
     },
   ];
-  
+
   return (
     <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden">
       <div className="text-start flex justify-start flex-col items-start w-full h-full ">

@@ -6,11 +6,10 @@ import MenuSelectPlaylist from "./MenuSelectPlaylist";
 import { Pages } from "../../common/types";
 
 const ShowMoreMenu = ({ track }) => {
-
   const onClickDisplayUser = () => {
     router.push({
       pathname: `/${Pages.Profile}`,
-      query: { id: track.author._id},
+      query: { id: track.author._id },
     });
   };
 

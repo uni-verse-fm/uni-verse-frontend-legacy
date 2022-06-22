@@ -153,7 +153,7 @@ export interface IProfileScreen {
 export interface ICreateComment {
   contentId: string;
   isPositive: Boolean;
-  content: string,
+  content: string;
   typeOfContent: string;
 }
 
@@ -162,8 +162,6 @@ export type IReaderTimeLine = {
   playerTime: number;
   onSlide: (value: number) => any;
 };
-
-
 
 export type Track = { fileName: string; author: any; id?: string } & ITrack;
 
