@@ -9,6 +9,8 @@ import { useMutation } from "react-query";
 import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
 import { deleteComment } from "../../api/CommentAPI";
 
+import { isoDateToDateHour } from "../../utils/dateUtils";
+
 
 
 const Comment = ({ comment, trackId }) => {
@@ -62,7 +64,8 @@ const Comment = ({ comment, trackId }) => {
           
         </div>
         <div className="text-xs font-normal not-italic  text-gry">
-           {(new Date(comment.createdAt)).toUTCString()}
+           {/*(new Date(comment.createdAt)).toUTCString()*/}
+           {isoDateToDateHour(comment.createdAt)}
           </div>
         <div className="text-sm font-normal not-italic text-wht mb-5">
            {comment.content}

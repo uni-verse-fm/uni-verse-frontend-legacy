@@ -6,7 +6,6 @@ import { Track, Types } from "../../common/types";
 import { isoDateToDate } from "../../utils/dateUtils";
 import ShowMoreMenu from "../ShowMoreMenu";
 
-
 const DisplayTracksTable = ({ tracks,isRelease  }) => {
   const { dispatch } = useContext(PlayerContext);
 

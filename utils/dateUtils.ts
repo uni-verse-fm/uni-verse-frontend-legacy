@@ -6,3 +6,13 @@ export const isoDateToDate = (isoDate?: string) => {
     return "---";
   }
 };
+
+
+export const isoDateToDateHour = (isoDate?: string) => {
+  try {
+    const date = new Date(isoDate);
+    return date.toUTCString();
+  } catch (error) {
+    return "---";
+  }
+};

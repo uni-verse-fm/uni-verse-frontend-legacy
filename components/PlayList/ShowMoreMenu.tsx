@@ -4,6 +4,7 @@ import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { notify } from "../Notifications";
 import { useMutation } from "react-query";
 import { updatePlaylist } from "../../api/PlaylistAPI";
+import { useSession } from "next-auth/react";
 import {
   IUpdatePayload,
   IUpdatePlaylistTrack,
@@ -13,6 +14,8 @@ import router from "next/router";
 import { Pages } from "../../common/types";
 
 const ShowMoreMenu = ({ track, playlist, isPage }) => {
+  const { data: session } = useSession();
+
   const { mutate } = useMutation("updatePlaylist", updatePlaylist, {
     onError: (error) => {
       notify("there was an error" + error, NotificationType.ERROR);
@@ -27,7 +30,7 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
       }
     },
   });
-  
+
   const onClickDisplayUser = () => {
     router.push({
       pathname: `/${Pages.Profile}`,
@@ -35,9 +38,15 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
     });
   };
 
+  const onClickDisplayTrack = () => {
+    router.push({
+      pathname: `/${Pages.Track}`,
+      query: { id: track._id},
+    });
+    
+  };
   const refresh = () => {
     if (isPage) router.reload();
-
   };
 
   return (
@@ -49,46 +58,59 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
         />
       </Menu.Button>
       <Menu.Items className="hover-text-grn text-blck absolute right mt-2 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-        <Menu.Item>
-          {({ active }) => (
-            <div
-              className={`${
-                active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group items-center px-2 py-2 font-semibold text-gryf`}
-              onClick={(_: any) => {
-                console.log("naoual");
-                let dataToUpdate: IUpdatePlaylistTrack = {
-                  trackId: track._id,
-                  action: "REMOVE",
-                };
-                console.log("dataToUpdate");
-                console.log(dataToUpdate);
-
-                let dataForm: IUpdatePayload = {
-                  id: playlist._id,
-                  data: dataToUpdate,
-                };
-
-                console.log("dataForm");
-                console.log(dataForm);
-
-                mutate(dataForm);
-              }}
-            >
-              <button
-               
-              >
-                Remove
-              </button>
-            </div>
-          )}
-        </Menu.Item>
-        
-
-
-        {isPage && (
+       
+      {isPage && (
             
                  
+            <Menu.Item>
+     {({ active }) => (
+       <div  onClick={onClickDisplayTrack}
+         className={`${
+           active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
+         } group items-center px-2 py-2 font-semibold text-gryf`}
+       >
+         <button>View</button>
+       </div>
+     )}
+   </Menu.Item>  
+    )}
+        {session && (
+             <div >
+                  {session.userId === playlist.owner?._id && (
+                       <Menu.Item>
+                       {({ active }) => (
+                         <div
+                           className={`${
+                             active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
+                           } group items-center px-2 py-2 font-semibold text-gryf`}
+                           onClick={(_: any) => {
+                             console.log("naoual");
+                             let dataToUpdate: IUpdatePlaylistTrack = {
+                               trackId: track._id,
+                               action: "REMOVE",
+                             };
+                             console.log("dataToUpdate");
+                             console.log(dataToUpdate);
+             
+                             let dataForm: IUpdatePayload = {
+                               id: playlist._id,
+                               data: dataToUpdate,
+                             };
+                             console.log("dataForm");
+                             console.log(dataForm);
+                             mutate(dataForm);
+                           }}
+                         >
+                           <button
+                           >
+                             Remove
+                           </button>
+                         </div>
+                       )}
+                     </Menu.Item>
+                  )}  
+           </div>)}
+        {isPage && (
                  <Menu.Item>
           {({ active }) => (
             <div
@@ -99,12 +121,8 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
               <button onClick={onClickDisplayUser}>Artist</button>
             </div>
           )}
-        </Menu.Item>
-             
+        </Menu.Item>  
          )}
-        
-
-       
       </Menu.Items>
     </Menu>
   );
