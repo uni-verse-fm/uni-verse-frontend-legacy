@@ -34,10 +34,8 @@ const DisplayTracksTable = ({ tracks, releaseTitle }) => {
       <tbody>
         {tracks.map((track) => (
           <tr
-
             key={track.name}
             className="h-10 hover:text-wht hover:border-b hover:border-t"
-
           >
             <td>
               <FontAwesomeIcon

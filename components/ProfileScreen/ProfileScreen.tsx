@@ -16,7 +16,6 @@ const imageProps = {
   setFieldValue: () => notify(Messages.NOT_IMPLEMENTED),
 };
 
-
 const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
   {
     /** A remplacer par getPopularTracks */
@@ -63,8 +62,6 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
       duration: "2:33",
     },
   ];
-
-
 
   return (
     <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden">

@@ -18,9 +18,13 @@ import { useSession } from "next-auth/react";
 import DisplayTracksTable from "../DisplayTracksTable";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
 
-import { imageSource,NotificationType, Pages, Types } from "../../common/types";
+import {
+  imageSource,
+  NotificationType,
+  Pages,
+  Types,
+} from "../../common/types";
 import { isoDateToDate } from "../../utils/dateUtils";
-
 
 const ArtistRelease = (props) => {
   const { data: session } = useSession();
