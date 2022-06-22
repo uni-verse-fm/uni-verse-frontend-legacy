@@ -34,8 +34,10 @@ const DisplayTracksTable = ({ tracks, releaseTitle }) => {
       <tbody>
         {tracks.map((track) => (
           <tr
+
             key={track.name}
             className="h-10 hover:text-wht hover:border-b hover:border-t"
+
           >
             <td>
               <FontAwesomeIcon
@@ -44,10 +46,12 @@ const DisplayTracksTable = ({ tracks, releaseTitle }) => {
                 onClick={onClickTrack(track)}
               />
             </td>
+
             <td className="cursor-pointer">{track.title}</td>
             <td>
               {track.author.username} {isoDateYear(track.createdAt)}
             </td>
+
             <td>4:23</td>
             <td className="cursor-pointer">
               <ShowMoreMenu track={track} />

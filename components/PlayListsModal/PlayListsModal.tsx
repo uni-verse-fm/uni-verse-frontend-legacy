@@ -12,7 +12,7 @@ const PlaylistsModal = ({
   showModal,
   handleCloseModal,
   createPlaylistIndex,
-  handleShowcreatePlaylistIndex,
+  handleShowCreatePlaylistIndex,
   handleHidecreatePlaylistIndex,
 }) => {
   const [playlistIndex, setPlaylistIndex] = useState(null);
@@ -38,7 +38,7 @@ const PlaylistsModal = ({
             />
           ) : (
             <PlaylistsModalHeader
-              handleShowcreatePlaylistIndex={handleShowcreatePlaylistIndex}
+              handleShowCreatePlaylistIndex={handleShowCreatePlaylistIndex}
             />
           )
         }
@@ -61,7 +61,7 @@ const PlaylistsModal = ({
               />
             ) : (
               <Playlists
-                userId={session.userId as string}
+                userId={(session.user as any).id}
                 handleShowPlaylistContent={handleShowPlaylistContent}
                 modalDisplay="true"
               />

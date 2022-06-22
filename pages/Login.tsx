@@ -5,12 +5,12 @@ import { notify } from "../components/Notifications";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle, faSpotify } from "@fortawesome/free-brands-svg-icons";
-import { NotificationType } from "../common/types";
+import { ILogin, NotificationType } from "../common/types";
 
 export default function Login() {
   const router = useRouter();
 
-  const signInRequest = async (values, setSubmitting) => {
+  const signInRequest = async (values: ILogin, setSubmitting) => {
     const res = await signIn("credentials", {
       redirect: false,
       email: values.email,
