@@ -1,6 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import ArtistTrack from "../components/ArtistTrack/ArtistTrack";
+import Comments from "../components/Comments";
 
 function Track() {
   const router = useRouter();
@@ -19,6 +20,7 @@ function Track() {
           handleClosePlaylistContent="{handleClosePlaylistContent}"
           enableChange="false"
         />
+        <Comments idTrack={id} />
       </div>
     </div>
   );

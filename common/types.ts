@@ -1,3 +1,5 @@
+import { string } from "yup/lib/locale";
+
 export interface IUsersList {
   data: IFeat[];
   onClick: (item: IFeat) => void;
@@ -146,6 +148,13 @@ export interface IProfileScreen {
   };
   releases: any;
   isMe?: boolean;
+}
+
+export interface ICreateComment {
+  contentId: string;
+  isPositive: Boolean;
+  content: string;
+  typeOfContent: string;
 }
 
 export type IReaderTimeLine = {

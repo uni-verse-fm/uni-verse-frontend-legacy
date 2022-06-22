@@ -8,6 +8,8 @@ import Spinner from "../Spinner";
 import { Messages } from "../../common/constants";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
 import { Track, Types } from "../../common/types";
+import { createComment } from "../../api/CommentAPI";
+import CreateComment from "../CreateComment";
 
 const ArtistTrack = (props) => {
   const { dispatch } = useContext(PlayerContext);
@@ -31,6 +33,7 @@ const ArtistTrack = (props) => {
   return (
     <div>
       <div className="Global bg-grey w-full h-full flex flex-col  ">
+        {/*
         {status === "loading" ? (
           <div className="flex justify-center items-center mt-10">
             <Spinner />
@@ -57,7 +60,8 @@ const ArtistTrack = (props) => {
               </div>
             </div>
           </>
-        )}
+        )}*/}
+        <CreateComment idContent={props.index} />
       </div>
     </div>
   );
