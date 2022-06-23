@@ -49,6 +49,20 @@ const MenuSelectPlayList = ({ track }) => {
       }
     },
   });
+  const onClickRelease = (playlist) => () => {
+    console.log("hhhhhhhhhh");
+
+    let dataToUpdate: IUpdatePlaylistTrack = {
+      trackId: track._id,
+      action: "ADD",
+    };
+
+    let dataForm: IUpdatePayload = {
+      id: playlist._id,
+      data: dataToUpdate,
+    };
+    mutate(dataForm);
+  };
 
   return (
     <Menu as="div" className="text-left h-full w-auto">
@@ -59,66 +73,16 @@ const MenuSelectPlayList = ({ track }) => {
             <Menu.Item key={index}>
               {({ active }) => (
                 <div
+                  onClick={onClickRelease(playlist)}
                   className={`${
                     active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
                   } group items-center px-2 py-2 font-semibold text-gryf`}
                 >
-                  <button
-                    onClick={(_: any) => {
-                      let dataToUpdate: IUpdatePlaylistTrack = {
-                        trackId: track._id,
-                        action: "ADD",
-                      };
-
-                      let dataForm: IUpdatePayload = {
-                        id: playlist._id,
-                        data: dataToUpdate,
-                      };
-
-                      mutate(dataForm);
-                    }}
-                  >
-                    {playlist.title}
-                  </button>
+                  <button>{playlist.title}</button>
                 </div>
               )}
             </Menu.Item>
           ))}
-
-        <Menu.Item>
-          {({ active }) => (
-            <div
-              className={`${
-                active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group items-center px-2 py-2 font-semibold text-gryf`}
-            >
-              <button
-                onClick={(_: any) =>
-                  notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
-                }
-              >
-                PlayList 1
-              </button>
-            </div>
-          )}
-        </Menu.Item>
-        <Menu.Item>
-          {({ active }) => (
-            <div
-              className={`${
-                active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group items-center px-2 py-2 font-semibold text-gryf`}
-            >
-              <button
-                onClick={(_: any) =>
-                  notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
-                }
-              >
-                PlayList 2
-              </button>
-            </div>
-          )}
-        </Menu.Item>
       </Menu.Items>
     </Menu>
   );

@@ -20,6 +20,7 @@ function UserPlaylist() {
           index={id}
           handleClosePlaylistContent="{handleClosePlaylistContent}"
           enableChange="false"
+          isPage={true}
         />
       </div>
     </div>

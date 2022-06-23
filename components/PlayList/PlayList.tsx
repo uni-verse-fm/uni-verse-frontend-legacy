@@ -8,7 +8,6 @@ import Spinner from "../Spinner";
 import { Messages } from "../../common/constants";
 import Image from "next/image";
 import { faTrashCan, faPen } from "@fortawesome/free-solid-svg-icons";
-
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { deletePlaylist } from "../../api/PlaylistAPI";
@@ -24,7 +23,6 @@ const Playlist = (props) => {
   const { status, data } = useQuery(`playlist-${props.index}`, () =>
     getPlaylistById(props.index).then((res) => res.data)
   );
-
   const { dispatch } = useContext(PlayerContext);
 
   const [showForm, setShowForm] = useState(false);
@@ -148,7 +146,7 @@ const Playlist = (props) => {
                   <tr className="text-grn border-b mb-10">
                     <td className="py-3"></td>
                     <td className="py-3">Name</td>
-                    <td className="py-3">Creation date</td>
+                    <td className="py-3">Artist</td>
                     <td className="py-3">
                       <FontAwesomeIcon
                         className="ml-5 text-grn"
@@ -171,10 +169,16 @@ const Playlist = (props) => {
                         />
                       </td>
                       <td>{track.title}</td>
-                      <td>{isoDateToDate(track.createdAt)}</td>
+                      <td>
+                        {track.author.username} {isoDateToDate(track.createdAt)}
+                      </td>
                       <td>4:23</td>
                       <td>
-                        <ShowMoreMenu track={track} playlist={data} />
+                        <ShowMoreMenu
+                          track={track}
+                          playlist={data}
+                          isPage={props.isPage}
+                        />
                       </td>
                     </tr>
                   ))}

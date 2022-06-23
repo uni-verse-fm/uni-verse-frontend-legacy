@@ -3,8 +3,7 @@ import { Endoints } from "../common/types";
 
 const commentEndpoint = Endoints.Comments;
 
-const createComment = (data) =>
-  axiosClient.post(`${commentEndpoint}`, JSON.stringify(data));
+const createComment = (data) => axiosClient.post(`${commentEndpoint}`, data);
 
 const getComments = () => axiosClient.get(commentEndpoint);
 
