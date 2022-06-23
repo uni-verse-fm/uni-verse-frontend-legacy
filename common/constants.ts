@@ -1,7 +1,9 @@
-export const MAX_FILE_SIZE =
-  Number(process.env.NEXT_PUBLIC_MAX_FILE_SIZE) ?? 10_000_000;
-export const MAX_IMAGE_SIZE =
-  Number(process.env.NEXT_PUBLIC_MAX_IMAGE_SIZE) ?? 3_000_000;
+export const MAX_FILE_SIZE = process.env.NEXT_PUBLIC_MAX_FILE_SIZE
+  ? Number(process.env.NEXT_PUBLIC_MAX_FILE_SIZE)
+  : 10_000_000;
+export const MAX_IMAGE_SIZE = process.env.NEXT_PUBLIC_MAX_IMAGE_SIZE
+  ? Number(process.env.NEXT_PUBLIC_MAX_IMAGE_SIZE)
+  : 3_000_000;
 
 export const BASE_API =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
