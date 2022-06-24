@@ -46,7 +46,7 @@ const Comment = ({ comment, trackId }) => {
         </div>
         {session && (
           <div>
-            {session.userId === comment.owner && (
+            {(session.user as any).id === comment.owner && (
               <FontAwesomeIcon
                 className="cursor-pointer ml-5 text-wht hover:scale-[1.40] hover:text-rd"
                 icon={faTrashCan}
