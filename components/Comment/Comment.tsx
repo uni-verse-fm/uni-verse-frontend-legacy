@@ -16,8 +16,8 @@ const Comment = ({ comment, trackId }) => {
 
   const [showForm, setShowForm] = useState(false);
   const handleShowForm = () => setShowForm(true);
-
   const handleCloseDialog = () => setShowForm(false);
+  
   const handleConfirmDelete = () => {
     mutate(comment._id);
     handleCloseDialog();
@@ -71,7 +71,7 @@ const Comment = ({ comment, trackId }) => {
         showModal={showForm}
         handleCloseDialog={handleCloseDialog}
         handleConfirmDelete={handleConfirmDelete}
-        msg="Delete Playlist"
+        msg="Delete Comment"
       />
     </div>
   );
