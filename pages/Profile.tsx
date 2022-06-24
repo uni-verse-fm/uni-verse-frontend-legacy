@@ -17,15 +17,23 @@ function Profile() {
 
   const userQuery = useQuery("user", () =>
     getUserById(id as string).then((res) => {
+      console.log("Users");
+      console.log(res.data);
       return res.data;
     })
   );
 
   const releasesQuery = useQuery("myReleases", () =>
     getUserReleases(id as string).then((res) => {
+      console.log("myyyyyyrelease");
+      console.log(res.data);
       return res.data;
     })
   );
+
+
+
+
 
   const profileParams = (user: any, releases: any) => {
     return {
@@ -49,7 +57,7 @@ function Profile() {
       <Spinner />
     </div>
   ) : (
-    <ProfileScreen {...profileParams(userQuery.data, releasesQuery.data)} />
+    <ProfileScreen {...profileParams(userQuery.data, releasesQuery.data,  )} />
   );
 }
 

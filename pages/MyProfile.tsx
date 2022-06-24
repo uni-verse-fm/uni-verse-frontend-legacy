@@ -13,7 +13,7 @@ function MyProfile(props) {
   const { status, data } = useQuery(
     "myReleases",
     () => getUserReleases((session.user as any).id),
-    { initialData: props.releases, enabled: Boolean(session) }
+    { initialData: props.releases, enabled: Boolean(session)}
   );
 
   return status === "error" ? (
@@ -42,7 +42,6 @@ function MyProfile(props) {
 
 export async function getServerSideProps(context: GetSessionParams) {
   const session: Session = await getSession(context);
-
   if (!session) {
     return {
       redirect: {

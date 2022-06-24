@@ -81,7 +81,7 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
                 {user.email}
               </h2>
             </div>
-
+            {user.accountId && isMe && (
             <div className="col-start-2 col-end-3">
               <button className="font-medium text-wht mt-10 rounded-full border-2 border-grn px-2 text-md h-7 hover:bg-grn hover:bg-opacity-25">
                 <span>Password</span>
@@ -90,7 +90,7 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
                   icon={faPen}
                 />
               </button>
-            </div>
+            </div>  )}
 
             {user.accountId && isMe && (
               <div className="col-start-3 col-end-4">
