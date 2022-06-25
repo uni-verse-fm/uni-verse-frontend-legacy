@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle, faSpotify } from "@fortawesome/free-brands-svg-icons";
 import { ILogin, NotificationType } from "../common/types";
+import { adminLogin } from "../api/AdminAPI";
 
 export default function Login() {
   const router = useRouter();
@@ -62,4 +63,16 @@ export default function Login() {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const adminRefreshToken = await adminLogin().then(
+    (response) => response.adminRefreshToken
+  );
+
+  return {
+    props: {
+      adminRefreshToken,
+    },
+  };
 }

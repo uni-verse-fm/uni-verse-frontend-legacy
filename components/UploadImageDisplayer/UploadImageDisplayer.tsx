@@ -5,13 +5,13 @@ const UploadImageDisplayer = (props) => {
 
   const handleDeleteFile = () => {
     setImage(null);
-    props.setFieldValue(props?.field?.name || "random", null);
+    props.setFieldValue(null);
   };
 
   const handleImageChange = (event) => {
     let image = event.target.files[0];
     if (image) {
-      props.setFieldValue(props?.field?.name || "random", image);
+      props.setFieldValue(image);
       setImage(image);
     }
   };
@@ -22,7 +22,11 @@ const UploadImageDisplayer = (props) => {
         className={`md:container h-${props.size || 60} w-${props.size || 60}`}
       >
         <img
-          src={image ? URL.createObjectURL(image) : props.defaultImageSrc}
+          src={
+            image
+              ? URL.createObjectURL(image)
+              : props.profilePicture || props.defaultImageSrc
+          }
           className={`md:mx-auto object-contain h-${props.size || 60} w-${
             props.size || 60
           } rounded-lg`}
@@ -34,7 +38,7 @@ const UploadImageDisplayer = (props) => {
           <div>
             <label
               className={`${
-                image ? "rounded-l-md" : "rounded-md"
+                !props.disable && image ? "rounded-l-md" : "rounded-md"
               } px-4 border border-transparent shadow-sm text-md font-medium inline-block text-white bg-grn hover:bg-segrn`}
             >
               <span>Upload</span>
@@ -49,7 +53,7 @@ const UploadImageDisplayer = (props) => {
               />
             </label>
           </div>
-          {image && (
+          { !props.disable && image && (
             <div>
               <button
                 className="px-4 border border-transparent shadow-sm text-md font-medium rounded-r-md text-white bg-rd hover:bg-serd"

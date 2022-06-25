@@ -32,6 +32,7 @@ function MyProfile(props) {
         username: (session.user as any).username,
         email: (session.user as any).email,
         accountId: (session.user as any).accountId,
+        profilePicture: (session.user as any).profilePicture,
       }}
       releases={data}
       isMe={true}
@@ -44,8 +45,6 @@ function MyProfile(props) {
 export async function getServerSideProps(context: GetSessionParams) {
   const session: Session = await getSession(context);
   const adminRefreshToken = await adminLogin().then((response) => response.adminRefreshToken);
-
-  console.debug('admoinRefToken ' + adminRefreshToken);
 
   if (!session) {
     return {

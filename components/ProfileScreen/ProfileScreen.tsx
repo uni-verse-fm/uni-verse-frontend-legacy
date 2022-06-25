@@ -1,7 +1,20 @@
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Extensions, Messages } from "../../common/constants";
-import { IProfileScreen } from "../../common/types";
+import { AxiosError } from "axios";
+import { useState } from "react";
+import { useMutation } from "react-query";
+import { changeProfilePicture } from "../../api/UserAPI";
+import {
+  Extensions,
+  imageSource,
+  MAX_IMAGE_SIZE,
+  Messages,
+} from "../../common/constants";
+import {
+  IProfileScreen,
+  NotificationType,
+  UniVerseError,
+} from "../../common/types";
 import ArtistReleases from "../ArtistReleases";
 import DisplayTracksTable from "../DisplayTracksTable";
 import { notify } from "../Notifications";
@@ -9,59 +22,85 @@ import Playlists from "../PLaylists";
 import UploadImageDisplayer from "../UploadImageDisplayer";
 
 const imageProps = {
-  src: undefined,
   defaultImageSrc: "/profile.jpg",
   size: 28,
   fileExtensions: Extensions.image,
-  setFieldValue: () => notify(Messages.NOT_IMPLEMENTED),
 };
 
-const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
+let tracks = [
   {
-    /** A remplacer par getPopularTracks */
-  }
-  let tracks = [
-    {
-      title: " track N°1",
-      author: {
-        username: " nmedjoub",
-      },
-      createdAt: "2022-01-01",
-      duration: "2:33",
+    title: " track N°1",
+    author: {
+      username: " nmedjoub",
     },
-    {
-      title: " track N°2",
-      author: {
-        username: " nmedjoub",
-      },
-      createdAt: "2022-01-01",
-      duration: "2:33",
+    createdAt: "2022-01-01",
+    duration: "2:33",
+  },
+  {
+    title: " track N°2",
+    author: {
+      username: " nmedjoub",
     },
-    {
-      title: " track N°2",
-      author: {
-        username: " nmedjoub",
-      },
-      createdAt: "2022-01-01",
-      duration: "2:33",
+    createdAt: "2022-01-01",
+    duration: "2:33",
+  },
+  {
+    title: " track N°2",
+    author: {
+      username: " nmedjoub",
     },
-    {
-      title: " track N°3",
-      author: {
-        username: " nmedjoub",
-      },
-      createdAt: "2022-01-01",
-      duration: "2:33",
+    createdAt: "2022-01-01",
+    duration: "2:33",
+  },
+  {
+    title: " track N°3",
+    author: {
+      username: " nmedjoub",
     },
-    {
-      title: " track N°4",
-      author: {
-        username: " nmedjoub",
-      },
-      createdAt: "2022-01-01",
-      duration: "2:33",
+    createdAt: "2022-01-01",
+    duration: "2:33",
+  },
+  {
+    title: " track N°4",
+    author: {
+      username: " nmedjoub",
     },
-  ];
+    createdAt: "2022-01-01",
+    duration: "2:33",
+  },
+];
+
+const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
+  const [isValid, setIsValid] = useState(true);
+
+  const { mutate } = useMutation("uploadProfilePicture", changeProfilePicture, {
+    onError: (error: AxiosError) => {
+      const errorMessage: UniVerseError = error.response.data;
+      notify(
+        `Can't upload release: ${errorMessage.message}`,
+        NotificationType.ERROR
+      );
+    },
+    onSuccess: (res) => {
+      if (res.status !== 201) {
+        notify(res.data.message, NotificationType.ERROR);
+      } else {
+        const message = "Release uploader";
+        notify(message, NotificationType.SUCCESS);
+      }
+    },
+  });
+
+  const handleImageUpload = (image) => {
+    if (image > MAX_IMAGE_SIZE) {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+      var bodyFormData = new FormData();
+      bodyFormData.append("file", image, image.originalFileName);
+      mutate(bodyFormData);
+    }
+  };
 
   return (
     <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden">
@@ -73,7 +112,22 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
               <h1 className="text-xl font-bold not-italic text-grn">
                 {user.username}
               </h1>
-              <UploadImageDisplayer {...imageProps} />
+              <UploadImageDisplayer
+                {...imageProps}
+                profilePicture={
+                  user.profilePicture
+                    ? imageSource + user.profilePicture
+                    : imageProps.defaultImageSrc
+                }
+                field={{ name: "profile" }}
+                maxFileSize="10"
+                setFieldValue={handleImageUpload}
+                disable={true}
+              />
+
+              {!isValid ? (
+                <div className="text-rd">File is too large</div>
+              ) : null}
             </div>
 
             <div className="col-start-2 col-end-3 self-end">

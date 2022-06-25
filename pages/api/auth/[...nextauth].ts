@@ -5,9 +5,11 @@ import * as cookie from "cookie";
 import GoogleProvider from "next-auth/providers/google";
 import SpotifyProvider from "next-auth/providers/spotify";
 import axios from "axios";
-import { BASE_API } from "../../../common/constants";
+import { BASE_API, headers } from "../../../common/constants";
 import { Endoints } from "../../../common/types";
 import { axiosAuthClient } from "../../../common/contexts/AxiosContext";
+import { adminLogin } from "../../../api/AdminAPI";
+import { AES } from "crypto-js";
 
 async function refreshAccessToken(token) {
   axiosAuthClient.defaults.headers["cookie"] = cookie.serialize(
@@ -93,12 +95,31 @@ export default NextAuth({
     },
 
     async signIn({ account, profile }) {
+      let encryptedAccessToken: any = "";
+      if (account.provider !== "credentials") {
+        const adminAccessToken = await adminLogin().then(
+          (response) => response.adminAccessToken
+        );
+        encryptedAccessToken = AES.encrypt(
+          adminAccessToken as string,
+          process.env.UNIVERSE_PRIVATE_KEY
+        );
+      }
       if (account.provider === "google") {
         return await axios
-          .post(`${BASE_API + Endoints.Auth}/google`, {
-            username: profile.given_name,
-            email: profile.email,
-          })
+          .post(
+            `${BASE_API + Endoints.Auth}/google`,
+            {
+              username: profile.given_name,
+              email: profile.email,
+            },
+            {
+              headers: {
+                ...headers,
+                Authorization: `${encryptedAccessToken}`,
+              },
+            }
+          )
           .then((response) => {
             return profile.email_verified && response.status === 201;
           })
@@ -107,10 +128,19 @@ export default NextAuth({
 
       if (account.provider === "spotify") {
         return await axios
-          .post(`${BASE_API + Endoints.Auth}/spotify`, {
-            username: profile.display_name,
-            email: profile.email,
-          })
+          .post(
+            `${BASE_API + Endoints.Auth}/spotify`,
+            {
+              username: profile.display_name,
+              email: profile.email,
+            },
+            {
+              headers: {
+                ...headers,
+                Authorization: `${encryptedAccessToken}`,
+              },
+            }
+          )
           .then((response) => {
             return response.status === 201;
           })
@@ -130,6 +160,7 @@ export default NextAuth({
           email: token.email,
           id: token.id,
           accountId: token.accountId,
+          profilePicture: token.profilePicture,
         },
       };
       return customSession;

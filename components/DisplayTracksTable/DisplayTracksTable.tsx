@@ -31,9 +31,9 @@ const DisplayTracksTable = ({ tracks, releaseTitle }) => {
         </tr>
       </thead>
       <tbody>
-        {tracks.map((track) => (
+        {tracks.map((track, index) => (
           <tr
-            key={track.name}
+            key={`${track.title}-${index}`}
             className="h-10 hover:text-wht hover:border-b hover:border-t"
           >
             <td>

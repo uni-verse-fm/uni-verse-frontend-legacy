@@ -1,6 +1,3 @@
-import axios, { AxiosError } from "axios";
-import createAuthRefreshInterceptor from "axios-auth-refresh";
-import { AES } from "crypto-js";
 import React, {
   createContext,
   useReducer,
@@ -10,11 +7,10 @@ import React, {
   useRef,
 } from "react";
 import { addView } from "../../api/AdminAPI";
-import { BASE_API, headers, trackSource } from "../constants";
+import { trackSource } from "../constants";
 import {
   InitialPlayerType,
   PlayerActions,
-  Props,
   ReducerPlayerType,
   Types,
 } from "../types";
@@ -76,49 +72,36 @@ const PlayerProvider: React.FC = ({ children }) => {
     state.trackIndex || 0
   );
 
-//   sound.current.onplaying = () => {
-//     setPlaying(true)
-//   }
-
-//   sound.current.onpause = () => {
-//     setPlaying(true)
-//   }
-
   const hasNext = () =>
     state.tracks ? currentTrackIndex + 1 < state.tracks?.length : false;
   const hasPrevious = () => (state.tracks ? currentTrackIndex - 1 >= 0 : false);
 
-  const nextTrack = async () => {
-    if (currentTrackIndex + 1 < state.tracks.length) {
-      const newUrl = trackSource + state.tracks[currentTrackIndex + 1].fileName;
-      setCurrentTrackIndex(currentTrackIndex + 1);
-      if (sound.current?.src !== newUrl) sound.current.src = newUrl;
-      sound.current.load();
-      playing && await sound.current.play();
-    }
+  const playByIndex = (index: number) => {
+    const newUrl = trackSource + state.tracks[index].fileName;
+    setCurrentTrackIndex(index);
+    if (sound.current?.src !== newUrl) sound.current.src = newUrl;
+    sound.current.load();
+    playing && sound.current.play();
   };
 
-  const previousTrack = async () => {
-    if (currentTrackIndex - 1 >= 0) {
-      const newUrl = trackSource + state.tracks[currentTrackIndex - 1].fileName;
-      setCurrentTrackIndex(currentTrackIndex - 1);
-      if (sound.current.src !== newUrl) sound.current.src = newUrl;
-      sound.current.load();
-      playing && await sound.current.play();
-    }
-  };
+  const nextTrack = () =>
+    hasNext() ? playByIndex(currentTrackIndex + 1) : playByIndex(0);
+
+  const previousTrack =  () =>
+    hasPrevious()
+      ? playByIndex(currentTrackIndex - 1)
+      : playByIndex(0);
 
   const onEnded = () => {
-    if (hasNext() && !playing) setPlaying(false);
+    hasNext() ? nextTrack() : "";
     const trackId = state.tracks[currentTrackIndex]?.id;
     trackId && addView(trackId);
   };
 
-  const onPlayPauseClick = async () => {
+  const onPlayPauseClick = () => {
     if (sound.current?.src) {
-      playing ? sound.current.pause() : await sound.current.play();
-      setPlaying(!playing);
-    } else setPlaying(false);
+      playing ? sound.current.pause() : sound.current.play();
+    }
   };
 
   useEffect(() => {
@@ -127,7 +110,7 @@ const PlayerProvider: React.FC = ({ children }) => {
           sound.current = undefined;
         }
       : undefined;
-  }, [sound]);
+  }, []);
 
   useEffect(() => {
     const element = sound.current;
@@ -135,23 +118,31 @@ const PlayerProvider: React.FC = ({ children }) => {
       const timeUpdate = () => {
         setPosition(element?.currentTime);
       };
+      const playing = () => {
+        setPlaying(true);
+      };
+      const paused = () => {
+        setPlaying(false);
+      };
       element?.addEventListener("ended", onEnded);
       element?.addEventListener("timeupdate", timeUpdate);
+      element?.addEventListener("playing", playing);
+      element?.addEventListener("pause", paused);
       return () => {
         element?.removeEventListener("ended", onEnded);
         element?.removeEventListener("timeupdate", timeUpdate);
+        element?.removeEventListener("playing", playing);
+        element?.removeEventListener("pause", paused);
       };
     }
   });
 
-  const onTracksChange = async (newTracks: any) => {
+  const onTracksChange = (newTracks: any) => {
     if (sound.current) {
-      sound.current?.pause();
       const newUrl = trackSource + newTracks[currentTrackIndex].fileName;
       sound.current.src = newUrl;
       sound.current.load();
-      await sound.current.play();
-      setPlaying(true);
+      sound.current.play();
     }
   };
 

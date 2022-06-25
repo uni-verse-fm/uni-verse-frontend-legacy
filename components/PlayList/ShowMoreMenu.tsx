@@ -52,7 +52,7 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
     <Menu as="div" className="text-left h-full w-auto">
       <Menu.Button className="h-full w-auto p-2">
         <FontAwesomeIcon
-          className=" cursor-pointer hover:scale-[1.40] hover:text-grn text-gry"
+          className="cursor-pointer hover:scale-[1.40] hover:text-grn text-gry"
           icon={faEllipsis}
         />
       </Menu.Button>
@@ -81,20 +81,14 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
                       active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
                     } group items-center px-2 py-2 font-semibold text-gryf`}
                     onClick={(_: any) => {
-                      console.log("naoual");
                       let dataToUpdate: IUpdatePlaylistTrack = {
                         trackId: track._id,
                         action: "REMOVE",
                       };
-                      console.log("dataToUpdate");
-                      console.log(dataToUpdate);
-
                       let dataForm: IUpdatePayload = {
                         id: playlist._id,
                         data: dataToUpdate,
                       };
-                      console.log("dataForm");
-                      console.log(dataForm);
                       mutate(dataForm);
                     }}
                   >

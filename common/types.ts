@@ -140,6 +140,7 @@ export interface IRegister {
 
 export interface IProfileScreen {
   user: {
+    profilePicture?: string;
     id: string;
     username: string;
     email: string;
@@ -163,7 +164,12 @@ export type IReaderTimeLine = {
   onSlide: (value: number) => any;
 };
 
-export type Track = { fileName: string; author: any; id?: string; _id?: string } & ITrack;
+export type Track = {
+  fileName: string;
+  author: any;
+  id?: string;
+  _id?: string;
+} & ITrack;
 
 export const enum SourceType {
   Playlist,
@@ -243,7 +249,7 @@ export enum Types {
   ReleasePlay = "PLAY_RELEASE",
   TrackPlay = "PLAY_TRACK",
   RandomPlay = "PLAY_RANDOM",
-  AddView = "ADD_VIEW"
+  AddView = "ADD_VIEW",
 }
 
 export type PlayerType = {
@@ -301,3 +307,13 @@ export interface Props {
 
 export type PlayerActions =
   ActionMap<PlayerPayload>[keyof ActionMap<PlayerPayload>];
+
+export interface IResourceInfo {
+  contentId: string;
+  typeOfContent: ModelType;
+}
+
+export enum ModelType {
+  Track = "Track",
+  Resource = "Resource",
+}

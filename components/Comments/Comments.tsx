@@ -6,17 +6,18 @@ import { useQuery } from "react-query";
 import router from "next/router";
 import { notify } from "../Notifications";
 import { AxiosError } from "axios";
-import { getComments } from "../../api/CommentAPI";
-import { NotificationType, Pages } from "../../common/types";
+import { getResourceComments } from "../../api/CommentAPI";
+import { ModelType, NotificationType, Pages } from "../../common/types";
 import Comment from "../Comment";
 
 const Comments = ({ idTrack }) => {
-  {
-    /* à remplacer par getSourceComments*/
-  }
   const { status, data } = useQuery(
     "comments",
-    () => getComments().then((res) => res.data),
+    () =>
+      getResourceComments({
+        contentId: idTrack,
+        typeOfContent: ModelType.Track,
+      }).then((res) => res.data),
     {
       onSuccess: (res) => {
         if (res.status === 401) {
@@ -30,6 +31,7 @@ const Comments = ({ idTrack }) => {
           router.replace(`/${Pages.Login}`);
         }
       },
+      enabled: Boolean(idTrack),
     }
   );
   return (

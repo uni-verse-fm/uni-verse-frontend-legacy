@@ -1,15 +1,18 @@
-import { faPlay, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tab } from "@headlessui/react";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { searchPlaylist } from "../../api/PlaylistAPI";
 import { searchRelease } from "../../api/ReleaseAPI";
 import { searchTrack } from "../../api/TrackAPI";
 import { searchUsers } from "../../api/UserAPI";
-import { PlayerContext } from "../../common/providers/PlayerProvider";
 import router from "next/router";
-import { Pages, Track, Types } from "../../common/types";
+import { Pages } from "../../common/types";
+import TrackRow from "./TrackRow";
+import ReleaseRow from "./ReleaseRow";
+import PlaylistRow from "./PlaylistRow";
+import UserRow from "./UserRow";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -18,7 +21,6 @@ function classNames(...classes) {
 const SearchBar = ({ isConnected }) => {
   const [query, setQuery] = useState("");
   const ref = useRef<HTMLDivElement>();
-  const { dispatch } = useContext(PlayerContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -71,38 +73,6 @@ const SearchBar = ({ isConnected }) => {
       enabled: Boolean(query),
     }
   );
-
-  const onClickTrack = (track: Track) => () => {
-    dispatch({
-      type: Types.TrackPlay,
-      payload: {
-        className: "mt-auto",
-        track: track,
-      },
-    });
-  };
-
-  const onClickRelease = (release) => () => {
-    dispatch({
-      type: Types.ReleasePlay,
-      payload: {
-        tracks: release.tracks || [],
-        className: "mt-auto",
-        trackIndex: 0,
-      },
-    });
-  };
-
-  const onClickPlaylist = (playlist) => () => {
-    dispatch({
-      type: Types.ReleasePlay,
-      payload: {
-        tracks: playlist.tracks || [],
-        className: "mt-auto",
-        trackIndex: 0,
-      },
-    });
-  };
 
   const onClickDisplayPlaylist = (playlist) => () => {
     router.push({
@@ -219,21 +189,10 @@ const SearchBar = ({ isConnected }) => {
               {taskQuery.status === "success" &&
                 taskQuery.data.map((track, index) => (
                   <li key={"track-" + index} value={track}>
-                    <div
-                      onClick={onClickDisplayTrack(track)}
-                      className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"
-                    >
-                      {`${track.author?.username} - ${
-                        track.title
-                      } ft.${track.feats
-                        .map((feat) => ` ${feat.username}`)
-                        .join()}`}
-                      <FontAwesomeIcon
-                        className="cursor-pointer mr-5 hover:scale-[1.40] text-grn"
-                        icon={faPlay}
-                        onClick={onClickTrack(track)}
-                      />
-                    </div>
+                    <TrackRow
+                      track={track}
+                      onClickDisplayTrack={onClickDisplayTrack}
+                    />
                   </li>
                 ))}
             </ul>
@@ -243,17 +202,10 @@ const SearchBar = ({ isConnected }) => {
               {releaseQuery.status === "success" &&
                 releaseQuery.data.map((release, index) => (
                   <li key={"release-" + index} value={release}>
-                    <div
-                      onClick={onClickDisplayRelease(release)}
-                      className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"
-                    >
-                      {`${release.title} by ${release.author?.username}`}
-                      <FontAwesomeIcon
-                        className="cursor-pointer mr-5 hover:scale-[1.40] text-grn"
-                        icon={faPlay}
-                        onClick={onClickRelease(release)}
-                      />
-                    </div>
+                    <ReleaseRow
+                      release={release}
+                      onClickDisplayRelease={onClickDisplayRelease}
+                    />
                   </li>
                 ))}
             </ul>
@@ -263,17 +215,10 @@ const SearchBar = ({ isConnected }) => {
               {playlistQuery.status === "success" &&
                 playlistQuery.data.map((playlist, index) => (
                   <li key={"playlist-" + index} value={playlist}>
-                    <div
-                      onClick={onClickDisplayPlaylist(playlist)}
-                      className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"
-                    >
-                      {playlist.title}
-                      <FontAwesomeIcon
-                        className="cursor-pointer mr-5 hover:scale-[1.40] text-grn"
-                        icon={faPlay}
-                        onClick={onClickPlaylist(playlist)}
-                      />
-                    </div>
+                    <PlaylistRow
+                      playlist={playlist}
+                      onClickDisplayPlaylist={onClickDisplayPlaylist}
+                    />
                   </li>
                 ))}
             </ul>
@@ -283,12 +228,10 @@ const SearchBar = ({ isConnected }) => {
               {userQuery.status === "success" &&
                 userQuery.data.map((user, index) => (
                   <li key={"user-" + index} value={user}>
-                    <div
-                      onClick={onClickDisplayUser(user)}
-                      className="hover:bg-grn cursor-pointer hover:bg-opacity-25 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"
-                    >
-                      {`${user.username} - ${user.email}`}
-                    </div>
+                    <UserRow
+                      user={user}
+                      onClickDisplayUser={onClickDisplayUser}
+                    />
                   </li>
                 ))}
             </ul>

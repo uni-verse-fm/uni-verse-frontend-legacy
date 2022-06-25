@@ -26,7 +26,6 @@ const { Provider } = AxiosContext;
 
 const adminRefreshAuthLogic =
   (adminRefreshToken: string) => async (failedRequest: any) => {
-    console.debug("adminRefreshToken whyyy whyy " + adminRefreshToken);
     return await axios
       .get(`${BASE_API}/auth/refresh`, {
         headers: {
@@ -34,8 +33,6 @@ const adminRefreshAuthLogic =
         },
       })
       .then(async (tokenRefreshResponse) => {
-        console.debug("you think is true  " + tokenRefreshResponse.data.accessToken);
-
         const encryptedToken = AES.encrypt(
           tokenRefreshResponse.data.accessToken as string,
           process.env.UNIVERSE_PRIVATE_KEY
@@ -48,8 +45,6 @@ const adminRefreshAuthLogic =
         return Promise.resolve();
       })
       .catch((error: AxiosError) => {
-        console.debug(error);
-
         return Promise.reject(error);
       });
   };
@@ -70,7 +65,6 @@ const refreshAuthLogic = (refreshToken) => async (failedRequest: any) => {
       return Promise.resolve();
     })
     .catch((error: AxiosError) => {
-        
       return Promise.reject(error);
     });
 };
@@ -94,8 +88,6 @@ const AxiosProvider = (props: any) => {
       axiosAdminClient,
       adminRefreshAuthLogic(adminRefreshToken)
     );
-
-  console.debug("adminRefreshToken body " + adminRefreshToken);
 
   return (
     <Provider

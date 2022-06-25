@@ -1,9 +1,9 @@
-import { faTrashCan, faComments } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import router from "next/router";
 import { notify } from "../Notifications";
 import { useSession } from "next-auth/react";
-import { NotificationType, Pages } from "../../common/types";
+import { NotificationType } from "../../common/types";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
@@ -42,7 +42,7 @@ const Comment = ({ comment, trackId }) => {
     <div>
       <div className="flex flex-row ">
         <div className="text-sm font-normal not-italic text-grn">
-          nmedjoub {/* à remplacer par owner.name */}
+          {comment?.owner?.username}
         </div>
         {session && (
           <div>

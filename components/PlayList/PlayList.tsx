@@ -101,7 +101,7 @@ const Playlist = (props) => {
                   <h2 className="text-grn ">
                     {data.title}
                     <FontAwesomeIcon
-                      className="cursor-pointer ml-5 hover:scale-[1.40]  text-wht hover:text-grn"
+                      className="cursor-pointer ml-5 hover:scale-[1.40] text-wht hover:text-grn"
                       icon={faPlay}
                       onClick={onClickPlaylist(data)}
                     />

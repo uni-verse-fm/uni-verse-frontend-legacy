@@ -54,9 +54,6 @@ const CreateComment = ({ idContent }) => {
             typeOfContent: "Track",
           };
 
-          console.log("dataComment");
-          console.log(dataComment);
-
           mutate(dataComment);
         }}
         render={({ values, errors, handleChange, handleBlur }) => {
