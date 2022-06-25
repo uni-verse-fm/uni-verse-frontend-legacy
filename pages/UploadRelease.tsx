@@ -7,7 +7,7 @@ import UploadReleaseForm from "../components/UploadReleaseForm";
 export default function UploadReleasePage() {
   const { data: session, status } = useSession();
   return (
-    <div className="bg-drk w-full h-full flex flex-col">
+    <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden">
       <div className="w-full">
         {status === "unauthenticated" ? (
           <div className="flex justify-center items-center mt-10">

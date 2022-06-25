@@ -17,24 +17,26 @@ function MyProfile(props) {
   );
 
   return status === "error" ? (
-    <div className="flex justify-center items-center mt-10">
+    <div className="flex justify-center items-center bg-drk w-full h-full">
       <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
     </div>
   ) : status === "loading" ? (
-    <div className="flex justify-center items-center mt-10">
+    <div className="flex justify-center items-center  bg-drk w-full h-full">
       <Spinner />
     </div>
   ) : session.user ? (
-    <ProfileScreen
-      user={{
-        id: (session.user as any).id,
-        username: (session.user as any).username,
-        email: (session.user as any).email,
-        accountId: (session.user as any).accountId,
-      }}
-      releases={data}
-      isMe={true}
-    />
+    <div className="bg-drk w-full h-full">
+      <ProfileScreen
+        user={{
+          id: (session.user as any).id,
+          username: (session.user as any).username,
+          email: (session.user as any).email,
+          accountId: (session.user as any).accountId,
+        }}
+        releases={data}
+        isMe={true}
+      />{" "}
+    </div>
   ) : (
     <></>
   );
@@ -42,7 +44,6 @@ function MyProfile(props) {
 
 export async function getServerSideProps(context: GetSessionParams) {
   const session: Session = await getSession(context);
-
   if (!session) {
     return {
       redirect: {
