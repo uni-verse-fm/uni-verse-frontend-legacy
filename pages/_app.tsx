@@ -38,7 +38,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <Hydrate state={pageProps.dehydratedState}>
           <SessionProvider session={session}>
             <AxiosProvider adminRefreshToken={pageProps.adminRefreshToken}>
-              <PlayerProvider >
+              <PlayerProvider>
                 <div
                   className={`${
                     showPlaylistsModal && "blur-md"

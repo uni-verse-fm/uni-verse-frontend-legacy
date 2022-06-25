@@ -28,9 +28,7 @@ const ReleaseRow = ({ release, onClickDisplayRelease }) => {
   };
 
   return (
-    <div
-      className="hover:bg-grn cursor-pointer hover:bg-opacity-10 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"
-    >
+    <div className="hover:bg-grn cursor-pointer hover:bg-opacity-10 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
       <div
         onClick={onClickDisplayRelease(release)}
         className="flex items-center grow"

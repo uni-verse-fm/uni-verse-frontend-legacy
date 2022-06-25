@@ -53,7 +53,7 @@ const UploadImageDisplayer = (props) => {
               />
             </label>
           </div>
-          { !props.disable && image && (
+          {!props.disable && image && (
             <div>
               <button
                 className="px-4 border border-transparent shadow-sm text-md font-medium rounded-r-md text-white bg-rd hover:bg-serd"

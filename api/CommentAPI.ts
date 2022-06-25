@@ -29,5 +29,5 @@ export {
   getCommentById,
   updateComment,
   deleteComment,
-  getResourceComments
+  getResourceComments,
 };

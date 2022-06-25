@@ -44,7 +44,9 @@ function MyProfile(props) {
 
 export async function getServerSideProps(context: GetSessionParams) {
   const session: Session = await getSession(context);
-  const adminRefreshToken = await adminLogin().then((response) => response.adminRefreshToken);
+  const adminRefreshToken = await adminLogin().then(
+    (response) => response.adminRefreshToken
+  );
 
   if (!session) {
     return {
@@ -58,7 +60,7 @@ export async function getServerSideProps(context: GetSessionParams) {
   return {
     props: {
       session,
-      adminRefreshToken
+      adminRefreshToken,
     },
   };
 }

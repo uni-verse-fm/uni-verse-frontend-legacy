@@ -20,7 +20,10 @@ const TrackRow = ({ track, onClickDisplayTrack }) => {
 
   return (
     <div className="hover:bg-grn cursor-pointer hover:bg-opacity-10 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
-      <div onClick={onClickDisplayTrack(track)} className="flex items-center grow">
+      <div
+        onClick={onClickDisplayTrack(track)}
+        className="flex items-center grow"
+      >
         <Image
           src={
             track?.release?.coverName

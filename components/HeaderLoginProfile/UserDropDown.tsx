@@ -56,7 +56,7 @@ const UserDropDown = ({ user }) => {
             </div>
           </Menu.Item>
         )}
-        <Link href={`/${Pages.MyProfile}`}>
+        <Link href={`/${Pages.MyProfile}`} passHref>
           <Menu.Item>
             {({ active }) => (
               <div
@@ -69,7 +69,7 @@ const UserDropDown = ({ user }) => {
             )}
           </Menu.Item>
         </Link>
-        <Link href={`/${Pages.MyProfile}`}>
+        <Link href={`/${Pages.MyProfile}`} passHref>
           <Menu.Item>
             {({ active }) => (
               <div
@@ -82,7 +82,7 @@ const UserDropDown = ({ user }) => {
             )}
           </Menu.Item>
         </Link>
-        <Link href={`/${Pages.Profile}`}>
+        <Link href={`/${Pages.Profile}`} passHref>
           <Menu.Item>
             {({ active }) => (
               <div

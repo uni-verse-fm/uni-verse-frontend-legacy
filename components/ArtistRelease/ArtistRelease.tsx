@@ -18,11 +18,7 @@ import { useSession } from "next-auth/react";
 import DisplayTracksTable from "../DisplayTracksTable";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
 
-import {
-  NotificationType,
-  Pages,
-  Types,
-} from "../../common/types";
+import { NotificationType, Pages, Types } from "../../common/types";
 
 const ArtistRelease = (props) => {
   const { data: session } = useSession();

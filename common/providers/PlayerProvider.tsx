@@ -87,10 +87,8 @@ const PlayerProvider: React.FC = ({ children }) => {
   const nextTrack = () =>
     hasNext() ? playByIndex(currentTrackIndex + 1) : playByIndex(0);
 
-  const previousTrack =  () =>
-    hasPrevious()
-      ? playByIndex(currentTrackIndex - 1)
-      : playByIndex(0);
+  const previousTrack = () =>
+    hasPrevious() ? playByIndex(currentTrackIndex - 1) : playByIndex(0);
 
   const onEnded = () => {
     hasNext() ? nextTrack() : "";

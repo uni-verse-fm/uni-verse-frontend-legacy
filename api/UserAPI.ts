@@ -43,5 +43,5 @@ export {
   searchUsers,
   onboardUser,
   changePassword,
-  changeProfilePicture
+  changeProfilePicture,
 };
