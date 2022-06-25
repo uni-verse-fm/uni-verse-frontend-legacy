@@ -1,5 +1,5 @@
 import { Menu } from "@headlessui/react";
-import { getPlaylists } from "../../api/PlaylistAPI";
+import { getUserPlaylists } from "../../api/PlaylistAPI";
 
 import { notify } from "../Notifications";
 import { useMutation } from "react-query";
@@ -16,19 +16,18 @@ import {
   Pages,
 } from "../../common/types";
 
+import { useSession } from "next-auth/react";
+
 const MenuSelectPlayList = ({ track }) => {
-  const { status, data } = useQuery(
+
+  const { data: session } = useSession();
+
+  const { data, status } = useQuery(
     "playlists",
-    () => getPlaylists().then((res) => res.data),
+    () => getUserPlaylists((session.user as any).id),
     {
-      onSuccess: (res) => {
-        if (res.status === 401) {
-          notify("Playlists bay from success");
-          router.replace(`/${Pages.Login}`);
-        }
-      },
       onError: (error: AxiosError) => {
-        if (error.response.status === 401) {
+        if (error.response?.status === 401) {
           notify(Messages.UNAUTHORIZED, NotificationType.ERROR);
           router.replace(`/${Pages.Login}`);
         }
@@ -49,9 +48,8 @@ const MenuSelectPlayList = ({ track }) => {
       }
     },
   });
+  
   const onClickRelease = (playlist) => () => {
-    console.log("hhhhhhhhhh");
-
     let dataToUpdate: IUpdatePlaylistTrack = {
       trackId: track._id,
       action: "ADD",
