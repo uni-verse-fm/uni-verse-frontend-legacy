@@ -23,7 +23,6 @@ import {
   Pages,
   Types,
 } from "../../common/types";
-import { isoDateToDate } from "../../utils/dateUtils";
 
 const ArtistRelease = (props) => {
   const { data: session } = useSession();
@@ -62,7 +61,6 @@ const ArtistRelease = (props) => {
       type: Types.ReleasePlay,
       payload: {
         tracks: release.tracks || [],
-        className: "mt-auto",
         trackIndex: 0,
       },
     });

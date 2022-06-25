@@ -2,7 +2,9 @@ import React from "react";
 import Playlist from "../components/PlayList";
 
 import { useRouter } from "next/router";
-import { getSession } from "next-auth/react";
+import { getSession, GetSessionParams } from "next-auth/react";
+import { Session } from "next-auth";
+import { adminLogin } from "../api/AdminAPI";
 
 function UserPlaylist() {
   const router = useRouter();
@@ -26,9 +28,12 @@ function UserPlaylist() {
     </div>
   );
 }
+export async function getServerSideProps(context: GetSessionParams) {
+  const session: Session = await getSession(context);
+  const adminRefreshToken = await adminLogin().then(
+    (response) => response.adminRefreshToken
+  );
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
   if (!session) {
     return {
       redirect: {
@@ -41,6 +46,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       session,
+      adminRefreshToken,
     },
   };
 }

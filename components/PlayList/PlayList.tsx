@@ -57,7 +57,6 @@ const Playlist = (props) => {
     dispatch({
       type: Types.TrackPlay,
       payload: {
-        className: "mt-auto",
         track: track,
       },
     });
@@ -68,7 +67,6 @@ const Playlist = (props) => {
       type: Types.ReleasePlay,
       payload: {
         tracks: playlist.tracks || [],
-        className: "mt-auto",
         trackIndex: 0,
       },
     });

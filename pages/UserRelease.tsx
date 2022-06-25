@@ -3,6 +3,8 @@ import ArtistRelease from "../components/ArtistRelease";
 
 import { useRouter } from "next/router";
 import { getSession, GetSessionParams } from "next-auth/react";
+import { Session } from "next-auth";
+import { adminLogin } from "../api/AdminAPI";
 
 function UserRelease() {
   const router = useRouter();
@@ -27,7 +29,10 @@ function UserRelease() {
 }
 
 export async function getServerSideProps(context: GetSessionParams) {
-  const session = await getSession(context);
+  const session: Session = await getSession(context);
+  const adminRefreshToken = await adminLogin().then(
+    (response) => response.adminRefreshToken
+  );
 
   if (!session) {
     return {
@@ -41,7 +46,9 @@ export async function getServerSideProps(context: GetSessionParams) {
   return {
     props: {
       session,
+      adminRefreshToken,
     },
   };
 }
+
 export default UserRelease;

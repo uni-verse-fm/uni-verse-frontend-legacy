@@ -6,6 +6,7 @@ import { Session } from "next-auth";
 import ProfileScreen from "../components/ProfileScreen";
 import { Messages } from "../common/constants";
 import Spinner from "../components/Spinner";
+import { adminLogin } from "../api/AdminAPI";
 
 function MyProfile(props) {
   const { data: session } = useSession();
@@ -42,6 +43,9 @@ function MyProfile(props) {
 
 export async function getServerSideProps(context: GetSessionParams) {
   const session: Session = await getSession(context);
+  const adminRefreshToken = await adminLogin().then((response) => response.adminRefreshToken);
+
+  console.debug('admoinRefToken ' + adminRefreshToken);
 
   if (!session) {
     return {
@@ -55,6 +59,7 @@ export async function getServerSideProps(context: GetSessionParams) {
   return {
     props: {
       session,
+      adminRefreshToken
     },
   };
 }

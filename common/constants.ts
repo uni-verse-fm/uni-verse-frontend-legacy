@@ -50,6 +50,18 @@ export const Messages = {
   EMPTY_FUZZY_RESULT: "No results with those specifications",
 };
 
-export const trackSource = `${process.env.MINIO_URL || "http://localhost:9000"}/tracks/`;
+export const headers = {
+  "Access-Control-Allow-Credentials": true,
+  "Access-Control-Allow-Origin": BASE_API,
+  "Access-Control-Allow-Methods": "GET,OPTIONS,PATCH,DELETE,POST,PUT",
+  "Access-Control-Allow-Headers":
+    "X-CSRF-Token, Authorization, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Set-Cookie",
+};
 
-export const imageSource = `${process.env.MINIO_URL || "http://localhost:9000"}/images/`;
+export const trackSource = `${
+  process.env.MINIO_URL || "http://localhost:9000"
+}/tracks/`;
+
+export const imageSource = `${
+  process.env.MINIO_URL || "http://localhost:9000"
+}/images/`;
