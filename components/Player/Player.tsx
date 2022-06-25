@@ -1,4 +1,3 @@
-import { trackSource } from "./../../common/types";
 import {
   faArrowLeft,
   faArrowRight,
@@ -7,6 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect, useRef, useState } from "react";
+import { trackSource } from "../../common/constants";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
 import DefilingText from "./DefilingText";
 import ReaderTimeline from "./ReaderTimeline";

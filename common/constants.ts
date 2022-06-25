@@ -49,3 +49,7 @@ export const Messages = {
   PURCHASE_SUCCESS: "Thank you for your purchase",
   EMPTY_FUZZY_RESULT: "No results with those specifications",
 };
+
+export const trackSource = `${process.env.MINIO_URL || "http://localhost:9000"}/tracks/`;
+
+export const imageSource = `${process.env.MINIO_URL || "http://localhost:9000"}/images/`;

@@ -4,7 +4,7 @@ import NextAuth from "next-auth";
 import * as cookie from "cookie";
 import GoogleProvider from "next-auth/providers/google";
 import SpotifyProvider from "next-auth/providers/spotify";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { BASE_API } from "../../../common/constants";
 import { Endoints } from "../../../common/types";
 import { axiosAuthClient } from "../../../common/contexts/AxiosContext";
@@ -121,8 +121,6 @@ export default NextAuth({
     },
 
     async session({ session, token }) {
-      console.debug("session", session);
-      console.debug("token", token.refreshToken);
       const customSession = {
         ...session,
         refreshToken: token.refreshToken,
@@ -134,8 +132,6 @@ export default NextAuth({
           accountId: token.accountId,
         },
       };
-      console.debug("session", customSession);
-      console.debug("token", token.refreshToken);
       return customSession;
     },
   },

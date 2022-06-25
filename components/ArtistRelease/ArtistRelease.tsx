@@ -4,7 +4,7 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { getReleaseById, deleteRelease } from "../../api/ReleaseAPI";
 import { useQuery } from "react-query";
 import Spinner from "../Spinner";
-import { Messages } from "../../common/constants";
+import { imageSource, Messages } from "../../common/constants";
 import Image from "next/image";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
@@ -19,7 +19,6 @@ import DisplayTracksTable from "../DisplayTracksTable";
 import { PlayerContext } from "../../common/providers/PlayerProvider";
 
 import {
-  imageSource,
   NotificationType,
   Pages,
   Types,
