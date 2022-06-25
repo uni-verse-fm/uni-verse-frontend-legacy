@@ -13,7 +13,7 @@ function MyProfile(props) {
   const { status, data } = useQuery(
     "myReleases",
     () => getUserReleases((session.user as any).id),
-    { initialData: props.releases, enabled: Boolean(session)}
+    { initialData: props.releases, enabled: Boolean(session) }
   );
 
   return status === "error" ? (
@@ -26,17 +26,17 @@ function MyProfile(props) {
     </div>
   ) : session.user ? (
     <div className="bg-drk w-full h-full">
-    <ProfileScreen
-      user={{
-        id: (session.user as any).id,
-        username: (session.user as any).username,
-        email: (session.user as any).email,
-        accountId: (session.user as any).accountId,
-      }}
-      releases={data}
-      isMe={true}
-    /> </div>
-   
+      <ProfileScreen
+        user={{
+          id: (session.user as any).id,
+          username: (session.user as any).username,
+          email: (session.user as any).email,
+          accountId: (session.user as any).accountId,
+        }}
+        releases={data}
+        isMe={true}
+      />{" "}
+    </div>
   ) : (
     <></>
   );

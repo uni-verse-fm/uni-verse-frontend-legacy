@@ -19,17 +19,13 @@ const imageProps = {
 };
 
 const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
-
-
   const [showForm, setShowForm] = useState(false);
-  const handleShowForm = () =>{ 
-    console.log ("setShowForm à true")
+  const handleShowForm = () => {
+    console.log("setShowForm à true");
 
-setShowForm(true);  } 
+    setShowForm(true);
+  };
   const handleCloseDialog = () => setShowForm(false);
-
-
-  
 
   {
     /** A remplacer par getPopularTracks */
@@ -87,46 +83,46 @@ setShowForm(true);  }
               <h1 className="text-xl font-bold not-italic text-grn mb-3">
                 {user.username}
               </h1>
-              {user.id && isMe && (
-              <UploadImageDisplayer {...imageProps} />
+              {user.id && isMe && <UploadImageDisplayer {...imageProps} />}
+              {user.id && isMe === false && (
+                <img
+                  src={imageProps.defaultImageSrc}
+                  className={`md:mx-auto object-contain h-${
+                    imageProps.size || 60
+                  } w-${imageProps.size || 60} rounded-lg`}
+                  alt="image to upload"
+                />
               )}
-              {user.id && (isMe===false) && (
-              <img
-                src={imageProps.defaultImageSrc}
-                className={`md:mx-auto object-contain h-${imageProps.size || 60} w-${
-                  imageProps.size || 60
-                } rounded-lg`}
-                alt="image to upload"
-              /> )}
             </div>
             <div className="col-start-2 col-end-3 self-end">
-              <h2 className="font-medium not-italic text-wht">
-                {user.email}
-              </h2>
+              <h2 className="font-medium not-italic text-wht">{user.email}</h2>
             </div>
             {user.id && isMe && (
-            <div className="col-start-2 col-end-3">
-              <button  onClick={handleShowForm} className="font-medium text-wht rounded-full border-2 border-grn px-2 text-md h-7 hover:bg-grn hover:bg-opacity-25">
-                <span>Password</span>
-                <FontAwesomeIcon
-                  className="cursor-pointer ml-2 hover:scale-[1.40] hover:text-gry text-wht"
-                  icon={faPen}
-                />
-              </button>
-              <br></br>
-            </div>
+              <div className="col-start-2 col-end-3">
+                <button
+                  onClick={handleShowForm}
+                  className="font-medium text-wht rounded-full border-2 border-grn px-2 text-md h-7 hover:bg-grn hover:bg-opacity-25"
+                >
+                  <span>Password</span>
+                  <FontAwesomeIcon
+                    className="cursor-pointer ml-2 hover:scale-[1.40] hover:text-gry text-wht"
+                    icon={faPen}
+                  />
+                </button>
+                <br></br>
+              </div>
             )}
           </div>
         </div>
         )
       </div>
       {user.id && isMe && (
-              <div className="col-start-2 col-end-3 self-start mt-8 mb-4 ml-16">
-                <button className="mt-4 text-md text-grn bg-wht rounded-full px-2 h-7 hover:bg-grn hover:text-wht hover:bg-opacity-25">
-                <span>Donate</span>
-              </button>
-            </div>
-            )}
+        <div className="col-start-2 col-end-3 self-start mt-8 mb-4 ml-16">
+          <button className="mt-4 text-md text-grn bg-wht rounded-full px-2 h-7 hover:bg-grn hover:text-wht hover:bg-opacity-25">
+            <span>Donate</span>
+          </button>
+        </div>
+      )}
 
       <h2 className="font-medium not-italic text-wht text-xl mt-10 ml-16">
         Populaires :
@@ -165,14 +161,11 @@ setShowForm(true);  }
             <h2 className="font-bold not-italic text-wht text-xl  ">...</h2>
           </div>
         )}
-         <ResetPasswordModal
-        showModal={showForm}
-        handleCloseDialog={handleCloseDialog}
-      />
+        <ResetPasswordModal
+          showModal={showForm}
+          handleCloseDialog={handleCloseDialog}
+        />
       </div>
-
-
-     
     </div>
   );
 };

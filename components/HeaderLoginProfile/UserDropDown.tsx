@@ -61,7 +61,9 @@ const UserDropDown = ({ user }) => {
             {({ active }) => (
               <div
                 className={`${
-                  active ? "bg-grn bg-opacity-25 text-md cursor-pointer" : "text-sm"
+                  active
+                    ? "bg-grn bg-opacity-25 text-md cursor-pointer"
+                    : "text-sm"
                 } group items-center px-2 py-2 font-semibold text-gryf`}
               >
                 Dashboard
@@ -74,7 +76,9 @@ const UserDropDown = ({ user }) => {
             {({ active }) => (
               <div
                 className={`${
-                  active ? "bg-grn bg-opacity-25 text-md cursor-pointer" : "text-sm"
+                  active
+                    ? "bg-grn bg-opacity-25 text-md cursor-pointer"
+                    : "text-sm"
                 } group items-center px-2 py-2 font-semibold text-gryf`}
               >
                 Settings
@@ -87,7 +91,9 @@ const UserDropDown = ({ user }) => {
             {({ active }) => (
               <div
                 className={`${
-                  active ? "bg-grn bg-opacity-25 text-md cursor-pointer" : "text-sm"
+                  active
+                    ? "bg-grn bg-opacity-25 text-md cursor-pointer"
+                    : "text-sm"
                 } group items-center px-2 py-2 font-semibold text-gryf`}
               >
                 Earnings

@@ -56,7 +56,7 @@ const UpdatePlayListForm = ({
 
             mutate(dataForm);
           }}
-          render={({ values, errors, handleChange, handleBlur}) => {
+          render={({ values, errors, handleChange, handleBlur }) => {
             return (
               <div className="bg-blk flex ml-6  w-full h-auto mr-10 mb-12 justify-center items-center  ">
                 <Form className="flex flex-col justify-center items-center rounded bg-wht w-auto h-auto">
@@ -74,7 +74,7 @@ const UpdatePlayListForm = ({
                       className="text-sm bg-drk w-full h-full text-wht pl-2 rounded placeholder-gry h-8"
                       value={values.title}
                     />
-                     {errors.title && (
+                    {errors.title && (
                       <div className="text-rd">{errors.title}</div>
                     )}
                   </div>

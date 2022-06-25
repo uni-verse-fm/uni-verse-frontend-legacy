@@ -27,7 +27,6 @@ const deleteRelease = (id: String) =>
 const getUserReleases = (id: string) =>
   axiosClient.get(`${releaseEndpoint}/user/${id}`).then((res) => res.data);
 
-
 const searchRelease = (text: string, { signal }) =>
   axiosClient
     .get(`${releaseEndpoint}/search?search=${text}`, {

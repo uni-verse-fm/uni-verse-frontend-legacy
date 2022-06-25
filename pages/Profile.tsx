@@ -31,10 +31,6 @@ function Profile() {
     })
   );
 
-
-
-
-
   const profileParams = (user: any, releases: any) => {
     return {
       user: {
@@ -58,7 +54,7 @@ function Profile() {
     </div>
   ) : (
     <div className="bg-drk w-full h-full ">
-    <ProfileScreen {...profileParams(userQuery.data, releasesQuery.data,  )} />
+      <ProfileScreen {...profileParams(userQuery.data, releasesQuery.data)} />
     </div>
   );
 }
