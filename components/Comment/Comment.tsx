@@ -11,7 +11,7 @@ import { deleteComment } from "../../api/CommentAPI";
 
 import { isoDateToDateHour } from "../../utils/dateUtils";
 
-const Comment = ({ comment, trackId }) => {
+const Comment = ({ comment }) => {
   const { data: session } = useSession();
 
   const [showForm, setShowForm] = useState(false);

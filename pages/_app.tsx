@@ -8,7 +8,7 @@ import Sidebar from "../components/Sidebar";
 import "../styles/globals.css";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { PlayerProvider } from "../common/providers/PlayerProvider";
+import { PlayerProvider } from "../common/contexts/PlayerContext";
 import { SessionProvider } from "next-auth/react";
 import { AxiosProvider } from "../common/contexts/AxiosContext";
 
@@ -21,7 +21,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [showPlaylistsModal, setShowPlaylistsModal] = useState(false);
   const [createPlaylistIndex, setCreatePlaylistIndex] = useState(false);
 
-  const handleShowPlaylistsModal = () => setShowPlaylistsModal(true);
+  const handleShowPlaylistsModal = () => {
+    setShowPlaylistsModal(true);
+  };
   const handleShowCreatePlaylistIndex = () => setCreatePlaylistIndex(true);
   const handleHidecreatePlaylistIndex = () => setCreatePlaylistIndex(false);
 
@@ -40,9 +42,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             <AxiosProvider adminRefreshToken={pageProps.adminRefreshToken}>
               <PlayerProvider>
                 <div
-                  className={`${
-                    showPlaylistsModal && "blur-md"
-                  } flex flex-col h-screen overflow-hidden`}
+                  className={"flex flex-col h-screen overflow-hidden"}
                 >
                   <div className="sticky top-0">
                     <Header />
@@ -53,7 +53,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                       <div className="flex flex-col h-full w-full ">
                         {/* Allows having that sweet rounded corner */}
                         <div className="w-full h-full rounded-tl-md overflow-hidden">
-                          <Component {...pageProps} />
+                          <Component {...pageProps } />
                         </div>
                       </div>
                     </div>

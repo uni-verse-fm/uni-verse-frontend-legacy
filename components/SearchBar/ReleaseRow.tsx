@@ -2,7 +2,7 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { imageSource } from "../../common/constants";
-import { PlayerContext } from "../../common/providers/PlayerProvider";
+import { PlayerContext } from "../../common/contexts/PlayerContext";
 import { Types } from "../../common/types";
 import Image from "next/image";
 

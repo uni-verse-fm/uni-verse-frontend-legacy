@@ -58,7 +58,7 @@ const Comments = ({ idTrack }) => {
               data.map((comment, index) => (
                 <div className="flex flex-col mb-3" key={index}>
                   <div key={index}>
-                    <Comment comment={comment} trackId={idTrack} />
+                    <Comment comment={comment} />
                   </div>
                 </div>
               ))

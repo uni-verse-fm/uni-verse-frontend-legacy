@@ -3,8 +3,8 @@ import axios from "axios";
 import { axiosAdminClient } from "../common/contexts/AxiosContext";
 import { Endoints } from "../common/types";
 
-export const refresh = () => undefined;
-export const adminLogin = async () =>
+const refresh = () => undefined;
+const adminLogin = async () =>
   await axios
     .post(`${BASE_API}${Endoints.Auth}/login`, {
       email: process.env.UNIVERSE_EMAIL,
@@ -18,8 +18,10 @@ export const adminLogin = async () =>
       adminRefreshToken: null,
       adminAccessToken: null,
     }));
-export const addView = async (trackId: string) => {
+const addView = async (trackId: string) => {
   await axiosAdminClient.post(`${Endoints.Views}`, {
     trackId,
   });
 };
+
+export { refresh, adminLogin, addView };

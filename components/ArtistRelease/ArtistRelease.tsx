@@ -16,7 +16,7 @@ import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
 import router from "next/router";
 import { useSession } from "next-auth/react";
 import DisplayTracksTable from "../DisplayTracksTable";
-import { PlayerContext } from "../../common/providers/PlayerProvider";
+import { PlayerContext } from "../../common/contexts/PlayerContext";
 
 import { NotificationType, Pages, Types } from "../../common/types";
 

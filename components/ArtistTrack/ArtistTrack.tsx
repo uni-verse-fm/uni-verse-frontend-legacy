@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
 import { getTrackById } from "../../api/TrackAPI";
 import { useQuery } from "react-query";
-import { PlayerContext } from "../../common/providers/PlayerProvider";
+import { PlayerContext } from "../../common/contexts/PlayerContext";
 import { Track, Types } from "../../common/types";
 import CreateComment from "../CreateComment";
 

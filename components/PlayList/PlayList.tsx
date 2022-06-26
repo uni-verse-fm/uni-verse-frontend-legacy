@@ -15,7 +15,7 @@ import { notify } from "../Notifications";
 import UpdatePlayListForm from "../UpdatePlaylistForm";
 import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
 import ShowMoreMenu from "./ShowMoreMenu";
-import { PlayerContext } from "../../common/providers/PlayerProvider";
+import { PlayerContext } from "../../common/contexts/PlayerContext";
 import { isoDateToDate } from "../../utils/dateUtils";
 import { NotificationType, Track, Types } from "../../common/types";
 

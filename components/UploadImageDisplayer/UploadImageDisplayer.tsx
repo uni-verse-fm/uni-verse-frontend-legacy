@@ -11,11 +11,12 @@ const UploadImageDisplayer = (props) => {
   };
 
   const handleImageChange = (event) => {
-    let image = event.target.files[0];
+    let image: File = event.target.files[0];
     if (image) {
+        console.debug(image)
       props?.field
         ? props.setFieldValue(props?.field?.name || "random", image)
-        : props.setFieldValue(null);
+        : props.setFieldValue(image);
       setImage(image);
     }
   };

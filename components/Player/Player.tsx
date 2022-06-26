@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
-import { PlayerContext } from "../../common/providers/PlayerProvider";
+import { PlayerContext } from "../../common/contexts/PlayerContext";
 import DefilingText from "./DefilingText";
 import ReaderTimeline from "./ReaderTimeline";
 
