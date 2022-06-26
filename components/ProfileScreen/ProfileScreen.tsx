@@ -91,7 +91,6 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
   });
 
   const handleImageUpload = (image: File) => {
-    console.debug(image);
     if (image.size > MAX_IMAGE_SIZE) {
       setIsValid(false);
     } else {

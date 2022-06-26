@@ -98,11 +98,8 @@ const UploadResourcePackForm = ({ me }) => {
         amount: Yup.number().test(
           "resourceFileSize",
           "The amount should be bigger than 0",
-          (value, ctx) => {
-            return ctx.parent.accessType === AccessType.Free
-              ? true
-              : value >= 1;
-          }
+          (value, ctx) =>
+            ctx.parent.accessType === AccessType.Free ? true : value >= 1
         ),
         resources: Yup.mixed()
           .test(

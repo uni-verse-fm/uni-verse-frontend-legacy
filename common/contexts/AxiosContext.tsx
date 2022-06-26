@@ -25,8 +25,7 @@ const AxiosContext = createContext({ axiosAuthClient, axiosClient });
 const { Provider } = AxiosContext;
 
 const adminRefreshAuthLogic =
-  (adminRefreshToken: string) => async (failedRequest: any) => {
-    return await axios
+  (adminRefreshToken: string) => async (failedRequest: any) => await axios
       .get(`${BASE_API}/auth/refresh`, {
         headers: {
           Authorization: adminRefreshToken,
@@ -46,11 +45,9 @@ const adminRefreshAuthLogic =
       })
       .catch((error: AxiosError) => {
         return Promise.reject(error);
-      });
-  };
+      })
 
-const refreshAuthLogic = (refreshToken) => async (failedRequest: any) => {
-  return await axios
+const refreshAuthLogic = (refreshToken) => async (failedRequest: any) => await axios
     .get(`${BASE_API}/auth/refresh`, {
       headers: {
         Authorization: refreshToken,
@@ -66,8 +63,7 @@ const refreshAuthLogic = (refreshToken) => async (failedRequest: any) => {
     })
     .catch((error: AxiosError) => {
       return Promise.reject(error);
-    });
-};
+    })
 
 const AxiosProvider = (props: any) => {
   const [adminRefreshToken, setAdminRefreshToken] = useState<string>();
