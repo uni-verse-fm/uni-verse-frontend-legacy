@@ -38,9 +38,7 @@ const Comments = ({ idTrack }) => {
     <div className="Global bg-grey w-full h-full flex flex-col ml-10 ">
       <div>
         <div className="flex flex-row mb-3">
-          <h1 className="text-xl font-bold not-italic text-wht">
-            Commentaires
-          </h1>
+          <h1 className="text-xl font-bold not-italic text-wht">Comments</h1>
           <FontAwesomeIcon
             className="cursor-pointer text-xl font-bold  ml-5 text-wht"
             icon={faComments}

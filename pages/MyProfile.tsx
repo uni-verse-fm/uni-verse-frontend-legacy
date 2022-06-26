@@ -18,11 +18,11 @@ function MyProfile(props) {
   );
 
   return status === "error" ? (
-    <div className="flex justify-center items-center mt-10">
+    <div className="flex justify-center items-center bg-drk w-full h-full">
       <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
     </div>
   ) : status === "loading" ? (
-    <div className="flex justify-center items-center mt-10">
+    <div className="flex justify-center items-center  bg-drk w-full h-full">
       <Spinner />
     </div>
   ) : session.user ? (
@@ -47,7 +47,6 @@ export async function getServerSideProps(context: GetSessionParams) {
   const adminRefreshToken = await adminLogin().then(
     (response) => response.adminRefreshToken
   );
-
   if (!session) {
     return {
       redirect: {

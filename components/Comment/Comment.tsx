@@ -16,8 +16,8 @@ const Comment = ({ comment, trackId }) => {
 
   const [showForm, setShowForm] = useState(false);
   const handleShowForm = () => setShowForm(true);
-
   const handleCloseDialog = () => setShowForm(false);
+
   const handleConfirmDelete = () => {
     mutate(comment._id);
     handleCloseDialog();
@@ -46,7 +46,7 @@ const Comment = ({ comment, trackId }) => {
         </div>
         {session && (
           <div>
-            {session.userId === comment.owner && (
+            {(session.user as any).id === comment.owner && (
               <FontAwesomeIcon
                 className="cursor-pointer ml-5 text-wht hover:scale-[1.40] hover:text-rd"
                 icon={faTrashCan}
@@ -71,7 +71,7 @@ const Comment = ({ comment, trackId }) => {
         showModal={showForm}
         handleCloseDialog={handleCloseDialog}
         handleConfirmDelete={handleConfirmDelete}
-        msg="Delete Playlist"
+        msg="Delete Comment"
       />
     </div>
   );

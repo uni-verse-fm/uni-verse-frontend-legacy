@@ -73,7 +73,7 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
         )}
         {session && (
           <div>
-            {session.userId === playlist.owner?._id && (
+            {(session.user as any).id === playlist.owner?._id && (
               <Menu.Item>
                 {({ active }) => (
                   <div
