@@ -30,10 +30,7 @@ const UploadResourcePackForm = ({ me }) => {
   const { mutate } = useMutation("uploadResourcePack", createResourcePack, {
     onError: (error: AxiosError) => {
       const errorMessage: UniVerseError = error.response.data;
-      notify(
-        `Can't upload resource-pack`,
-        NotificationType.ERROR
-      );
+      notify(`Can't upload resource-pack`, NotificationType.ERROR);
       router.push({
         pathname: `/${Pages.Error}`,
         query: {

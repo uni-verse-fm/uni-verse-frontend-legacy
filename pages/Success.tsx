@@ -15,7 +15,7 @@ function Success() {
             icon={faCircleCheck}
             className="text-grn fa-2xl pr-2"
           />
-          { message || "The operation was done successfully"}
+          {message || "The operation was done successfully"}
         </div>
       </div>
     </div>

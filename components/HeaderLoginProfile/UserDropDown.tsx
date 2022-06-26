@@ -13,7 +13,10 @@ import { NotificationType, Pages } from "../../common/types";
 const UserDropDown = ({ user }) => {
   const { mutate } = useMutation("logout", logout, {
     onError: () => {
-      notify("Your session will expire one we are connected", NotificationType.ERROR);
+      notify(
+        "Your session will expire one we are connected",
+        NotificationType.ERROR
+      );
     },
     onSuccess: (res) => {
       if (res.status !== 200) {

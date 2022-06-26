@@ -24,7 +24,7 @@ function MyProfile(props) {
 
     {
       enabled: Boolean(session),
-      initialData: { ...session.user}
+      initialData: { ...session.user },
     }
   );
 

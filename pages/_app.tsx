@@ -41,9 +41,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           <SessionProvider session={session}>
             <AxiosProvider adminRefreshToken={pageProps.adminRefreshToken}>
               <PlayerProvider>
-                <div
-                  className={"flex flex-col h-screen overflow-hidden"}
-                >
+                <div className={"flex flex-col h-screen overflow-hidden"}>
                   <div className="sticky top-0">
                     <Header />
                   </div>
@@ -53,7 +51,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                       <div className="flex flex-col h-full w-full ">
                         {/* Allows having that sweet rounded corner */}
                         <div className="w-full h-full rounded-tl-md overflow-hidden">
-                          <Component {...pageProps } />
+                          <Component {...pageProps} />
                         </div>
                       </div>
                     </div>
