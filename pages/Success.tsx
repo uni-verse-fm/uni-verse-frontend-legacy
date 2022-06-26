@@ -1,11 +1,9 @@
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import router from "next/router";
+import { useRouter } from "next/router";
 
 function Success() {
-  const {
-    query: { message },
-  } = router;
+  const { query } = useRouter();
 
   return (
     <div className="bg-drk flex items-center justify-center h-screen mx-2 my-2 overflow-hidden ">
@@ -15,7 +13,7 @@ function Success() {
             icon={faCircleCheck}
             className="text-grn fa-2xl pr-2"
           />
-          {message || "The operation was done successfully"}
+          {query.message || "The operation was done successfully"}
         </div>
       </div>
     </div>
