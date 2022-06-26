@@ -1,6 +1,7 @@
 import { faFileAudio, faFileImage } from "@fortawesome/free-solid-svg-icons";
 import { AxiosError } from "axios";
 import { Field, Form, Formik } from "formik";
+import router from "next/router";
 import { useMutation } from "react-query";
 import * as Yup from "yup";
 import { createRelease } from "../../api/ReleaseAPI";
@@ -10,7 +11,7 @@ import {
   MAX_IMAGE_SIZE,
   Messages,
 } from "../../common/constants";
-import { NotificationType, UniVerseError } from "../../common/types";
+import { NotificationType, Pages, UniVerseError } from "../../common/types";
 import { notify } from "../Notifications";
 import UploadImageDisplayer from "../UploadImageDisplayer";
 import UploadTracksListDisplayer from "../UploadTracksListDisplayer/UploadTracksListDisplayer";
@@ -19,10 +20,14 @@ const UploadReleaseForm = ({ myId }) => {
   const { mutate } = useMutation("uploadRelease", createRelease, {
     onError: (error: AxiosError) => {
       const errorMessage: UniVerseError = error.response.data;
-      notify(
-        `Can't upload release: ${errorMessage.message}`,
-        NotificationType.ERROR
-      );
+      notify(`Can't upload release`, NotificationType.ERROR);
+      router.push({
+        pathname: `/${Pages.Error}`,
+        query: {
+          message: "Resource-pack upload failed",
+          error: errorMessage.message,
+        },
+      });
     },
     onSuccess: (res) => {
       if (res.status !== 201) {
@@ -30,6 +35,10 @@ const UploadReleaseForm = ({ myId }) => {
       } else {
         const message = "Release uploader";
         notify(message, NotificationType.SUCCESS);
+        router.push({
+          pathname: `/${Pages.Success}`,
+          query: { message: "Release uploaded successfuly" },
+        });
       }
     },
   });

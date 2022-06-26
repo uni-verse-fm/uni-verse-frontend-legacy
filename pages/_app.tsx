@@ -8,7 +8,7 @@ import Sidebar from "../components/Sidebar";
 import "../styles/globals.css";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { PlayerProvider } from "../common/providers/PlayerProvider";
+import { PlayerProvider } from "../common/contexts/PlayerContext";
 import { SessionProvider } from "next-auth/react";
 import { AxiosProvider } from "../common/contexts/AxiosContext";
 
@@ -21,7 +21,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [showPlaylistsModal, setShowPlaylistsModal] = useState(false);
   const [createPlaylistIndex, setCreatePlaylistIndex] = useState(false);
 
-  const handleShowPlaylistsModal = () => setShowPlaylistsModal(true);
+  const handleShowPlaylistsModal = () => {
+    setShowPlaylistsModal(true);
+  };
   const handleShowCreatePlaylistIndex = () => setCreatePlaylistIndex(true);
   const handleHidecreatePlaylistIndex = () => setCreatePlaylistIndex(false);
 
@@ -37,13 +39,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <SessionProvider session={session}>
-            <AxiosProvider>
+            <AxiosProvider adminRefreshToken={pageProps.adminRefreshToken}>
               <PlayerProvider>
-                <div
-                  className={`${
-                    showPlaylistsModal && "blur-md"
-                  } flex flex-col h-screen overflow-hidden`}
-                >
+                <div className={"flex flex-col h-screen overflow-hidden"}>
                   <div className="sticky top-0">
                     <Header />
                   </div>

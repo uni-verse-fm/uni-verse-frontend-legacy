@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import { string } from "yup/lib/locale";
 
 export interface IUsersList {
@@ -140,6 +141,7 @@ export interface IRegister {
 
 export interface IProfileScreen {
   user: {
+    profilePicture?: string;
     id: string;
     username: string;
     email: string;
@@ -163,7 +165,12 @@ export type IReaderTimeLine = {
   onSlide: (value: number) => any;
 };
 
-export type Track = { fileName: string; author: any; id?: string } & ITrack;
+export type Track = {
+  fileName: string;
+  author: any;
+  id?: string;
+  _id?: string;
+} & ITrack;
 
 export const enum SourceType {
   Playlist,
@@ -213,6 +220,8 @@ export enum Pages {
   UserRelease = "UserRelease",
   Track = "Track",
   MyProfile = "MyProfile",
+  Success = "Success",
+  Error = "Error",
 }
 
 export enum Endoints {
@@ -224,6 +233,7 @@ export enum Endoints {
   Comments = "/comments",
   Payments = "/payments",
   Tracks = "/tracks",
+  Views = "/views",
 }
 
 export type ActionMap<M extends { [index: string]: any }> = {
@@ -242,14 +252,71 @@ export enum Types {
   ReleasePlay = "PLAY_RELEASE",
   TrackPlay = "PLAY_TRACK",
   RandomPlay = "PLAY_RANDOM",
+  AddView = "ADD_VIEW",
 }
 
 export type PlayerType = {
-  className?: string;
-  tracks: Track[];
-  trackIndex?: number;
+  position: number;
+  duration: number;
+  isLoaded: boolean;
+  isPlaying: boolean;
 };
 
-export const trackSource = "http://localhost:9000/tracks/";
+export type ReducerPlayerType = {
+  tracks: Track[];
+  trackIndex?: number;
+  className?: string;
+};
 
-export const imageSource = "http://localhost:9000/images/";
+export type TrackInfo = {
+  title: string;
+  author: string;
+};
+
+export type InitialPlayerType = {
+  tracks: Track[];
+  trackIndex?: number;
+  className?: string;
+  playerState: PlayerType;
+  trackInfo: TrackInfo;
+  nextTrack: () => void;
+  previousTrack: () => void;
+  hasNext: () => boolean;
+  hasPrevious: () => boolean;
+  onPlayPauseClick: () => void;
+  onSlide: (position: number) => void;
+};
+
+type PlayerPayload = {
+  [Types.PlaylistPlay]: {
+    tracks: Track[];
+    trackIndex: number;
+  };
+  [Types.ReleasePlay]: {
+    tracks: Track[];
+    trackIndex: number;
+  };
+  [Types.TrackPlay]: {
+    track: Track;
+  };
+  [Types.RandomPlay]: {
+    tracks: Track[];
+  };
+};
+
+export interface Props {
+  adminRefreshToken: string;
+}
+
+export type PlayerActions =
+  ActionMap<PlayerPayload>[keyof ActionMap<PlayerPayload>];
+
+export interface IResourceInfo {
+  contentId: string;
+  typeOfContent: ModelType;
+}
+
+export enum ModelType {
+  Track = "Track",
+  Resource = "Resource",
+}

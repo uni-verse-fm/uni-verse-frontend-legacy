@@ -1,5 +1,5 @@
 import React from "react";
-import { imageSource } from "../../common/types";
+import { imageSource } from "../../common/constants";
 
 const ReleaseCard = (props) => {
   return (

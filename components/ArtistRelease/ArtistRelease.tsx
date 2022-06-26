@@ -4,7 +4,7 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { getReleaseById, deleteRelease } from "../../api/ReleaseAPI";
 import { useQuery } from "react-query";
 import Spinner from "../Spinner";
-import { Messages } from "../../common/constants";
+import { imageSource, Messages } from "../../common/constants";
 import Image from "next/image";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
@@ -16,15 +16,9 @@ import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
 import router from "next/router";
 import { useSession } from "next-auth/react";
 import DisplayTracksTable from "../DisplayTracksTable";
-import { PlayerContext } from "../../common/providers/PlayerProvider";
+import { PlayerContext } from "../../common/contexts/PlayerContext";
 
-import {
-  imageSource,
-  NotificationType,
-  Pages,
-  Types,
-} from "../../common/types";
-import { isoDateToDate } from "../../utils/dateUtils";
+import { NotificationType, Pages, Types } from "../../common/types";
 
 const ArtistRelease = (props) => {
   const { data: session } = useSession();
@@ -44,8 +38,8 @@ const ArtistRelease = (props) => {
   };
 
   const { mutate, isLoading } = useMutation("deleteRelease", deleteRelease, {
-    onError: (error) => {
-      notify("there was an error" + error, NotificationType.ERROR);
+    onError: () => {
+      notify("Can not delete release", NotificationType.ERROR);
     },
     onSuccess: (res) => {
       if (res.status !== 200) {
@@ -63,7 +57,6 @@ const ArtistRelease = (props) => {
       type: Types.ReleasePlay,
       payload: {
         tracks: release.tracks || [],
-        className: "mt-auto",
         trackIndex: 0,
       },
     });

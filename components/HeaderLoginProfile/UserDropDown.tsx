@@ -12,8 +12,11 @@ import { NotificationType, Pages } from "../../common/types";
 
 const UserDropDown = ({ user }) => {
   const { mutate } = useMutation("logout", logout, {
-    onError: (error) => {
-      notify("Your session will expire" + error, NotificationType.ERROR);
+    onError: () => {
+      notify(
+        "Your session will expire one we are connected",
+        NotificationType.ERROR
+      );
     },
     onSuccess: (res) => {
       if (res.status !== 200) {
@@ -56,7 +59,7 @@ const UserDropDown = ({ user }) => {
             </div>
           </Menu.Item>
         )}
-        <Link href={`/${Pages.MyProfile}`}>
+        <Link href={`/${Pages.MyProfile}`} passHref>
           <Menu.Item>
             {({ active }) => (
               <div
@@ -71,7 +74,7 @@ const UserDropDown = ({ user }) => {
             )}
           </Menu.Item>
         </Link>
-        <Link href={`/${Pages.MyProfile}`}>
+        <Link href={`/${Pages.MyProfile}`} passHref>
           <Menu.Item>
             {({ active }) => (
               <div
@@ -86,7 +89,7 @@ const UserDropDown = ({ user }) => {
             )}
           </Menu.Item>
         </Link>
-        <Link href={`/${Pages.Profile}`}>
+        <Link href={`/${Pages.Profile}`} passHref>
           <Menu.Item>
             {({ active }) => (
               <div

@@ -11,9 +11,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import router from "next/router";
 
 const CreateComment = ({ idContent }) => {
-  const { mutate, isLoading } = useMutation("createComment", createComment, {
-    onError: (error) => {
-      notify("there was an error" + error, NotificationType.ERROR);
+  const { mutate } = useMutation("createComment", createComment, {
+    onError: () => {
+      notify("Can not create comment", NotificationType.ERROR);
     },
     onSuccess: (res) => {
       if (res.status !== 201) {
@@ -53,9 +53,6 @@ const CreateComment = ({ idContent }) => {
             content: value.description,
             typeOfContent: "Track",
           };
-
-          console.log("dataComment");
-          console.log(dataComment);
 
           mutate(dataComment);
         }}

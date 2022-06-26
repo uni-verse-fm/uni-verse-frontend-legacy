@@ -15,7 +15,7 @@ import { notify } from "../Notifications";
 import UpdatePlayListForm from "../UpdatePlaylistForm";
 import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
 import ShowMoreMenu from "./ShowMoreMenu";
-import { PlayerContext } from "../../common/providers/PlayerProvider";
+import { PlayerContext } from "../../common/contexts/PlayerContext";
 import { isoDateToDate } from "../../utils/dateUtils";
 import { NotificationType, Track, Types } from "../../common/types";
 
@@ -40,8 +40,8 @@ const Playlist = (props) => {
   };
 
   const { mutate } = useMutation("deletePlaylist", deletePlaylist, {
-    onError: (error) => {
-      notify("there was an error" + error, NotificationType.ERROR);
+    onError: () => {
+      notify("Can not delete playlist", NotificationType.ERROR);
     },
     onSuccess: (res) => {
       if (res.status !== 200) {
@@ -57,7 +57,6 @@ const Playlist = (props) => {
     dispatch({
       type: Types.TrackPlay,
       payload: {
-        className: "mt-auto",
         track: track,
       },
     });
@@ -68,7 +67,6 @@ const Playlist = (props) => {
       type: Types.ReleasePlay,
       payload: {
         tracks: playlist.tracks || [],
-        className: "mt-auto",
         trackIndex: 0,
       },
     });
@@ -103,7 +101,7 @@ const Playlist = (props) => {
                   <h2 className="text-grn ">
                     {data.title}
                     <FontAwesomeIcon
-                      className="cursor-pointer ml-5 hover:scale-[1.40]  text-wht hover:text-grn"
+                      className="cursor-pointer ml-5 hover:scale-[1.40] text-wht hover:text-grn"
                       icon={faPlay}
                       onClick={onClickPlaylist(data)}
                     />

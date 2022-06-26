@@ -1,5 +1,5 @@
 import { axiosClient } from "../common/contexts/AxiosContext";
-import { Endoints } from "../common/types";
+import { Endoints, IResourceInfo } from "../common/types";
 
 const commentEndpoint = Endoints.Comments;
 
@@ -9,6 +9,11 @@ const getComments = () => axiosClient.get(commentEndpoint);
 
 const getCommentByTitle = (title) =>
   axiosClient.get(`${commentEndpoint}`, { params: { title } });
+
+const getResourceComments = (resourceInfo: IResourceInfo) =>
+  axiosClient.get(
+    `${commentEndpoint}/${resourceInfo.typeOfContent}/${resourceInfo.contentId}`
+  );
 
 const getCommentById = (id) => axiosClient.get(`${commentEndpoint}/${id}`);
 
@@ -24,4 +29,5 @@ export {
   getCommentById,
   updateComment,
   deleteComment,
+  getResourceComments,
 };

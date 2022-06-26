@@ -1,14 +1,9 @@
 import React, { useContext } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
 import { getTrackById } from "../../api/TrackAPI";
 import { useQuery } from "react-query";
-import Spinner from "../Spinner";
-import { Messages } from "../../common/constants";
-import { PlayerContext } from "../../common/providers/PlayerProvider";
+import { PlayerContext } from "../../common/contexts/PlayerContext";
 import { Track, Types } from "../../common/types";
-import { createComment } from "../../api/CommentAPI";
 import CreateComment from "../CreateComment";
 
 const ArtistTrack = (props) => {
@@ -24,7 +19,6 @@ const ArtistTrack = (props) => {
     dispatch({
       type: Types.TrackPlay,
       payload: {
-        className: "mt-auto",
         track: track,
       },
     });
