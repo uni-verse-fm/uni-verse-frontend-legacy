@@ -147,10 +147,18 @@ export interface IProfileScreen {
     image?: string;
   };
   releases: any;
+  resourcesPack: any;
   isMe?: boolean;
 }
 
 export interface ICreateComment {
+  contentId: string;
+  isPositive: Boolean;
+  content: string;
+  typeOfContent: string;
+}
+
+export interface IUpdateCommentData {
   contentId: string;
   isPositive: Boolean;
   content: string;

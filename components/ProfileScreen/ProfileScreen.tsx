@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Extensions, Messages } from "../../common/constants";
 import { IProfileScreen } from "../../common/types";
 import ArtistReleases from "../ArtistReleases";
+import ResourcesPacks from "../ResourcesPacks";
 import DisplayTracksTable from "../DisplayTracksTable";
 import { notify } from "../Notifications";
 import Playlists from "../PLaylists";
@@ -17,16 +18,13 @@ const imageProps = {
   fileExtensions: Extensions.image,
   setFieldValue: () => notify(Messages.NOT_IMPLEMENTED),
 };
-
-const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
+const ProfileScreen = ({ user, releases, isMe, resourcesPack }: IProfileScreen) => {
   const [showForm, setShowForm] = useState(false);
   const handleShowForm = () => {
     console.log("setShowForm à true");
-
     setShowForm(true);
   };
   const handleCloseDialog = () => setShowForm(false);
-
   {
     /** A remplacer par getPopularTracks */
   }
@@ -153,12 +151,14 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
           <Playlists className="w-full" userId={user.id} modalDisplay="false" />
         </div>
 
-        {user.accountId && (
+        {user.id && (
           <div>
             <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-10">
               RessoucesPacks :
             </h2>
-            <h2 className="font-bold not-italic text-wht text-xl  ">...</h2>
+            <div className="-ml-4 ">
+          <ResourcesPacks data={resourcesPack} />
+        </div>
           </div>
         )}
         <ResetPasswordModal

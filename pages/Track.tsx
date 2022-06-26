@@ -5,8 +5,11 @@ import Comments from "../components/Comments";
 
 function Track() {
   const router = useRouter();
+
   const {
-    query: { id },
+    query: { id,track},
+    
+   
   } = router;
 
   return (

@@ -17,7 +17,7 @@ const ShowMoreMenu = ({ track }) => {
     <Menu as="div" className="text-left h-full w-auto">
       <Menu.Button className="h-full w-auto p-2">
         <FontAwesomeIcon
-          className=" cursor-pointer hover:scale-[1.40] hover:text-grn text-gry"
+          className=" cursor-pointer hover:scale-[1.40] hover:text-grn text-grn"
           icon={faEllipsis}
         />
       </Menu.Button>
