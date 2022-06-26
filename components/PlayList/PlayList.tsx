@@ -40,8 +40,8 @@ const Playlist = (props) => {
   };
 
   const { mutate } = useMutation("deletePlaylist", deletePlaylist, {
-    onError: (error) => {
-      notify("there was an error" + error, NotificationType.ERROR);
+    onError: () => {
+      notify("Can not delete playlist", NotificationType.ERROR);
     },
     onSuccess: (res) => {
       if (res.status !== 200) {

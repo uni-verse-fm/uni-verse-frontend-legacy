@@ -36,9 +36,9 @@ const MenuSelectPlayList = ({ track }) => {
     }
   );
 
-  const { mutate, isLoading } = useMutation("updatePlaylist", updatePlaylist, {
-    onError: (error) => {
-      notify("there was an error" + error, NotificationType.ERROR);
+  const { mutate } = useMutation("updatePlaylist", updatePlaylist, {
+    onError: () => {
+      notify("Can not add track to playlist", NotificationType.ERROR);
     },
     onSuccess: (res) => {
       if (res.status !== 200) {

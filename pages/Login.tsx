@@ -19,7 +19,7 @@ export default function Login() {
       callbackUrl: `${window.location.origin}`,
     });
     if (res?.error) {
-      notify(`Can't login: ${res.error}`, NotificationType.ERROR);
+      notify(`Can't login`, NotificationType.ERROR);
     }
 
     if (res?.ok) {

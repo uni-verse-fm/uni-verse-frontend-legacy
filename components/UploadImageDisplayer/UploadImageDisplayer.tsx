@@ -5,13 +5,17 @@ const UploadImageDisplayer = (props) => {
 
   const handleDeleteFile = () => {
     setImage(null);
-    props.setFieldValue(null);
+    props?.field
+      ? props.setFieldValue(props?.field?.name || "random", null)
+      : props.setFieldValue(null);
   };
 
   const handleImageChange = (event) => {
     let image = event.target.files[0];
     if (image) {
-      props.setFieldValue(image);
+      props?.field
+        ? props.setFieldValue(props?.field?.name || "random", image)
+        : props.setFieldValue(null);
       setImage(image);
     }
   };

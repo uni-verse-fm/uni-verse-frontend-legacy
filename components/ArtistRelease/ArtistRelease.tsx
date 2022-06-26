@@ -38,8 +38,8 @@ const ArtistRelease = (props) => {
   };
 
   const { mutate, isLoading } = useMutation("deleteRelease", deleteRelease, {
-    onError: (error) => {
-      notify("there was an error" + error, NotificationType.ERROR);
+    onError: () => {
+      notify("Can not delete release", NotificationType.ERROR);
     },
     onSuccess: (res) => {
       if (res.status !== 200) {

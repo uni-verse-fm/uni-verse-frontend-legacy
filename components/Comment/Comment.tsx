@@ -24,8 +24,8 @@ const Comment = ({ comment, trackId }) => {
   };
 
   const { mutate } = useMutation("deleteComment", deleteComment, {
-    onError: (error) => {
-      notify("there was an error" + error, NotificationType.ERROR);
+    onError: () => {
+      notify("Can not delete comment", NotificationType.ERROR);
     },
     onSuccess: (res) => {
       if (res.status !== 200) {

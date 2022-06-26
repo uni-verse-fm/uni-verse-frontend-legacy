@@ -208,17 +208,20 @@ export interface IUpdatePlaylistTrack {
   action: string;
 }
 
+
 export enum Pages {
-  Home = " ",
-  UploadRelease = "UploadRelease",
-  UploadResourcePack = "UploadResourcePack",
-  Login = "Login",
-  SignUp = "SignUp",
-  Profile = "Profile",
-  UserPlaylist = "UserPlaylist",
-  UserRelease = "UserRelease",
-  Track = "Track",
-  MyProfile = "MyProfile",
+    Home = " ",
+    UploadRelease = "UploadRelease",
+    UploadResourcePack = "UploadResourcePack",
+    Login = "Login",
+    SignUp = "SignUp",
+    Profile = "Profile",
+    UserPlaylist = "UserPlaylist",
+    UserRelease = "UserRelease",
+    Track = "Track",
+    MyProfile = "MyProfile",
+    Success = "Success",
+    Error = "Error"
 }
 
 export enum Endoints {

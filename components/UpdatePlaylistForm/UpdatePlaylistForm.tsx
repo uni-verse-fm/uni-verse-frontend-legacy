@@ -13,8 +13,8 @@ const UpdatePlayListForm = ({
   dataUpdate,
 }) => {
   const { mutate } = useMutation("updatePlaylist", updatePlaylist, {
-    onError: (error) => {
-      notify("there was an error" + error, NotificationType.ERROR);
+    onError: () => {
+      notify("Can not update", NotificationType.ERROR);
     },
     onSuccess: (res) => {
       if (res.status !== 200) {

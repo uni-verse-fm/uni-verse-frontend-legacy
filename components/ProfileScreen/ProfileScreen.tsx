@@ -77,7 +77,7 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
     onError: (error: AxiosError) => {
       const errorMessage: UniVerseError = error.response.data;
       notify(
-        `Can't upload release: ${errorMessage.message}`,
+        `Can't upload profile picture`,
         NotificationType.ERROR
       );
     },
@@ -85,7 +85,7 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
       if (res.status !== 201) {
         notify(res.data.message, NotificationType.ERROR);
       } else {
-        const message = "Release uploader";
+        const message = "Profile picture uploaded";
         notify(message, NotificationType.SUCCESS);
       }
     },

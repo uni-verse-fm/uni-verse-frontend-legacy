@@ -17,14 +17,14 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
   const { data: session } = useSession();
 
   const { mutate } = useMutation("updatePlaylist", updatePlaylist, {
-    onError: (error) => {
-      notify("there was an error" + error, NotificationType.ERROR);
+    onError: () => {
+      notify("Can not remove track from playlist", NotificationType.ERROR);
     },
     onSuccess: (res) => {
       if (res.status !== 200) {
         notify(res.data.message, NotificationType.ERROR);
       } else {
-        const message = "Track removed to your plalist successfully";
+        const message = "Track removed from your plalist successfully";
         notify(message, NotificationType.SUCCESS);
         refresh();
       }
