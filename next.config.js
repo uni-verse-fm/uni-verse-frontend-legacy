@@ -4,7 +4,7 @@ const nextConfig = {
   images: {
     domains: [
       "localhost",
-      process.env.NEXT_PUBLIC_MINIO_URL,
+      `${process.env.NEXT_PUBLIC_MINIO_URL}`,
       `${process.env.NEXT_PUBLIC_MINIO_URL}/images`,
       `${process.env.NEXT_PUBLIC_MINIO_URL}/tracks`,
     ],
