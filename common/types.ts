@@ -171,6 +171,7 @@ export type Track = {
     title: string;
   };
   views?: number;
+  comments?: number;
   id?: string;
   _id?: string;
 } & ITrack;
@@ -325,6 +326,12 @@ export enum ModelType {
 }
 
 export interface HotViews {
+  limit: number;
+  startDate: ISODateString;
+  endDate: ISODateString;
+}
+
+export interface HotComments {
   limit: number;
   startDate: ISODateString;
   endDate: ISODateString;

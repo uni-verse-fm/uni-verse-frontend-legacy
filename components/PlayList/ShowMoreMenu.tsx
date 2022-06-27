@@ -41,7 +41,7 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
   const onClickDisplayTrack = () => {
     router.push({
       pathname: `/${Pages.Track}`,
-      query: { id: track._id },
+      query: { track: JSON.stringify(track) },
     });
   };
   const refresh = () => {
@@ -49,7 +49,7 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
   };
 
   return (
-    <Menu as="div" className="text-left h-full w-auto">
+    <Menu as="div" className="text-left h-full w-auto" >
       <Menu.Button className="h-full w-auto p-2">
         <FontAwesomeIcon
           className="cursor-pointer hover:scale-[1.40] hover:text-grn text-gry"

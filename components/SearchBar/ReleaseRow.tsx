@@ -1,4 +1,4 @@
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { imageSource } from "../../common/constants";
@@ -14,7 +14,17 @@ const countReleaseViews = (tracks: any[]) => {
   return Math.floor(totalViews / length);
 };
 
-const ReleaseRow = ({ release, onClickDisplayRelease }) => {
+interface IReleaseRow {
+  release: any;
+  onClickDisplayRelease: () => void;
+  disableHover?: boolean;
+}
+
+const ReleaseRow = ({
+  release,
+  onClickDisplayRelease,
+  disableHover,
+}: IReleaseRow) => {
   const { dispatch } = useContext(PlayerContext);
 
   const onClickRelease = (release) => () => {
@@ -28,25 +38,41 @@ const ReleaseRow = ({ release, onClickDisplayRelease }) => {
   };
 
   return (
-    <div className="hover:bg-grn cursor-pointer hover:bg-opacity-10 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
-      <div
-        onClick={onClickDisplayRelease(release)}
-        className="flex items-center grow"
-      >
-        <Image
+    <div className={`${
+        !disableHover && "hover:text-lg"
+      } hover:bg-grn hover:bg-opacity-10 rounded-lg text-md group items-center p-2 font-semibold text-gryf flex items-center justify-between`}>
+      <div onClick={onClickDisplayRelease} className="flex items-center grow">
+        <img
           src={
             release.coverName ? imageSource + release.coverName : "/profile.jpg"
           }
-          className="rounded-lg m-5"
-          width={70}
-          height={70}
+          className="rounded-lg"
+          width={80}
+          height={80}
           alt="Release"
         />
         <div className="m-3">
-          <div> {`${release.title} by ${release.author?.username}`}</div>
-          <div className="text-grn text-sm">
-            {countReleaseViews(release.tracks)} str
+          <div className="text-sedrk text-md">
+            {`${release.title} by ${release.author?.username}`}
           </div>
+          {!release.views && (
+            <div className="text-grn text-sm">
+              {countReleaseViews(release.tracks)}
+              <FontAwesomeIcon
+                className="cursor-pointer mx-2 hover:scale-[1.40] text-grnfa-sm fa-xs"
+                icon={faEye}
+              />
+            </div>
+          )}
+          {!!release.views && (
+            <div className="text-grn text-sm">
+              {release.views / (release.tracks?.length || 1)}
+              <FontAwesomeIcon
+                className="cursor-pointer mx-2 hover:scale-[1.40] text-grnfa-sm fa-xs"
+                icon={faEye}
+              />
+            </div>
+          )}
         </div>
       </div>
 

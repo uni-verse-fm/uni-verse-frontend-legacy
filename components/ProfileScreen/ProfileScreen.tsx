@@ -132,7 +132,7 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
           {user.id && isMe && (
             <button
               onClick={handleShowForm}
-              className="font-medium text-wht rounded-full border-2 border-grn px-2 text-md h-7 hover:bg-grn hover:bg-opacity-25"
+              className="font-medium text-wht text-md rounded-full border-2 border-grn px-2 h-7 hover:bg-grn hover:bg-opacity-25"
             >
               <span>Password</span>
               <FontAwesomeIcon

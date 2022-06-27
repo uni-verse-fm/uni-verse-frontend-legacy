@@ -1,5 +1,5 @@
 import { axiosClient } from "../common/contexts/AxiosContext";
-import { Endoints, IResourceInfo } from "../common/types";
+import { Endoints, HotComments, IResourceInfo } from "../common/types";
 
 const commentEndpoint = Endoints.Comments;
 
@@ -22,6 +22,13 @@ const updateComment = (id, data) =>
 
 const deleteComment = (id) => axiosClient.delete(`${commentEndpoint}/${id}`);
 
+const hotCommentedTracks = (params: HotComments) => () =>
+  axiosClient
+    .get(
+      `${commentEndpoint}/tracks/${params.limit}/${params.startDate}/${params.endDate}`
+    )
+    .then((response) => response.data);
+
 export {
   createComment,
   getComments,
@@ -30,4 +37,5 @@ export {
   updateComment,
   deleteComment,
   getResourceComments,
+  hotCommentedTracks
 };

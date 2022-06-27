@@ -33,7 +33,7 @@ const UserDropDown = ({ user }) => {
   };
 
   return (
-    <Menu as="div" className="text-left h-full w-auto">
+    <Menu as="div" className="text-left h-full w-auto z-50">
       <Menu.Button className="h-full w-auto p-2">
         {user?.profilePicture ? (
           <Image
@@ -51,10 +51,10 @@ const UserDropDown = ({ user }) => {
         )}
       </Menu.Button>
 
-      <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+      <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gry/60 backdrop-blur-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
         {user && (
           <Menu.Item>
-            <div className="group items-center rounded-md px-2 py-2 text-md">
+            <div className="group items-center rounded-md px-2 py-2 text-md text-grn">
               <div>{user.username}</div>
               <div className="font-medium truncate">{user.email}</div>
             </div>
