@@ -6,7 +6,7 @@ import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { logout } from "../../api/AuthAPI";
 import { notify } from "../Notifications";
 import { useMutation } from "react-query";
-import { Messages } from "../../common/constants";
+import { imageSource, Messages } from "../../common/constants";
 import { signOut } from "next-auth/react";
 import { NotificationType, Pages } from "../../common/types";
 
@@ -33,14 +33,15 @@ const UserDropDown = ({ user }) => {
   };
 
   return (
-    <Menu as="div" className="text-left h-full w-auto">
+    <Menu as="div" className="text-left h-full w-auto z-50">
       <Menu.Button className="h-full w-auto p-2">
-        {user?.avatar ? (
+        {user?.profilePicture ? (
           <Image
-            src={user.avatar}
+            src={imageSource + user.profilePicture}
             alt="Uni-verse user avatar"
-            width={60}
-            height={60}
+            className="rounded-full"
+            width={42}
+            height={42}
           />
         ) : (
           <FontAwesomeIcon
@@ -50,10 +51,10 @@ const UserDropDown = ({ user }) => {
         )}
       </Menu.Button>
 
-      <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+      <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gry/60 backdrop-blur-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
         {user && (
           <Menu.Item>
-            <div className="group items-center rounded-md px-2 py-2 text-md">
+            <div className="group items-center rounded-md px-2 py-2 text-md text-grn">
               <div>{user.username}</div>
               <div className="font-medium truncate">{user.email}</div>
             </div>
@@ -75,21 +76,6 @@ const UserDropDown = ({ user }) => {
           </Menu.Item>
         </Link>
         <Link href={`/${Pages.MyProfile}`} passHref>
-          <Menu.Item>
-            {({ active }) => (
-              <div
-                className={`${
-                  active
-                    ? "bg-grn bg-opacity-25 text-md cursor-pointer"
-                    : "text-sm"
-                } group items-center px-2 py-2 font-semibold text-gryf`}
-              >
-                Settings
-              </div>
-            )}
-          </Menu.Item>
-        </Link>
-        <Link href={`/${Pages.Profile}`} passHref>
           <Menu.Item>
             {({ active }) => (
               <div

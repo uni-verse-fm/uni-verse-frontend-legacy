@@ -1,9 +1,7 @@
 import { BASE_API } from "./../common/constants";
 import axios from "axios";
-import { axiosAdminClient } from "../common/contexts/AxiosContext";
 import { Endoints } from "../common/types";
 
-const refresh = () => undefined;
 const adminLogin = async () =>
   await axios
     .post(`${BASE_API}${Endoints.Auth}/login`, {
@@ -14,14 +12,9 @@ const adminLogin = async () =>
       adminRefreshToken: response.data.refreshToken,
       adminAccessToken: response.data.accessToken,
     }))
-    .catch((error) => ({
+    .catch(() => ({
       adminRefreshToken: null,
       adminAccessToken: null,
     }));
-const addView = async (trackId: string) => {
-  await axiosAdminClient.post(`${Endoints.Views}`, {
-    trackId,
-  });
-};
 
-export { refresh, adminLogin, addView };
+export { adminLogin };

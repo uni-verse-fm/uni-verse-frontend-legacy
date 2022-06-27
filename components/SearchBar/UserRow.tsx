@@ -5,7 +5,7 @@ const UserRow = ({ user, onClickDisplayUser }) => {
   return (
     <div
       onClick={onClickDisplayUser(user)}
-      className="hover:bg-grn cursor-pointer hover:bg-opacity-10 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"
+      className="hover:bg-grn rounded-lg cursor-pointer hover:bg-opacity-10 hover:text-lg text-md group items-center p-2 font-semibold text-gryf flex items-center justify-between"
     >
       <div className="flex items-center">
         <Image
@@ -19,7 +19,10 @@ const UserRow = ({ user, onClickDisplayUser }) => {
           height={70}
           alt="User image"
         />
-        <div className="m-4">{`${user.username} - ${user.email}`}</div>
+        <div className="text-grn text-md m-4">
+          <div className="text-drk text-xl">{user.username}</div>
+          <div className="text-grn text-md">{user.email}</div>
+        </div>
       </div>
     </div>
   );

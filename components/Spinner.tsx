@@ -1,11 +1,13 @@
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
 
 const Spinner = () => {
   return (
-    <FontAwesomeIcon
-      icon={faSpinner}
-      className="mr-2 motion-safe:animate-spin text-grn fa-3x"
+    <Image
+      src="/universe.svg"
+      className="motion-safe:animate-spin"
+      alt="Uni-verse user avatar"
+      width={60}
+      height={60}
     />
   );
 };

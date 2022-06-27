@@ -19,7 +19,7 @@ import ResetPasswordModal from "../ResetPasswordModal";
 
 const imageProps = {
   defaultImageSrc: "/profile.jpg",
-  size: 28,
+  size: 56,
   fileExtensions: Extensions.image,
 };
 
@@ -91,7 +91,6 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
   });
 
   const handleImageUpload = (image: File) => {
-    console.debug(image);
     if (image.size > MAX_IMAGE_SIZE) {
       setIsValid(false);
     } else {
@@ -104,65 +103,57 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
 
   return (
     <div
-      className={`bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden`}
+      className={`bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden p-20`}
     >
       <div
-        className={`text-start flex justify-start flex-col items-start w-full h-full`}
+        className={`text-start flex justify-start flex-col items-center w-full h-full`}
       >
-        <div className="mt-10 ml-16">
-          <div className="grid grid-cols-3 grid-rows-2 gap-4">
-            <div className="row-span-2 text-center">
-              <h1 className="text-xl font-bold not-italic text-grn mb-3">
-                {user.username}
-              </h1>
-              <UploadImageDisplayer
-                {...imageProps}
-                profilePicture={
-                  user.profilePicture
-                    ? imageSource + user.profilePicture
-                    : imageProps.defaultImageSrc
-                }
-                maxFileSize="10"
-                setFieldValue={handleImageUpload}
-                disable={true}
-              />
-              {!isValid ? (
-                <div className="text-rd">File is too large</div>
-              ) : null}
-            </div>
-            <div className="col-start-2 col-end-3 self-end">
-              <h2 className="font-medium not-italic text-wht">{user.email}</h2>
-            </div>
-            <div className="col-start-2 col-end-3">
-              {user.id && isMe && (
-                <button
-                  onClick={handleShowForm}
-                  className="font-medium text-wht rounded-full border-2 border-grn px-2 text-md h-7 hover:bg-grn hover:bg-opacity-25"
-                >
-                  <span>Password</span>
-                  <FontAwesomeIcon
-                    className="cursor-pointer ml-2 hover:scale-[1.40] hover:text-gry text-wht"
-                    icon={faPen}
-                  />
-                </button>
-              )}
-              {user.id && user.accountId && (
-                <button className="mt-4 text-md text-grn bg-wht rounded-full px-2 h-7 hover:bg-grn hover:text-wht hover:bg-opacity-25">
-                  <span>Donate</span>
-                </button>
-              )}
-
-              <br></br>
-            </div>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-row items-center">
+            <h1 className="text-2xl font-bold not-italic text-grn m-2">
+              {user.username}
+            </h1>
+            <h2 className="text-lg font-bold not-italic text-wht m-2">
+              {user.email}
+            </h2>
           </div>
+          <UploadImageDisplayer
+            {...imageProps}
+            profilePicture={
+              user.profilePicture
+                ? imageSource + user.profilePicture
+                : imageProps.defaultImageSrc
+            }
+            maxFileSize="10"
+            setFieldValue={handleImageUpload}
+            disable={true}
+          />
+          {!isValid ? <div className="text-rd">File is too large</div> : null}
+          {user.id && isMe && (
+            <button
+              onClick={handleShowForm}
+              className="font-medium text-wht text-md rounded-full border-2 border-grn px-2 h-7 hover:bg-grn hover:bg-opacity-25"
+            >
+              <span>Password</span>
+              <FontAwesomeIcon
+                className="cursor-pointer ml-2 hover:scale-[1.40] hover:text-gry text-wht"
+                icon={faPen}
+              />
+            </button>
+          )}
+          {user.id && user.accountId && (
+            <button className="mt-4 text-md text-grn bg-wht rounded-full px-2 h-7 hover:bg-grn hover:text-wht hover:bg-opacity-25">
+              <span>Donate</span>
+            </button>
+          )}
         </div>
       </div>
 
-      <h2 className="font-medium not-italic text-wht text-xl mt-10 ml-16">
+      <h2 className="font-medium not-italic text-wht text-xl mt-10">
         Populaires :
       </h2>
       {tracks.length ? (
-        <DisplayTracksTable tracks={tracks} releaseTitle={""} />
+        <DisplayTracksTable tracks={tracks} />
       ) : (
         <div className="flex justify-center items-center mt-5 text-lg">
           <h1 className="text-grn whitespace-nowrap">
@@ -171,7 +162,7 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
         </div>
       )}
 
-      <div className="text-start justify-start items-start w-full h-full ml-16 ">
+      <div className="text-start justify-start items-start w-full h-full">
         <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5 ">
           Albums (Releases) :
         </h2>

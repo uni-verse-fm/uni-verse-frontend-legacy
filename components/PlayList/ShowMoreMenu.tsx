@@ -41,7 +41,7 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
   const onClickDisplayTrack = () => {
     router.push({
       pathname: `/${Pages.Track}`,
-      query: { id: track._id },
+      query: { track: JSON.stringify(track) },
     });
   };
   const refresh = () => {

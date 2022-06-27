@@ -13,7 +13,6 @@ const UploadImageDisplayer = (props) => {
   const handleImageChange = (event) => {
     let image: File = event.target.files[0];
     if (image) {
-      console.debug(image);
       props?.field
         ? props.setFieldValue(props?.field?.name || "random", image)
         : props.setFieldValue(image);
@@ -24,7 +23,7 @@ const UploadImageDisplayer = (props) => {
   return (
     <>
       <div
-        className={`md:container h-${props.size || 60} w-${props.size || 60}`}
+        className={`md:container h-${props.size || 56} w-${props.size || 56}`}
       >
         <img
           src={
@@ -32,8 +31,8 @@ const UploadImageDisplayer = (props) => {
               ? URL.createObjectURL(image)
               : props.profilePicture || props.defaultImageSrc
           }
-          className={`md:mx-auto object-contain h-${props.size || 60} w-${
-            props.size || 60
+          className={`md:mx-auto object-contain h-${props.size || 56} w-${
+            props.size || 56
           } rounded-lg`}
           alt="image to upload"
         />
@@ -70,7 +69,7 @@ const UploadImageDisplayer = (props) => {
           )}
         </div>
       </div>
-      <p className="text-xs text-grn m-1">
+      <p className="text-xs text-grn text-center m-1">
         {props.fileExtensions.extensions.join(", ")} up to {props.maxFileSize}
         MB
       </p>

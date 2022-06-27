@@ -10,8 +10,8 @@ import {
   axiosAdminClient,
   axiosAuthClient,
 } from "../../../common/contexts/AxiosContext";
-import { adminLogin } from "../../../api/AdminAPI";
 import { AES } from "crypto-js";
+import { adminLogin } from "../../../api/AdminAPI";
 
 enum Purpose {
   Check,
@@ -32,8 +32,8 @@ const providerConnect = async ({
   provider,
   purpose,
   isEmailChecked,
-}: ProviderParams) => {
-  return await adminLogin()
+}: ProviderParams) =>
+  await adminLogin()
     .then((response) =>
       AES.encrypt(response.adminAccessToken, process.env.UNIVERSE_PRIVATE_KEY)
     )
@@ -61,11 +61,7 @@ const providerConnect = async ({
         : provider === "google"
         ? isEmailChecked && response.status === 201
         : response.status === 201
-    )
-    .catch((error) => {
-      return error;
-    });
-};
+    );
 
 async function refreshAccessToken(token) {
   axiosAuthClient.defaults.headers["cookie"] = cookie.serialize(

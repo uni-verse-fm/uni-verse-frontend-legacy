@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useRef,
 } from "react";
-import { addView } from "../../api/AdminAPI";
+import { addView } from "../../api/ViewsAPI";
 import { trackSource } from "../constants";
 import {
   InitialPlayerType,

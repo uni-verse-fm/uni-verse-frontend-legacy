@@ -1,12 +1,17 @@
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faComment, faEye, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { PlayerContext } from "../../common/contexts/PlayerContext";
 import { Track, Types } from "../../common/types";
-import Image from "next/image";
 import { imageSource } from "../../common/constants";
 
-const TrackRow = ({ track, onClickDisplayTrack }) => {
+interface ITrackRow {
+  track: Track;
+  onClickDisplayTrack: () => void;
+  disableHover?: boolean;
+}
+
+const TrackRow = ({ track, onClickDisplayTrack, disableHover }: ITrackRow) => {
   const { dispatch } = useContext(PlayerContext);
 
   const onClickTrack = (track: Track) => () => {
@@ -19,27 +24,46 @@ const TrackRow = ({ track, onClickDisplayTrack }) => {
   };
 
   return (
-    <div className="hover:bg-grn cursor-pointer hover:bg-opacity-10 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
-      <div
-        onClick={onClickDisplayTrack(track)}
-        className="flex items-center grow"
-      >
-        <Image
+    <div
+      className={`${
+        !disableHover && "hover:text-lg"
+      } hover:bg-grn hover:bg-opacity-10 rounded-lg text-md group items-center p-2 font-semibold text-gryf flex items-center justify-between`}
+    >
+      <div onClick={onClickDisplayTrack} className="flex items-center grow">
+        <img
           src={
             track?.release?.coverName
               ? imageSource + track?.release.coverName
               : "/Playlist.png"
           }
-          className="rounded-lg m-5"
-          width={70}
-          height={70}
+          className="rounded-lg"
+          width={80}
+          height={80}
           alt="Track cover"
         />
+
         <div className="m-3">
-          <div>{`${track.author?.username} - ${track.title} ft.${track.feats
-            .map((feat) => ` ${feat.username}`)
-            .join()}`}</div>
-          <div className="text-grn text-sm">{track.views} str</div>
+          <div className="text-sedrk text-lg">{`${track.author?.username} - ${
+            track.title
+          } ft.${track.feats?.map((feat) => ` ${feat.username}`).join()}`}</div>
+          {!!track.views && (
+            <div className="text-grn text-sm">
+              {track.views}
+              <FontAwesomeIcon
+                className="cursor-pointer mx-2 hover:scale-[1.40] text-grnfa-sm fa-xs"
+                icon={faEye}
+              />
+            </div>
+          )}
+          {!!track.comments && (
+            <div className="text-grn text-sm">
+              {track.comments}
+              <FontAwesomeIcon
+                className="cursor-pointer mx-2 hover:scale-[1.40] text-grnfa-sm fa-xs"
+                icon={faComment}
+              />
+            </div>
+          )}
         </div>
       </div>
       <FontAwesomeIcon

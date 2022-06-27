@@ -3,17 +3,10 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: [
-      "picsum.photos",
-      "tuk-cdn.s3.amazonaws.com",
-      "i.ibb.co",
-      "www.pngall.com",
-      "loremflickr.com",
-      // TODO: to be replaced with dynamic value
       "localhost",
-      "localhost:9000",
-      "localhost:9000/images",
-      "minio.vagahbond.com",
-      "minio.vagahbond.com/images"
+      process.env.MINIO_URL || "http://localhost:9000",
+      `${process.env.MINIO_URL || "http://localhost:9000"}/images`,
+      `${process.env.MINIO_URL || "http://localhost:9000"}/tracks`,
     ],
   },
   env: {

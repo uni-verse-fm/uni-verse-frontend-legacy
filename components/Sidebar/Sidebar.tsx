@@ -12,6 +12,7 @@ import { notify } from "../Notifications";
 import Player from "../Player";
 import { useSession } from "next-auth/react";
 import { NotificationType, Pages } from "../../common/types";
+import Link from "next/link";
 
 const Sidebar = ({ handleShowModal }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -21,14 +22,10 @@ const Sidebar = ({ handleShowModal }) => {
     <>
       <div className="w-64 sm:relative bg-gry flex-col hidden sm:flex">
         <div className="mt-6 flex flex-col">
-          <SideMenuEntry
-            icon={faHome}
-            onClick={(_: any) =>
-              notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
-            }
-            pageName={Pages.Home}
-            title="Home"
-          />
+          <Link href={`/${Pages.Home}`} passHref>
+            <SideMenuEntry icon={faHome} title="Home" />
+          </Link>
+
           {!!session && (
             <>
               <SideMenuEntry
@@ -37,16 +34,17 @@ const Sidebar = ({ handleShowModal }) => {
                 title="Playlists"
                 nbNotif={0}
               />
-              <SideMenuEntry
-                icon={faRecordVinyl}
-                pageName={Pages.UploadRelease}
-                title="Upload release"
-              />
-              <SideMenuEntry
-                icon={faFileWaveform}
-                pageName={Pages.UploadResourcePack}
-                title="Upload sample or preset"
-              />
+
+              <Link href={`/${Pages.UploadRelease}`} passHref>
+                <SideMenuEntry icon={faRecordVinyl} title="Upload release" />
+              </Link>
+              <Link href={`/${Pages.UploadResourcePack}`} passHref>
+                <SideMenuEntry
+                  icon={faFileWaveform}
+                  title="Upload sample or preset"
+                />
+              </Link>
+
               <SideMenuEntry
                 icon={faChartLine}
                 onClick={(_: any) =>

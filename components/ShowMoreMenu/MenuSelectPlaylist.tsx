@@ -65,7 +65,7 @@ const MenuSelectPlayList = ({ track }) => {
   return (
     <Menu as="div" className="text-left h-full w-auto">
       <Menu.Button className="h-full w-auto">Add to a playlist</Menu.Button>
-      <Menu.Items className="hover-text-grn text-blck absolute left-0 mt-2  divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+      <Menu.Items className="absolute hover-text-grn text-blck left-0 mt-2  divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
         {status === "success" &&
           data.map((playlist, index) => (
             <Menu.Item key={index}>

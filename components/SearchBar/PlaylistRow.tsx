@@ -20,11 +20,11 @@ const PlaylistRow = ({ playlist, onClickDisplayPlaylist }) => {
   return (
     <div
       onClick={onClickDisplayPlaylist(playlist)}
-      className="hover:bg-grn cursor-pointer hover:bg-opacity-10 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between"
+      className="cursor-pointer hover:bg-grn rounded-lg hover:bg-opacity-10 hover:text-lg text-md group items-center p-2 font-semibold text-gryf flex items-center justify-between"
     >
       <div
         onClick={onClickDisplayPlaylist(playlist)}
-        className="flex items-center grow"
+        className="flex items-center grow text-grn text-md"
       >
         {playlist.title}
       </div>

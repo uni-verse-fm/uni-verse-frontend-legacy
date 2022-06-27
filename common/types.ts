@@ -1,5 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
-import { string } from "yup/lib/locale";
+import { ISODateString } from "next-auth";
 
 export interface IUsersList {
   data: IFeat[];
@@ -129,7 +128,6 @@ export interface SideMenuEntryProps {
   title: string;
   icon: any;
   onClick?: (event: any) => void;
-  pageName?: Pages;
   nbNotif?: number;
 }
 
@@ -168,6 +166,12 @@ export type IReaderTimeLine = {
 export type Track = {
   fileName: string;
   author: any;
+  release?: {
+    coverName?: string;
+    title: string;
+  };
+  views?: number;
+  comments?: number;
   id?: string;
   _id?: string;
 } & ITrack;
@@ -319,4 +323,16 @@ export interface IResourceInfo {
 export enum ModelType {
   Track = "Track",
   Resource = "Resource",
+}
+
+export interface HotViews {
+  limit: number;
+  startDate: ISODateString;
+  endDate: ISODateString;
+}
+
+export interface HotComments {
+  limit: number;
+  startDate: ISODateString;
+  endDate: ISODateString;
 }
