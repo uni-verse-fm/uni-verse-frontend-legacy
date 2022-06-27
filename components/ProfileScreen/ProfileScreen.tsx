@@ -12,14 +12,14 @@ import {
 import { IProfileScreen, NotificationType } from "../../common/types";
 import ArtistReleases from "../ArtistReleases";
 import DisplayTracksTable from "../DisplayTracksTable";
-import { notify } from "../Notifications";
+import { notify } from"../Notifications";
 import Playlists from "../PLaylists";
 import UploadImageDisplayer from "../UploadImageDisplayer";
 import ResetPasswordModal from "../ResetPasswordModal";
 
 const imageProps = {
   defaultImageSrc: "/profile.jpg",
-  size: 28,
+  size: 56,
   fileExtensions: Extensions.image,
 };
 
@@ -103,12 +103,12 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
 
   return (
     <div
-      className={`bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden`}
+      className={`bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden p-20`}
     >
       <div
         className={`text-start flex justify-start flex-col items-start w-full h-full`}
       >
-        <div className="mt-10 ml-16">
+        <div className="ml-16">
           <div className="grid grid-cols-3 grid-rows-2 gap-4">
             <div className="row-span-2 text-center">
               <h1 className="text-xl font-bold not-italic text-grn mb-3">
@@ -157,11 +157,11 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
         </div>
       </div>
 
-      <h2 className="font-medium not-italic text-wht text-xl mt-10 ml-16">
+      <h2 className="font-medium not-italic text-wht text-xl mt-10">
         Populaires :
       </h2>
       {tracks.length ? (
-        <DisplayTracksTable tracks={tracks} releaseTitle={""} />
+        <DisplayTracksTable tracks={tracks} />
       ) : (
         <div className="flex justify-center items-center mt-5 text-lg">
           <h1 className="text-grn whitespace-nowrap">
@@ -170,7 +170,7 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
         </div>
       )}
 
-      <div className="text-start justify-start items-start w-full h-full ml-16 ">
+      <div className="text-start justify-start items-start w-full h-full">
         <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5 ">
           Albums (Releases) :
         </h2>

@@ -6,7 +6,7 @@ import { Track, Types } from "../../common/types";
 import { isoDateYear } from "../../utils/dateUtils";
 import ShowMoreMenu from "../ShowMoreMenu";
 
-const DisplayTracksTable = ({ tracks, releaseTitle }) => {
+const DisplayTracksTable = ({ tracks }) => {
   const { dispatch } = useContext(PlayerContext);
 
   const onClickTrack = (track: Track) => () => {
@@ -19,7 +19,7 @@ const DisplayTracksTable = ({ tracks, releaseTitle }) => {
   };
 
   return (
-    <table className=" ml-16 mr-10 text-gry text-sm mb-5 mt-2 ">
+    <table className="text-gry text-sm mb-5">
       <thead>
         <tr className="text-grn border-b mb-10">
           <td className="py-3 "></td>

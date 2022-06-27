@@ -6,7 +6,13 @@ import { Track, Types } from "../../common/types";
 import Image from "next/image";
 import { imageSource } from "../../common/constants";
 
-const TrackRow = ({ track, onClickDisplayTrack }) => {
+interface ITrackRow {
+  track: Track;
+  onClickDisplayTrack: (track: Track) => () => void;
+  disableHover?: boolean;
+}
+
+const TrackRow = ({ track, onClickDisplayTrack, disableHover }: ITrackRow) => {
   const { dispatch } = useContext(PlayerContext);
 
   const onClickTrack = (track: Track) => () => {
@@ -19,7 +25,11 @@ const TrackRow = ({ track, onClickDisplayTrack }) => {
   };
 
   return (
-    <div className="hover:bg-grn cursor-pointer hover:bg-opacity-10 hover:text-lg text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between">
+    <div
+      className={`${
+        !disableHover && "hover:bg-grn hover:bg-opacity-10 hover:text-lg"
+      } cursor-pointer text-md group items-center px-2 py-2 font-semibold text-gryf flex items-center justify-between`}
+    >
       <div
         onClick={onClickDisplayTrack(track)}
         className="flex items-center grow"

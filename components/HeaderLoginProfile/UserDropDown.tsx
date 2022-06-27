@@ -6,7 +6,7 @@ import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { logout } from "../../api/AuthAPI";
 import { notify } from "../Notifications";
 import { useMutation } from "react-query";
-import { Messages } from "../../common/constants";
+import { imageSource, Messages } from "../../common/constants";
 import { signOut } from "next-auth/react";
 import { NotificationType, Pages } from "../../common/types";
 
@@ -35,12 +35,13 @@ const UserDropDown = ({ user }) => {
   return (
     <Menu as="div" className="text-left h-full w-auto">
       <Menu.Button className="h-full w-auto p-2">
-        {user?.avatar ? (
+        {user?.profilePicture ? (
           <Image
-            src={user.avatar}
+            src={imageSource + user.profilePicture}
             alt="Uni-verse user avatar"
-            width={60}
-            height={60}
+            className="rounded-full"
+            width={42}
+            height={42}
           />
         ) : (
           <FontAwesomeIcon
@@ -75,21 +76,6 @@ const UserDropDown = ({ user }) => {
           </Menu.Item>
         </Link>
         <Link href={`/${Pages.MyProfile}`} passHref>
-          <Menu.Item>
-            {({ active }) => (
-              <div
-                className={`${
-                  active
-                    ? "bg-grn bg-opacity-25 text-md cursor-pointer"
-                    : "text-sm"
-                } group items-center px-2 py-2 font-semibold text-gryf`}
-              >
-                Settings
-              </div>
-            )}
-          </Menu.Item>
-        </Link>
-        <Link href={`/${Pages.Profile}`} passHref>
           <Menu.Item>
             {({ active }) => (
               <div

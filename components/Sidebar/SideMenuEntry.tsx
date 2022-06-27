@@ -1,12 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
 import { SideMenuEntryProps } from "../../common/types";
 
 const SideMenuEntry = ({
   title,
   icon,
   onClick,
-  pageName,
   nbNotif,
 }: SideMenuEntryProps) => {
   return (
@@ -16,13 +14,7 @@ const SideMenuEntry = ({
     >
       <a className="flex items-center focus:outline-none focus:ring-2 focus:ring-white">
         <FontAwesomeIcon icon={icon} className="mr-2" />
-        {pageName ? (
-          <Link href={`/${pageName}`} passHref>
-            <span className="text-sm ml-2">{title}</span>
-          </Link>
-        ) : (
-          <span className="text-sm ml-2">{title}</span>
-        )}
+        <span className="text-sm ml-2">{title}</span>
       </a>
       {nbNotif && (
         <div className="py-1 px-3 bg-blck rounded flex items-center justify-center text-xs">

@@ -1,17 +1,11 @@
 import React, { useContext } from "react";
 
-import { getTrackById } from "../../api/TrackAPI";
-import { useQuery } from "react-query";
 import { PlayerContext } from "../../common/contexts/PlayerContext";
 import { Track, Types } from "../../common/types";
 import CreateComment from "../CreateComment";
 
 const ArtistTrack = (props) => {
   const { dispatch } = useContext(PlayerContext);
-
-  const { status, data } = useQuery("track", () =>
-    getTrackById(props.index).then((res) => res.data)
-  );
 
   const onClickTrack = (track: Track) => () => {
     dispatch({

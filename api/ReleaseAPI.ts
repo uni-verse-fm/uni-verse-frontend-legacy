@@ -21,7 +21,7 @@ const getReleaseById = (id: string) =>
 const updateRelease = (id: string, data) =>
   axiosClient.put(`${releaseEndpoint}/${id}`, JSON.stringify(data));
 
-const deleteRelease = (id: String) =>
+const deleteRelease = (id: string) =>
   axiosClient.delete(`${releaseEndpoint}/${id}`);
 
 const getUserReleases = (id: string) =>
