@@ -1,4 +1,4 @@
-import { ILogin } from './../common/types';
+import { ILogin } from "./../common/types";
 import { BASE_API } from "./../common/constants";
 import axios from "axios";
 import { Endoints } from "../common/types";
