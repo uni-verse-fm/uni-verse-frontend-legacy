@@ -57,10 +57,6 @@ export const headers = {
     "X-CSRF-Token, Authorization, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Set-Cookie",
 };
 
-export const trackSource = `${
-  process.env.MINIO_URL || "http://localhost:9000"
-}/tracks/`;
+export const trackSource = `${process.env.MINIO_URL}/tracks/`;
 
-export const imageSource = `${
-  process.env.MINIO_URL || "http://localhost:9000"
-}/images/`;
+export const imageSource = `${process.env.MINIO_URL}/images/`;
