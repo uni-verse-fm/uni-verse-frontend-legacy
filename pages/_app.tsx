@@ -12,7 +12,7 @@ import { PlayerProvider } from "../common/contexts/PlayerContext";
 import { SessionProvider } from "next-auth/react";
 import { AxiosProvider } from "../common/contexts/AxiosContext";
 
-const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 const options = {
   clientSecret: process.env.STRIPE_CLIENT_SECRET,
 };
