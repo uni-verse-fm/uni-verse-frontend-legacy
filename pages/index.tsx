@@ -4,7 +4,6 @@ import { dehydrate, QueryClient, useQuery } from "react-query";
 import { adminLogin } from "../api/AdminAPI";
 import { hotViews } from "../api/ViewsAPI";
 import { HotViews, Pages } from "../common/types";
-import DisplayTracksTable from "../components/DisplayTracksTable";
 import TrackRow from "../components/SearchBar/TrackRow";
 
 const today = new Date();

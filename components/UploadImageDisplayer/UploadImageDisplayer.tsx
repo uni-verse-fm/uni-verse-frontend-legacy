@@ -69,7 +69,7 @@ const UploadImageDisplayer = (props) => {
           )}
         </div>
       </div>
-      <p className="text-xs text-grn m-1">
+      <p className="text-xs text-grn text-center m-1">
         {props.fileExtensions.extensions.join(", ")} up to {props.maxFileSize}
         MB
       </p>
