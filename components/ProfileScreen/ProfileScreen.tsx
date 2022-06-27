@@ -24,7 +24,7 @@ const ProfileScreen = ({ user, releases, isMe, resourcesPack }: IProfileScreen) 
     console.log("setShowForm à true");
     setShowForm(true);
   };
-  const handleCloseDialog = () => setShowForm(false);
+  const handleCloseResetPasswordModal = () => setShowForm(false);
   {
     /** A remplacer par getPopularTracks */
   }
@@ -163,7 +163,7 @@ const ProfileScreen = ({ user, releases, isMe, resourcesPack }: IProfileScreen) 
         )}
         <ResetPasswordModal
           showModal={showForm}
-          handleCloseDialog={handleCloseDialog}
+          handleCloseResetPasswordModal={handleCloseResetPasswordModal}
         />
       </div>
     </div>

@@ -115,6 +115,10 @@ export interface IPlaylist {
   title: string;
 }
 
+export interface IResetPassword {
+  password: string;
+}
+
 export interface IUpdatePayload {
   id: string;
   data: object;

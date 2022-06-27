@@ -1,10 +1,27 @@
 import { Form, Formik } from "formik";
 import { Messages } from "../../common/constants";
 import * as Yup from "yup";
-import { NotificationType } from "../../common/types";
+import { NotificationType, IResetPassword } from "../../common/types";
 import { notify } from "../Notifications";
+import { useMutation } from "react-query";
+import { resetPassword } from "../../api/UserAPI";
 
 const ResetPasswordModal = (props) => {
+
+  const { mutate } = useMutation("resetPassword", resetPassword, {
+    onError: (error) => {
+      notify("there was an error" + error, NotificationType.ERROR);
+    },
+    onSuccess: (res) => {
+      if (res.status !== 201) {
+        notify(res.data.message, NotificationType.ERROR);
+      } else {
+        props.handleCloseResetPasswordModal();
+        const message = "Password changed successfully";
+        notify(message, NotificationType.SUCCESS);
+      }
+    },
+  });
   return (
     props.showModal && (
       <div
@@ -19,9 +36,6 @@ const ResetPasswordModal = (props) => {
             passwordConfirmation: "",
           }}
           validationSchema={Yup.object().shape({
-            OldPassword: Yup.string()
-              .required(Messages.REQUIRED)
-              .min(8, Messages.SHORT_PASWORD),
             password: Yup.string()
               .required(Messages.REQUIRED)
               .min(8, Messages.SHORT_PASWORD),
@@ -30,8 +44,15 @@ const ResetPasswordModal = (props) => {
               Messages.PASSWORD_MISMATCH
             ),
           })}
-          onSubmit={(value, { setSubmitting }) => {
-            notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR);
+              onSubmit={(value ) => {
+                let dataForm: IResetPassword = {
+                  password: value.password,
+                };
+                console.log (dataForm);
+                console.log ("dataForm");
+                mutate(dataForm);
+       
+            //notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR);
           }}
         >
           {({ values, errors, handleChange, handleBlur }) => {
@@ -44,24 +65,7 @@ const ResetPasswordModal = (props) => {
                         Reset password{" "}
                       </label>
                     </div>
-                    <div className="flex items-start mb-5 flex-col w-64 h-16">
-                      <label className="mb-2 text-sm">Old password</label>
-                      <input
-                        id="OldPassword"
-                        name="OldPassword"
-                        type="password"
-                        placeholder="Enter your old Password"
-                        className="text-sm bg-drk w-full h-16 text-white pl-2 rounded-md placeholder-gry p-2"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.OldPassword}
-                      />
-                      {errors.OldPassword ? (
-                        <div className="text-rd text-sm">
-                          {errors.OldPassword}
-                        </div>
-                      ) : null}
-                    </div>
+                
 
                     <div className="flex items-start mb-5 flex-col w-64 h-16">
                       <label className="mb-2 text-sm">New password</label>
@@ -69,7 +73,7 @@ const ResetPasswordModal = (props) => {
                         id="password"
                         name="password"
                         type="password"
-                        placeholder="Enter your new Password"
+                        placeholder="Enter your new password"
                         className="text-sm bg-drk w-full h-full text-white pl-2 rounded-md placeholder-gry p-2"
                         onChange={handleChange}
                         onBlur={handleBlur}
