@@ -8,13 +8,13 @@ export default function UploadReleasePage() {
   const { data: session, status } = useSession();
   return (
     <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden">
-      <div className="w-full">
+      <div className="w-full h-full">
         {status === "unauthenticated" ? (
           <div className="flex justify-center items-center mt-10">
             <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
           </div>
         ) : status === "loading" ? (
-          <div className="flex justify-center items-center mt-10">
+          <div className="flex justify-center items-center mt-10 h-full w-full">
             <Spinner />
           </div>
         ) : (
