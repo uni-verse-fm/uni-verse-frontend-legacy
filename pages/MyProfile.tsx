@@ -8,6 +8,7 @@ import { Messages } from "../common/constants";
 import Spinner from "../components/Spinner";
 import { adminLogin } from "../api/AdminAPI";
 import { me } from "../api/AuthAPI";
+import { ILogin } from "../common/types";
 
 function MyProfile(props) {
   const { data: session } = useSession();
@@ -55,7 +56,11 @@ function MyProfile(props) {
 
 export async function getServerSideProps(context: GetSessionParams) {
   const session: Session = await getSession(context);
-  const adminRefreshToken = await adminLogin().then(
+  const payload: ILogin = {
+    email: process.env.UNIVERSE_EMAIL,
+    password: process.env.UNIVERSE_PASSWORD,
+  };
+  const adminRefreshToken = await adminLogin(payload).then(
     (response) => response.adminRefreshToken
   );
   if (!session) {

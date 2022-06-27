@@ -1,13 +1,11 @@
+import { ILogin } from './../common/types';
 import { BASE_API } from "./../common/constants";
 import axios from "axios";
 import { Endoints } from "../common/types";
 
-const adminLogin = async () =>
+const adminLogin = async (payload: ILogin) =>
   await axios
-    .post(`${BASE_API}${Endoints.Auth}/login`, {
-      email: process.env.UNIVERSE_EMAIL,
-      password: process.env.UNIVERSE_PASSWORD,
-    })
+    .post(`${BASE_API}${Endoints.Auth}/login`, payload)
     .then((response) => ({
       adminRefreshToken: response.data.refreshToken,
       adminAccessToken: response.data.accessToken,

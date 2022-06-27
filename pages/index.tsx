@@ -4,7 +4,7 @@ import { dehydrate, QueryClient, useQuery } from "react-query";
 import { adminLogin } from "../api/AdminAPI";
 import { hotTracks, hotReleases } from "../api/ViewsAPI";
 import { hotCommentedTracks } from "../api/CommentAPI";
-import { HotViews, Pages, Track } from "../common/types";
+import { HotViews, ILogin, Pages, Track } from "../common/types";
 import TrackRow from "../components/SearchBar/TrackRow";
 import ReleaseRow from "../components/SearchBar/ReleaseRow";
 
@@ -172,7 +172,11 @@ export default function Home() {
 
 export async function getStaticProps() {
   const queryClient = new QueryClient();
-  const adminRefreshToken = await adminLogin().then(
+  const payload: ILogin = {
+    email: process.env.UNIVERSE_EMAIL,
+    password: process.env.UNIVERSE_PASSWORD,
+  };
+  const adminRefreshToken = await adminLogin(payload).then(
     (response) => response.adminRefreshToken
   );
 
