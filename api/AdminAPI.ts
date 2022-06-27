@@ -17,5 +17,4 @@ const adminLogin = async () =>
       adminAccessToken: null,
     }));
 
-
 export { adminLogin };

@@ -38,9 +38,11 @@ const ReleaseRow = ({
   };
 
   return (
-    <div className={`${
+    <div
+      className={`${
         !disableHover && "hover:text-lg"
-      } hover:bg-grn hover:bg-opacity-10 rounded-lg text-md group items-center p-2 font-semibold text-gryf flex items-center justify-between`}>
+      } hover:bg-grn hover:bg-opacity-10 rounded-lg text-md group items-center p-2 font-semibold text-gryf flex items-center justify-between`}
+    >
       <div onClick={onClickDisplayRelease} className="flex items-center grow">
         <img
           src={

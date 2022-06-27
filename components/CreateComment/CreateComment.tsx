@@ -6,7 +6,11 @@ import * as Yup from "yup";
 import { useMutation } from "react-query";
 import { createComment } from "../../api/CommentAPI";
 import { NotificationType, ICreateComment } from "../../common/types";
-import { faComment, faThumbsDown, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  faComment,
+  faThumbsDown,
+  faThumbsUp,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import router from "next/router";
 
@@ -106,7 +110,9 @@ const CreateComment = ({ idContent }) => {
                     <span className={`mx-2`}>
                       <FontAwesomeIcon
                         icon={faThumbsUp}
-                        className={`text-grn fa-xl ${like ? "" : "text-opacity-40"}`}
+                        className={`text-grn fa-xl ${
+                          like ? "" : "text-opacity-40"
+                        }`}
                         onClick={toggleLikeDislike(LikeDislike.Like)}
                       />
                     </span>

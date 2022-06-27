@@ -37,5 +37,5 @@ export {
   updateComment,
   deleteComment,
   getResourceComments,
-  hotCommentedTracks
+  hotCommentedTracks,
 };

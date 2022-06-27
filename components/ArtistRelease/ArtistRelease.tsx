@@ -122,9 +122,7 @@ const ArtistRelease = (props) => {
               </div>
             </div>
             {getRelease.data.tracks.length ? (
-              <DisplayTracksTable
-                tracks={getRelease.data.tracks}
-              />
+              <DisplayTracksTable tracks={getRelease.data.tracks} />
             ) : (
               <div className="flex justify-center items-center mt-10 text-lg">
                 <h1 className="text-grn whitespace-nowrap">

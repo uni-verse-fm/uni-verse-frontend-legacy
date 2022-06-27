@@ -38,10 +38,10 @@ const yearHotTracksParams: HotViews = {
 };
 
 const yearHotReleasesParams: HotViews = {
-    limit: 20,
-    startDate: lastYear.toISOString().split("T")[0],
-    endDate: today.toISOString().split("T")[0],
-  };
+  limit: 20,
+  startDate: lastYear.toISOString().split("T")[0],
+  endDate: today.toISOString().split("T")[0],
+};
 
 export default function Home() {
   const router = useRouter();
@@ -200,8 +200,6 @@ export async function getStaticProps() {
     "year-hot-releases",
     hotReleases(yearHotReleasesParams)
   );
-
-  
 
   return {
     props: {
