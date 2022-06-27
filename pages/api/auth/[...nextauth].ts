@@ -5,7 +5,7 @@ import * as cookie from "cookie";
 import GoogleProvider from "next-auth/providers/google";
 import SpotifyProvider from "next-auth/providers/spotify";
 import { BASE_API, headers } from "../../../common/constants";
-import { Endoints } from "../../../common/types";
+import { Endoints, ILogin } from "../../../common/types";
 import {
   axiosAdminClient,
   axiosAuthClient,
@@ -17,6 +17,11 @@ enum Purpose {
   Check,
   Connect,
 }
+
+const payload: ILogin = {
+  email: process.env.UNIVERSE_EMAIL,
+  password: process.env.UNIVERSE_PASSWORD,
+};
 
 interface ProviderParams {
   username: string;
@@ -33,7 +38,7 @@ const providerConnect = async ({
   purpose,
   isEmailChecked,
 }: ProviderParams) =>
-  await adminLogin()
+  await adminLogin(payload)
     .then((response) =>
       AES.encrypt(response.adminAccessToken, process.env.UNIVERSE_PRIVATE_KEY)
     )

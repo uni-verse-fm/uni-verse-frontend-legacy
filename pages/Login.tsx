@@ -66,7 +66,11 @@ export default function Login() {
 }
 
 export async function getServerSideProps() {
-  const adminRefreshToken = await adminLogin().then(
+  const payload: ILogin = {
+    email: process.env.UNIVERSE_EMAIL,
+    password: process.env.UNIVERSE_PASSWORD,
+  };
+  const adminRefreshToken = await adminLogin(payload).then(
     (response) => response.adminRefreshToken
   );
 

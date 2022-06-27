@@ -5,8 +5,7 @@ export const MAX_IMAGE_SIZE = process.env.NEXT_PUBLIC_MAX_IMAGE_SIZE
   ? Number(process.env.NEXT_PUBLIC_MAX_IMAGE_SIZE)
   : 3_000_000;
 
-export const BASE_API =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+export const BASE_API = process.env.API_URL;
 
 export const MOCK_BASE_API =
   "https://6276b27f2f94a1d706062d0f.mockapi.io/api/v2";
