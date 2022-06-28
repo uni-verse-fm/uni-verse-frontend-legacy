@@ -10,13 +10,13 @@ const getEnvironmentVariable = (environmentVariable: string): string => {
 };
 
 export const config = {
-  minioUrl: getEnvironmentVariable("NEXT_PUBLIC_MINIO_URL"),
-  stripePubKey: getEnvironmentVariable("NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY"),
+  apiUrl: getEnvironmentVariable("API_URL"),
+  minioUrl: getEnvironmentVariable("MINIO_URL"),
+  stripePubKey: getEnvironmentVariable("UNIVERSE_PUBLIC_KEY"),
   stripePrivKey: getEnvironmentVariable("STRIPE_SECRET_KEY"),
-  universePrivKey: getEnvironmentVariable("NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY"),
+  universePrivKey: getEnvironmentVariable("UNIVERSE_ADMIN_PRIVATE_KEY"),
   maxFileSize: getEnvironmentVariable("NEXT_PUBLIC_MAX_FILE_SIZE"),
   maxImageSize: getEnvironmentVariable("NEXT_PUBLIC_MAX_IMAGE_SIZE"),
   univereEmail: getEnvironmentVariable("UNIVERSE_EMAIL"),
   universePassword: getEnvironmentVariable("UNIVERSE_PASSWORD"),
-  apiUrl: getEnvironmentVariable("NEXT_PUBLIC_API_URL"),
 };
