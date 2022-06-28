@@ -35,7 +35,7 @@ const adminRefreshAuthLogic =
       .then(async (tokenRefreshResponse) => {
         const encryptedToken = AES.encrypt(
           tokenRefreshResponse.data.accessToken as string,
-          process.env.UNIVERSE_PRIVATE_KEY
+          process.env.NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY
         );
         failedRequest.response.config.headers = {
           ...failedRequest.response.config.headers,
