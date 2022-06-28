@@ -12,7 +12,6 @@ import {
 } from "../../../common/contexts/AxiosContext";
 import { AES } from "crypto-js";
 import { adminLogin } from "../../../api/AdminAPI";
-import { serverRuntimeConfig } from "../../../config";
 
 enum Purpose {
   Check,
@@ -20,8 +19,8 @@ enum Purpose {
 }
 
 const payload: ILogin = {
-  email: serverRuntimeConfig.UNIVERSE_EMAIL,
-  password: serverRuntimeConfig.UNIVERSE_PASSWORD,
+  email: process.env.UNIVERSE_EMAIL,
+  password: process.env.UNIVERSE_PASSWORD,
 };
 
 interface ProviderParams {

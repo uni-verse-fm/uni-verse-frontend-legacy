@@ -7,7 +7,6 @@ import { hotCommentedTracks } from "../api/CommentAPI";
 import { HotViews, ILogin, Pages, Track } from "../common/types";
 import TrackRow from "../components/SearchBar/TrackRow";
 import ReleaseRow from "../components/SearchBar/ReleaseRow";
-import { serverRuntimeConfig } from "../config";
 
 const today = new Date();
 const lastWeek: Date = new Date(new Date().setDate(today.getDate() - 7));
@@ -174,8 +173,8 @@ export default function Home() {
 export async function getStaticProps() {
   const queryClient = new QueryClient();
   const payload: ILogin = {
-    email: serverRuntimeConfig.UNIVERSE_EMAIL,
-    password: serverRuntimeConfig.UNIVERSE_PASSWORD,
+    email: process.env.UNIVERSE_EMAIL,
+    password:process.env.UNIVERSE_PASSWORD,
   };
   const adminRefreshToken = await adminLogin(payload).then(
     (response) => response.adminRefreshToken
