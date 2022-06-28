@@ -28,7 +28,7 @@ jobs:
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
           NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY: ${{ secrets.NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY }}
         run: |
-          docker build . \
+          docker build \
           --build-arg NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }} \
           --build-arg NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY=${{ secrets.NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY }} \
           --build-arg NEXT_PUBLIC_MINIO_URL=https://minio.vagahbond.com \
