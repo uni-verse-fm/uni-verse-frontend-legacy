@@ -19,6 +19,9 @@ FROM node:16-alpine
 #Set safer workdir
 WORKDIR /usr/src/app
 
+# Copy env variables
+COPY --from=build /usr/src/app/.env.production ./
+
 # Copy necessary files for the production optimized build
 COPY --from=build /usr/src/app/package.json ./
 COPY --from=build /usr/src/app/.next ./.next
