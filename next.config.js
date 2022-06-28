@@ -9,8 +9,6 @@ const nextConfig = {
       `${process.env.NEXT_PUBLIC_MINIO_URL}/tracks`,
     ],
   },
-  env: {
-  },
   serverRuntimeConfig: {
     JWT_SECRET: process.env.JWT_SECRET,
     UNIVERSE_EMAIL: process.env.UNIVERSE_EMAIL,
