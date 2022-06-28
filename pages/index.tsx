@@ -174,7 +174,7 @@ export async function getStaticProps() {
   const queryClient = new QueryClient();
   const payload: ILogin = {
     email: process.env.UNIVERSE_EMAIL,
-    password:process.env.UNIVERSE_PASSWORD,
+    password: process.env.UNIVERSE_PASSWORD,
   };
   const adminRefreshToken = await adminLogin(payload).then(
     (response) => response.adminRefreshToken
