@@ -94,7 +94,7 @@ const PlayerProvider: React.FC = ({ children }) => {
     hasNext() ? nextTrack() : "";
     const track = state.tracks[currentTrackIndex];
     const trackId = track?.id;
-    trackId && addView({  track: trackId, release: track?.release?.id });
+    trackId && addView({ track: trackId, release: track?.release?.id });
   };
 
   const onPlayPauseClick = () => {
