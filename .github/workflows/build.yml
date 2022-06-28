@@ -27,4 +27,4 @@ jobs:
           --build-arg NEXT_PUBLIC_MINIO_URL=https://minio.vagahbond.com \
           --build-arg NEXT_PUBLIC_MAX_IMAGE_SIZE=3000000 \
           --build-arg NEXT_PUBLIC_MAX_FILE_SIZE=10000000 \
-          --build-arg NEXT_PUBLIC_API_URL=https://uni-verse.api.vagahbond.com
+          --build-arg NEXT_PUBLIC_API_URL=https://uni-verse.api.vagahbond.com . # will run buildx
