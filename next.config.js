@@ -15,6 +15,7 @@ const nextConfig = {
     UNIVERSE_PASSWORD: `${process.env.UNIVERSE_PASSWORD}`,
     MINIO_URL: `${process.env.NEXT_PUBLIC_MINIO_URL}`,
     JWT_SECRET: `${process.env.JWT_SECRET}`,
+    NEXT_PUBLIC_API_URL: `${process.env.NEXT_PUBLIC_API_URL}`,
   },
 };
 
