@@ -14,9 +14,6 @@ import { AxiosProvider } from "../common/contexts/AxiosContext";
 import { config } from "../config";
 
 const stripePromise = loadStripe(config.stripePubKey);
-const options = {
-  clientSecret: config.stripePrivKey,
-};
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [showPlaylistsModal, setShowPlaylistsModal] = useState(false);
@@ -36,7 +33,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   };
 
   return (
-    <Elements stripe={stripePromise} options={options}>
+    <Elements stripe={stripePromise}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <SessionProvider session={session}>

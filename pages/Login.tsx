@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle, faSpotify } from "@fortawesome/free-brands-svg-icons";
 import { ILogin, NotificationType } from "../common/types";
 import { adminLogin } from "../api/AdminAPI";
-import { config } from "../config";
+import { serverRuntimeConfig } from "../config";
 
 export default function Login() {
   const router = useRouter();
@@ -68,8 +68,8 @@ export default function Login() {
 
 export async function getServerSideProps() {
   const payload: ILogin = {
-    email: config.univereEmail,
-    password: config.universePassword,
+    email: serverRuntimeConfig.UNIVERSE_EMAIL,
+    password: serverRuntimeConfig.UNIVERSE_PASSWORD,
   };
   const adminRefreshToken = await adminLogin(payload).then(
     (response) => response.adminRefreshToken

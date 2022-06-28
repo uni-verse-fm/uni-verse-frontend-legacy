@@ -22,7 +22,7 @@ const nextConfig = {
   },
   publicRuntimeConfig: {
     API_URL: process.env.NEXT_PUBLIC_API_URL,
-    UNIVERSE_PUBLIC_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+    STRIPE_PUBLIC_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
     MINIO_URL: process.env.NEXT_PUBLIC_MINIO_URL,
     MAX_FILE_SIZE: process.env.NEXT_PUBLIC_MAX_FILE_SIZE,
     MAX_IMAGE_SIZE: process.env.NEXT_PUBLIC_MAX_IMAGE_SIZE,
