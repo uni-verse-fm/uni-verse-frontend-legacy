@@ -6,6 +6,7 @@ import { getSession, GetSessionParams } from "next-auth/react";
 import { Session } from "next-auth";
 import { adminLogin } from "../api/AdminAPI";
 import { ILogin } from "../common/types";
+import { serverRuntimeConfig } from "../config";
 
 function UserRelease() {
   const router = useRouter();
@@ -33,8 +34,8 @@ export async function getServerSideProps(context: GetSessionParams) {
   const session: Session = await getSession(context);
 
   const payload: ILogin = {
-    email: process.env.UNIVERSE_EMAIL,
-    password: process.env.UNIVERSE_PASSWORD,
+    email: serverRuntimeConfig.UNIVERSE_EMAIL,
+    password: serverRuntimeConfig.UNIVERSE_PASSWORD,
   };
   const adminRefreshToken = await adminLogin(payload).then(
     (response) => response.adminRefreshToken

@@ -11,13 +11,9 @@ import { loadStripe } from "@stripe/stripe-js";
 import { PlayerProvider } from "../common/contexts/PlayerContext";
 import { SessionProvider } from "next-auth/react";
 import { AxiosProvider } from "../common/contexts/AxiosContext";
+import { config } from "../config";
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-);
-const options = {
-  clientSecret: process.env.STRIPE_CLIENT_SECRET,
-};
+const stripePromise = loadStripe(config.stripePubKey);
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [showPlaylistsModal, setShowPlaylistsModal] = useState(false);
@@ -37,7 +33,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   };
 
   return (
-    <Elements stripe={stripePromise} options={options}>
+    <Elements stripe={stripePromise}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <SessionProvider session={session}>

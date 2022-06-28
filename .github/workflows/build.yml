@@ -19,12 +19,18 @@ jobs:
         with:
           install: true
 
+      - name: Create .env file
+        uses: SpicyPizza/create-envfile@v1.3.0
+        with:
+          envkey_NEXT_PUBLIC_API_URL: https://uni-verse.api.vagahbond.com
+          envkey_NEXT_PUBLIC_STRIPE_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
+          envkey_NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY: ${{ secrets.NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY }}
+          envkey_NEXT_PUBLIC_MINIO_URL: https://minio.vagahbond.com
+          envkey_NEXT_PUBLIC_MAX_IMAGE_SIZE: 3000000
+          envkey_NEXT_PUBLIC_MAX_FILE_SIZE: 10000000
+          file_name: .env.production
+          fail_on_empty: true
+
       - name: Build
         run: |
-          docker build \
-          --build-arg NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }} \
-          --build-arg NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY=${{ secrets.NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY }} \
-          --build-arg NEXT_PUBLIC_MINIO_URL=https://minio.vagahbond.com \
-          --build-arg NEXT_PUBLIC_MAX_IMAGE_SIZE=3000000 \
-          --build-arg NEXT_PUBLIC_MAX_FILE_SIZE=10000000 \
-          --build-arg NEXT_PUBLIC_API_URL=https://uni-verse.api.vagahbond.com . # will run buildx
+          docker build . # will run buildx
