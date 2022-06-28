@@ -37,11 +37,13 @@ jobs:
           file_name: .env.production
           fail_on_empty: true
           
-      - name: Build
-        run: |
-          docker build . # will run buildx
-          
-      - name: Push
-        run: |
-          docker push ${{ secrets.DOCKER_REGISTRY }}/vagahbond/uni-verse/frontend:${{ steps.tag_name.outputs.TAG_NAME }}
-          docker push ${{ secrets.DOCKER_REGISTRY }}/vagahbond/uni-verse/frontend:latest
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_REGISTRY }}/vagahbond/uni-verse/frontend
+            ${{ secrets.DOCKER_REGISTRY }}/vagahbond/uni-verse/frontend:${{ steps.tag_name.outputs.TAG_NAME }}
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
