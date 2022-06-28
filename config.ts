@@ -18,7 +18,6 @@ export const config = {
   apiUrl: getEnvironmentVariable("API_URL"),
   minioUrl: getEnvironmentVariable("MINIO_URL"),
   stripePubKey: getEnvironmentVariable("STRIPE_PUBLIC_KEY"),
-  stripePrivKey: getEnvironmentVariable("STRIPE_SECRET_KEY"),
   maxFileSize: getEnvironmentVariable("MAX_FILE_SIZE"),
   maxImageSize: getEnvironmentVariable("MAX_IMAGE_SIZE"),
   universePrivKey: getEnvironmentVariable("UNIVERSE_PRIVATE_KEY"),
