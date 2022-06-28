@@ -34,7 +34,15 @@ jobs:
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
           NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY: ${{ secrets.NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY }}
         run: |
-          docker build --tag ${{ secrets.DOCKER_REGISTRY }}/vagahbond/uni-verse/frontend:latest --tag ${{ secrets.DOCKER_REGISTRY }}/vagahbond/uni-verse/frontend:${{ steps.tag_name.outputs.TAG_NAME }} . # will run buildx
+          docker build \
+          --build-arg NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }} \
+          --build-arg NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY=${{ secrets.NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY }} \
+          --build-arg NEXT_PUBLIC_MINIO_URL=https://minio.vagahbond.com \
+          --build-arg NEXT_PUBLIC_MAX_IMAGE_SIZE=3000000 \
+          --build-arg NEXT_PUBLIC_MAX_FILE_SIZE=10000000 \
+          --build-arg NEXT_PUBLIC_API_URL=https://uni-verse.api.vagahbond.com \
+           --tag ${{ secrets.DOCKER_REGISTRY }}/vagahbond/uni-verse/frontend:latest \
+            --tag ${{ secrets.DOCKER_REGISTRY }}/vagahbond/uni-verse/frontend:${{ steps.tag_name.outputs.TAG_NAME }} . # will run buildx
       - name: Push
         run: |
           docker push ${{ secrets.DOCKER_REGISTRY }}/vagahbond/uni-verse/frontend:${{ steps.tag_name.outputs.TAG_NAME }}
