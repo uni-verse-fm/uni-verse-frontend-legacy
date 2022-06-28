@@ -30,5 +30,12 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_REGISTRY }}/vagahbond/uni-verse/frontend
             ${{ secrets.DOCKER_REGISTRY }}/vagahbond/uni-verse/frontend:${{ steps.tag_name.outputs.TAG_NAME }}
+        env:
+          NEXT_PUBLIC_MINIO_URL: https://minio.vagahbond.com
+          NEXT_PUBLIC_MAX_IMAGE_SIZE: 3000000
+          NEXT_PUBLIC_MAX_FILE_SIZE: 10000000
+          NEXT_PUBLIC_API_URL: https://uni-verse.api.vagahbond.com
+          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: $NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+          NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY: $NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
