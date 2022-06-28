@@ -6,6 +6,7 @@ import { getSession, GetSessionParams } from "next-auth/react";
 import { Session } from "next-auth";
 import { adminLogin } from "../api/AdminAPI";
 import { ILogin } from "../common/types";
+import { config } from "../config";
 
 function UserPlaylist() {
   const router = useRouter();
@@ -32,8 +33,8 @@ function UserPlaylist() {
 export async function getServerSideProps(context: GetSessionParams) {
   const session: Session = await getSession(context);
   const payload: ILogin = {
-    email: process.env.UNIVERSE_EMAIL,
-    password: process.env.UNIVERSE_PASSWORD,
+    email: config.univereEmail,
+    password: config.universePassword,
   };
   const adminRefreshToken = await adminLogin(payload).then(
     (response) => response.adminRefreshToken

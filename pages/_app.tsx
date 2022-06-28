@@ -11,12 +11,11 @@ import { loadStripe } from "@stripe/stripe-js";
 import { PlayerProvider } from "../common/contexts/PlayerContext";
 import { SessionProvider } from "next-auth/react";
 import { AxiosProvider } from "../common/contexts/AxiosContext";
+import { config } from "../config";
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-);
+const stripePromise = loadStripe(config.stripePubKey);
 const options = {
-  clientSecret: process.env.STRIPE_CLIENT_SECRET,
+  clientSecret: config.stripePrivKey,
 };
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {

@@ -4,6 +4,7 @@ import createAuthRefreshInterceptor from "axios-auth-refresh";
 import { BASE_API, headers } from "../constants";
 import { useSession } from "next-auth/react";
 import { AES } from "crypto-js";
+import { config } from "../../config";
 
 export const axiosAuthClient = axios.create({
   baseURL: BASE_API,
@@ -35,7 +36,7 @@ const adminRefreshAuthLogic =
       .then(async (tokenRefreshResponse) => {
         const encryptedToken = AES.encrypt(
           tokenRefreshResponse.data.accessToken as string,
-          process.env.NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY
+          config.universePrivKey
         );
         failedRequest.response.config.headers = {
           ...failedRequest.response.config.headers,
