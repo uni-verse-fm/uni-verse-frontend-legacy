@@ -11,7 +11,8 @@ const DonationAmount = {
   One: 100,
   Two: 200,
   Three: 300,
-  Four: 400,
+  Five: 500,
+  Ten: 1000,
 };
 
 const DonateDropDown = () => {
@@ -83,9 +84,21 @@ const DonateDropDown = () => {
               className={`${
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
               } group flex w-full items-center px-2 py-2 text-sm`}
-              onClick={() => mutate({ amount: DonationAmount.Four })}
+              onClick={() => mutate({ amount: DonationAmount.Five })}
             >
-              {`${DonationAmount.Four / 100}$`}
+              {`${DonationAmount.Five / 100}$`}
+            </button>
+          )}
+        </Menu.Item>
+        <Menu.Item>
+          {({ active }) => (
+            <button
+              className={`${
+                active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
+              } group flex w-full items-center px-2 py-2 text-sm`}
+              onClick={() => mutate({ amount: DonationAmount.Ten })}
+            >
+              {`${DonationAmount.Ten / 100}$`}
             </button>
           )}
         </Menu.Item>

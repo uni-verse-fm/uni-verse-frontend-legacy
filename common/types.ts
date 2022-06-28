@@ -167,6 +167,8 @@ export type Track = {
   fileName: string;
   author: any;
   release?: {
+    id?: string;
+    _id?: string;
     coverName?: string;
     title: string;
   };
@@ -325,6 +327,11 @@ export enum ModelType {
   Resource = "Resource",
 }
 
+export interface AddView {
+  track: string;
+  release: string;
+  user?: string;
+}
 export interface HotViews {
   limit: number;
   startDate: ISODateString;

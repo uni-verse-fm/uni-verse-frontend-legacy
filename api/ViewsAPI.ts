@@ -1,5 +1,5 @@
 import { axiosAdminClient, axiosClient } from "../common/contexts/AxiosContext";
-import { Endoints, HotViews } from "../common/types";
+import { AddView, Endoints, HotViews } from "../common/types";
 
 const hotTracks = (params: HotViews) => () =>
   axiosClient
@@ -15,10 +15,8 @@ const hotReleases = (params: HotViews) => () =>
     )
     .then((response) => response.data);
 
-const addView = async (trackId: string) => {
-  await axiosAdminClient.post(`${Endoints.Views}`, {
-    trackId,
-  });
+const addView = async (payload: AddView) => {
+  await axiosAdminClient.post(`${Endoints.Views}`, payload);
 };
 
 export { hotTracks, hotReleases, addView };
