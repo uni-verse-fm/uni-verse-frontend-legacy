@@ -20,13 +20,6 @@ jobs:
           install: true
 
       - name: Build
-        env:
-          NEXT_PUBLIC_API_URL: https://uni-verse.api.vagahbond.com
-          NEXT_PUBLIC_MINIO_URL: https://minio.vagahbond.com
-          NEXT_PUBLIC_MAX_IMAGE_SIZE: 3000000
-          NEXT_PUBLIC_MAX_FILE_SIZE: 10000000
-          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
-          NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY: ${{ secrets.NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY }}
         run: |
           docker build \
           --build-arg NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }} \
