@@ -10,7 +10,6 @@ const getEnvironmentVariable = (environmentVariable: string): string => {
 };
 
 export const config = {
-  apiUrl: getEnvironmentVariable("NEXT_PUBLIC_API_URL"),
   minioUrl: getEnvironmentVariable("NEXT_PUBLIC_MINIO_URL"),
   stripePubKey: getEnvironmentVariable("NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY"),
   stripePrivKey: getEnvironmentVariable("STRIPE_SECRET_KEY"),
@@ -19,4 +18,5 @@ export const config = {
   maxImageSize: getEnvironmentVariable("NEXT_PUBLIC_MAX_IMAGE_SIZE"),
   univereEmail: getEnvironmentVariable("UNIVERSE_EMAIL"),
   universePassword: getEnvironmentVariable("UNIVERSE_PASSWORD"),
+  apiUrl: getEnvironmentVariable("NEXT_PUBLIC_API_URL"),
 };
