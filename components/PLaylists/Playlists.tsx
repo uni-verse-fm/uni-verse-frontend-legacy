@@ -10,7 +10,7 @@ import { NotificationType, Pages } from "../../common/types";
 
 const Playlists = (props) => {
   const { data, status } = useQuery(
-    "playlists",
+    `playlists-${props.userId}`,
     () => getUserPlaylists(props.userId),
     {
       onError: (error: AxiosError) => {
