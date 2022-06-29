@@ -1,30 +1,21 @@
-import React, { useContext } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useContext } from "react";
+import { imageSource } from "../../common/constants";
 
-import { getTrackById } from "../../api/TrackAPI";
-import { useQuery } from "react-query";
-import Spinner from "../Spinner";
-import { Messages } from "../../common/constants";
-import { PlayerContext } from "../../common/providers/PlayerProvider";
+import { PlayerContext } from "../../common/contexts/PlayerContext";
 import { Track, Types } from "../../common/types";
-import { createComment } from "../../api/CommentAPI";
 import CreateComment from "../CreateComment";
 
-const ArtistTrack = (props) => {
+export const featsToString = (feats: any[]) =>
+  feats && "feat. " + feats.map((feat) => feat.username).join(" ,");
+const ArtistTrack = ({ track }) => {
   const { dispatch } = useContext(PlayerContext);
-
-  const { status, data } = useQuery("track", () =>
-    getTrackById(props.index).then((res) => {
-      return res.data;
-    })
-  );
 
   const onClickTrack = (track: Track) => () => {
     dispatch({
       type: Types.TrackPlay,
       payload: {
-        className: "mt-auto",
         track: track,
       },
     });
@@ -32,36 +23,47 @@ const ArtistTrack = (props) => {
 
   return (
     <div>
-      <div className="Global bg-grey w-full h-full flex flex-col">
-        {/*
-        {status === "loading" ? (
-          <div className="flex justify-center items-center mt-10">
-            <Spinner />
-          </div>
-        ) : status === "error" ? (
-          <div className="flex justify-center items-center mt-10">
-            <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
-          </div>
-        ) : (
-          <>
-            <div className="ml-10 flex flex-row ">
-              <div className="ml-5 ">
-                <div className="flex flex-row mt-24 mb-1">
-                  <h2 className="text-grn ">
-                    {JSON.stringify(data)}
-                    <FontAwesomeIcon
-                      className="cursor-pointer ml-5 hover:scale-[1.40]  text-wht hover:text-grn"
-                      icon={faPlay}
-                      onClick={onClickTrack(data)}
-                    />
-                  </h2>
+      <div className="bg-grey w-full h-full flex flex-col">
+        <div className="ml-10 flex flex-row ">
+          <div className="ml-5 ">
+            <div className="flex flex-row items-end mb-1">
+              <img
+                src={
+                  track?.release?.coverName
+                    ? imageSource + track?.release.coverName
+                    : "/Playlist.png"
+                }
+                className="rounded-lg"
+                width={200}
+                height={200}
+                alt="Track cover"
+              />
+              <div>
+                <div className="text-3xl font-bold text-white mx-2">
+                  {track?.title}
                 </div>
-                <h2 className="text-gry mb-8">{data._id}</h2>
+                <div className="text-xl font-bold text-grn mx-2">
+                  By {track?.author?.username}
+                </div>
+                <div className="text-md font-bold text-grn mx-2">{`(Release: ${track?.release?.title})`}</div>
+              </div>
+              {track?.feats?.length > 0 && (
+                <div className="text-md font-bold text-grn mx-2">{`${featsToString(
+                  track.feats
+                )}`}</div>
+              )}
+
+              <div className="text-grn ml-5">
+                <FontAwesomeIcon
+                  className="cursor-pointer hover:scale-[1.40] text-wht hover:text-grn fa-2xl"
+                  icon={faPlay}
+                  onClick={onClickTrack(track)}
+                />
               </div>
             </div>
-          </>
-        )}*/}
-        <CreateComment idContent={props.index} />
+          </div>
+        </div>
+        <CreateComment idContent={track?.id} />
       </div>
     </div>
   );

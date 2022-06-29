@@ -3,6 +3,9 @@ import ArtistRelease from "../components/ArtistRelease";
 
 import { useRouter } from "next/router";
 import { getSession, GetSessionParams } from "next-auth/react";
+import { Session } from "next-auth";
+import { adminLogin } from "../api/AdminAPI";
+import { ILogin } from "../common/types";
 
 function UserRelease() {
   const router = useRouter();
@@ -11,9 +14,9 @@ function UserRelease() {
   } = router;
 
   return (
-    <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden">
-      <div className="text-start  justify-start items-start w-full h-full ">
-        <h1 className="text-xl font-bold not-italic text-grn ml-10 mb-5 mt-16 ">
+    <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden p-10">
+      <div className="text-start justify-start items-start w-full h-full ">
+        <h1 className="text-xl font-bold not-italic text-grn ml-10 mb-5">
           Release
         </h1>
         <ArtistRelease
@@ -27,7 +30,15 @@ function UserRelease() {
 }
 
 export async function getServerSideProps(context: GetSessionParams) {
-  const session = await getSession(context);
+  const session: Session = await getSession(context);
+
+  const payload: ILogin = {
+    email: process.env.UNIVERSE_EMAIL,
+    password: process.env.UNIVERSE_PASSWORD,
+  };
+  const adminRefreshToken = await adminLogin(payload).then(
+    (response) => response.adminRefreshToken
+  );
 
   if (!session) {
     return {
@@ -41,7 +52,9 @@ export async function getServerSideProps(context: GetSessionParams) {
   return {
     props: {
       session,
+      adminRefreshToken,
     },
   };
 }
+
 export default UserRelease;

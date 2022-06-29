@@ -6,17 +6,18 @@ import { useQuery } from "react-query";
 import router from "next/router";
 import { notify } from "../Notifications";
 import { AxiosError } from "axios";
-import { getComments } from "../../api/CommentAPI";
-import { NotificationType, Pages } from "../../common/types";
+import { getResourceComments } from "../../api/CommentAPI";
+import { ModelType, NotificationType, Pages } from "../../common/types";
 import Comment from "../Comment";
 
 const Comments = ({ idTrack }) => {
-  {
-    /* à remplacer par getSourceComments*/
-  }
   const { status, data } = useQuery(
     "comments",
-    () => getComments().then((res) => res.data),
+    () =>
+      getResourceComments({
+        contentId: idTrack,
+        typeOfContent: ModelType.Track,
+      }).then((res) => res.data),
     {
       onSuccess: (res) => {
         if (res.status === 401) {
@@ -30,10 +31,11 @@ const Comments = ({ idTrack }) => {
           router.replace(`/${Pages.Login}`);
         }
       },
+      enabled: Boolean(idTrack),
     }
   );
   return (
-    <div className="Global bg-grey w-full h-full flex flex-col ml-10 ">
+    <div className="bg-grey h-full flex flex-col">
       <div>
         <div className="flex flex-row mb-3">
           <h1 className="text-xl font-bold not-italic text-wht">Comments</h1>
@@ -56,7 +58,7 @@ const Comments = ({ idTrack }) => {
               data.map((comment, index) => (
                 <div className="flex flex-col mb-3" key={index}>
                   <div key={index}>
-                    <Comment comment={comment} trackId={idTrack} />
+                    <Comment comment={comment} />
                   </div>
                 </div>
               ))

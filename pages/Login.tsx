@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle, faSpotify } from "@fortawesome/free-brands-svg-icons";
 import { ILogin, NotificationType } from "../common/types";
+import { adminLogin } from "../api/AdminAPI";
 
 export default function Login() {
   const router = useRouter();
@@ -18,7 +19,7 @@ export default function Login() {
       callbackUrl: `${window.location.origin}`,
     });
     if (res?.error) {
-      notify(`Can't login: ${res.error}`, NotificationType.ERROR);
+      notify(`Can't login`, NotificationType.ERROR);
     }
 
     if (res?.ok) {
@@ -62,4 +63,20 @@ export default function Login() {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const payload: ILogin = {
+    email: process.env.UNIVERSE_EMAIL,
+    password: process.env.UNIVERSE_PASSWORD,
+  };
+  const adminRefreshToken = await adminLogin(payload).then(
+    (response) => response.adminRefreshToken
+  );
+
+  return {
+    props: {
+      adminRefreshToken,
+    },
+  };
 }

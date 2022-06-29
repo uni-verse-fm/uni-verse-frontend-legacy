@@ -10,7 +10,7 @@ import { NotificationType } from "../../common/types";
 const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex }) => {
   const { mutate } = useMutation("createPlaylist", createPlaylist, {
     onError: (error) => {
-      notify("there was an error" + error, NotificationType.ERROR);
+      notify("Can not create playlist" + error, NotificationType.ERROR);
     },
     onSuccess: (res) => {
       if (res.status !== 201) {

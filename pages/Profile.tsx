@@ -17,19 +17,11 @@ function Profile() {
   } = router;
 
   const userQuery = useQuery("user", () =>
-    getUserById(id as string).then((res) => {
-      console.log("Users");
-      console.log(res.data);
-      return res.data;
-    })
+    getUserById(id as string).then((res) => res.data)
   );
 
   const releasesQuery = useQuery("myReleases", () =>
-    getUserReleases(id as string).then((res) => {
-      console.log("myyyyyyrelease");
-      console.log(res.data);
-      return res.data;
-    })
+    getUserReleases(id as string).then((res) => res.data)
   );
 
   const RessourcePacksQuery = useQuery("getResourcePacks", () =>

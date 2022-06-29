@@ -1,6 +1,7 @@
 import { faFileAudio, faFileImage } from "@fortawesome/free-solid-svg-icons";
 import { AxiosError } from "axios";
 import { Field, Form, Formik } from "formik";
+import router from "next/router";
 import { useMutation, useQuery } from "react-query";
 import * as Yup from "yup";
 import { accountDetails } from "../../api/PaymentAPI";
@@ -17,6 +18,7 @@ import {
   ICreateResource,
   IResource,
   NotificationType,
+  Pages,
   UniVerseError,
 } from "../../common/types";
 import Counter from "../Counter";
@@ -28,10 +30,14 @@ const UploadResourcePackForm = ({ me }) => {
   const { mutate } = useMutation("uploadResourcePack", createResourcePack, {
     onError: (error: AxiosError) => {
       const errorMessage: UniVerseError = error.response.data;
-      notify(
-        `Can't upload resource-pack: ${errorMessage.message}`,
-        NotificationType.ERROR
-      );
+      notify(`Can't upload resource-pack`, NotificationType.ERROR);
+      router.push({
+        pathname: `/${Pages.Error}`,
+        query: {
+          message: "Resource-pack upload failed",
+          error: errorMessage.message,
+        },
+      });
     },
     onSuccess: (res) => {
       if (res.status !== 201) {
@@ -39,6 +45,10 @@ const UploadResourcePackForm = ({ me }) => {
       } else {
         const message = "Resource-pack uploaded";
         notify(message, NotificationType.SUCCESS);
+        router.push({
+          pathname: `/${Pages.Success}`,
+          query: { message: "Resource-pack uploaded successfuly" },
+        });
       }
     },
   });
@@ -88,11 +98,8 @@ const UploadResourcePackForm = ({ me }) => {
         amount: Yup.number().test(
           "resourceFileSize",
           "The amount should be bigger than 0",
-          (value, ctx) => {
-            return ctx.parent.accessType === AccessType.Free
-              ? true
-              : value >= 1;
-          }
+          (value, ctx) =>
+            ctx.parent.accessType === AccessType.Free ? true : value >= 1
         ),
         resources: Yup.mixed()
           .test(

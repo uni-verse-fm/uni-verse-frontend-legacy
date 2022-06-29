@@ -1,16 +1,10 @@
-import React, { createContext } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
-import { BASE_API } from "../constants";
+import { BASE_API, headers } from "../constants";
 import { useSession } from "next-auth/react";
-
-const headers = {
-  "Access-Control-Allow-Credentials": true,
-  "Access-Control-Allow-Origin": BASE_API,
-  "Access-Control-Allow-Methods": "GET,OPTIONS,PATCH,DELETE,POST,PUT",
-  "Access-Control-Allow-Headers":
-    "X-CSRF-Token, Authorization, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Set-Cookie",
-};
+import { AES } from "crypto-js";
+import { config } from "../../config";
 
 export const axiosAuthClient = axios.create({
   baseURL: BASE_API,
@@ -23,38 +17,30 @@ export const axiosClient = axios.create({
   headers: { ...headers },
 });
 
+export const axiosAdminClient = axios.create({
+  baseURL: BASE_API,
+  headers: { ...headers },
+});
+
 const AxiosContext = createContext({ axiosAuthClient, axiosClient });
 const { Provider } = AxiosContext;
 
-const AxiosProvider = (props: any) => {
-  const { data: session } = useSession();
-
-  axiosAuthClient.interceptors.request.use(
-    (config) => {
-      if (!config.headers?.Authorization) {
-        config.headers = {
-          ...config.headers,
-          Authorization: `Bearer ${session.refreshToken}`,
-        };
-      }
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
-
-  const refreshAuthLogic = async (failedRequest: any) => {
-    return await axios
+const adminRefreshAuthLogic =
+  (adminRefreshToken: string) => async (failedRequest: any) =>
+    await axios
       .get(`${BASE_API}/auth/refresh`, {
         headers: {
-          Authorization: session.refreshToken as string,
+          Authorization: adminRefreshToken,
         },
       })
       .then(async (tokenRefreshResponse) => {
+        const encryptedToken = AES.encrypt(
+          tokenRefreshResponse.data.accessToken as string,
+          config.universePrivKey
+        );
         failedRequest.response.config.headers = {
           ...failedRequest.response.config.headers,
-          Authorization: `${tokenRefreshResponse.data.accessToken}`,
+          Authorization: `${encryptedToken}`,
         };
 
         return Promise.resolve();
@@ -62,10 +48,45 @@ const AxiosProvider = (props: any) => {
       .catch((error: AxiosError) => {
         return Promise.reject(error);
       });
-  };
 
-  session?.refreshToken &&
-    createAuthRefreshInterceptor(axiosClient, refreshAuthLogic);
+const refreshAuthLogic = (refreshToken) => async (failedRequest: any) =>
+  await axios
+    .get(`${BASE_API}/auth/refresh`, {
+      headers: {
+        Authorization: refreshToken,
+      },
+    })
+    .then(async (tokenRefreshResponse) => {
+      failedRequest.response.config.headers = {
+        ...failedRequest.response.config.headers,
+        Authorization: `${tokenRefreshResponse.data.accessToken}`,
+      };
+
+      return Promise.resolve();
+    })
+    .catch((error: AxiosError) => {
+      return Promise.reject(error);
+    });
+
+const AxiosProvider = (props: any) => {
+  const [adminRefreshToken, setAdminRefreshToken] = useState<string>();
+  const [refreshToken, setRefreshToken] = useState<string>();
+
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    props.adminRefreshToken && setAdminRefreshToken(props.adminRefreshToken);
+    session?.refreshToken && setRefreshToken(session?.refreshToken as string);
+  }, [props.adminRefreshToken, session?.refreshToken]);
+
+  refreshToken &&
+    createAuthRefreshInterceptor(axiosClient, refreshAuthLogic(refreshToken));
+
+  adminRefreshToken &&
+    createAuthRefreshInterceptor(
+      axiosAdminClient,
+      adminRefreshAuthLogic(adminRefreshToken)
+    );
 
   return (
     <Provider

@@ -8,20 +8,20 @@ import Sidebar from "../components/Sidebar";
 import "../styles/globals.css";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { PlayerProvider } from "../common/providers/PlayerProvider";
+import { PlayerProvider } from "../common/contexts/PlayerContext";
 import { SessionProvider } from "next-auth/react";
 import { AxiosProvider } from "../common/contexts/AxiosContext";
+import { config } from "../config";
 
-const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
-const options = {
-  clientSecret: process.env.STRIPE_CLIENT_SECRET,
-};
+const stripePromise = loadStripe(config.stripePubKey);
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [showPlaylistsModal, setShowPlaylistsModal] = useState(false);
   const [createPlaylistIndex, setCreatePlaylistIndex] = useState(false);
 
-  const handleShowPlaylistsModal = () => setShowPlaylistsModal(true);
+  const handleShowPlaylistsModal = () => {
+    setShowPlaylistsModal(true);
+  };
   const handleShowCreatePlaylistIndex = () => setCreatePlaylistIndex(true);
   const handleHidecreatePlaylistIndex = () => setCreatePlaylistIndex(false);
 
@@ -33,17 +33,13 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   };
 
   return (
-    <Elements stripe={stripePromise} options={options}>
+    <Elements stripe={stripePromise}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <SessionProvider session={session}>
-            <AxiosProvider>
+            <AxiosProvider adminRefreshToken={pageProps.adminRefreshToken}>
               <PlayerProvider>
-                <div
-                  className={`${
-                    showPlaylistsModal && "blur-md"
-                  } flex flex-col h-screen overflow-hidden`}
-                >
+                <div className={"flex flex-col h-screen overflow-hidden"}>
                   <div className="sticky top-0">
                     <Header />
                   </div>

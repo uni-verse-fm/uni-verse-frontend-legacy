@@ -1,15 +1,8 @@
-export const MAX_FILE_SIZE = process.env.NEXT_PUBLIC_MAX_FILE_SIZE
-  ? Number(process.env.NEXT_PUBLIC_MAX_FILE_SIZE)
-  : 10_000_000;
-export const MAX_IMAGE_SIZE = process.env.NEXT_PUBLIC_MAX_IMAGE_SIZE
-  ? Number(process.env.NEXT_PUBLIC_MAX_IMAGE_SIZE)
-  : 3_000_000;
+import { config } from "./../config";
+export const MAX_FILE_SIZE = Number(config.maxFileSize);
+export const MAX_IMAGE_SIZE = Number(config.maxImageSize);
 
-export const BASE_API =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
-
-export const MOCK_BASE_API =
-  "https://6276b27f2f94a1d706062d0f.mockapi.io/api/v2";
+export const BASE_API = config.apiUrl;
 
 export const Extensions = {
   image: {
@@ -49,3 +42,15 @@ export const Messages = {
   PURCHASE_SUCCESS: "Thank you for your purchase",
   EMPTY_FUZZY_RESULT: "No results with those specifications",
 };
+
+export const headers = {
+  "Access-Control-Allow-Credentials": true,
+  "Access-Control-Allow-Origin": BASE_API,
+  "Access-Control-Allow-Methods": "GET,OPTIONS,PATCH,DELETE,POST,PUT",
+  "Access-Control-Allow-Headers":
+    "X-CSRF-Token, Authorization, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Set-Cookie",
+};
+
+export const trackSource = `${config.minioUrl}/tracks/`;
+
+export const imageSource = `${config.minioUrl}/images/`;

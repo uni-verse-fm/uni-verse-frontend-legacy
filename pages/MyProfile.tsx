@@ -6,6 +6,9 @@ import { Session } from "next-auth";
 import ProfileScreen from "../components/ProfileScreen";
 import { Messages } from "../common/constants";
 import Spinner from "../components/Spinner";
+import { adminLogin } from "../api/AdminAPI";
+import { me } from "../api/AuthAPI";
+import { ILogin } from "../common/types";
 
 function MyProfile(props) {
   const { data: session } = useSession();
@@ -14,6 +17,16 @@ function MyProfile(props) {
     "myReleases",
     () => getUserReleases((session.user as any).id),
     { initialData: props.releases, enabled: Boolean(session) }
+  );
+
+  const meQuery = useQuery(
+    "me",
+    () => me().then((res) => res.data),
+
+    {
+      enabled: Boolean(session),
+      initialData: { ...session.user },
+    }
   );
 
   return status === "error" ? (
@@ -25,18 +38,17 @@ function MyProfile(props) {
       <Spinner />
     </div>
   ) : session.user ? (
-    <div className="bg-drk w-full h-full">
-      <ProfileScreen
-        user={{
-          id: (session.user as any).id,
-          username: (session.user as any).username,
-          email: (session.user as any).email,
-          accountId: (session.user as any).accountId,
-        }}
-        releases={data}
-        isMe={true}
-      />{" "}
-    </div>
+    <ProfileScreen
+      user={{
+        id: meQuery.data.id,
+        username: meQuery.data.username,
+        email: meQuery.data.email,
+        accountId: meQuery.data.accountId,
+        profilePicture: meQuery.data.profilePicture,
+      }}
+      releases={data}
+      isMe={true}
+    />
   ) : (
     <></>
   );
@@ -44,6 +56,13 @@ function MyProfile(props) {
 
 export async function getServerSideProps(context: GetSessionParams) {
   const session: Session = await getSession(context);
+  const payload: ILogin = {
+    email: process.env.UNIVERSE_EMAIL,
+    password: process.env.UNIVERSE_PASSWORD,
+  };
+  const adminRefreshToken = await adminLogin(payload).then(
+    (response) => response.adminRefreshToken
+  );
   if (!session) {
     return {
       redirect: {
@@ -56,6 +75,7 @@ export async function getServerSideProps(context: GetSessionParams) {
   return {
     props: {
       session,
+      adminRefreshToken,
     },
   };
 }

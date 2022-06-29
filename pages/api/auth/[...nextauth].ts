@@ -4,10 +4,69 @@ import NextAuth from "next-auth";
 import * as cookie from "cookie";
 import GoogleProvider from "next-auth/providers/google";
 import SpotifyProvider from "next-auth/providers/spotify";
-import axios, { AxiosError } from "axios";
-import { BASE_API } from "../../../common/constants";
-import { Endoints } from "../../../common/types";
-import { axiosAuthClient } from "../../../common/contexts/AxiosContext";
+import { BASE_API, headers } from "../../../common/constants";
+import { Endoints, ILogin } from "../../../common/types";
+import {
+  axiosAdminClient,
+  axiosAuthClient,
+} from "../../../common/contexts/AxiosContext";
+import { AES } from "crypto-js";
+import { adminLogin } from "../../../api/AdminAPI";
+
+enum Purpose {
+  Check,
+  Connect,
+}
+
+const payload: ILogin = {
+  email: process.env.UNIVERSE_EMAIL,
+  password: process.env.UNIVERSE_PASSWORD,
+};
+
+interface ProviderParams {
+  username: string;
+  email: string;
+  provider: string;
+  purpose: Purpose;
+  isEmailChecked?: boolean;
+}
+
+const providerConnect = async ({
+  username,
+  email,
+  provider,
+  purpose,
+  isEmailChecked,
+}: ProviderParams) =>
+  await adminLogin(payload)
+    .then((response) =>
+      AES.encrypt(response.adminAccessToken, process.env.UNIVERSE_PRIVATE_KEY)
+    )
+    .then(
+      async (ecrypted) =>
+        await axiosAdminClient
+          .post(
+            `${BASE_API + Endoints.Auth}/${provider}`,
+            {
+              username,
+              email,
+            },
+            {
+              headers: {
+                ...headers,
+                Authorization: `${ecrypted}`,
+              },
+            }
+          )
+          .then((response) => response)
+    )
+    .then((response) =>
+      purpose === Purpose.Connect
+        ? response.data
+        : provider === "google"
+        ? isEmailChecked && response.status === 201
+        : response.status === 201
+    );
 
 async function refreshAccessToken(token) {
   axiosAuthClient.defaults.headers["cookie"] = cookie.serialize(
@@ -85,6 +144,19 @@ export default NextAuth({
         });
       }
 
+      if (account?.provider in ["google", "spotify"]) {
+        const user = await providerConnect({
+          username: token.name,
+          email: token.email,
+          provider: account.provider as string,
+          purpose: Purpose.Connect,
+        });
+        return {
+          ...token,
+          ...user,
+        };
+      }
+
       if (token.refreshToken) {
         return await refreshAccessToken(token);
       }
@@ -94,35 +166,28 @@ export default NextAuth({
 
     async signIn({ account, profile }) {
       if (account.provider === "google") {
-        return await axios
-          .post(`${BASE_API + Endoints.Auth}/google`, {
-            username: profile.given_name,
-            email: profile.email,
-          })
-          .then((response) => {
-            return profile.email_verified && response.status === 201;
-          })
-          .catch(() => false);
+        return await providerConnect({
+          username: profile.name,
+          email: profile.email,
+          provider: account.provider as string,
+          purpose: Purpose.Check,
+          isEmailChecked: Boolean(profile.email_verified),
+        });
       }
 
       if (account.provider === "spotify") {
-        return await axios
-          .post(`${BASE_API + Endoints.Auth}/spotify`, {
-            username: profile.display_name,
-            email: profile.email,
-          })
-          .then((response) => {
-            return response.status === 201;
-          })
-          .catch(() => false);
+        return await providerConnect({
+          username: profile.name,
+          email: profile.email,
+          provider: account.provider as string,
+          purpose: Purpose.Check,
+        });
       }
 
       return true;
     },
 
     async session({ session, token }) {
-      console.debug("session", session);
-      console.debug("token", token.refreshToken);
       const customSession = {
         ...session,
         refreshToken: token.refreshToken,
@@ -132,10 +197,9 @@ export default NextAuth({
           email: token.email,
           id: token.id,
           accountId: token.accountId,
+          profilePicture: token.profilePicture,
         },
       };
-      console.debug("session", customSession);
-      console.debug("token", token.refreshToken);
       return customSession;
     },
   },

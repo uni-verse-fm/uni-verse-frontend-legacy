@@ -17,6 +17,16 @@ const deleteUser = () => (id) => axiosClient.delete(`${userEndpoint}/${id}`);
 
 const onboardUser = () => axiosClient.post(`${userEndpoint}/onboard`);
 
+const changePassword = (password: string) =>
+  axiosClient.post(`${userEndpoint}/password`, { password });
+
+const changeProfilePicture = (data) =>
+  axiosClient.post(`${userEndpoint}/upload`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
 const searchUsers = (text: string, { signal }) =>
   axiosClient
     .get(`${userEndpoint}/search?search=${text}`, {
@@ -33,5 +43,7 @@ export {
   deleteUser,
   searchUsers,
   onboardUser,
+  changePassword,
   resetPassword,
+  changeProfilePicture,
 };

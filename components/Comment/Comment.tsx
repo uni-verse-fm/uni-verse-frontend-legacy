@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import router from "next/router";
 import { notify } from "../Notifications";
 import { useSession } from "next-auth/react";
-import { NotificationType, Pages } from "../../common/types";
+import { NotificationType } from "../../common/types";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
@@ -11,7 +11,7 @@ import { deleteComment } from "../../api/CommentAPI";
 import { isoDateToDateHour } from "../../utils/dateUtils";
 import UpdateCommentForm from "../UpdateCommentForm";
 
-const Comment = ({ comment, trackId }) => {
+const Comment = ({ comment }) => {
   const { data: session } = useSession();
 
   const [showForm, setShowForm] = useState(false);
@@ -29,8 +29,8 @@ const Comment = ({ comment, trackId }) => {
   };
 
   const { mutate } = useMutation("deleteComment", deleteComment, {
-    onError: (error) => {
-      notify("there was an error" + error, NotificationType.ERROR);
+    onError: () => {
+      notify("Can not delete comment", NotificationType.ERROR);
     },
     onSuccess: (res) => {
       if (res.status !== 200) {
@@ -48,7 +48,7 @@ const Comment = ({ comment, trackId }) => {
     <div>
       <div className="flex flex-row ">
         <div className="text-sm font-normal not-italic text-grn">
-          nmedjoub {/* à remplacer par owner.name */}
+          {comment?.owner?.username}
         </div>
         
          {session && (
