@@ -18,8 +18,7 @@ import {
 import { useSession } from "next-auth/react";
 
 const MenuSelectPlayList = ({ track }) => {
-
-    const { data: session } = useSession();
+  const { data: session } = useSession();
 
   const { status, data } = useQuery(
     "my-playlists",
@@ -69,7 +68,9 @@ const MenuSelectPlayList = ({ track }) => {
 
   return (
     <Menu as="div" className="relative text-left h-full w-auto">
-      <Menu.Button className="h-full text-grn font-bold w-auto">Add to a playlist</Menu.Button>
+      <Menu.Button className="h-full text-grn font-bold w-auto">
+        Add to a playlist
+      </Menu.Button>
       <Menu.Items className="absolute hover-text-grn text-grn mt-2 divide-y divide-gray-100 rounded-md bg-fakeBlr">
         {status === "success" &&
           data.map((playlist, index) => (

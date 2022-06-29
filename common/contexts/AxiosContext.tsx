@@ -30,7 +30,7 @@ const adminRefreshAuthLogic =
     await axios
       .get(`${BASE_API}/auth/refresh`, {
         headers: {
-            ...headers,
+          ...headers,
           Authorization: adminRefreshToken,
         },
       })

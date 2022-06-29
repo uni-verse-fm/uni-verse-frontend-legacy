@@ -40,7 +40,12 @@ const ShowMoreMenu = ({ track }) => {
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
               } group items-center px-2 py-2 rounded-b-md`}
             >
-              <button className=" font-bold text-grn" onClick={onClickDisplayUser}>Artist</button>
+              <button
+                className=" font-bold text-grn"
+                onClick={onClickDisplayUser}
+              >
+                Artist
+              </button>
             </div>
           )}
         </Menu.Item>

@@ -189,7 +189,11 @@ const ProfileScreen = ({ user, releases, playlists, isMe }: IProfileScreen) => {
         </h2>
 
         <div className="-ml-4 ">
-          <Playlists className="w-full" playlists={playlists} modalDisplay="false" />
+          <Playlists
+            className="w-full"
+            playlists={playlists}
+            modalDisplay="false"
+          />
         </div>
 
         {user.accountId && (
