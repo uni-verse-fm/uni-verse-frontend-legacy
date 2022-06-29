@@ -36,7 +36,6 @@ const Playlists = (props) => {
                 <PlaylistCard
                   key={index}
                   title={item.title}
-                  image={item.image}
                   owner={item.owner?.username}
                   defaultImageSrc={"/Playlist.png"}
                 />
