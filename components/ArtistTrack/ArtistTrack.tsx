@@ -8,7 +8,7 @@ import { Track, Types } from "../../common/types";
 import CreateComment from "../CreateComment";
 
 export const featsToString = (feats: any[]) =>
-  feats && "feat. " + feats.map((feat) => feat.username).join(" ,");
+  feats && "feat. " + feats.map((feat) => feat.username).join(",");
 const ArtistTrack = ({ track }) => {
   const { dispatch } = useContext(PlayerContext);
 

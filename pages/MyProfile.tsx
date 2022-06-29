@@ -47,6 +47,7 @@ function MyProfile(props) {
         profilePicture: meQuery.data.profilePicture,
       }}
       releases={data}
+      resourcesPack = {""}
       isMe={true}
     />
   ) : (

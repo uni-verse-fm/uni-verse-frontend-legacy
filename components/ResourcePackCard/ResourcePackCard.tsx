@@ -1,5 +1,6 @@
 import React from "react";
-import { imageSource } from "../../common/types";
+
+import { imageSource } from "../../common/constants";
 
 const ResourcePackCard = (props) => {
   return (

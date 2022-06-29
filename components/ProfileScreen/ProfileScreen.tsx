@@ -89,8 +89,6 @@ const ProfileScreen = ({ user, releases, isMe, resourcesPack }: IProfileScreen) 
   },
 ];
 
-
-
   const { mutate } = useMutation("uploadProfilePicture", changeProfilePicture, {
     onError: () => {
       notify(`Can't upload profile picture`, NotificationType.ERROR);
