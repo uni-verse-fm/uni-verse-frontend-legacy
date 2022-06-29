@@ -5,7 +5,6 @@ import { useQuery } from "react-query";
 import router from "next/router";
 import { notify } from "../Notifications";
 import { AxiosError } from "axios";
-import { styles } from "../PlayListsModal";
 import { getUserPlaylists } from "../../api/PlaylistAPI";
 import { NotificationType, Pages } from "../../common/types";
 
@@ -35,16 +34,16 @@ const Playlists = (props) => {
   };
 
   return (
-    <>
+    <div className="h-full">
       {props.modalDisplay === "true" && (
         <div className="items-start mt-10 mb-5 ml-6 text-grn text-lg">
           Playlists :
         </div>
       )}
 
-      <div className={styles.wrapper}>
+      <div className={"h-full "}>
         {status === "loading" ? (
-          <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
+          <div className="flex h-full w-full justify-center items-center m-auto">
             <Spinner />
           </div>
         ) : status === "error" ? (
@@ -52,28 +51,30 @@ const Playlists = (props) => {
             <h1 className="text-rd whitespace-nowrap">{props.modall}</h1>
           </div>
         ) : status === "success" ? (
-          data.length ? (
-            data.map((item, index) => (
-              <div key={index} onClick={onClickDisplayPlaylist(item._id)}>
-                <PlaylistCard
-                  key={index}
-                  title={item.title}
-                  image={item.image}
-                  owner={item.owner?.username}
-                  defaultImageSrc={"/Playlist.png"}
-                />
+          <div className="w-full h-full flex flex-wrap gap-6 px-4">
+            {data.length ? (
+              data.map((item, index) => (
+                <div key={index} onClick={onClickDisplayPlaylist(item._id)}>
+                  <PlaylistCard
+                    key={index}
+                    title={item.title}
+                    image={item.image}
+                    owner={item.owner?.username}
+                    defaultImageSrc={"/Playlist.png"}
+                  />
+                </div>
+              ))
+            ) : (
+              <div className="flex justify-start items-start mt-10 text-lg">
+                <h1 className="text-grn whitespace-nowrap">
+                  {Messages.EMPTY_PLAYLISTS}
+                </h1>
               </div>
-            ))
-          ) : (
-            <div className="flex justify-start items-start mt-10 text-lg">
-              <h1 className="text-grn whitespace-nowrap">
-                {Messages.EMPTY_PLAYLISTS}
-              </h1>
-            </div>
-          )
+            )}
+          </div>
         ) : null}
       </div>
-    </>
+    </div>
   );
 };
 

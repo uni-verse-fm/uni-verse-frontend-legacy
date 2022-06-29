@@ -1,4 +1,5 @@
-import { config } from "./../config";
+import { config } from "../config";
+
 export const MAX_FILE_SIZE = Number(config.maxFileSize);
 export const MAX_IMAGE_SIZE = Number(config.maxImageSize);
 
@@ -41,6 +42,7 @@ export const Messages = {
   DONATION_SUCCESS: "Thank you for your support",
   PURCHASE_SUCCESS: "Thank you for your purchase",
   EMPTY_FUZZY_RESULT: "No results with those specifications",
+  EMPTY_COMMENTS: "No comments",
 };
 
 export const headers = {

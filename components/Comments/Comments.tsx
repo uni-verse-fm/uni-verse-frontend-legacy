@@ -12,7 +12,7 @@ import Comment from "../Comment";
 
 const Comments = ({ idTrack }) => {
   const { status, data } = useQuery(
-    "comments",
+    `comments-${idTrack}`,
     () =>
       getResourceComments({
         contentId: idTrack,
@@ -35,22 +35,22 @@ const Comments = ({ idTrack }) => {
     }
   );
   return (
-    <div className="bg-grey h-full flex flex-col">
-      <div>
-        <div className="flex flex-row mb-3">
-          <h1 className="text-xl font-bold not-italic text-wht">Comments</h1>
+    <div className="bg-grey h-full flex flex-col w-auto">
+      <div className="">
+        <div className="flex flex-row py-4">
+          <h1 className="text-2xl font-bold not-italic text-wht">Comments</h1>
           <FontAwesomeIcon
-            className="cursor-pointer text-xl font-bold  ml-5 text-wht"
+            className="cursor-pointer text-xl font-bold ml-5 text-wht"
             icon={faComments}
           />
         </div>
-        <div className="flex flex-col justify-start items-start rounded bg-drk w-auto h-auto">
+        <div className="flex flex-col justify-start items-start rounded bg-drk w-full h-full">
           {status === "loading" ? (
-            <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-auto">
+            <div className="h-full flex w-full items-center justify-center">
               <Spinner />
             </div>
           ) : status === "error" ? (
-            <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-auto">
+            <div className="h-full flex w-full items-center justify-center">
               <h1 className="text-rd whitespace-nowrap">error</h1>
             </div>
           ) : status === "success" ? (
@@ -63,13 +63,15 @@ const Comments = ({ idTrack }) => {
                 </div>
               ))
             ) : (
-              <div className="flex justify-start items-start mt-10 text-lg">
+              <div className="h-full flex w-full items-center justify-center">
                 <h1 className="text-grn whitespace-nowrap">
-                  {Messages.EMPTY_PLAYLISTS}
+                  {Messages.EMPTY_COMMENTS}
                 </h1>
               </div>
             )
-          ) : null}
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>

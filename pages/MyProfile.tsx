@@ -34,7 +34,7 @@ function MyProfile(props) {
       <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
     </div>
   ) : status === "loading" ? (
-    <div className="flex justify-center items-center  bg-drk w-full h-full">
+    <div className="flex justify-center items-center bg-drk w-full h-full">
       <Spinner />
     </div>
   ) : session.user ? (

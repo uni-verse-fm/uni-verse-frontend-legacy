@@ -83,7 +83,7 @@ const CreateComment = ({ idContent }) => {
         }}
         render={({ values, errors, handleChange, handleBlur }) => {
           return (
-            <div className="bg-blk flex w-full mb-12 justify-start items-start">
+            <div className="bg-blk flex w-full justify-start items-start">
               <Form className="flex flex-col justify-center items-start rounded bg-drk grow">
                 <div className="flex flex-col items-start w-full h-auto">
                   <textarea
