@@ -9,19 +9,6 @@ import { getUserPlaylists } from "../../api/PlaylistAPI";
 import { NotificationType, Pages } from "../../common/types";
 
 const Playlists = (props) => {
-  const { data, status } = useQuery(
-    `playlists-${props.userId}`,
-    () => getUserPlaylists(props.userId),
-    {
-      onError: (error: AxiosError) => {
-        if (error.response?.status === 401) {
-          notify(Messages.UNAUTHORIZED, NotificationType.ERROR);
-          router.replace(`/${Pages.Login}`);
-        }
-      },
-    }
-  );
-
   const onClickDisplayPlaylist = (idPlaylist) => () => {
     if (props.modalDisplay === "false") {
       router.push({
@@ -42,37 +29,27 @@ const Playlists = (props) => {
       )}
 
       <div className={"h-full "}>
-        {status === "loading" ? (
-          <div className="flex h-full w-full justify-center items-center m-auto">
-            <Spinner />
-          </div>
-        ) : status === "error" ? (
-          <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
-            <h1 className="text-rd whitespace-nowrap">{props.modall}</h1>
-          </div>
-        ) : status === "success" ? (
-          <div className="w-full h-full flex flex-wrap gap-6 px-4">
-            {data.length ? (
-              data.map((item, index) => (
-                <div key={index} onClick={onClickDisplayPlaylist(item._id)}>
-                  <PlaylistCard
-                    key={index}
-                    title={item.title}
-                    image={item.image}
-                    owner={item.owner?.username}
-                    defaultImageSrc={"/Playlist.png"}
-                  />
-                </div>
-              ))
-            ) : (
-              <div className="flex justify-start items-start mt-10 text-lg">
-                <h1 className="text-grn whitespace-nowrap">
-                  {Messages.EMPTY_PLAYLISTS}
-                </h1>
+        <div className="w-full h-full flex flex-wrap gap-6 px-4">
+          {props.playlists?.length ? (
+            props.playlists.map((item, index) => (
+              <div key={index} onClick={onClickDisplayPlaylist(item._id)}>
+                <PlaylistCard
+                  key={index}
+                  title={item.title}
+                  image={item.image}
+                  owner={item.owner?.username}
+                  defaultImageSrc={"/Playlist.png"}
+                />
               </div>
-            )}
-          </div>
-        ) : null}
+            ))
+          ) : (
+            <div className="flex justify-start items-start mt-10 text-lg">
+              <h1 className="text-grn whitespace-nowrap">
+                {Messages.EMPTY_PLAYLISTS}
+              </h1>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

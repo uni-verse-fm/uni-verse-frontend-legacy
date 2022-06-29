@@ -7,6 +7,9 @@ import { PlaylistModalHeader } from "../PlayList/PlaylistModalHeader";
 import { PlaylistsModalHeader } from "./PlaylistsModalHeader";
 import CreatePlayListForm from "../CreatePlayListForm";
 import { useSession } from "next-auth/react";
+import { useQuery } from "react-query";
+import { getUserPlaylists } from "../../api/PlaylistAPI";
+import Spinner from "../Spinner";
 
 const PlaylistsModal = ({
   showModal,
@@ -16,6 +19,13 @@ const PlaylistsModal = ({
   handleHidecreatePlaylistIndex,
 }) => {
   const [playlistIndex, setPlaylistIndex] = useState(null);
+  const { data: session } = useSession();
+
+  const playlistsQuery = useQuery(
+    "myPlaylists",
+    () => getUserPlaylists((session.user as any).id),
+    { enabled: Boolean(session?.user) }
+  );
 
   const handleShowPlaylistContent = (index: number) => {
     setPlaylistIndex(index);
@@ -24,7 +34,6 @@ const PlaylistsModal = ({
   const handleHidePlaylistContent = () => {
     setPlaylistIndex(null);
   };
-  const { data: session } = useSession();
 
   return (
     !!session && (
@@ -59,12 +68,24 @@ const PlaylistsModal = ({
                 showForm={createPlaylistIndex}
                 handleHidecreatePlaylistIndex={handleHidecreatePlaylistIndex}
               />
-            ) : (
+            ) : playlistsQuery.status === "loading" ? (
+              <div className="flex h-full w-full justify-center items-center m-auto">
+                <Spinner />
+              </div>
+            ) : playlistsQuery.status === "error" ? (
+              <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
+                <h1 className="text-rd whitespace-nowrap">No playlist found</h1>
+              </div>
+            ) : playlistsQuery.status === "success" ? (
               <Playlists
-                userId={(session.user as any).id}
                 handleShowPlaylistContent={handleShowPlaylistContent}
+                playlists={
+                  (playlistsQuery.status = "success" ? playlistsQuery.data : [])
+                }
                 modalDisplay="true"
               />
+            ) : (
+              <></>
             )}
           </div>
         )}

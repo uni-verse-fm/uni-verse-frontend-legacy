@@ -23,7 +23,7 @@ const MenuSelectPlayList = ({ track }) => {
 
   const { status, data } = useQuery(
     "my-playlists",
-    () => getUserPlaylists((session.user as any).id),
+    () => getUserPlaylists((session?.user as any).id),
     {
       onSuccess: (res) => {
         if (res.status === 401) {
@@ -37,7 +37,7 @@ const MenuSelectPlayList = ({ track }) => {
           router.replace(`/${Pages.Login}`);
         }
       },
-      enabled: Boolean((session.user as any).id),
+      enabled: Boolean((session?.user as any).id),
     }
   );
 
