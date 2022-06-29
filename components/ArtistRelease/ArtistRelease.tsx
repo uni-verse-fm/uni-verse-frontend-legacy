@@ -78,15 +78,12 @@ const ArtistRelease = (props) => {
             <div className="ml-10 flex flex-row ">
               <div>
                 <Image
-                  src={
-                    getRelease.data.coverName
-                      ? imageSource + getRelease.data.coverName
-                      : "/Playlist.png"
-                  }
+                  src={imageSource + getRelease.data.coverName}
                   className="rounded mb-5"
                   width={150}
                   height={150}
                   alt="Release"
+                  defaultValue="/profile.jpg"
                 />
               </div>
 

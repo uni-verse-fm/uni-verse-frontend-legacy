@@ -1,3 +1,4 @@
+import { headers } from "../common/constants";
 import { axiosClient } from "../common/contexts/AxiosContext";
 import { Endoints } from "../common/types";
 
@@ -23,6 +24,7 @@ const changePassword = (password: string) =>
 const changeProfilePicture = (data) =>
   axiosClient.post(`${userEndpoint}/upload`, data, {
     headers: {
+      ...headers,
       "Content-Type": "multipart/form-data",
     },
   });
