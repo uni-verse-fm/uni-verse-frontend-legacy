@@ -103,15 +103,12 @@ const ArtistRelease = (props) => {
 
               <div className="flex flex-row mb-1">
                   <h2 className="text-grn text-xl font-bold ">
-                 
-
                     <FontAwesomeIcon
                       className="cursor-pointer ml-5 hover:scale-[1.40]  text-wht hover:text-grn"
                       icon={faPlay}
                       onClick={onClickRelease(getRelease.data)}
                     />
                   </h2>
-
                   {(session.user as any).id === getRelease.data.author._id && (
                     <div className="flex flex-row">
                       <h2 className="text-grn text-xl">
@@ -128,11 +125,7 @@ const ArtistRelease = (props) => {
                 <div className="flex flex-row ">
                   <h2 className="text-grn text-2xl font-bold ">
                     {getRelease.data.title}
-
-                   
                   </h2>
-
-                  
                 </div>
 
               
@@ -144,7 +137,7 @@ const ArtistRelease = (props) => {
                  {(ShowMoreInformations == false) ? (
                   <h2 className="text-grn">
                         <FontAwesomeIcon
-                          className="cursor-pointer hover:scale-[1.40] hover:text-rd text-wht"
+                          className="cursor-pointer hover:scale-[1.40] hover:text-grn text-wht"
                           icon={faChevronDown}
                           onClick={handleShowMoreInformations}
                         />
@@ -152,20 +145,20 @@ const ArtistRelease = (props) => {
 
                     ) : (<h2 className="text-grn">
                       <FontAwesomeIcon
-                            className="cursor-pointer hover:scale-[1.40] hover:text-rd text-wht"
+                            className="cursor-pointer hover:scale-[1.40] hover:text-grn text-grn"
                             icon={faChevronUp}
                             onClick={handleCloseShowMoreInformations}
                           />
                             </h2> )}
 
-                 {getRelease.data?.description && (ShowMoreInformations == true) && (
-                   <>
-                      <h2 className="text-wht ">
-                      {getRelease.data.description} 
-                    </h2>
-                   <h2 className="text-gry text-xs">
-                      Created at : {isoDateToDateHour(getRelease.data.createdAt)} 
-                    </h2>
+                        {getRelease.data?.description && (ShowMoreInformations == true) && (
+                        <>
+                          <h2 className="text-wht ">
+                          {getRelease.data.description} 
+                        </h2>
+                        <h2 className="text-gry text-xs">
+                          Created at : {isoDateToDateHour(getRelease.data.createdAt)} 
+                        </h2>
                  
 
                     

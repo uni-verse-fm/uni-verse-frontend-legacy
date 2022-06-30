@@ -19,14 +19,17 @@ const DisplayTracksTable = ({ tracks }) => {
   };
 
   return (
-    <table className="text-gry text-sm mb-5">
+    <table className="text-wht text-sm mb-5 rounded-lg bg-gry bg-opacity-50">
       <thead>
-        <tr className="text-grn border-b mb-10">
+        <tr className="text-grn border-b mb-10 ">
           <td className="py-3 "></td>
           <td className="py-3 ">Name</td>
           <td className="py-3">Artist</td>
           <td className="py-3">
             <FontAwesomeIcon className="ml-5 text-grn" icon={faClock} />
+          </td>
+          <td className="py-3">
+            
           </td>
         </tr>
       </thead>
@@ -34,11 +37,11 @@ const DisplayTracksTable = ({ tracks }) => {
         {tracks.map((track, index) => (
           <tr
             key={`${track.title}-${index}`}
-            className="h-10 hover:text-wht hover:border-b hover:border-t"
+            className="h-10 hover:bg-gry hover:bg-opacity-70 cursor-pointer  "
           >
             <td>
               <FontAwesomeIcon
-                className=" cursor-pointer hover:scale-[1.40] text-grn"
+                className=" cursor-pointer hover:scale-[1.40] text-grn ml-3"
                 icon={faPlay}
                 onClick={onClickTrack(track)}
               />

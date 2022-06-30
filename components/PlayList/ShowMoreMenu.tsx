@@ -82,7 +82,7 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
                     } group items-center px-2 py-2 font-semibold text-gryf`}
                     onClick={(_: any) => {
                       let dataToUpdate: IUpdatePlaylistTrack = {
-                        trackId: track._id,
+                        trackId: track.id,
                         action: "REMOVE",
                       };
                       let dataForm: IUpdatePayload = {

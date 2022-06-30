@@ -51,7 +51,7 @@ const MenuSelectPlayList = ({ track }) => {
   
   const onClickRelease = (playlist) => () => {
     let dataToUpdate: IUpdatePlaylistTrack = {
-      trackId: track._id,
+      trackId: track.id,
       action: "ADD",
     };
 
@@ -59,6 +59,7 @@ const MenuSelectPlayList = ({ track }) => {
       id: playlist._id,
       data: dataToUpdate,
     };
+  
     mutate(dataForm);
   };
 

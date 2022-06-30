@@ -17,6 +17,9 @@ import { notify } from "../Notifications";
 import Playlists from "../PLaylists";
 import UploadImageDisplayer from "../UploadImageDisplayer";
 import ResetPasswordModal from "../ResetPasswordModal";
+import TrackRow from "../SearchBar/TrackRow";
+import { Pages, Track } from "../../common/types";
+import { useRouter } from "next/router";
 
 const imageProps = {
   defaultImageSrc: "/profile.jpg",
@@ -25,6 +28,7 @@ const imageProps = {
 };
 
 const ProfileScreen = ({ user, releases, isMe, resourcesPacks }: IProfileScreen) => {
+  const router = useRouter();
   const [showForm, setShowForm] = useState(false);
 
   const handleShowForm = () => {
@@ -32,13 +36,18 @@ const ProfileScreen = ({ user, releases, isMe, resourcesPacks }: IProfileScreen)
     setShowForm(true);
   };
 
-
   const [isValid, setIsValid] = useState(true);
   
   const handleCloseResetPasswordModal = () => {
     setShowForm(false);
   };
   
+  const onClickDisplayTrack = (track: Track) => () => {
+    router.push({
+      pathname: `/${Pages.Track}`,
+      query: { track: JSON.stringify(track) },
+    });
+  };
 
   {
     /** A remplacer par getPopularTracks */
@@ -160,19 +169,31 @@ const ProfileScreen = ({ user, releases, isMe, resourcesPacks }: IProfileScreen)
           )}
         </div>
       </div>
+   
 
       <h2 className="font-medium not-italic text-wht text-xl mt-10">
         Populaires :
       </h2>
-      {tracks.length ? (
-        <DisplayTracksTable tracks={tracks} />
-      ) : (
-        <div className="flex justify-center items-center mt-5 text-lg">
-          <h1 className="text-grn whitespace-nowrap">
-            {Messages.EMPTY_TRACKS}
-          </h1>
+     
+
+      <div className="flex flex-row grow w-full h-auto">
+        <div className="grow m-2 rounded-xl">
+          <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-fakeBlr shadow-lg">
+            {tracks.length && (
+               tracks.map((track, index) => (
+                <li key={index}>
+                  <TrackRow
+                    track= {(track as any)}
+                    onClickDisplayTrack={onClickDisplayTrack((track as any ))}
+                    disableHover={true}
+                  />
+                </li>
+              ))
+              
+              )}
+          </ul>
         </div>
-      )}
+        </div>
 
       <div className="text-start justify-start items-start w-full h-full">
         <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5 ">
