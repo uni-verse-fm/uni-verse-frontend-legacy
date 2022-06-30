@@ -8,7 +8,7 @@ import { Session } from "next-auth";
 import Spinner from "../components/Spinner";
 import { Messages } from "../common/constants";
 import { getUserReleases } from "../api/ReleaseAPI";
-import { getResourcePacks } from "../api/ResourcePackAPI";
+import { getResourcePacks} from "../api/ResourcePackAPI";
 
 function Profile() {
   const router = useRouter();
@@ -32,7 +32,7 @@ function Profile() {
     })
   );
 
-  const profileParams = (user: any, releases: any, resourcesPack : any) => {
+  const profileParams = (user: any, releases: any, resourcesPacks : any) => {
     return {
       user: {
         id: user.id,
@@ -42,7 +42,7 @@ function Profile() {
       },
       releases,
       isMe: false,
-      resourcesPack,
+      resourcesPacks,
     };
   };
 

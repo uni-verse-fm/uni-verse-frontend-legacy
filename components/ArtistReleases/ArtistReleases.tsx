@@ -3,6 +3,7 @@ import router from "next/router";
 import { styles } from "../PlayListsModal";
 import ReleaseCard from "../ReleaseCard/ReleaseCard";
 import { Pages } from "../../common/types";
+import { isoDateYear } from "../../utils/dateUtils";
 
 const ArtistReleases = (props) => {
   const onClickDisplayRelease = (idRelease) => () => {
@@ -21,7 +22,7 @@ const ArtistReleases = (props) => {
                 key={index}
                 title={item.title}
                 image={item.coverName}
-                year="2013"
+                year={isoDateYear(item.createdAt)}
                 defaultImageSrc={"/Playlist.png"}
               />
             </div>

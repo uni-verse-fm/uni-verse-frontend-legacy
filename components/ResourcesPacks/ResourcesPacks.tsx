@@ -8,6 +8,7 @@ import {getResourcePacks} from  "../../api/ResourcePackAPI"
 import { AxiosError } from "axios";
 import { notify } from "../Notifications";
 import { useQuery } from "react-query";
+import { isoDateYear } from "../../utils/dateUtils";
 
 
 const ResourcesPacks = (props) => {
@@ -47,7 +48,7 @@ const{ data, status } = useQuery("getResourcePacks", () => getResourcePacks(),
                 key={index}
                 title={item.title}
                 image={item.coverName}
-                year="2013"
+                year={isoDateYear(item.createdAt)}
                 defaultImageSrc={"/Playlist.png"}
               />
             </div>
