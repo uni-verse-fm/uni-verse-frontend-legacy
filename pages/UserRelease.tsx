@@ -16,7 +16,7 @@ function UserRelease() {
   return (
     <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden p-10">
       <div className="text-start justify-start items-start w-full h-full ">
-        <h1 className="text-xl font-bold not-italic text-grn ml-10 mb-5">
+        <h1 className="text-xl font-bold not-italic text-grn ml-10 mb-5 mt-10">
           Release
         </h1>
         <ArtistRelease

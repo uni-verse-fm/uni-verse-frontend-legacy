@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faPlay,faTrashCan , faChevronDown,faChevronUp} from "@fortawesome/free-solid-svg-icons";
 import { getReleaseById, deleteRelease } from "../../api/ReleaseAPI";
 import { useQuery } from "react-query";
 import Spinner from "../Spinner";
 import { imageSource, Messages } from "../../common/constants";
 import Image from "next/image";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import { useState } from "react";
 import { useMutation } from "react-query";
@@ -18,15 +17,23 @@ import { useSession } from "next-auth/react";
 import DisplayTracksTable from "../DisplayTracksTable";
 import { PlayerContext } from "../../common/contexts/PlayerContext";
 
-import { NotificationType, Pages, Types } from "../../common/types";
+import {NotificationType, Pages, Types} from "../../common/types";
+import { isoDateToDateHour } from "../../utils/dateUtils";
 
 const ArtistRelease = (props) => {
   const { data: session } = useSession();
   const { dispatch } = useContext(PlayerContext);
 
   const getRelease = useQuery("release", () =>
-    getReleaseById(props.index).then((res) => res.data)
+    getReleaseById(props.index).then((res) => {
+      console.log (res.data);
+      return (res.data);
+    }) 
   );
+
+  const [ShowMoreInformations, setShowMoreInformations] = useState(false);
+  const handleShowMoreInformations= () => setShowMoreInformations(true);
+  const handleCloseShowMoreInformations = () => setShowMoreInformations(false);
 
   const [showForm, setShowForm] = useState(false);
   const handleShowForm = () => setShowForm(true);
@@ -36,6 +43,7 @@ const ArtistRelease = (props) => {
     mutate(getRelease.data._id);
     handleCloseDialog();
   };
+
 
   const { mutate, isLoading } = useMutation("deleteRelease", deleteRelease, {
     onError: () => {
@@ -51,6 +59,7 @@ const ArtistRelease = (props) => {
       }
     },
   });
+
 
   const onClickRelease = (release) => () => {
     dispatch({
@@ -75,7 +84,7 @@ const ArtistRelease = (props) => {
           </div>
         ) : (
           <>
-            <div className="ml-10 flex flex-row ">
+            <div className="ml-10 flex flex-row mb-16 ">
               <div>
                 <Image
                   src={
@@ -91,9 +100,10 @@ const ArtistRelease = (props) => {
               </div>
 
               <div className="ml-5 ">
-                <div className="flex flex-row mt-24 mb-1">
-                  <h2 className="text-grn ">
-                    {getRelease.data.title}
+
+              <div className="flex flex-row mb-1">
+                  <h2 className="text-grn text-xl font-bold ">
+                 
 
                     <FontAwesomeIcon
                       className="cursor-pointer ml-5 hover:scale-[1.40]  text-wht hover:text-grn"
@@ -102,11 +112,11 @@ const ArtistRelease = (props) => {
                     />
                   </h2>
 
-                  {(session.user as any).id === getRelease.data.author && (
+                  {(session.user as any).id === getRelease.data.author._id && (
                     <div className="flex flex-row">
-                      <h2 className="text-grn">
+                      <h2 className="text-grn text-xl">
                         <FontAwesomeIcon
-                          className="cursor-pointer ml-5 hover:scale-[1.40] hover:text-rd text-wht"
+                          className="cursor-pointer ml-5 hover:scale-[1.40] hover:text-rd text-rd"
                           icon={faTrashCan}
                           onClick={handleShowForm}
                         />
@@ -114,13 +124,58 @@ const ArtistRelease = (props) => {
                     </div>
                   )}
                 </div>
+                
+                <div className="flex flex-row ">
+                  <h2 className="text-grn text-2xl font-bold ">
+                    {getRelease.data.title}
+
+                   
+                  </h2>
+
+                  
+                </div>
+
+              
                 {getRelease.data?.author && (
-                  <h2 className="text-gry mb-8">
+                  <h2 className="text-gry ">
                     {getRelease.data.author.username}
                   </h2>
                 )}
+                 {(ShowMoreInformations == false) ? (
+                  <h2 className="text-grn">
+                        <FontAwesomeIcon
+                          className="cursor-pointer hover:scale-[1.40] hover:text-rd text-wht"
+                          icon={faChevronDown}
+                          onClick={handleShowMoreInformations}
+                        />
+                      </h2>
+
+                    ) : (<h2 className="text-grn">
+                      <FontAwesomeIcon
+                            className="cursor-pointer hover:scale-[1.40] hover:text-rd text-wht"
+                            icon={faChevronUp}
+                            onClick={handleCloseShowMoreInformations}
+                          />
+                            </h2> )}
+
+                 {getRelease.data?.description && (ShowMoreInformations == true) && (
+                   <>
+                      <h2 className="text-wht ">
+                      {getRelease.data.description} 
+                    </h2>
+                   <h2 className="text-gry text-xs">
+                      Created at : {isoDateToDateHour(getRelease.data.createdAt)} 
+                    </h2>
+                 
+
+                    
+                  </>
+                )}      
+              
+             
               </div>
             </div>
+            
             {getRelease.data.tracks.length ? (
               <DisplayTracksTable tracks={getRelease.data.tracks} />
             ) : (

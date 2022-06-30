@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
-import { getReleaseById, deleteRelease } from "../../api/ReleaseAPI";
+import { faPlay,faChevronDown,faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import { getResourcePackById } from "../../api/ResourcePackAPI";
 import { useQuery } from "react-query";
 import Spinner from "../Spinner";
 import { imageSource, Messages } from "../../common/constants";
@@ -19,25 +19,34 @@ import DisplayTracksTable from "../DisplayTracksTable";
 import { PlayerContext } from "../../common/contexts/PlayerContext";
 
 import { NotificationType, Pages, Types } from "../../common/types";
+import { isoDateYear } from "../../utils/dateUtils";
+import { isoDateToDateHour } from "../../utils/dateUtils";
 
 const ResourcePack = (props) => {
   const { data: session } = useSession();
   const { dispatch } = useContext(PlayerContext);
 
-  const getRelease = useQuery("release", () =>
-    getReleaseById(props.index).then((res) => res.data)
+  const getResourcePack = useQuery("resourcePack", () =>
+  getResourcePackById(props.index).then((res) => {
+    console.log ( "getResourcePackById");
+    console.log ( res.data);
+    return(res.data);
+    }
+    )
   );
-
+  const [ShowMoreInformations, setShowMoreInformations] = useState(false);
+  const handleShowMoreInformations= () => setShowMoreInformations(true);
+  const handleCloseShowMoreInformations = () => setShowMoreInformations(false);
   const [showForm, setShowForm] = useState(false);
   const handleShowForm = () => setShowForm(true);
   const handleCloseDialog = () => setShowForm(false);
 
-  const handleConfirmDelete = () => {
-    mutate(getRelease.data._id);
+    {/*const handleConfirmDelete = () => {
+    mutate(getResourcePack.data._id);
     handleCloseDialog();
   };
 
-  const { mutate, isLoading } = useMutation("deleteRelease", deleteRelease, {
+const { mutate, isLoading } = useMutation("deleteRelease", deleteRelease, {
     onError: () => {
       notify("Can not delete release", NotificationType.ERROR);
     },
@@ -50,7 +59,7 @@ const ResourcePack = (props) => {
         router.replace(`/${Pages.Home}`);
       }
     },
-  });
+  });*/}
 
   const onClickRelease = (release) => () => {
     dispatch({
@@ -65,11 +74,11 @@ const ResourcePack = (props) => {
   return (
     <div>
       <div className="Global bg-grey w-full h-full flex flex-col  ">
-        {getRelease.status === "loading" ? (
+        {getResourcePack.status === "loading" ? (
           <div className="flex justify-center items-center mt-10">
             <Spinner />
           </div>
-        ) : getRelease.status === "error" ? (
+        ) : getResourcePack.status === "error" ? (
           <div className="flex justify-center items-center mt-10">
             <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
           </div>
@@ -79,34 +88,35 @@ const ResourcePack = (props) => {
               <div>
                 <Image
                   src={
-                    getRelease.data.coverName
-                      ? imageSource + getRelease.data.coverName
+                    getResourcePack.data.coverName
+                      ? imageSource + getResourcePack.data.coverName
                       : "/Playlist.png"
                   }
                   className="rounded mb-5"
                   width={150}
                   height={150}
-                  alt="Release"
+                  alt="ResourcePack"
                 />
               </div>
 
               <div className="ml-5 ">
-                <div className="flex flex-row mt-24 mb-1">
-                  <h2 className="text-grn ">
-                    {getRelease.data.title}
+
+              <div className="flex flex-row mb-1">
+                  <h2 className="text-grn text-xl font-bold ">
+                 
 
                     <FontAwesomeIcon
                       className="cursor-pointer ml-5 hover:scale-[1.40]  text-wht hover:text-grn"
                       icon={faPlay}
-                      onClick={onClickRelease(getRelease.data)}
+                      onClick={onClickRelease(getResourcePack.data)}
                     />
                   </h2>
 
-                  {(session.user as any).id === getRelease.data.author && (
+                  {(session.user as any).id === getResourcePack.data.author && (
                     <div className="flex flex-row">
-                      <h2 className="text-grn">
+                      <h2 className="text-grn text-xl">
                         <FontAwesomeIcon
-                          className="cursor-pointer ml-5 hover:scale-[1.40] hover:text-rd text-wht"
+                          className="cursor-pointer ml-5 hover:scale-[1.40] hover:text-rd text-rd"
                           icon={faTrashCan}
                           onClick={handleShowForm}
                         />
@@ -114,19 +124,67 @@ const ResourcePack = (props) => {
                     </div>
                   )}
                 </div>
-                {getRelease.data?.author && (
-                  <h2 className="text-gry mb-8">
-                    {getRelease.data.author.username}
+                
+                <div className="flex flex-row ">
+                  <h2 className="text-grn text-2xl font-bold ">
+                    {getResourcePack.data.title}
+
+                   
+                  </h2>
+
+                  
+                </div>
+
+              
+                {getResourcePack.data?.author && (
+                  <h2 className="text-gry ">
+                    {getResourcePack.data.author}
                   </h2>
                 )}
+                 {(ShowMoreInformations == false) ? (
+                  <h2 className="text-grn">
+                        <FontAwesomeIcon
+                          className="cursor-pointer hover:scale-[1.40] hover:text-grn text-wht"
+                          icon={faChevronDown}
+                          onClick={handleShowMoreInformations}
+                        />
+                      </h2>
+
+                    ) : (<h2 className="text-grn">
+                      <FontAwesomeIcon
+                            className="cursor-pointer hover:scale-[1.40] hover:text-grn text-grn"
+                            icon={faChevronUp}
+                            onClick={handleCloseShowMoreInformations}
+                          />
+                            </h2> )}
+
+                 {getResourcePack.data?.description && (ShowMoreInformations == true) && (
+                   <>
+                      <h2 className="text-wht ">
+                      {getResourcePack.data.description} 
+                    </h2>
+                   <h2 className="text-gry text-xs">
+                      Created at : {isoDateToDateHour(getResourcePack.data.createdAt)} 
+                    </h2>
+                 
+
+                    
+                  </>
+                )}      
+              
+             
               </div>
             </div>
-            {getRelease.data.tracks.length ? (
-              <DisplayTracksTable tracks={getRelease.data.tracks} />
+            {getResourcePack.data?.resources.length ? (
+             <div className="flex justify-center items-center mt-10 text-lg">
+             <h1 className="text-grn whitespace-nowrap">
+               {Messages.EMPTY_RESOURCES}
+             </h1>
+           </div>
             ) : (
               <div className="flex justify-center items-center mt-10 text-lg">
                 <h1 className="text-grn whitespace-nowrap">
-                  {Messages.EMPTY_TRACKS}
+                  {Messages.EMPTY_RESOURCES}
                 </h1>
               </div>
             )}
@@ -138,7 +196,7 @@ const ResourcePack = (props) => {
           small={true}
           showModal={showForm}
           handleCloseDialog={handleCloseDialog}
-          handleConfirmDelete={handleConfirmDelete}
+          //handleConfirmDelete={handleConfirmDelete}
           msg="Delete ResourcePack"
         />
       </div>

@@ -35,17 +35,11 @@ const ProfileScreen = ({ user, releases, isMe, resourcesPacks }: IProfileScreen)
 
   const [isValid, setIsValid] = useState(true);
   
-  const handleCloseDialog = () => {
-    console.log ("resourcesPacks");
-    console.log (resourcesPacks);
-    console.log ("releases");
-    console.log (releases);
+  const handleCloseResetPasswordModal = () => {
     setShowForm(false);
   };
   
 
-
-  const handleCloseResetPasswordModal = () => setShowForm(false);
   {
     /** A remplacer par getPopularTracks */
   }
@@ -197,10 +191,9 @@ const ProfileScreen = ({ user, releases, isMe, resourcesPacks }: IProfileScreen)
         </div>
 
         {user.id && (
-          <div>
-            <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-10">
+          <div  className="mb-5">
+            <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5">
               RessoucesPacks :
-              {resourcesPacks?.length}
             </h2>
             <div className="-ml-4 ">
           <ResourcesPacks data={resourcesPacks} />
@@ -210,7 +203,7 @@ const ProfileScreen = ({ user, releases, isMe, resourcesPacks }: IProfileScreen)
       </div>
       <ResetPasswordModal
         showModal={showForm}
-        handleCloseDialog={handleCloseDialog}
+        handleCloseDialog={handleCloseResetPasswordModal}
       />
     </div>
   );

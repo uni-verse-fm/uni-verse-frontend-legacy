@@ -13,9 +13,6 @@ import { isoDateYear } from "../../utils/dateUtils";
 
 const ResourcesPacks = (props) => {
 
-
-
-
 const{ data, status } = useQuery("getResourcePacks", () => getResourcePacks(),
 {
   onError: (error: AxiosError) => {
@@ -27,10 +24,9 @@ const{ data, status } = useQuery("getResourcePacks", () => getResourcePacks(),
 }
 );
   
-
   const onClickDisplayResourcePack = (idResourcePack) => () => {
     router.push({
-      pathname: `/${Pages.UserRelease}`,
+      pathname: `/${Pages.UserResourcePack}`,
       query: {id: idResourcePack},
     });
   };
@@ -38,9 +34,7 @@ const{ data, status } = useQuery("getResourcePacks", () => getResourcePacks(),
 
   return (
     <div className="w-full text-wht">
-    
       <div className={styles.wrapper}>
-
       {props.data?.length ? (
           props.data.map((item, index) => (
             <div key={index} onClick={onClickDisplayResourcePack(item._id)}>
