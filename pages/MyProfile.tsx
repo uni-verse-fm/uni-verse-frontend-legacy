@@ -14,51 +14,50 @@ import { getUserPlaylists } from "../api/PlaylistAPI";
 function MyProfile(props) {
   const { data: session } = useSession();
 
+  const meQuery = useQuery("me", () => me().then((res) => res.data), {
+    enabled: Boolean(session?.user),
+    initialData: { ...session.user },
+  });
+
   const releasesQuery = useQuery(
     "myReleases",
     () => getUserReleases((session.user as any).id),
-    { initialData: props.releases, enabled: Boolean(session?.user) }
+    { initialData: props.releases, enabled: meQuery.status === "success" }
   );
 
   const playlistsQuery = useQuery(
     "myPlaylists",
     () => getUserPlaylists((session.user as any).id),
-    { enabled: Boolean(session?.user) }
+    { enabled: releasesQuery.status === "success" }
   );
 
-  const meQuery = useQuery(
-    "me",
-    () => me().then((res) => res.data),
-
-    {
-      enabled: Boolean(session?.user),
-      initialData: { ...session.user },
-    }
-  );
-
-  return "error" in
-    [releasesQuery.status, playlistsQuery.status, meQuery.status] ? (
+  return "error" === playlistsQuery.status ? (
     <div className="flex justify-center items-center bg-drk w-full h-full">
       <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
     </div>
-  ) : "loading" in
-    [releasesQuery.status, playlistsQuery.status, meQuery.status] ? (
+  ) : "loading" === playlistsQuery.status ? (
     <div className="flex justify-center items-center bg-drk w-full h-full">
       <Spinner />
     </div>
+  ) : "success" === playlistsQuery.status ? (
+    <div className="flex justify-center items-center bg-drk w-full h-full">
+      <ProfileScreen
+        user={{
+          id: meQuery.data.id,
+          username: meQuery.data.username,
+          email: meQuery.data.email,
+          accountId: meQuery.data.accountId,
+          profilePicture: meQuery.data.profilePicture,
+        }}
+        releases={releasesQuery.data}
+        playlists={playlistsQuery.data}
+        isMe={true}
+      />
+    </div>
   ) : (
-    <ProfileScreen
-      user={{
-        id: meQuery.data.id,
-        username: meQuery.data.username,
-        email: meQuery.data.email,
-        accountId: meQuery.data.accountId,
-        profilePicture: meQuery.data.profilePicture,
-      }}
-      releases={releasesQuery.data}
-      playlists={playlistsQuery.data}
-      isMe={true}
-    />
+    <div className="flex justify-center items-center bg-drk w-full h-full">
+      <Spinner />
+    </div>
   );
 }
 

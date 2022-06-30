@@ -37,13 +37,13 @@ function Profile() {
   const releasesQuery = useQuery(
     `releases-${id}`,
     () => getUserReleases(id as string).then((res) => res.data),
-    { enabled: Boolean(id) }
+    { enabled: userQuery.status === "success" }
   );
 
   const playlistsQuery = useQuery(
     `playlists-${id}`,
     () => getUserPlaylists(id as string).then((res) => res.data),
-    { enabled: Boolean(id) }
+    { enabled: releasesQuery.status === "success" }
   );
 
   const profileParams = (
@@ -51,6 +51,7 @@ function Profile() {
     releases: any,
     playlists: any
   ): ProfileParams => {
+    console.debug(user);
     return {
       user: {
         id: user.id,
@@ -65,17 +66,15 @@ function Profile() {
     };
   };
 
-  return "error" in
-    [userQuery.status, releasesQuery.status, playlistsQuery.status] ? (
+  return "error" === playlistsQuery.status ? (
     <div className="flex justify-center items-center bg-drk w-full h-full">
       <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
     </div>
-  ) : "loading" in
-    [userQuery.status, releasesQuery.status, playlistsQuery.status] ? (
+  ) : "loading" === playlistsQuery.status ? (
     <div className="flex justify-center items-center bg-drk w-full h-full">
       <Spinner />
     </div>
-  ) : (
+  ) : "success" === playlistsQuery.status ? (
     <div className="bg-drk w-full h-full ">
       <ProfileScreen
         {...profileParams(
@@ -84,6 +83,10 @@ function Profile() {
           playlistsQuery.data
         )}
       />
+    </div>
+  ) : (
+    <div className="flex justify-center items-center bg-drk w-full h-full">
+      <Spinner />
     </div>
   );
 }
