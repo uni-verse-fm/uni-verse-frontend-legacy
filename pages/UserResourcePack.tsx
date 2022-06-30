@@ -1,16 +1,16 @@
 import React from "react";
-import ArtistRelease from "../components/ArtistRelease";
 
 import { useRouter } from "next/router";
 import { getSession, GetSessionParams } from "next-auth/react";
 import { Session } from "next-auth";
 import { adminLogin } from "../api/AdminAPI";
 import { ILogin } from "../common/types";
+import ResourcePack from "../components/ResourcePack";
 
 function UserResourcePack() {
   const router = useRouter();
   const {
-    query: { id },
+    query: {id},
   } = router;
 
   return (
@@ -19,7 +19,7 @@ function UserResourcePack() {
         <h1 className="text-xl font-bold not-italic text-grn ml-10 mb-5">
           ResourcePack
         </h1>
-        <ArtistRelease
+        <ResourcePack
           index={id}
           handleClosePlaylistContent="{handleClosePlaylistContent}"
           enableChange="false"

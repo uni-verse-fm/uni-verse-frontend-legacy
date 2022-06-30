@@ -11,7 +11,7 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { notify } from "../Notifications";
-import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
+import ConfirmDialogDelete from "../ConfirmDialogDelete";
 
 import router from "next/router";
 import { useSession } from "next-auth/react";
