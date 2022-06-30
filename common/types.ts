@@ -151,7 +151,7 @@ export interface IProfileScreen {
     image?: string;
   };
   releases: any;
-  resourcesPack: any;
+  resourcesPacks: any;
   isMe?: boolean;
 }
 

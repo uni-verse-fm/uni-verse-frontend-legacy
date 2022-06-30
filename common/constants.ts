@@ -34,6 +34,7 @@ export const Messages = {
   EMPTY_PLAYLISTS: "You have no playlists",
   EMPTY_RELEASES: "You have no releases",
   EMPTY_TRACKS: "You have no tracks",
+  EMPTY_RESOURCE_PACKS: "No resourcePack to display",
   DISCONNECTED: "Disconnected",
   UNAUTHORIZED: "Unauthorized please login",
   DONATION_ERROR: "Sorry the donation couldn't be done",

@@ -10,7 +10,7 @@ const createResourcePack = (data) =>
     },
   });
 
-const getResourcePacks = () => axiosClient.get(resourcePackEndpoint);
+const getResourcePacks = () => axiosClient.get(resourcePackEndpoint).then((res) => res.data);
 
 const getResourcePackByTitle = (title) =>
   axiosClient.get(`${resourcePackEndpoint}`, { params: { title } });

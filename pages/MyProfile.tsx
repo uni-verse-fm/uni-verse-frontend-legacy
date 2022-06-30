@@ -9,11 +9,16 @@ import Spinner from "../components/Spinner";
 import { adminLogin } from "../api/AdminAPI";
 import { me } from "../api/AuthAPI";
 import { ILogin } from "../common/types";
+import {getResourcePacks} from  "../api/ResourcePackAPI"
+import { AxiosError } from "axios";
+import { notify } from "../components/Notifications";
+import { NotificationType, Pages } from "../common/types";
+import router from "next/router";
 
 function MyProfile(props) {
   const { data: session } = useSession();
 
-  const { status, data } = useQuery(
+  const releaseQuery= useQuery(
     "myReleases",
     () => getUserReleases((session.user as any).id),
     { initialData: props.releases, enabled: Boolean(session) }
@@ -29,11 +34,23 @@ function MyProfile(props) {
     }
   );
 
-  return status === "error" ? (
+const resourcesPacksQuery = useQuery("getResourcePacks", () =>
+getResourcePacks(),
+{
+  onError: (error: AxiosError) => {
+    if (error.response?.status === 401) {
+      notify(Messages.UNAUTHORIZED, NotificationType.ERROR);
+      router.replace(`/${Pages.Login}`);
+    }
+  },
+}
+);
+
+  return meQuery.status === "error" ? (
     <div className="flex justify-center items-center bg-drk w-full h-full">
       <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
     </div>
-  ) : status === "loading" ? (
+  ) :meQuery.status === "loading" ? (
     <div className="flex justify-center items-center  bg-drk w-full h-full">
       <Spinner />
     </div>
@@ -46,8 +63,8 @@ function MyProfile(props) {
         accountId: meQuery.data.accountId,
         profilePicture: meQuery.data.profilePicture,
       }}
-      releases={data}
-      resourcesPack = {""}
+      releases={releaseQuery.data}
+      resourcesPacks = {resourcesPacksQuery.data}
       isMe={true}
     />
   ) : (

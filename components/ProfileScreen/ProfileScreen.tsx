@@ -21,10 +21,10 @@ import ResetPasswordModal from "../ResetPasswordModal";
 const imageProps = {
   defaultImageSrc: "/profile.jpg",
   size: 56,
-  fileExtensions: Extensions.image,
+  fileExtensions: Extensions.image,     
 };
 
-const ProfileScreen = ({ user, releases, isMe, resourcesPack }: IProfileScreen) => {
+const ProfileScreen = ({ user, releases, isMe, resourcesPacks }: IProfileScreen) => {
   const [showForm, setShowForm] = useState(false);
 
   const handleShowForm = () => {
@@ -36,6 +36,10 @@ const ProfileScreen = ({ user, releases, isMe, resourcesPack }: IProfileScreen) 
   const [isValid, setIsValid] = useState(true);
   
   const handleCloseDialog = () => {
+    console.log ("resourcesPacks");
+    console.log (resourcesPacks);
+    console.log ("releases");
+    console.log (releases);
     setShowForm(false);
   };
   
@@ -196,9 +200,10 @@ const ProfileScreen = ({ user, releases, isMe, resourcesPack }: IProfileScreen) 
           <div>
             <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-10">
               RessoucesPacks :
+              {resourcesPacks?.length}
             </h2>
             <div className="-ml-4 ">
-          <ResourcesPacks data={resourcesPack} />
+          <ResourcesPacks data={resourcesPacks} />
         </div>
           </div>
         )}
