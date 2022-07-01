@@ -7,18 +7,21 @@ import { useMutation } from "react-query";
 import { createPlaylist } from "../../api/PlaylistAPI";
 import { NotificationType } from "../../common/types";
 
-const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex }) => {
+const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex, refetch }) => {
+
   const { mutate } = useMutation("createPlaylist", createPlaylist, {
-    onError: (error) => {
-      notify("Can not create playlist" + error, NotificationType.ERROR);
+    onError: (err) => {
+      notify("Can not create playlist" + err, NotificationType.ERROR);
+
     },
-    onSuccess: (res) => {
+    onSuccess: async (res) => {
       if (res.status !== 201) {
         notify(res.data.message, NotificationType.ERROR);
       } else {
         handleHidecreatePlaylistIndex();
         const message = "PlayList created successfully";
         notify(message, NotificationType.SUCCESS);
+        await refetch();
       }
     },
   });
@@ -42,7 +45,7 @@ const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex }) => {
               .required(Messages.REQUIRED),
           })}
           onSubmit={(value) => {
-            mutate(value);
+            mutate(value)
           }}
           render={({ values, errors, handleChange, handleBlur }) => {
             return (

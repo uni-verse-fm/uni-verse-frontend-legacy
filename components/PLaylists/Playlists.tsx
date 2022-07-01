@@ -1,28 +1,23 @@
 import { Messages } from "../../common/constants";
 import PlaylistCard from "../PlayListCard";
-import Spinner from "../Spinner";
-import { useQuery } from "react-query";
 import router from "next/router";
-import { notify } from "../Notifications";
-import { AxiosError } from "axios";
-import { getUserPlaylists } from "../../api/PlaylistAPI";
-import { NotificationType, Pages } from "../../common/types";
+import { Pages } from "../../common/types";
 
-const Playlists = (props) => {
-  const onClickDisplayPlaylist = (idPlaylist) => () => {
-    if (props.modalDisplay === "false") {
+const Playlists = ({ modalDisplay, handleShowPlaylistContent, playlists }) => {
+  const onClickDisplayPlaylist = (idPlaylist: string, index: number) => () => {
+    if (modalDisplay === "false") {
       router.push({
         pathname: `/${Pages.UserPlaylist}`,
         query: { id: idPlaylist },
       });
     } else {
-      props.handleShowPlaylistContent(idPlaylist);
+      handleShowPlaylistContent(index);
     }
   };
 
   return (
     <div className="h-full">
-      {props.modalDisplay === "true" && (
+      {modalDisplay === "true" && (
         <div className="items-start mt-10 mb-5 ml-6 text-grn text-lg">
           Playlists :
         </div>
@@ -30,9 +25,9 @@ const Playlists = (props) => {
 
       <div className={"h-full "}>
         <div className="w-full h-full flex flex-wrap gap-6 px-4">
-          {props.playlists?.length ? (
-            props.playlists.map((item, index) => (
-              <div key={index} onClick={onClickDisplayPlaylist(item._id)}>
+          {playlists?.length > 0 ? (
+            playlists.map((item, index) => (
+              <div key={index} onClick={onClickDisplayPlaylist(item._id, index)}>
                 <PlaylistCard
                   key={index}
                   title={item.title}
