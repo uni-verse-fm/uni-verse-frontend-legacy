@@ -7,6 +7,7 @@ import { notify } from "../Notifications";
 import { AxiosError } from "axios";
 import { getUserPlaylists } from "../../api/PlaylistAPI";
 import { NotificationType, Pages } from "../../common/types";
+import { styles } from "../PlayListsModal";
 
 const Playlists = (props) => {
   
@@ -29,8 +30,8 @@ const Playlists = (props) => {
         </div>
       )}
 
-      <div className={"h-full "}>
-        <div className="w-full h-full flex flex-wrap gap-6 px-4">
+      <div className="h-full ">
+        <div className={styles.wrapper}>
           {props.playlists?.length ? (
             props.playlists.map((item, index) => (
               <div key={index} onClick={onClickDisplayPlaylist(item._id)}>
