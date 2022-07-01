@@ -9,25 +9,25 @@ import {
   faPen,
 } from "@fortawesome/free-solid-svg-icons";
 import { getPlaylistById } from "../../api/PlaylistAPI";
-import { useQuery } from "react-query";
+import { useQuery ,useMutation,useQueryClient  } from "react-query";
 import Spinner from "../Spinner";
 import { Messages } from "../../common/constants";
 import Image from "next/image";
 import { useState } from "react";
-import { useMutation } from "react-query";
 import { deletePlaylist } from "../../api/PlaylistAPI";
 import { notify } from "../Notifications";
 import UpdatePlayListForm from "../UpdatePlaylistForm";
 import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
 import ShowMoreMenu from "./ShowMoreMenu";
 import { PlayerContext } from "../../common/contexts/PlayerContext";
-import { isoDateToDate } from "../../utils/dateUtils";
+
 import { NotificationType, Track, Types } from "../../common/types";
 import { isoDateToDateHour } from "../../utils/dateUtils";
 
 import { isoDateYear } from "../../utils/dateUtils";
 
 import { imageSource } from "../../common/constants";
+
 
 const Playlist = (props) => {
   const { status, data } = useQuery(`playlist-${props.index}`, () =>
@@ -53,18 +53,26 @@ const Playlist = (props) => {
     props.handleClosePlaylistContent();
   };
 
+  const queryClient = useQueryClient();
+
   const { mutate } = useMutation("deletePlaylist", deletePlaylist, {
     onError: () => {
       notify("Can not delete playlist", NotificationType.ERROR);
     },
-    onSuccess: (res) => {
+    onSuccess: async (res) => {
       if (res.status !== 200) {
         notify(res.data.message, NotificationType.ERROR);
       } else {
         const message = "PlayList deleted";
         notify(message, NotificationType.SUCCESS);
+        await queryClient.fetchQuery("myPlaylists");
+
       }
     },
+    onMutate: async () => {
+     // await queryClient.cancelQueries("myPlaylists");
+
+    }
   });
 
   const onClickTrack = (track: Track) => () => {

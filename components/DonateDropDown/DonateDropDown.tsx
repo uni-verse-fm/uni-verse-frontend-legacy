@@ -41,13 +41,13 @@ const DonateDropDown = () => {
           <span className="font-bold">Donate</span>
         </div>
       </Menu.Button>
-      <Menu.Items className="mt-2 w-36 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+      <Menu.Items className="mt-2 w-36 divide-y divide-gray-100 rounded-md bg-gry/60 backdrop-blur-md">
         <Menu.Item>
           {({ active }) => (
             <button
               className={`${
-                active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group flex w-full items-center px-2 py-2 text-sm`}
+                active ? "bg-grn bg-opacity-25 text-lg" : "text-md"
+              } group flex w-full items-center font-bold text-gryf px-2 py-2 text-md`}
               onClick={() => mutate({ amount: DonationAmount.One })}
             >
               {`${DonationAmount.One / 100}$`}
@@ -58,8 +58,8 @@ const DonateDropDown = () => {
           {({ active }) => (
             <button
               className={`${
-                active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group flex w-full items-center px-2 py-2 text-sm`}
+                active ? "bg-grn bg-opacity-25 text-lg" : "text-md"
+              } group flex w-full items-center font-bold text-gryf px-2 py-2 text-md`}
               onClick={() => mutate({ amount: DonationAmount.Two })}
             >
               {`${DonationAmount.Two / 100}$`}
@@ -70,8 +70,8 @@ const DonateDropDown = () => {
           {({ active }) => (
             <button
               className={`${
-                active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group flex w-full items-center px-2 py-2 text-sm`}
+                active ? "bg-grn bg-opacity-25 text-lg" : "text-md"
+              } group flex w-full items-center font-bold text-gryf px-2 py-2 text-md`}
               onClick={() => mutate({ amount: DonationAmount.Three })}
             >
               {`${DonationAmount.Three / 100}$`}
@@ -82,8 +82,8 @@ const DonateDropDown = () => {
           {({ active }) => (
             <button
               className={`${
-                active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group flex w-full items-center px-2 py-2 text-sm`}
+                active ? "bg-grn bg-opacity-25 text-lg" : "text-md"
+              } group flex w-full items-center font-bold text-gryf px-2 py-2 text-md`}
               onClick={() => mutate({ amount: DonationAmount.Five })}
             >
               {`${DonationAmount.Five / 100}$`}
@@ -94,8 +94,8 @@ const DonateDropDown = () => {
           {({ active }) => (
             <button
               className={`${
-                active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group flex w-full items-center px-2 py-2 text-sm`}
+                active ? "bg-grn bg-opacity-25 text-lg" : "text-md"
+              } group flex w-full items-center  font-bold text-gryf px-2 py-2 text-md`}
               onClick={() => mutate({ amount: DonationAmount.Ten })}
             >
               {`${DonationAmount.Ten / 100}$`}

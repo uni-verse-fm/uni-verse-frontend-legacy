@@ -13,6 +13,23 @@ const lastWeek: Date = new Date(new Date().setDate(today.getDate() - 7));
 const lastMonth: Date = new Date(new Date().setDate(today.getDate() - 30));
 const lastYear: Date = new Date(new Date().setDate(today.getDate() - 365));
 
+const StatsWrapper = ({ query, title, children }) => {
+  return (
+    <div className="grow m-2 rounded-xl p-4">
+      <h1 className="text-grn">{title}</h1>
+      {query.status === "success" && query.data.length > 0 ? (
+        <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-fakeBlr shadow-lg">
+          {children}
+        </ul>
+      ) : (
+        <div className="flex flex-col h-full w-full justify-center items-center rounded-lg border border-grn">
+          <h1 className="text-grn">No stats</h1>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const weekHotTracksParams: HotViews = {
   limit: 20,
   startDate: lastWeek.toISOString().split("T")[0],
@@ -88,83 +105,67 @@ export default function Home() {
   return (
     <div className="flex flex-col p-16 bg-drk w-full h-full overflow-y-scroll overflow-x-hidden z-0">
       <div className="flex flex-row grow w-full h-auto">
-        <div className="grow m-2 rounded-xl p-4">
-          <h1 className="text-grn">Week hot tracks</h1>
-          <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-fakeBlr shadow-lg">
-            {weekHotTracksQuery.status === "success" &&
-              weekHotTracksQuery.data.map((track, index) => (
-                <li key={"track-" + index} value={track}>
-                  <TrackRow
-                    track={track}
-                    onClickDisplayTrack={onClickDisplayTrack(track)}
-                    disableHover={true}
-                  />
-                </li>
-              ))}
-          </ul>
-        </div>
-        <div className="grow m-2 rounded-xl p-4">
-          <h1 className="text-grn">Month hot tracks</h1>
-          <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-fakeBlr shadow-lg">
-            {monthHotTracksQuery.status === "success" &&
-              monthHotTracksQuery.data.map((track, index) => (
-                <li key={"track-" + index} value={track}>
-                  <TrackRow
-                    track={track}
-                    onClickDisplayTrack={onClickDisplayTrack(track)}
-                    disableHover={true}
-                  />
-                </li>
-              ))}
-          </ul>
-        </div>
-        <div className="grow m-2 rounded-xl p-4">
-          <h1 className="text-grn">Year hot tracks</h1>
-          <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-gry/60 bg-fakeBlr shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-            {yearHotTracksQuery.status === "success" &&
-              yearHotTracksQuery.data.map((track, index) => (
-                <li key={"track-" + index} value={track}>
-                  <TrackRow
-                    track={track}
-                    onClickDisplayTrack={onClickDisplayTrack(track)}
-                    disableHover={true}
-                  />
-                </li>
-              ))}
-          </ul>
-        </div>
+        <StatsWrapper query={weekHotTracksQuery} title="Week hot tracks">
+          {weekHotTracksQuery.data.map((track, index) => (
+            <li key={"track-" + index} value={track}>
+              <TrackRow
+                track={track}
+                onClickDisplayTrack={onClickDisplayTrack(track)}
+                disableHover={true}
+              />
+            </li>
+          ))}
+        </StatsWrapper>
+        <StatsWrapper query={monthHotTracksQuery} title="Month hot tracks">
+          {monthHotTracksQuery.data.map((track, index) => (
+            <li key={"track-" + index} value={track}>
+              <TrackRow
+                track={track}
+                onClickDisplayTrack={onClickDisplayTrack(track)}
+                disableHover={true}
+              />
+            </li>
+          ))}
+        </StatsWrapper>
+
+        <StatsWrapper query={yearHotTracksQuery} title="Year hot tracks">
+          {yearHotTracksQuery.data.map((track, index) => (
+            <li key={"track-" + index} value={track}>
+              <TrackRow
+                track={track}
+                onClickDisplayTrack={onClickDisplayTrack(track)}
+                disableHover={true}
+              />
+            </li>
+          ))}
+        </StatsWrapper>
       </div>
       <div className="flex flex-row grow w-full h-auto">
-        <div className="grow m-2 rounded-xl p-4">
-          <h1 className="text-grn">Year hot releases</h1>
-          <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-fakeBlr shadow-lg">
-            {yearHotReleasesQuery.status === "success" &&
-              yearHotReleasesQuery.data.map((release, index) => (
-                <li key={"release-" + index} value={release}>
-                  <ReleaseRow
-                    release={release}
-                    onClickDisplayRelease={onClickDisplayRelease(release)}
-                    disableHover={true}
-                  />
-                </li>
-              ))}
-          </ul>
-        </div>
-        <div className="grow m-2 rounded-xl p-4">
-          <h1 className="text-grn">Month most commented tracks</h1>
-          <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-fakeBlr shadow-lg">
-            {monthHotCommentQuery.status === "success" &&
-              monthHotCommentQuery.data.map((track, index) => (
-                <li key={"track-" + index} value={track}>
-                  <TrackRow
-                    track={track}
-                    onClickDisplayTrack={onClickDisplayTrack(track)}
-                    disableHover={true}
-                  />
-                </li>
-              ))}
-          </ul>
-        </div>
+        <StatsWrapper query={yearHotReleasesQuery} title="Year hot releases">
+          {yearHotReleasesQuery.data.map((release, index) => (
+            <li key={"release-" + index} value={release}>
+              <ReleaseRow
+                release={release}
+                onClickDisplayRelease={onClickDisplayRelease(release)}
+                disableHover={true}
+              />
+            </li>
+          ))}
+        </StatsWrapper>
+        <StatsWrapper
+          query={monthHotCommentQuery}
+          title="Month most commented tracks"
+        >
+          {monthHotCommentQuery.data.map((track, index) => (
+            <li key={"track-" + index} value={track}>
+              <TrackRow
+                track={track}
+                onClickDisplayTrack={onClickDisplayTrack(track)}
+                disableHover={true}
+              />
+            </li>
+          ))}
+        </StatsWrapper>
       </div>
     </div>
   );

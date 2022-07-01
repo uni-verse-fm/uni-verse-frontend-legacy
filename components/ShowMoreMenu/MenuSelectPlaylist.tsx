@@ -15,15 +15,16 @@ import {
   NotificationType,
   Pages,
 } from "../../common/types";
-
 import { useSession } from "next-auth/react";
+
+
 
 const MenuSelectPlayList = ({ track }) => {
   const { data: session } = useSession();
 
-  const { data, status } = useQuery(
-    "playlists",
-    () => getUserPlaylists((session.user as any).id),
+  const { status, data } = useQuery(
+    "my-playlists",
+    () => getUserPlaylists((session?.user as any).id),
     {
       onError: (error: AxiosError) => {
         if (error.response?.status === 401) {
@@ -31,6 +32,7 @@ const MenuSelectPlayList = ({ track }) => {
           router.replace(`/${Pages.Login}`);
         }
       },
+      enabled: Boolean((session?.user as any).id),
     }
   );
 
@@ -63,9 +65,11 @@ const MenuSelectPlayList = ({ track }) => {
   };
 
   return (
-    <Menu as="div" className="text-left h-full w-auto">
-      <Menu.Button className="h-full w-auto">Add to a playlist</Menu.Button>
-      <Menu.Items className="absolute hover-text-grn text-blck left-0 mt-2  divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+    <Menu as="div" className="relative text-left h-full w-auto">
+      <Menu.Button className="h-full text-left font-medium text-blk w-auto">
+        Add to a playlist
+      </Menu.Button>
+      <Menu.Items className="absolute hover-text-grn text-black mt-2 divide-y divide-gray-100 rounded-md bg-wht">
         {status === "success" &&
           data.map((playlist, index) => (
             <Menu.Item key={index}>
@@ -74,7 +78,7 @@ const MenuSelectPlayList = ({ track }) => {
                   onClick={onClickRelease(playlist)}
                   className={`${
                     active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-                  } group items-center px-2 py-2 font-semibold text-gryf`}
+                  } group items-center px-2 py-2 font-semibold`}
                 >
                   <button>{playlist.title}</button>
                 </div>

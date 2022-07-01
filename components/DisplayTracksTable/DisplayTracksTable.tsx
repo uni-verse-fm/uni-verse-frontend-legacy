@@ -75,7 +75,7 @@ const DisplayTracksTable = ({ tracks }) => {
                 <div className="flex flex-col m-2 text-wht text-sm font-bold ">
                   {track.title}
 
-                  <div className="mt-2 text-sedrk text-black text-sm">
+                  <div className="mt-2 text-gryf text-sm">
                     {`${track.author?.username} - ft.${track.feats
                       ?.map((feat) => ` ${feat.username}`)
                       .join()}`}{" "}

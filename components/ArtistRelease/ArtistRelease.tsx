@@ -75,7 +75,7 @@ const ArtistRelease = (props) => {
   };
 
   return (
-    <div>
+    
       <div className="Global bg-grey w-full h-full flex flex-col  ">
         {getRelease.status === "loading" ? (
           <div className="flex justify-center items-center mt-10">
@@ -163,31 +163,32 @@ const ArtistRelease = (props) => {
                   </>
                 )}
               </div>
+           
             </div>
+        
+          {getRelease.data.tracks.length ? (
+            <DisplayTracksTable tracks={getRelease.data.tracks} />
+          ) : (
+            <div className="flex justify-center items-center mt-10 text-lg">
+              <h1 className="text-grn whitespace-nowrap">
+                {Messages.EMPTY_TRACKS}
+              </h1>
+            </div>
+          )}
+        </>
+      )}
 
-            {getRelease.data.tracks.length ? (
-              <DisplayTracksTable tracks={getRelease.data.tracks} />
-            ) : (
-              <div className="flex justify-center items-center mt-10 text-lg">
-                <h1 className="text-grn whitespace-nowrap">
-                  {Messages.EMPTY_TRACKS}
-                </h1>
-              </div>
-            )}
-          </>
-        )}
-
-        <ConfirmDialogDelete
-          data-backdrop="static"
-          data-keyboard="false"
-          small={true}
-          showModal={showForm}
-          handleCloseDialog={handleCloseDialog}
-          handleConfirmDelete={handleConfirmDelete}
-          msg="Delete Release"
-        />
-      </div>
+      <ConfirmDialogDelete
+        data-backdrop="static"
+        data-keyboard="false"
+        small={true}
+        showModal={showForm}
+        handleCloseDialog={handleCloseDialog}
+        handleConfirmDelete={handleConfirmDelete}
+        msg="Delete Release"
+      />
     </div>
+   
   );
 };
 export default ArtistRelease;

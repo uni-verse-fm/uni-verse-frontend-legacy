@@ -9,29 +9,34 @@ import Spinner from "../components/Spinner";
 import { adminLogin } from "../api/AdminAPI";
 import { me } from "../api/AuthAPI";
 import { ILogin } from "../common/types";
+
 import { getResourcePacks } from "../api/ResourcePackAPI";
 import { AxiosError } from "axios";
 import { notify } from "../components/Notifications";
 import { NotificationType, Pages } from "../common/types";
 import router from "next/router";
 
+import { getUserPlaylists } from "../api/PlaylistAPI";
+
+
 function MyProfile(props) {
   const { data: session } = useSession();
 
-  const releaseQuery = useQuery(
+  const meQuery = useQuery("me", () => me().then((res) => res.data), {
+    enabled: Boolean(session?.user),
+    initialData: { ...session.user },
+  });
+
+  const releasesQuery = useQuery(
     "myReleases",
     () => getUserReleases((session.user as any).id),
-    { initialData: props.releases, enabled: Boolean(session) }
+    { initialData: props.releases, enabled: meQuery.status === "success" }
   );
 
-  const meQuery = useQuery(
-    "me",
-    () => me().then((res) => res.data),
-
-    {
-      enabled: Boolean(session),
-      initialData: { ...session.user },
-    }
+  const playlistsQuery = useQuery(
+    "myPlaylists",
+    () => getUserPlaylists((session.user as any).id),
+    { enabled: releasesQuery.status === "success" }
   );
 
   const resourcesPacksQuery = useQuery(
@@ -64,12 +69,15 @@ function MyProfile(props) {
         accountId: meQuery.data.accountId,
         profilePicture: meQuery.data.profilePicture,
       }}
-      releases={releaseQuery.data}
+      releases={releasesQuery.data}
       resourcesPacks={resourcesPacksQuery.data}
+      playlists={playlistsQuery.data}
       isMe={true}
     />
   ) : (
-    <></>
+    <div className="flex justify-center items-center bg-drk w-full h-full">
+      <Spinner />
+    </div>
   );
 }
 

@@ -11,6 +11,7 @@ const UploadImageDisplayer = (props) => {
   };
 
   const handleImageChange = (event) => {
+    event.preventDefault();
     let image: File = event.target.files[0];
     if (image) {
       props?.field

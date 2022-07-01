@@ -23,7 +23,7 @@ const ArtistTrack = ({ track }) => {
 
   return (
     <div>
-      <div className="bg-grey w-full h-full flex flex-col">
+      <div className="bg-grey w-full h-full flex flex-col mt-10">
         <div className=" flex flex-row mb-16 ">
           <div className="">
             <div className="flex flex-row items-end mb-1">

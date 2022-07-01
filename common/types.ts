@@ -152,6 +152,9 @@ export interface IProfileScreen {
   };
   releases: any;
   resourcesPacks: any;
+
+  playlists: any;
+
   isMe?: boolean;
 }
 

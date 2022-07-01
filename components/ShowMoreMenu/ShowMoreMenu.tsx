@@ -14,20 +14,20 @@ const ShowMoreMenu = ({ track }) => {
   };
 
   return (
-    <Menu as="div" className="text-left h-full w-auto">
+    <Menu as="div" className="relative text-left h-full w-auto">
       <Menu.Button className="h-full w-auto p-2">
         <FontAwesomeIcon
-          className=" cursor-pointer hover:scale-[1.40] hover:text-grn text-grn"
+          className="cursor-pointer hover:scale-[1.40] hover:text-grn text-gry"
           icon={faEllipsis}
         />
       </Menu.Button>
-      <Menu.Items className="hover-text-grn text-blck absolute right origin-top-left divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+      <Menu.Items className="bg-wht bg-opacity-80 z-10 absolute w-auto h-auto divide-y divide-gray-100 rounded-md">
         <Menu.Item>
           {({ active }) => (
             <div
               className={`${
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group items-center px-2 py-2 font-semibold text-gryf`}
+              } group items-center px-2 py-2 text-gryf rounded-t-md`}
             >
               <MenuSelectPlaylist track={track} />
             </div>
@@ -37,10 +37,15 @@ const ShowMoreMenu = ({ track }) => {
           {({ active }) => (
             <div
               className={`${
-                active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group items-center px-2 py-2 font-semibold text-gryf`}
+                active ? "bg-opacity-25 text-md font-medium text-black bg-wht " : "text-sm"
+              } group items-center px-2 py-2 rounded-b-md text-black font-medium`}
             >
-              <button onClick={onClickDisplayUser}>Artist</button>
+              <button
+                className="text-black font-medium"
+                onClick={onClickDisplayUser}
+              >
+                Artist
+              </button>
             </div>
           )}
         </Menu.Item>

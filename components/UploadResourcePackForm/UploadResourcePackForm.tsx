@@ -278,14 +278,22 @@ const UploadResourcePackForm = ({ me }) => {
                       Submit
                     </button>
                   )}
-                  {(!me.stripeAccountId ||
-                    !accountQuery.data?.details_submitted) && (
+                  {!me.stripeAccountId && (
                     <button
                       type="button"
                       className="justify-center mt-4 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-grn hover:bg-segrn"
                       onClick={() => onboardMutation.mutate()}
                     >
                       Onboard
+                    </button>
+                  )}
+                  {me.stripeAccountId && !accountQuery.data?.details_submitted && (
+                    <button
+                      type="button"
+                      className="justify-center mt-4 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-grn hover:bg-segrn"
+                      onClick={() => onboardMutation.mutate()}
+                    >
+                      Finish the onboarding
                     </button>
                   )}
                 </div>

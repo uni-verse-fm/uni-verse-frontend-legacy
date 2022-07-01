@@ -32,6 +32,7 @@ const ProfileScreen = ({
   releases,
   isMe,
   resourcesPacks,
+  playlists,
 }: IProfileScreen) => {
   const router = useRouter();
   const [showForm, setShowForm] = useState(false);
@@ -112,6 +113,7 @@ const ProfileScreen = ({
         notify(message, NotificationType.SUCCESS);
       }
     },
+    retry: 2,
   });
 
   const handleImageUpload = (image: File) => {
@@ -141,17 +143,30 @@ const ProfileScreen = ({
               {user.email}
             </h2>
           </div>
-          <UploadImageDisplayer
-            {...imageProps}
-            profilePicture={
-              user.profilePicture
-                ? imageSource + user.profilePicture
-                : imageProps.defaultImageSrc
-            }
-            maxFileSize="10"
-            setFieldValue={handleImageUpload}
-            disable={true}
-          />
+          {isMe ? (
+            <UploadImageDisplayer
+              {...imageProps}
+              profilePicture={
+                user.profilePicture
+                  ? imageSource + user.profilePicture
+                  : imageProps.defaultImageSrc
+              }
+              maxFileSize="10"
+              setFieldValue={handleImageUpload}
+              disable={true}
+            />
+          ) : (
+            <img
+              src={
+                user.profilePicture
+                  ? imageSource + user.profilePicture
+                  : imageProps.defaultImageSrc
+              }
+              className={`md:mx-auto object-contain h-56 w-56 rounded-lg`}
+              alt="image to upload"
+            />
+          )}
+
           {!isValid ? <div className="text-rd">File is too large</div> : null}
           {user.id && isMe && (
             <button
@@ -165,7 +180,7 @@ const ProfileScreen = ({
               />
             </button>
           )}
-          {user.id && user.accountId && (
+          {user.id && user.accountId && !isMe && (
             <button className="mt-4 text-md text-grn bg-wht rounded-full px-2 h-7 hover:bg-grn hover:text-wht hover:bg-opacity-25">
               <span>Donate</span>
             </button>
@@ -173,8 +188,8 @@ const ProfileScreen = ({
         </div>
       </div>
 
-      <h2 className="font-medium not-italic text-wht text-xl mt-10">
-        Populaires :
+      <h2 className="font-bold not-italic text-wht text-xl mt-10">
+        Populaires 
       </h2>
 
       <div className="flex flex-row grow w-full h-auto">
@@ -196,24 +211,28 @@ const ProfileScreen = ({
 
       <div className="text-start justify-start items-start w-full h-full">
         <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5 ">
-          Albums (Releases) :
+          Releases 
         </h2>
         <div className="-ml-4 ">
           <ArtistReleases data={releases} />
         </div>
 
         <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5 ">
-          Playlists :
+          Playlists 
         </h2>
 
         <div className="-ml-4 ">
-          <Playlists className="w-full" userId={user.id} modalDisplay="false" />
+          <Playlists
+            className="w-full"
+            playlists={playlists}
+            modalDisplay="false"
+          />
         </div>
 
         {user.id && (
           <div className="mb-5">
             <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5">
-              RessoucesPacks :
+              ResoucesPacks 
             </h2>
             <div className="-ml-4 ">
               <ResourcesPacks data={resourcesPacks} />

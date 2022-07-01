@@ -1,4 +1,4 @@
-import { faTrashCan, faPen } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import router from "next/router";
 import { notify } from "../Notifications";
@@ -9,7 +9,7 @@ import { useMutation } from "react-query";
 import ConfirmDialogDelete from "../ConfirmDialogDelete";
 import { deleteComment } from "../../api/CommentAPI";
 import { isoDateToDateHour } from "../../utils/dateUtils";
-import UpdateCommentForm from "../UpdateCommentForm";
+
 
 const Comment = ({ comment }) => {
   const { data: session } = useSession();
@@ -18,9 +18,7 @@ const Comment = ({ comment }) => {
   const handleShowForm = () => setShowForm(true);
   const handleCloseDialog = () => setShowForm(false);
 
-  const [showUpdatComment, setShowUpdatComment] = useState(false);
-  const handleShowUpdatComment = () => setShowUpdatComment(true);
-  const handleHideUpdatComment = () => setShowUpdatComment(false);
+ 
 
   const handleConfirmDelete = () => {
     mutate(comment._id);
@@ -44,24 +42,11 @@ const Comment = ({ comment }) => {
 
   return (
     <div>
-      <div className="flex flex-row ">
-        <div className="text-sm font-normal not-italic text-grn">
+      <div className="flex flex-row">
+        <div className="text-lg font-normal not-italic text-grn">
           {comment?.owner?.username}
         </div>
 
-        {/*
-         {session && (
-          <div>
-            {(session.user as any).id === comment.owner._id  && (
-              <FontAwesomeIcon
-                className="cursor-pointer ml-5 text-wht text-xs hover:scale-[1.40] hover:text-gry"
-                icon={faPen}
-                onClick={handleShowUpdatComment}
-              /> 
-            )}
-          </div>
-        )}
-        */}
         {session && (
           <div>
             {(session.user as any).id === comment.owner._id && (
@@ -74,22 +59,11 @@ const Comment = ({ comment }) => {
           </div>
         )}
       </div>
-      <div className="text-xs font-normal not-italic  text-gry">
+      <div className="text-sm font-normal not-italic  text-gry">
         {isoDateToDateHour(comment.createdAt)}
       </div>
-      {showUpdatComment === false && (
-        <div className="text-sm font-normal not-italic text-wht mb-5">
-          {comment.content}
-        </div>
-      )}
-      <div>
-        {showUpdatComment && (
-          <UpdateCommentForm
-            showForm={showUpdatComment}
-            handleHideUpdateComment={handleHideUpdatComment}
-            dataUpdate={comment}
-          />
-        )}
+      <div className="text-md font-normal not-italic text-wht mb-5">
+        {comment.content}
       </div>
 
       <ConfirmDialogDelete

@@ -1,3 +1,4 @@
+import { headers } from "../common/constants";
 import { axiosClient } from "../common/contexts/AxiosContext";
 import { Endoints } from "../common/types";
 
@@ -6,6 +7,7 @@ const releaseEndpoint = Endoints.Releases;
 const createRelease = (data) =>
   axiosClient.post(`${releaseEndpoint}`, data, {
     headers: {
+      ...headers,
       "Content-Type": "multipart/form-data",
     },
   });

@@ -9,6 +9,7 @@ import { NotificationType } from "../../common/types";
 
 const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex }) => {
   const { mutate } = useMutation("createPlaylist", createPlaylist, {
+   
     onError: (error) => {
       notify("Can not create playlist" + error, NotificationType.ERROR);
     },
@@ -42,6 +43,7 @@ const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex }) => {
               .required(Messages.REQUIRED),
           })}
           onSubmit={(value) => {
+            console.debug (value);
             mutate(value);
           }}
           render={({ values, errors, handleChange, handleBlur }) => {

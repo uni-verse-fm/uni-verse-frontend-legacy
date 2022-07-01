@@ -42,6 +42,7 @@ const UserDropDown = ({ user }) => {
             className="rounded-full"
             width={42}
             height={42}
+            defaultValue="/profile.jpg"
           />
         ) : (
           <FontAwesomeIcon
