@@ -27,7 +27,10 @@ const Playlists = ({ modalDisplay, handleShowPlaylistContent, playlists }) => {
         <div className="w-full h-full flex flex-wrap gap-6 px-4">
           {playlists?.length > 0 ? (
             playlists.map((item, index) => (
-              <div key={index} onClick={onClickDisplayPlaylist(item._id, index)}>
+              <div
+                key={index}
+                onClick={onClickDisplayPlaylist(item._id, index)}
+              >
                 <PlaylistCard
                   key={index}
                   title={item.title}

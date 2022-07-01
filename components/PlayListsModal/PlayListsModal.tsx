@@ -47,7 +47,7 @@ const PlaylistsModal = ({
 
   const onDeletePlaylist = (playlistId: string) => {
     mutate(playlistId);
-  }
+  };
 
   const handleShowPlaylistContent = (index: number) => {
     setPlaylistIndex(index);
@@ -74,7 +74,7 @@ const PlaylistsModal = ({
           )
         }
       >
-        {playlistsQuery.status === 'success' && playlistIndex ? (
+        {playlistsQuery.status === "success" && playlistIndex ? (
           <div className="w-full h-full">
             <Playlist
               playlist={playlistsQuery.data[playlistIndex]}
@@ -100,7 +100,7 @@ const PlaylistsModal = ({
               <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-full">
                 <h1 className="text-rd whitespace-nowrap">No playlist found</h1>
               </div>
-            ) :  (
+            ) : (
               <Playlists
                 handleShowPlaylistContent={handleShowPlaylistContent}
                 playlists={playlistsQuery.data}

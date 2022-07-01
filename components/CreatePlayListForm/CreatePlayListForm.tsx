@@ -7,12 +7,14 @@ import { useMutation } from "react-query";
 import { createPlaylist } from "../../api/PlaylistAPI";
 import { NotificationType } from "../../common/types";
 
-const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex, refetch }) => {
-
+const CreatePlayListForm = ({
+  showForm,
+  handleHidecreatePlaylistIndex,
+  refetch,
+}) => {
   const { mutate } = useMutation("createPlaylist", createPlaylist, {
     onError: (err) => {
       notify("Can not create playlist" + err, NotificationType.ERROR);
-
     },
     onSuccess: async (res) => {
       if (res.status !== 201) {
@@ -45,7 +47,7 @@ const CreatePlayListForm = ({ showForm, handleHidecreatePlaylistIndex, refetch }
               .required(Messages.REQUIRED),
           })}
           onSubmit={(value) => {
-            mutate(value)
+            mutate(value);
           }}
           render={({ values, errors, handleChange, handleBlur }) => {
             return (
