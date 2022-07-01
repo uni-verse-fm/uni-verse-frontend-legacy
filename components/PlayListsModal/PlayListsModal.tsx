@@ -7,7 +7,7 @@ import { PlaylistModalHeader } from "../PlayList/PlaylistModalHeader";
 import { PlaylistsModalHeader } from "./PlaylistsModalHeader";
 import CreatePlayListForm from "../CreatePlayListForm";
 import { useSession } from "next-auth/react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { deletePlaylist, getUserPlaylists } from "../../api/PlaylistAPI";
 import Spinner from "../Spinner";
 import { notify } from "../Notifications";
@@ -20,7 +20,6 @@ const PlaylistsModal = ({
   handleShowCreatePlaylistIndex,
   handleHidecreatePlaylistIndex,
 }) => {
-  const queryClient = useQueryClient();
   const [playlistIndex, setPlaylistIndex] = useState(undefined);
   const { data: session } = useSession();
 
@@ -31,7 +30,7 @@ const PlaylistsModal = ({
   );
 
   const { mutate } = useMutation("deleteMyPlaylist", deletePlaylist, {
-    onError: (error) => {
+    onError: () => {
       notify("Can not delete playlist", NotificationType.ERROR);
     },
     onSuccess: async (res) => {
@@ -63,7 +62,7 @@ const PlaylistsModal = ({
         showModal={showModal}
         handleCloseModal={handleCloseModal}
         customHeader={
-          playlistIndex ? (
+          Number.isInteger(playlistIndex) ? (
             <PlaylistModalHeader
               handleHidePlaylistContent={handleHidePlaylistContent}
             />
@@ -74,7 +73,8 @@ const PlaylistsModal = ({
           )
         }
       >
-        {playlistsQuery.status === "success" && playlistIndex ? (
+        {playlistsQuery.status === "success" &&
+        Number.isInteger(playlistIndex) ? (
           <div className="w-full h-full">
             <Playlist
               playlist={playlistsQuery.data[playlistIndex]}
@@ -104,7 +104,7 @@ const PlaylistsModal = ({
               <Playlists
                 handleShowPlaylistContent={handleShowPlaylistContent}
                 playlists={playlistsQuery.data}
-                modalDisplay="true"
+                modalDisplay={true}
               />
             )}
           </div>

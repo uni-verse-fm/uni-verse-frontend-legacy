@@ -1,11 +1,17 @@
 import { Messages } from "../../common/constants";
 import PlaylistCard from "../PlayListCard";
 import router from "next/router";
-import { Pages } from "../../common/types";
+import { IPlaylistParams, Pages } from "../../common/types";
 
-const Playlists = ({ modalDisplay, handleShowPlaylistContent, playlists }) => {
+type IPlaylists = {
+    modalDisplay: boolean,
+    playlists: Array<IPlaylistParams>,
+    handleShowPlaylistContent?: (index: number) => void
+}
+
+const Playlists = ({ modalDisplay, handleShowPlaylistContent, playlists }: IPlaylists) => {
   const onClickDisplayPlaylist = (idPlaylist: string, index: number) => () => {
-    if (modalDisplay === "false") {
+    if (!modalDisplay) {
       router.push({
         pathname: `/${Pages.UserPlaylist}`,
         query: { id: idPlaylist },
@@ -17,7 +23,7 @@ const Playlists = ({ modalDisplay, handleShowPlaylistContent, playlists }) => {
 
   return (
     <div className="h-full">
-      {modalDisplay === "true" && (
+      {modalDisplay && (
         <div className="items-start mt-10 mb-5 ml-6 text-grn text-lg">
           Playlists :
         </div>

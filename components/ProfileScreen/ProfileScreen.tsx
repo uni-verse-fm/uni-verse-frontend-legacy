@@ -190,9 +190,9 @@ const ProfileScreen = ({ user, releases, playlists, isMe }: IProfileScreen) => {
 
         <div className="-ml-4 ">
           <Playlists
-            className="w-full"
             playlists={playlists}
-            modalDisplay="false"
+            modalDisplay={false}
+            handleShowPlaylistContent={undefined}
           />
         </div>
 

@@ -1,5 +1,5 @@
 import { Messages } from "../../common/constants";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import {
   faHome,
   faList,
@@ -13,6 +13,12 @@ import Player from "../Player";
 import { useSession } from "next-auth/react";
 import { NotificationType, Pages } from "../../common/types";
 import Link from "next/link";
+
+const LinkWrapper = forwardRef((props: any, ref) => (
+  <a ref={ref} {...props}>
+    {props.children}
+  </a>
+));
 
 const Sidebar = ({ handleShowModal }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -35,15 +41,18 @@ const Sidebar = ({ handleShowModal }) => {
               />
 
               <Link href={`/${Pages.UploadRelease}`} passHref>
-                <SideMenuEntry icon={faRecordVinyl} title="Upload release" />
+                <LinkWrapper>
+                  <SideMenuEntry icon={faRecordVinyl} title="Upload release" />
+                </LinkWrapper>
               </Link>
               <Link href={`/${Pages.UploadResourcePack}`} passHref>
-                <SideMenuEntry
-                  icon={faFileWaveform}
-                  title="Upload sample or preset"
-                />
+                <LinkWrapper>
+                  <SideMenuEntry
+                    icon={faFileWaveform}
+                    title="Upload sample or preset"
+                  />
+                </LinkWrapper>
               </Link>
-
               <SideMenuEntry
                 icon={faChartLine}
                 onClick={(_: any) =>
