@@ -187,7 +187,7 @@ const Playlist = (props) => {
                 <thead>
                   <tr className="text-grn border-b mb-10">
                     <td className="py-3"></td>
-                    <td className="py-3 ml-3">Track</td>
+                    <td className="py-3 ml-5">Track</td>
                    
                     <td className="py-3">
                       <FontAwesomeIcon
