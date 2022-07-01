@@ -51,7 +51,6 @@ function Profile() {
     releases: any,
     playlists: any
   ): ProfileParams => {
-    console.debug(user);
     return {
       user: {
         id: user.id,
