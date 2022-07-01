@@ -84,7 +84,7 @@ const ArtistRelease = (props) => {
           </div>
         ) : (
           <>
-            <div className="ml-10 flex flex-row mb-16 ">
+            <div className=" flex flex-row mb-16 ">
               <div>
                 <Image
                   src={
