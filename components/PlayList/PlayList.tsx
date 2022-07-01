@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faClock } from "@fortawesome/free-solid-svg-icons";
-
 import { getPlaylistById } from "../../api/PlaylistAPI";
 import { useQuery } from "react-query";
 import Spinner from "../Spinner";
@@ -18,6 +17,7 @@ import ShowMoreMenu from "./ShowMoreMenu";
 import { PlayerContext } from "../../common/contexts/PlayerContext";
 import { isoDateToDate } from "../../utils/dateUtils";
 import { NotificationType, Track, Types } from "../../common/types";
+import { isoDateToDateHour } from "../../utils/dateUtils";
 
 const Playlist = (props) => {
   const { status, data } = useQuery(`playlist-${props.index}`, () =>
@@ -96,29 +96,31 @@ const Playlist = (props) => {
                 />
               </div>
 
+              
+
               <div className="ml-5 ">
-                <div className="flex flex-row mt-24 mb-1">
+
+              <div className="flex flex-row items-end mb-1">
                   <h2 className="text-grn ">
-                    {data.title}
                     <FontAwesomeIcon
-                      className="cursor-pointer ml-5 hover:scale-[1.40] text-wht hover:text-grn"
+                      className="cursor-pointer text-2xl  hover:scale-[1.40] text-wht hover:text-grn"
                       icon={faPlay}
                       onClick={onClickPlaylist(data)}
                     />
                   </h2>
 
                   {props.enableChange === "true" && (
-                    <div className="flex flex-row">
-                      <h2 className="text-grn">
+                    <div className="flex flex-row items-end">
+                      <h2 className="text-rd">
                         <FontAwesomeIcon
-                          className="cursor-pointer ml-5 hover:scale-[1.40] hover:text-rd text-wht"
+                          className="cursor-pointer ml-5 hover:scale-[1.40] hover:text-rd text-rd text-2xl"
                           icon={faTrashCan}
                           onClick={handleShowForm}
                         />
                       </h2>
                       <h2 className="text-grn">
                         <FontAwesomeIcon
-                          className="cursor-pointer ml-5 hover:scale-[1.40] hover:text-gry text-wht"
+                          className="cursor-pointer ml-5 hover:scale-[1.40] hover:text-gry text-wht text-2xl"
                           icon={faPen}
                           onClick={handleShowUpdatPlayList}
                         />
@@ -126,8 +128,24 @@ const Playlist = (props) => {
                     </div>
                   )}
                 </div>
-                <h2 className="text-gry mb-8">{data.owner?.username}</h2>
+
+
+                <div className="flex flex-row mb-1">
+                  <h2 className="text-grn text-2xl font-bold ">
+                    {data.title}
+                    
+                  </h2>
+
+                </div>
+                <h2 className="text-gry  ">{data.owner?.username}</h2>
+                <h2 className="text-gry text-xs mt-4">  Created at : {isoDateToDateHour(data.createdAt)} </h2>
+                <h2 className="text-gry text-xs ">Last modified at : {data.owner?.username}</h2>
               </div>
+
+
+
+
+
               <div className="ml-5 ">
                 {showUpdatPlayList && data && (
                   <UpdatePlayListForm
@@ -137,6 +155,7 @@ const Playlist = (props) => {
                   />
                 )}
               </div>
+
             </div>
             {data.tracks?.length ? (
               <table className=" ml-10 mr-10 text-gry text-sm ">

@@ -17,7 +17,8 @@ const Comments = ({ idTrack }) => {
       getResourceComments({
         contentId: idTrack,
         typeOfContent: ModelType.Track,
-      }).then((res) => res.data),
+      }).then((res) => (res.data)
+      ),
     {
       onSuccess: (res) => {
         if (res.status === 401) {
@@ -35,16 +36,16 @@ const Comments = ({ idTrack }) => {
     }
   );
   return (
-    <div className="bg-grey h-full flex flex-col">
-      <div>
-        <div className="flex flex-row mb-3">
+    <div className="bg-grey h-full flex flex-col ">
+      <div className="mb-5 -ml-32">
+        <div className="flex flex-row mb-5 -ml-24">
           <h1 className="text-xl font-bold not-italic text-wht">Comments</h1>
           <FontAwesomeIcon
             className="cursor-pointer text-xl font-bold  ml-5 text-wht"
             icon={faComments}
           />
         </div>
-        <div className="flex flex-col justify-start items-start rounded bg-drk w-auto h-auto">
+        <div className="flex flex-col justify-start items-start rounded bg-drk w-auto h-auto -ml-24">
           {status === "loading" ? (
             <div className="absolute -translate-y-1/2 translate-x-1/2 top-1/2 right-1/2 grid place-content-center h-auto">
               <Spinner />
@@ -65,7 +66,7 @@ const Comments = ({ idTrack }) => {
             ) : (
               <div className="flex justify-start items-start mt-10 text-lg">
                 <h1 className="text-grn whitespace-nowrap">
-                  {Messages.EMPTY_PLAYLISTS}
+                  {Messages.EMPTY_COMMENTS}
                 </h1>
               </div>
             )

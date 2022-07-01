@@ -106,7 +106,7 @@ const { mutate, isLoading } = useMutation("deleteRelease", deleteRelease, {
                  
 
                     <FontAwesomeIcon
-                      className="cursor-pointer ml-5 hover:scale-[1.40]  text-wht hover:text-grn"
+                      className="cursor-pointer hover:scale-[1.40]  text-wht hover:text-grn"
                       icon={faPlay}
                       onClick={onClickRelease(getResourcePack.data)}
                     />

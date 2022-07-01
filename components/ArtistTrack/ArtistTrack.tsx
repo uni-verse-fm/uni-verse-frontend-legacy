@@ -24,8 +24,8 @@ const ArtistTrack = ({ track }) => {
   return (
     <div>
       <div className="bg-grey w-full h-full flex flex-col">
-        <div className="ml-10 flex flex-row ">
-          <div className="ml-5 ">
+        <div className=" flex flex-row mb-16 ">
+          <div className="">
             <div className="flex flex-row items-end mb-1">
               <img
                 src={

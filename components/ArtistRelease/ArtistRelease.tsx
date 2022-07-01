@@ -101,10 +101,10 @@ const ArtistRelease = (props) => {
 
               <div className="ml-5 ">
 
-              <div className="flex flex-row mb-1">
+               <div className="flex flex-row mb-1">
                   <h2 className="text-grn text-xl font-bold ">
                     <FontAwesomeIcon
-                      className="cursor-pointer ml-5 hover:scale-[1.40]  text-wht hover:text-grn"
+                      className="cursor-pointer hover:scale-[1.40]  text-wht hover:text-grn"
                       icon={faPlay}
                       onClick={onClickRelease(getRelease.data)}
                     />
@@ -159,13 +159,8 @@ const ArtistRelease = (props) => {
                         <h2 className="text-gry text-xs">
                           Created at : {isoDateToDateHour(getRelease.data.createdAt)} 
                         </h2>
-                 
-
-                    
                   </>
                 )}      
-              
-             
               </div>
             </div>
             

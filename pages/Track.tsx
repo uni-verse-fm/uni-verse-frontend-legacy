@@ -16,7 +16,7 @@ function Track() {
 
   return (
     <div className="bg-drk w-auto h-full overflow-y-scroll overflow-x-hidden">
-      <div className="flex flex-col items-center justify-start h-full p-10">
+      <div className="flex flex-col items-center justify-start h-full mt-20">
         <ArtistTrack track={parse(track)} />
         <Comments idTrack={parse(track)?.id} />
       </div>
