@@ -1,5 +1,5 @@
 import { Menu } from "@headlessui/react";
-import { getPlaylists } from "../../api/PlaylistAPI";
+import { getPlaylists, getUserPlaylists } from "../../api/PlaylistAPI";
 
 import { notify } from "../Notifications";
 import { useMutation } from "react-query";
@@ -15,11 +15,14 @@ import {
   NotificationType,
   Pages,
 } from "../../common/types";
+import { useSession } from "next-auth/react";
 
 const MenuSelectPlayList = ({ track }) => {
+  const { data: session } = useSession();
+
   const { status, data } = useQuery(
-    "playlists",
-    () => getPlaylists().then((res) => res.data),
+    "my-playlists",
+    () => getUserPlaylists((session?.user as any).id),
     {
       onSuccess: (res) => {
         if (res.status === 401) {
@@ -33,6 +36,7 @@ const MenuSelectPlayList = ({ track }) => {
           router.replace(`/${Pages.Login}`);
         }
       },
+      enabled: Boolean((session?.user as any).id),
     }
   );
 
@@ -63,9 +67,11 @@ const MenuSelectPlayList = ({ track }) => {
   };
 
   return (
-    <Menu as="div" className="text-left h-full w-auto">
-      <Menu.Button className="h-full w-auto">Add to a playlist</Menu.Button>
-      <Menu.Items className="absolute hover-text-grn text-blck left-0 mt-2  divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+    <Menu as="div" className="relative text-left h-full w-auto">
+      <Menu.Button className="h-full text-grn font-bold w-auto">
+        Add to a playlist
+      </Menu.Button>
+      <Menu.Items className="absolute hover-text-grn text-grn mt-2 divide-y divide-gray-100 rounded-md bg-fakeBlr">
         {status === "success" &&
           data.map((playlist, index) => (
             <Menu.Item key={index}>
@@ -74,7 +80,7 @@ const MenuSelectPlayList = ({ track }) => {
                   onClick={onClickRelease(playlist)}
                   className={`${
                     active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-                  } group items-center px-2 py-2 font-semibold text-gryf`}
+                  } group items-center px-2 py-2 font-semibold`}
                 >
                   <button>{playlist.title}</button>
                 </div>

@@ -66,7 +66,7 @@ let tracks = [
   },
 ];
 
-const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
+const ProfileScreen = ({ user, releases, playlists, isMe }: IProfileScreen) => {
   const [isValid, setIsValid] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const handleCloseDialog = () => {
@@ -88,6 +88,7 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
         notify(message, NotificationType.SUCCESS);
       }
     },
+    retry: 2,
   });
 
   const handleImageUpload = (image: File) => {
@@ -117,17 +118,30 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
               {user.email}
             </h2>
           </div>
-          <UploadImageDisplayer
-            {...imageProps}
-            profilePicture={
-              user.profilePicture
-                ? imageSource + user.profilePicture
-                : imageProps.defaultImageSrc
-            }
-            maxFileSize="10"
-            setFieldValue={handleImageUpload}
-            disable={true}
-          />
+          {isMe ? (
+            <UploadImageDisplayer
+              {...imageProps}
+              profilePicture={
+                user.profilePicture
+                  ? imageSource + user.profilePicture
+                  : imageProps.defaultImageSrc
+              }
+              maxFileSize="10"
+              setFieldValue={handleImageUpload}
+              disable={true}
+            />
+          ) : (
+            <img
+              src={
+                user.profilePicture
+                  ? imageSource + user.profilePicture
+                  : imageProps.defaultImageSrc
+              }
+              className={`md:mx-auto object-contain h-56 w-56 rounded-lg`}
+              alt="image to upload"
+            />
+          )}
+
           {!isValid ? <div className="text-rd">File is too large</div> : null}
           {user.id && isMe && (
             <button
@@ -141,7 +155,7 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
               />
             </button>
           )}
-          {user.id && user.accountId && (
+          {user.id && user.accountId && !isMe && (
             <button className="mt-4 text-md text-grn bg-wht rounded-full px-2 h-7 hover:bg-grn hover:text-wht hover:bg-opacity-25">
               <span>Donate</span>
             </button>
@@ -175,7 +189,11 @@ const ProfileScreen = ({ user, releases, isMe }: IProfileScreen) => {
         </h2>
 
         <div className="-ml-4 ">
-          <Playlists className="w-full" userId={user.id} modalDisplay="false" />
+          <Playlists
+            className="w-full"
+            playlists={playlists}
+            modalDisplay="false"
+          />
         </div>
 
         {user.accountId && (

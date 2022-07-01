@@ -9,48 +9,55 @@ import Spinner from "../components/Spinner";
 import { adminLogin } from "../api/AdminAPI";
 import { me } from "../api/AuthAPI";
 import { ILogin } from "../common/types";
+import { getUserPlaylists } from "../api/PlaylistAPI";
 
 function MyProfile(props) {
   const { data: session } = useSession();
 
-  const { status, data } = useQuery(
+  const meQuery = useQuery("me", () => me().then((res) => res.data), {
+    enabled: Boolean(session?.user),
+    initialData: { ...session.user },
+  });
+
+  const releasesQuery = useQuery(
     "myReleases",
     () => getUserReleases((session.user as any).id),
-    { initialData: props.releases, enabled: Boolean(session) }
+    { initialData: props.releases, enabled: meQuery.status === "success" }
   );
 
-  const meQuery = useQuery(
-    "me",
-    () => me().then((res) => res.data),
-
-    {
-      enabled: Boolean(session),
-      initialData: { ...session.user },
-    }
+  const playlistsQuery = useQuery(
+    "myPlaylists",
+    () => getUserPlaylists((session.user as any).id),
+    { enabled: releasesQuery.status === "success" }
   );
 
-  return status === "error" ? (
+  return "error" === playlistsQuery.status ? (
     <div className="flex justify-center items-center bg-drk w-full h-full">
       <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
     </div>
-  ) : status === "loading" ? (
-    <div className="flex justify-center items-center  bg-drk w-full h-full">
+  ) : "loading" === playlistsQuery.status ? (
+    <div className="flex justify-center items-center bg-drk w-full h-full">
       <Spinner />
     </div>
-  ) : session.user ? (
-    <ProfileScreen
-      user={{
-        id: meQuery.data.id,
-        username: meQuery.data.username,
-        email: meQuery.data.email,
-        accountId: meQuery.data.accountId,
-        profilePicture: meQuery.data.profilePicture,
-      }}
-      releases={data}
-      isMe={true}
-    />
+  ) : "success" === playlistsQuery.status ? (
+    <div className="flex justify-center items-center bg-drk w-full h-full">
+      <ProfileScreen
+        user={{
+          id: meQuery.data.id,
+          username: meQuery.data.username,
+          email: meQuery.data.email,
+          accountId: meQuery.data.accountId,
+          profilePicture: meQuery.data.profilePicture,
+        }}
+        releases={releasesQuery.data}
+        playlists={playlistsQuery.data}
+        isMe={true}
+      />
+    </div>
   ) : (
-    <></>
+    <div className="flex justify-center items-center bg-drk w-full h-full">
+      <Spinner />
+    </div>
   );
 }
 

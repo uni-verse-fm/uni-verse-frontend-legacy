@@ -40,8 +40,8 @@ const Comment = ({ comment }) => {
 
   return (
     <div>
-      <div className="flex flex-row ">
-        <div className="text-sm font-normal not-italic text-grn">
+      <div className="flex flex-row">
+        <div className="text-lg font-normal not-italic text-grn">
           {comment?.owner?.username}
         </div>
         {session && (
@@ -56,11 +56,11 @@ const Comment = ({ comment }) => {
           </div>
         )}
       </div>
-      <div className="text-xs font-normal not-italic  text-gry">
+      <div className="text-sm font-normal not-italic  text-gry">
         {/*(new Date(comment.createdAt)).toUTCString()*/}
         {isoDateToDateHour(comment.createdAt)}
       </div>
-      <div className="text-sm font-normal not-italic text-wht mb-5">
+      <div className="text-md font-normal not-italic text-wht mb-5">
         {comment.content}
       </div>
 

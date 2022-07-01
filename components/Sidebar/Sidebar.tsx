@@ -32,7 +32,6 @@ const Sidebar = ({ handleShowModal }) => {
                 icon={faList}
                 onClick={handleShowModal}
                 title="Playlists"
-                nbNotif={0}
               />
 
               <Link href={`/${Pages.UploadRelease}`} passHref>

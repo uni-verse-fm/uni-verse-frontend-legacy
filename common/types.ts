@@ -147,6 +147,7 @@ export interface IProfileScreen {
     image?: string;
   };
   releases: any;
+  playlists: any;
   isMe?: boolean;
 }
 

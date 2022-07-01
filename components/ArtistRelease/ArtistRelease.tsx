@@ -63,86 +63,81 @@ const ArtistRelease = (props) => {
   };
 
   return (
-    <div>
-      <div className="Global bg-grey w-full h-full flex flex-col  ">
-        {getRelease.status === "loading" ? (
-          <div className="flex justify-center items-center mt-10">
-            <Spinner />
-          </div>
-        ) : getRelease.status === "error" ? (
-          <div className="flex justify-center items-center mt-10">
-            <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
-          </div>
-        ) : (
-          <>
-            <div className="ml-10 flex flex-row ">
-              <div>
-                <Image
-                  src={
-                    getRelease.data.coverName
-                      ? imageSource + getRelease.data.coverName
-                      : "/Playlist.png"
-                  }
-                  className="rounded mb-5"
-                  width={150}
-                  height={150}
-                  alt="Release"
-                />
-              </div>
+    <div className="Global bg-grey w-full h-full flex flex-col  ">
+      {getRelease.status === "loading" ? (
+        <div className="flex flex-col justify-center h-full w-full items-center mt-10">
+          <Spinner />
+        </div>
+      ) : getRelease.status === "error" ? (
+        <div className="flex justify-center items-center mt-10">
+          <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
+        </div>
+      ) : (
+        <>
+          <div className="ml-10 flex flex-row ">
+            <div>
+              <Image
+                src={imageSource + getRelease.data.coverName}
+                className="rounded mb-5"
+                width={150}
+                height={150}
+                alt="Release"
+                defaultValue="/profile.jpg"
+              />
+            </div>
 
-              <div className="ml-5 ">
-                <div className="flex flex-row mt-24 mb-1">
-                  <h2 className="text-grn ">
-                    {getRelease.data.title}
+            <div className="ml-5 ">
+              <div className="flex flex-row mt-24 mb-1">
+                <h2 className="text-grn ">
+                  {getRelease.data.title}
 
-                    <FontAwesomeIcon
-                      className="cursor-pointer ml-5 hover:scale-[1.40]  text-wht hover:text-grn"
-                      icon={faPlay}
-                      onClick={onClickRelease(getRelease.data)}
-                    />
-                  </h2>
+                  <FontAwesomeIcon
+                    className="cursor-pointer ml-5 hover:scale-[1.40]  text-wht hover:text-grn"
+                    icon={faPlay}
+                    onClick={onClickRelease(getRelease.data)}
+                  />
+                </h2>
 
-                  {(session.user as any).id === getRelease.data.author && (
-                    <div className="flex flex-row">
-                      <h2 className="text-grn">
-                        <FontAwesomeIcon
-                          className="cursor-pointer ml-5 hover:scale-[1.40] hover:text-rd text-wht"
-                          icon={faTrashCan}
-                          onClick={handleShowForm}
-                        />
-                      </h2>
-                    </div>
-                  )}
-                </div>
-                {getRelease.data?.author && (
-                  <h2 className="text-gry mb-8">
-                    {getRelease.data.author.username}
-                  </h2>
+                {(session.user as any).id === getRelease.data.author && (
+                  <div className="flex flex-row">
+                    <h2 className="text-grn">
+                      <FontAwesomeIcon
+                        className="cursor-pointer ml-5 hover:scale-[1.40] hover:text-rd text-wht"
+                        icon={faTrashCan}
+                        onClick={handleShowForm}
+                      />
+                    </h2>
+                  </div>
                 )}
               </div>
+              {getRelease.data?.author && (
+                <h2 className="text-gry mb-8">
+                  {getRelease.data.author.username}
+                </h2>
+              )}
             </div>
-            {getRelease.data.tracks.length ? (
-              <DisplayTracksTable tracks={getRelease.data.tracks} />
-            ) : (
-              <div className="flex justify-center items-center mt-10 text-lg">
-                <h1 className="text-grn whitespace-nowrap">
-                  {Messages.EMPTY_TRACKS}
-                </h1>
-              </div>
-            )}
-          </>
-        )}
+          </div>
+          {getRelease.data.tracks.length ? (
+            <DisplayTracksTable tracks={getRelease.data.tracks} />
+          ) : (
+            <div className="flex justify-center items-center mt-10 text-lg">
+              <h1 className="text-grn whitespace-nowrap">
+                {Messages.EMPTY_TRACKS}
+              </h1>
+            </div>
+          )}
+        </>
+      )}
 
-        <ConfirmDialogDelete
-          data-backdrop="static"
-          data-keyboard="false"
-          small={true}
-          showModal={showForm}
-          handleCloseDialog={handleCloseDialog}
-          handleConfirmDelete={handleConfirmDelete}
-          msg="Delete Release"
-        />
-      </div>
+      <ConfirmDialogDelete
+        data-backdrop="static"
+        data-keyboard="false"
+        small={true}
+        showModal={showForm}
+        handleCloseDialog={handleCloseDialog}
+        handleConfirmDelete={handleConfirmDelete}
+        msg="Delete Release"
+      />
     </div>
   );
 };
