@@ -221,8 +221,16 @@ export interface ILoginForm {
   signIn: any;
 }
 
-export interface IPlaylist {
+export interface IPlaylistParams {
+  _id: string;
   title: string;
+  tracks: Track[];
+  owner: {
+    username: string;
+    id: string;
+    profilePicture?: string;
+    email: string;
+  };
 }
 
 export interface IUpdatePlaylistTrack {

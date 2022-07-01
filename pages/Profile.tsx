@@ -65,7 +65,6 @@ function Profile() {
     resourcesPacks: any
 
   ): ProfileParams => {
-    console.debug(user);
     return {
       user: {
         id: user.id,
