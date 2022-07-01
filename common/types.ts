@@ -208,7 +208,7 @@ export interface ILoginForm {
 }
 
 export interface IPlaylistParams {
-    _id: string;
+  _id: string;
   title: string;
   tracks: Track[];
   owner: {
@@ -216,7 +216,7 @@ export interface IPlaylistParams {
     id: string;
     profilePicture?: string;
     email: string;
-  }
+  };
 }
 
 export interface IUpdatePlaylistTrack {

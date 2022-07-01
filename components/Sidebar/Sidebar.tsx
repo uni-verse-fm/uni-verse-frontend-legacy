@@ -13,12 +13,7 @@ import Player from "../Player";
 import { useSession } from "next-auth/react";
 import { NotificationType, Pages } from "../../common/types";
 import Link from "next/link";
-
-const LinkWrapper = forwardRef((props: any, ref) => (
-  <a ref={ref} {...props}>
-    {props.children}
-  </a>
-));
+import LinkWrapper from "./LinkWrapper";
 
 const Sidebar = ({ handleShowModal }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);

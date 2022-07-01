@@ -4,12 +4,16 @@ import router from "next/router";
 import { IPlaylistParams, Pages } from "../../common/types";
 
 type IPlaylists = {
-    modalDisplay: boolean,
-    playlists: Array<IPlaylistParams>,
-    handleShowPlaylistContent?: (index: number) => void
-}
+  modalDisplay: boolean;
+  playlists: Array<IPlaylistParams>;
+  handleShowPlaylistContent?: (index: number) => void;
+};
 
-const Playlists = ({ modalDisplay, handleShowPlaylistContent, playlists }: IPlaylists) => {
+const Playlists = ({
+  modalDisplay,
+  handleShowPlaylistContent,
+  playlists,
+}: IPlaylists) => {
   const onClickDisplayPlaylist = (idPlaylist: string, index: number) => () => {
     if (!modalDisplay) {
       router.push({
