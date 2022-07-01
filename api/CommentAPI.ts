@@ -1,5 +1,10 @@
 import { axiosClient } from "../common/contexts/AxiosContext";
-import { Endoints, HotComments, IResourceInfo,IUpdatePayload } from "../common/types";
+import {
+  Endoints,
+  HotComments,
+  IResourceInfo,
+  IUpdatePayload,
+} from "../common/types";
 
 const commentEndpoint = Endoints.Comments;
 
@@ -19,7 +24,7 @@ const getCommentById = (id) => axiosClient.get(`${commentEndpoint}/${id}`);
 
 const updateComment = (param: IUpdatePayload) =>
   axiosClient.patch(`${commentEndpoint}/${param.id}`, param.data);
- 
+
 const deleteComment = (id) => axiosClient.delete(`${commentEndpoint}/${id}`);
 
 const hotCommentedTracks = (params: HotComments) => () =>

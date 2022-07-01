@@ -10,7 +10,7 @@ import ResourcePack from "../components/ResourcePack";
 function UserResourcePack() {
   const router = useRouter();
   const {
-    query: {id},
+    query: { id },
   } = router;
 
   return (

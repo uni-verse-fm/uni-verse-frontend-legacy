@@ -24,10 +24,15 @@ import { useRouter } from "next/router";
 const imageProps = {
   defaultImageSrc: "/profile.jpg",
   size: 56,
-  fileExtensions: Extensions.image,     
+  fileExtensions: Extensions.image,
 };
 
-const ProfileScreen = ({ user, releases, isMe, resourcesPacks }: IProfileScreen) => {
+const ProfileScreen = ({
+  user,
+  releases,
+  isMe,
+  resourcesPacks,
+}: IProfileScreen) => {
   const router = useRouter();
   const [showForm, setShowForm] = useState(false);
 
@@ -37,11 +42,11 @@ const ProfileScreen = ({ user, releases, isMe, resourcesPacks }: IProfileScreen)
   };
 
   const [isValid, setIsValid] = useState(true);
-  
+
   const handleCloseResetPasswordModal = () => {
     setShowForm(false);
   };
-  
+
   const onClickDisplayTrack = (track: Track) => () => {
     router.push({
       pathname: `/${Pages.Track}`,
@@ -60,46 +65,44 @@ const ProfileScreen = ({ user, releases, isMe, resourcesPacks }: IProfileScreen)
       },
       createdAt: "2022-01-01",
       duration: "2:33",
-
-  },
-  {
-    title: " track N°2",
-    author: {
-      username: " nmedjoub",
     },
-    createdAt: "2022-01-01",
-    duration: "2:33",
-  },
-  {
-    title: " track N°2",
-    author: {
-      username: " nmedjoub",
+    {
+      title: " track N°2",
+      author: {
+        username: " nmedjoub",
+      },
+      createdAt: "2022-01-01",
+      duration: "2:33",
     },
-    createdAt: "2022-01-01",
-    duration: "2:33",
-  },
-  {
-    title: " track N°3",
-    author: {
-      username: " nmedjoub",
+    {
+      title: " track N°2",
+      author: {
+        username: " nmedjoub",
+      },
+      createdAt: "2022-01-01",
+      duration: "2:33",
     },
-    createdAt: "2022-01-01",
-    duration: "2:33",
-  },
-  {
-    title: " track N°4",
-    author: {
-      username: " nmedjoub",
+    {
+      title: " track N°3",
+      author: {
+        username: " nmedjoub",
+      },
+      createdAt: "2022-01-01",
+      duration: "2:33",
     },
-    createdAt: "2022-01-01",
-    duration: "2:33",
-  },
-];
+    {
+      title: " track N°4",
+      author: {
+        username: " nmedjoub",
+      },
+      createdAt: "2022-01-01",
+      duration: "2:33",
+    },
+  ];
 
   const { mutate } = useMutation("uploadProfilePicture", changeProfilePicture, {
     onError: () => {
       notify(`Can't upload profile picture`, NotificationType.ERROR);
-
     },
     onSuccess: (res) => {
       if (res.status !== 201) {
@@ -169,31 +172,27 @@ const ProfileScreen = ({ user, releases, isMe, resourcesPacks }: IProfileScreen)
           )}
         </div>
       </div>
-   
 
       <h2 className="font-medium not-italic text-wht text-xl mt-10">
         Populaires :
       </h2>
-     
 
       <div className="flex flex-row grow w-full h-auto">
         <div className="grow m-2 rounded-xl">
           <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-fakeBlr shadow-lg">
-            {tracks.length && (
-               tracks.map((track, index) => (
+            {tracks.length &&
+              tracks.map((track, index) => (
                 <li key={index}>
                   <TrackRow
-                    track= {(track as any)}
-                    onClickDisplayTrack={onClickDisplayTrack((track as any ))}
+                    track={track as any}
+                    onClickDisplayTrack={onClickDisplayTrack(track as any)}
                     disableHover={true}
                   />
                 </li>
-              ))
-              
-              )}
+              ))}
           </ul>
         </div>
-        </div>
+      </div>
 
       <div className="text-start justify-start items-start w-full h-full">
         <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5 ">
@@ -212,13 +211,13 @@ const ProfileScreen = ({ user, releases, isMe, resourcesPacks }: IProfileScreen)
         </div>
 
         {user.id && (
-          <div  className="mb-5">
+          <div className="mb-5">
             <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5">
               RessoucesPacks :
             </h2>
             <div className="-ml-4 ">
-          <ResourcesPacks data={resourcesPacks} />
-        </div>
+              <ResourcesPacks data={resourcesPacks} />
+            </div>
           </div>
         )}
       </div>

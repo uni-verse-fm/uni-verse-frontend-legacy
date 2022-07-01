@@ -19,7 +19,6 @@ import {
 import { useSession } from "next-auth/react";
 
 const MenuSelectPlayList = ({ track }) => {
-
   const { data: session } = useSession();
 
   const { data, status } = useQuery(
@@ -48,7 +47,7 @@ const MenuSelectPlayList = ({ track }) => {
       }
     },
   });
-  
+
   const onClickRelease = (playlist) => () => {
     let dataToUpdate: IUpdatePlaylistTrack = {
       trackId: track.id,
@@ -59,7 +58,7 @@ const MenuSelectPlayList = ({ track }) => {
       id: playlist._id,
       data: dataToUpdate,
     };
-  
+
     mutate(dataForm);
   };
 

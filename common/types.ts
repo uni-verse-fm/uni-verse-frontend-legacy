@@ -236,7 +236,7 @@ export enum Pages {
   Profile = "Profile",
   UserPlaylist = "UserPlaylist",
   UserRelease = "UserRelease",
-  UserResourcePack ="UserResourcePack",
+  UserResourcePack = "UserResourcePack",
   Track = "Track",
   MyProfile = "MyProfile",
   Success = "Success",

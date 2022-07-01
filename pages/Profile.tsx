@@ -8,7 +8,7 @@ import { Session } from "next-auth";
 import Spinner from "../components/Spinner";
 import { Messages } from "../common/constants";
 import { getUserReleases } from "../api/ReleaseAPI";
-import { getResourcePacks} from "../api/ResourcePackAPI";
+import { getResourcePacks } from "../api/ResourcePackAPI";
 
 function Profile() {
   const router = useRouter();
@@ -25,14 +25,14 @@ function Profile() {
   );
 
   const RessourcePacksQuery = useQuery("getResourcePacks", () =>
-  getResourcePacks().then((res) => {
+    getResourcePacks().then((res) => {
       console.log("getResourcePacks");
       console.log(res.data);
       return res.data;
     })
   );
 
-  const profileParams = (user: any, releases: any, resourcesPacks : any) => {
+  const profileParams = (user: any, releases: any, resourcesPacks: any) => {
     return {
       user: {
         id: user.id,
@@ -56,7 +56,13 @@ function Profile() {
     </div>
   ) : (
     <div className="bg-drk w-full h-full ">
-      <ProfileScreen {...profileParams(userQuery.data, releasesQuery.data, RessourcePacksQuery.data)} />
+      <ProfileScreen
+        {...profileParams(
+          userQuery.data,
+          releasesQuery.data,
+          RessourcePacksQuery.data
+        )}
+      />
     </div>
   );
 }

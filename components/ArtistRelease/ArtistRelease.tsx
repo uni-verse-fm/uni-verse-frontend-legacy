@@ -1,6 +1,11 @@
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay,faTrashCan , faChevronDown,faChevronUp} from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlay,
+  faTrashCan,
+  faChevronDown,
+  faChevronUp,
+} from "@fortawesome/free-solid-svg-icons";
 import { getReleaseById, deleteRelease } from "../../api/ReleaseAPI";
 import { useQuery } from "react-query";
 import Spinner from "../Spinner";
@@ -17,7 +22,7 @@ import { useSession } from "next-auth/react";
 import DisplayTracksTable from "../DisplayTracksTable";
 import { PlayerContext } from "../../common/contexts/PlayerContext";
 
-import {NotificationType, Pages, Types} from "../../common/types";
+import { NotificationType, Pages, Types } from "../../common/types";
 import { isoDateToDateHour } from "../../utils/dateUtils";
 
 const ArtistRelease = (props) => {
@@ -26,13 +31,13 @@ const ArtistRelease = (props) => {
 
   const getRelease = useQuery("release", () =>
     getReleaseById(props.index).then((res) => {
-      console.log (res.data);
-      return (res.data);
-    }) 
+      console.log(res.data);
+      return res.data;
+    })
   );
 
   const [ShowMoreInformations, setShowMoreInformations] = useState(false);
-  const handleShowMoreInformations= () => setShowMoreInformations(true);
+  const handleShowMoreInformations = () => setShowMoreInformations(true);
   const handleCloseShowMoreInformations = () => setShowMoreInformations(false);
 
   const [showForm, setShowForm] = useState(false);
@@ -43,7 +48,6 @@ const ArtistRelease = (props) => {
     mutate(getRelease.data._id);
     handleCloseDialog();
   };
-
 
   const { mutate, isLoading } = useMutation("deleteRelease", deleteRelease, {
     onError: () => {
@@ -59,7 +63,6 @@ const ArtistRelease = (props) => {
       }
     },
   });
-
 
   const onClickRelease = (release) => () => {
     dispatch({
@@ -100,8 +103,7 @@ const ArtistRelease = (props) => {
               </div>
 
               <div className="ml-5 ">
-
-               <div className="flex flex-row mb-1">
+                <div className="flex flex-row mb-1">
                   <h2 className="text-grn text-xl font-bold ">
                     <FontAwesomeIcon
                       className="cursor-pointer hover:scale-[1.40]  text-wht hover:text-grn"
@@ -121,49 +123,48 @@ const ArtistRelease = (props) => {
                     </div>
                   )}
                 </div>
-                
+
                 <div className="flex flex-row ">
                   <h2 className="text-grn text-2xl font-bold ">
                     {getRelease.data.title}
                   </h2>
                 </div>
 
-              
                 {getRelease.data?.author && (
                   <h2 className="text-gry ">
                     {getRelease.data.author.username}
                   </h2>
                 )}
-                 {(ShowMoreInformations == false) ? (
+                {ShowMoreInformations == false ? (
                   <h2 className="text-grn">
-                        <FontAwesomeIcon
-                          className="cursor-pointer hover:scale-[1.40] hover:text-grn text-wht"
-                          icon={faChevronDown}
-                          onClick={handleShowMoreInformations}
-                        />
-                      </h2>
+                    <FontAwesomeIcon
+                      className="cursor-pointer hover:scale-[1.40] hover:text-grn text-wht"
+                      icon={faChevronDown}
+                      onClick={handleShowMoreInformations}
+                    />
+                  </h2>
+                ) : (
+                  <h2 className="text-grn">
+                    <FontAwesomeIcon
+                      className="cursor-pointer hover:scale-[1.40] hover:text-grn text-grn"
+                      icon={faChevronUp}
+                      onClick={handleCloseShowMoreInformations}
+                    />
+                  </h2>
+                )}
 
-                    ) : (<h2 className="text-grn">
-                      <FontAwesomeIcon
-                            className="cursor-pointer hover:scale-[1.40] hover:text-grn text-grn"
-                            icon={faChevronUp}
-                            onClick={handleCloseShowMoreInformations}
-                          />
-                            </h2> )}
-
-                        {getRelease.data?.description && (ShowMoreInformations == true) && (
-                        <>
-                          <h2 className="text-wht ">
-                          {getRelease.data.description} 
-                        </h2>
-                        <h2 className="text-gry text-xs">
-                          Created at : {isoDateToDateHour(getRelease.data.createdAt)} 
-                        </h2>
+                {getRelease.data?.description && ShowMoreInformations == true && (
+                  <>
+                    <h2 className="text-wht ">{getRelease.data.description}</h2>
+                    <h2 className="text-gry text-xs">
+                      Created at :{" "}
+                      {isoDateToDateHour(getRelease.data.createdAt)}
+                    </h2>
                   </>
-                )}      
+                )}
               </div>
             </div>
-            
+
             {getRelease.data.tracks.length ? (
               <DisplayTracksTable tracks={getRelease.data.tracks} />
             ) : (

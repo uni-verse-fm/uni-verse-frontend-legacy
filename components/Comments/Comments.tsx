@@ -17,8 +17,7 @@ const Comments = ({ idTrack }) => {
       getResourceComments({
         contentId: idTrack,
         typeOfContent: ModelType.Track,
-      }).then((res) => (res.data)
-      ),
+      }).then((res) => res.data),
     {
       onSuccess: (res) => {
         if (res.status === 401) {

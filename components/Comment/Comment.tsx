@@ -18,7 +18,6 @@ const Comment = ({ comment }) => {
   const handleShowForm = () => setShowForm(true);
   const handleCloseDialog = () => setShowForm(false);
 
-
   const [showUpdatComment, setShowUpdatComment] = useState(false);
   const handleShowUpdatComment = () => setShowUpdatComment(true);
   const handleHideUpdatComment = () => setShowUpdatComment(false);
@@ -42,7 +41,6 @@ const Comment = ({ comment }) => {
       }
     },
   });
-  
 
   return (
     <div>
@@ -50,8 +48,8 @@ const Comment = ({ comment }) => {
         <div className="text-sm font-normal not-italic text-grn">
           {comment?.owner?.username}
         </div>
-        
-         {/*
+
+        {/*
          {session && (
           <div>
             {(session.user as any).id === comment.owner._id  && (
@@ -71,28 +69,27 @@ const Comment = ({ comment }) => {
                 className="cursor-pointer ml-5 text-rd text-xs hover:scale-[1.40] hover:text-rd"
                 icon={faTrashCan}
                 onClick={handleShowForm}
-              /> 
+              />
             )}
           </div>
         )}
       </div>
       <div className="text-xs font-normal not-italic  text-gry">
-       
         {isoDateToDateHour(comment.createdAt)}
       </div>
-      {(showUpdatComment===false) &&(
-      <div className="text-sm font-normal not-italic text-wht mb-5">
-        {comment.content}
-      </div>
-           )}
-      <div >
-                {showUpdatComment &&(
-                  <UpdateCommentForm
-                    showForm={showUpdatComment}
-                    handleHideUpdateComment={handleHideUpdatComment}
-                    dataUpdate={comment}
-                  />
-                )}
+      {showUpdatComment === false && (
+        <div className="text-sm font-normal not-italic text-wht mb-5">
+          {comment.content}
+        </div>
+      )}
+      <div>
+        {showUpdatComment && (
+          <UpdateCommentForm
+            showForm={showUpdatComment}
+            handleHideUpdateComment={handleHideUpdatComment}
+            dataUpdate={comment}
+          />
+        )}
       </div>
 
       <ConfirmDialogDelete

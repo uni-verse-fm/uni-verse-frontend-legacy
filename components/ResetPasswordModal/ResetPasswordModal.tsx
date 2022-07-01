@@ -7,7 +7,6 @@ import { useMutation } from "react-query";
 import { resetPassword } from "../../api/UserAPI";
 
 const ResetPasswordModal = (props) => {
-
   const { mutate } = useMutation("resetPassword", resetPassword, {
     onError: (error) => {
       notify("there was an error" + error, NotificationType.ERROR);
@@ -44,14 +43,14 @@ const ResetPasswordModal = (props) => {
               Messages.PASSWORD_MISMATCH
             ),
           })}
-              onSubmit={(value ) => {
-                let dataForm: IResetPassword = {
-                  password: value.password,
-                };
-                console.log (dataForm);
-                console.log ("dataForm");
-                mutate(dataForm);
-       
+          onSubmit={(value) => {
+            let dataForm: IResetPassword = {
+              password: value.password,
+            };
+            console.log(dataForm);
+            console.log("dataForm");
+            mutate(dataForm);
+
             //notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR);
           }}
         >
@@ -65,7 +64,6 @@ const ResetPasswordModal = (props) => {
                         Reset password{" "}
                       </label>
                     </div>
-                
 
                     <div className="flex items-start mb-5 flex-col w-64 h-16">
                       <label className="mb-2 text-sm">New password</label>
@@ -84,48 +82,47 @@ const ResetPasswordModal = (props) => {
                       ) : null}
                     </div>
 
-                      <div className="flex items-start mb-7 flex-col w-64 h-16">
-                        <label className="mb-2 text-sm">
-                          Confirm your password
-                        </label>
-                        <input
-                          id="passwordConfirmation"
-                          name="passwordConfirmation"
-                          type="password"
-                          placeholder="Confirm your password"
-                          className="text-sm bg-drk w-full h-full text-white pl-2 rounded-md placeholder-gry p-2"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.passwordConfirmation}
-                        />
-                        {errors.passwordConfirmation ? (
-                          <div className="text-rd text-sm">
-                            {errors.passwordConfirmation}
-                          </div>
-                        ) : null}
-                      </div>
+                    <div className="flex items-start mb-7 flex-col w-64 h-16">
+                      <label className="mb-2 text-sm">
+                        Confirm your password
+                      </label>
+                      <input
+                        id="passwordConfirmation"
+                        name="passwordConfirmation"
+                        type="password"
+                        placeholder="Confirm your password"
+                        className="text-sm bg-drk w-full h-full text-white pl-2 rounded-md placeholder-gry p-2"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.passwordConfirmation}
+                      />
+                      {errors.passwordConfirmation ? (
+                        <div className="text-rd text-sm">
+                          {errors.passwordConfirmation}
+                        </div>
+                      ) : null}
+                    </div>
 
-                      <div className="flex items-start flex-row w-64">
-                        <input
-                          className=" rounded-sm bg-grn font-normal cursor-pointer h-7 w-28 text-wht"
-                          type="submit"
-                          value="Submit"
-                        ></input>
-                        <button
-                          className="ml-8 rounded-sm bg-grn font-normal cursor-pointer h-7 w-28 text-wht "
-                          onClick={props.handleCloseDialog}
-                        >
-                          Cancel
-                        </button>
-                      </div>
+                    <div className="flex items-start flex-row w-64">
+                      <input
+                        className=" rounded-sm bg-grn font-normal cursor-pointer h-7 w-28 text-wht"
+                        type="submit"
+                        value="Submit"
+                      ></input>
+                      <button
+                        className="ml-8 rounded-sm bg-grn font-normal cursor-pointer h-7 w-28 text-wht "
+                        onClick={props.handleCloseDialog}
+                      >
+                        Cancel
+                      </button>
                     </div>
                   </div>
-                </Form>
-              );
-            }}
-          </Formik>
-        </div>
-    
+                </div>
+              </Form>
+            );
+          }}
+        </Formik>
+      </div>
     )
   );
 };
