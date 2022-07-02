@@ -49,10 +49,10 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
   };
 
   return (
-    <Menu as="div" className="text-left h-full w-auto">
+    <Menu as="div" className="relative text-left h-full w-auto">
       <Menu.Button className="h-full w-auto p-2">
         <FontAwesomeIcon
-          className="cursor-pointer hover:scale-[1.40] hover:text-grn text-gry"
+          className="cursor-pointer hover:scale-[1.40] text-grn"
           icon={faEllipsis}
         />
       </Menu.Button>
@@ -82,7 +82,7 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
                     } group items-center px-2 py-2 font-semibold text-gryf`}
                     onClick={(_: any) => {
                       let dataToUpdate: IUpdatePlaylistTrack = {
-                        trackId: track._id,
+                        trackId: track.id,
                         action: "REMOVE",
                       };
                       let dataForm: IUpdatePayload = {

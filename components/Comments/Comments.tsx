@@ -35,7 +35,7 @@ const Comments = ({ idTrack }) => {
     }
   );
   return (
-    <div className="bg-grey h-full flex flex-col w-auto">
+    <div className="bg-grey h-full flex flex-col w-auto mt-10">
       <div className="">
         <div className="flex flex-row py-4">
           <h1 className="text-2xl font-bold not-italic text-wht">Comments</h1>

@@ -115,6 +115,10 @@ export interface IPlaylist {
   title: string;
 }
 
+export interface IResetPassword {
+  password: string;
+}
+
 export interface IUpdatePayload {
   id: string;
   data: object;
@@ -147,11 +151,21 @@ export interface IProfileScreen {
     image?: string;
   };
   releases: any;
+  resourcesPacks: any;
+
   playlists: any;
+
   isMe?: boolean;
 }
 
 export interface ICreateComment {
+  contentId: string;
+  isPositive: Boolean;
+  content: string;
+  typeOfContent: string;
+}
+
+export interface IUpdateCommentData {
   contentId: string;
   isPositive: Boolean;
   content: string;
@@ -233,6 +247,7 @@ export enum Pages {
   Profile = "Profile",
   UserPlaylist = "UserPlaylist",
   UserRelease = "UserRelease",
+  UserResourcePack = "UserResourcePack",
   Track = "Track",
   MyProfile = "MyProfile",
   Success = "Success",

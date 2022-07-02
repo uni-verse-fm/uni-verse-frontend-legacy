@@ -9,6 +9,7 @@ import Spinner from "../components/Spinner";
 import { adminLogin } from "../api/AdminAPI";
 import { me } from "../api/AuthAPI";
 import { ILogin } from "../common/types";
+import { getUserResourcePack } from "../api/ResourcePackAPI";
 import { getUserPlaylists } from "../api/PlaylistAPI";
 
 function MyProfile(props) {
@@ -31,29 +32,34 @@ function MyProfile(props) {
     { enabled: releasesQuery.status === "success" }
   );
 
-  return "error" === playlistsQuery.status ? (
+  const resourcesPacksQuery = useQuery(
+    "myResourcePacks",
+    () => getUserResourcePack((session.user as any).id),
+    { enabled: releasesQuery.status === "success" }
+  );
+
+  return meQuery.status === "error" ? (
     <div className="flex justify-center items-center bg-drk w-full h-full">
       <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
     </div>
-  ) : "loading" === playlistsQuery.status ? (
-    <div className="flex justify-center items-center bg-drk w-full h-full">
+  ) : meQuery.status === "loading" ? (
+    <div className="flex justify-center items-center  bg-drk w-full h-full">
       <Spinner />
     </div>
-  ) : "success" === playlistsQuery.status ? (
-    <div className="flex justify-center items-center bg-drk w-full h-full">
-      <ProfileScreen
-        user={{
-          id: meQuery.data.id,
-          username: meQuery.data.username,
-          email: meQuery.data.email,
-          accountId: meQuery.data.accountId,
-          profilePicture: meQuery.data.profilePicture,
-        }}
-        releases={releasesQuery.data}
-        playlists={playlistsQuery.data}
-        isMe={true}
-      />
-    </div>
+  ) : session.user ? (
+    <ProfileScreen
+      user={{
+        id: meQuery.data.id,
+        username: meQuery.data.username,
+        email: meQuery.data.email,
+        accountId: meQuery.data.accountId,
+        profilePicture: meQuery.data.profilePicture,
+      }}
+      releases={releasesQuery.data}
+      resourcesPacks={resourcesPacksQuery.data}
+      playlists={playlistsQuery.data}
+      isMe={true}
+    />
   ) : (
     <div className="flex justify-center items-center bg-drk w-full h-full">
       <Spinner />

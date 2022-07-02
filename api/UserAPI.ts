@@ -36,6 +36,8 @@ const searchUsers = (text: string, { signal }) =>
     })
     .then((res) => res.data);
 
+const resetPassword = (data) =>
+  axiosClient.post(`${userEndpoint}/password`, data);
 export {
   getUsers,
   getUserByUsername,
@@ -45,5 +47,6 @@ export {
   searchUsers,
   onboardUser,
   changePassword,
+  resetPassword,
   changeProfilePicture,
 };

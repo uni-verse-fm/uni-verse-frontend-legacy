@@ -47,7 +47,7 @@ function UserPlaylist() {
   return (
     <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden">
       <div className="text-start  justify-start items-start w-full h-full ">
-        <h1 className="text-xl font-bold not-italic text-grn ml-10 mb-5 mt-16 ">
+        <h1 className="text-xl font-bold not-italic text-grn ml-10 mb-5 mt-16 mt-10">
           Playlist
         </h1>
         <div className="Global bg-grey w-full h-full flex flex-col">

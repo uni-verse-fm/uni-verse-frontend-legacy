@@ -8,7 +8,7 @@ import { Track, Types } from "../../common/types";
 import CreateComment from "../CreateComment";
 
 export const featsToString = (feats: any[]) =>
-  feats && "feat. " + feats.map((feat) => feat.username).join(" ,");
+  feats && "feat. " + feats.map((feat) => feat.username).join(",");
 const ArtistTrack = ({ track }) => {
   const { dispatch } = useContext(PlayerContext);
 
@@ -23,9 +23,9 @@ const ArtistTrack = ({ track }) => {
 
   return (
     <div>
-      <div className="bg-grey w-full h-full flex flex-col">
-        <div className="ml-10 flex flex-row ">
-          <div className="ml-5 ">
+      <div className="bg-grey w-full h-full flex flex-col mt-10">
+        <div className=" flex flex-row mb-16 ">
+          <div className="">
             <div className="flex flex-row items-end mb-1">
               <img
                 src={

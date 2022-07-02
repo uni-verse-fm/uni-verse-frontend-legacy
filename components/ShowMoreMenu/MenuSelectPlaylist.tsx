@@ -1,5 +1,5 @@
 import { Menu } from "@headlessui/react";
-import { getPlaylists, getUserPlaylists } from "../../api/PlaylistAPI";
+import { getUserPlaylists } from "../../api/PlaylistAPI";
 
 import { notify } from "../Notifications";
 import { useMutation } from "react-query";
@@ -24,14 +24,8 @@ const MenuSelectPlayList = ({ track }) => {
     "my-playlists",
     () => getUserPlaylists((session?.user as any).id),
     {
-      onSuccess: (res) => {
-        if (res.status === 401) {
-          notify("Playlists bay from success");
-          router.replace(`/${Pages.Login}`);
-        }
-      },
       onError: (error: AxiosError) => {
-        if (error.response.status === 401) {
+        if (error.response?.status === 401) {
           notify(Messages.UNAUTHORIZED, NotificationType.ERROR);
           router.replace(`/${Pages.Login}`);
         }
@@ -53,9 +47,10 @@ const MenuSelectPlayList = ({ track }) => {
       }
     },
   });
+
   const onClickRelease = (playlist) => () => {
     let dataToUpdate: IUpdatePlaylistTrack = {
-      trackId: track._id,
+      trackId: track.id,
       action: "ADD",
     };
 
@@ -63,15 +58,16 @@ const MenuSelectPlayList = ({ track }) => {
       id: playlist._id,
       data: dataToUpdate,
     };
+
     mutate(dataForm);
   };
 
   return (
     <Menu as="div" className="relative text-left h-full w-auto">
-      <Menu.Button className="h-full text-grn font-bold w-auto">
+      <Menu.Button className="h-full text-left font-medium text-blk w-auto">
         Add to a playlist
       </Menu.Button>
-      <Menu.Items className="absolute hover-text-grn text-grn mt-2 divide-y divide-gray-100 rounded-md bg-fakeBlr">
+      <Menu.Items className="absolute hover-text-grn text-black mt-2 divide-y divide-gray-100 rounded-md bg-wht">
         {status === "success" &&
           data.map((playlist, index) => (
             <Menu.Item key={index}>

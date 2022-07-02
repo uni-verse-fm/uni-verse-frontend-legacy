@@ -11,11 +11,15 @@ import {
 } from "../../common/constants";
 import { IProfileScreen, NotificationType } from "../../common/types";
 import ArtistReleases from "../ArtistReleases";
+import ResourcesPacks from "../ResourcesPacks";
 import DisplayTracksTable from "../DisplayTracksTable";
 import { notify } from "../Notifications";
 import Playlists from "../PLaylists";
 import UploadImageDisplayer from "../UploadImageDisplayer";
 import ResetPasswordModal from "../ResetPasswordModal";
+import TrackRow from "../SearchBar/TrackRow";
+import { Pages, Track } from "../../common/types";
+import { useRouter } from "next/router";
 
 const imageProps = {
   defaultImageSrc: "/profile.jpg",
@@ -23,58 +27,79 @@ const imageProps = {
   fileExtensions: Extensions.image,
 };
 
-let tracks = [
-  {
-    title: " track N°1",
-    author: {
-      username: " nmedjoub",
-    },
-    createdAt: "2022-01-01",
-    duration: "2:33",
-  },
-  {
-    title: " track N°2",
-    author: {
-      username: " nmedjoub",
-    },
-    createdAt: "2022-01-01",
-    duration: "2:33",
-  },
-  {
-    title: " track N°2",
-    author: {
-      username: " nmedjoub",
-    },
-    createdAt: "2022-01-01",
-    duration: "2:33",
-  },
-  {
-    title: " track N°3",
-    author: {
-      username: " nmedjoub",
-    },
-    createdAt: "2022-01-01",
-    duration: "2:33",
-  },
-  {
-    title: " track N°4",
-    author: {
-      username: " nmedjoub",
-    },
-    createdAt: "2022-01-01",
-    duration: "2:33",
-  },
-];
-
-const ProfileScreen = ({ user, releases, playlists, isMe }: IProfileScreen) => {
-  const [isValid, setIsValid] = useState(true);
+const ProfileScreen = ({
+  user,
+  releases,
+  isMe,
+  resourcesPacks,
+  playlists,
+}: IProfileScreen) => {
+  const router = useRouter();
   const [showForm, setShowForm] = useState(false);
-  const handleCloseDialog = () => {
-    setShowForm(false);
-  };
+
   const handleShowForm = () => {
+    console.log("setShowForm à true");
     setShowForm(true);
   };
+
+  const [isValid, setIsValid] = useState(true);
+
+  const handleCloseResetPasswordModal = () => {
+    setShowForm(false);
+  };
+
+  const onClickDisplayTrack = (track: Track) => () => {
+    router.push({
+      pathname: `/${Pages.Track}`,
+      query: { track: JSON.stringify(track) },
+    });
+  };
+
+  {
+    /** A remplacer par getPopularTracks */
+  }
+  let tracks = [
+    {
+      title: " track N°1",
+      author: {
+        username: " nmedjoub",
+      },
+      createdAt: "2022-01-01",
+      duration: "2:33",
+    },
+    {
+      title: " track N°2",
+      author: {
+        username: " nmedjoub",
+      },
+      createdAt: "2022-01-01",
+      duration: "2:33",
+    },
+    {
+      title: " track N°2",
+      author: {
+        username: " nmedjoub",
+      },
+      createdAt: "2022-01-01",
+      duration: "2:33",
+    },
+    {
+      title: " track N°3",
+      author: {
+        username: " nmedjoub",
+      },
+      createdAt: "2022-01-01",
+      duration: "2:33",
+    },
+    {
+      title: " track N°4",
+      author: {
+        username: " nmedjoub",
+      },
+      createdAt: "2022-01-01",
+      duration: "2:33",
+    },
+  ];
 
   const { mutate } = useMutation("uploadProfilePicture", changeProfilePicture, {
     onError: () => {
@@ -163,29 +188,37 @@ const ProfileScreen = ({ user, releases, playlists, isMe }: IProfileScreen) => {
         </div>
       </div>
 
-      <h2 className="font-medium not-italic text-wht text-xl mt-10">
-        Populaires :
+      <h2 className="font-bold not-italic text-wht text-xl mt-10">
+        Populaires
       </h2>
-      {tracks.length ? (
-        <DisplayTracksTable tracks={tracks} />
-      ) : (
-        <div className="flex justify-center items-center mt-5 text-lg">
-          <h1 className="text-grn whitespace-nowrap">
-            {Messages.EMPTY_TRACKS}
-          </h1>
+
+      <div className="flex flex-row grow w-full h-auto">
+        <div className="grow m-2 rounded-xl">
+          <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-fakeBlr shadow-lg">
+            {tracks.length &&
+              tracks.map((track, index) => (
+                <li key={index}>
+                  <TrackRow
+                    track={track as any}
+                    onClickDisplayTrack={onClickDisplayTrack(track as any)}
+                    disableHover={true}
+                  />
+                </li>
+              ))}
+          </ul>
         </div>
-      )}
+      </div>
 
       <div className="text-start justify-start items-start w-full h-full">
         <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5 ">
-          Albums (Releases) :
+          Releases
         </h2>
         <div className="-ml-4 ">
           <ArtistReleases data={releases} />
         </div>
 
         <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5 ">
-          Playlists :
+          Playlists
         </h2>
 
         <div className="-ml-4 ">
@@ -196,18 +229,20 @@ const ProfileScreen = ({ user, releases, playlists, isMe }: IProfileScreen) => {
           />
         </div>
 
-        {user.accountId && (
-          <div>
-            <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-10">
-              RessoucesPacks :
+        {user.id && (
+          <div className="mb-5">
+            <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5">
+              ResoucesPacks
             </h2>
-            <h2 className="font-bold not-italic text-wht text-xl  ">...</h2>
+            <div className="-ml-4 ">
+              <ResourcesPacks data={resourcesPacks} />
+            </div>
           </div>
         )}
       </div>
       <ResetPasswordModal
         showModal={showForm}
-        handleCloseDialog={handleCloseDialog}
+        handleCloseDialog={handleCloseResetPasswordModal}
       />
     </div>
   );

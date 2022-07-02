@@ -17,11 +17,11 @@ const ShowMoreMenu = ({ track }) => {
     <Menu as="div" className="relative text-left h-full w-auto">
       <Menu.Button className="h-full w-auto p-2">
         <FontAwesomeIcon
-          className="cursor-pointer hover:scale-[1.40] hover:text-grn text-gry"
+          className="cursor-pointer hover:scale-[1.40] hover:text-grn text-grn"
           icon={faEllipsis}
         />
       </Menu.Button>
-      <Menu.Items className="bg-fakeBlr bg-opacity-80 z-10 absolute w-auto h-auto divide-y divide-gray-100 rounded-md">
+      <Menu.Items className="bg-wht bg-opacity-80 z-10 absolute w-auto h-auto divide-y divide-gray-100 rounded-md">
         <Menu.Item>
           {({ active }) => (
             <div
@@ -38,10 +38,10 @@ const ShowMoreMenu = ({ track }) => {
             <div
               className={`${
                 active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-              } group items-center px-2 py-2 rounded-b-md`}
+              } group items-center px-2 py-2 rounded-b-md text-black font-medium`}
             >
               <button
-                className=" font-bold text-grn"
+                className="text-black font-medium"
                 onClick={onClickDisplayUser}
               >
                 Artist

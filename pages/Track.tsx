@@ -6,6 +6,7 @@ import Comments from "../components/Comments";
 
 function Track() {
   const router = useRouter();
+
   const {
     query: { track },
   } = router;

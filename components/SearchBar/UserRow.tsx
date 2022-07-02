@@ -5,7 +5,7 @@ const UserRow = ({ user, onClickDisplayUser }) => {
   return (
     <div
       onClick={onClickDisplayUser(user)}
-      className="hover:bg-grn rounded-lg cursor-pointer hover:bg-opacity-10 hover:text-lg text-md group items-center p-2 font-semibold text-gryf flex items-center justify-between"
+      className="hover:bg-grn rounded-lg cursor-pointer hover:bg-opacity-10 hover:text-lg text-md group items-center p-2 font-semibold text-gryf flex items-center justify-between cursor-pointer"
     >
       <div className="flex items-center">
         <Image

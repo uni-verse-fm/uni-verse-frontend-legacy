@@ -6,9 +6,8 @@ import { useSession } from "next-auth/react";
 import { NotificationType } from "../../common/types";
 import { useState } from "react";
 import { useMutation } from "react-query";
-import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
+import ConfirmDialogDelete from "../ConfirmDialogDelete";
 import { deleteComment } from "../../api/CommentAPI";
-
 import { isoDateToDateHour } from "../../utils/dateUtils";
 
 const Comment = ({ comment }) => {
@@ -44,11 +43,12 @@ const Comment = ({ comment }) => {
         <div className="text-lg font-normal not-italic text-grn">
           {comment?.owner?.username}
         </div>
+
         {session && (
           <div>
-            {(session.user as any).id === comment.owner && (
+            {(session.user as any).id === comment.owner._id && (
               <FontAwesomeIcon
-                className="cursor-pointer ml-5 text-wht hover:scale-[1.40] hover:text-rd"
+                className="cursor-pointer ml-5 text-rd text-xs hover:scale-[1.40] hover:text-rd"
                 icon={faTrashCan}
                 onClick={handleShowForm}
               />
@@ -57,7 +57,6 @@ const Comment = ({ comment }) => {
         )}
       </div>
       <div className="text-sm font-normal not-italic  text-gry">
-        {/*(new Date(comment.createdAt)).toUTCString()*/}
         {isoDateToDateHour(comment.createdAt)}
       </div>
       <div className="text-md font-normal not-italic text-wht mb-5">

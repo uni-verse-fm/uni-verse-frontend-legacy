@@ -8,6 +8,9 @@ import { Session } from "next-auth";
 import Spinner from "../components/Spinner";
 import { Messages } from "../common/constants";
 import { getUserReleases } from "../api/ReleaseAPI";
+
+import { getResourcePacks } from "../api/ResourcePackAPI";
+
 import { getUserPlaylists } from "../api/PlaylistAPI";
 
 type ProfileParams = {
@@ -21,6 +24,7 @@ type ProfileParams = {
   releases: any;
   playlists: any;
   isMe: false;
+  resourcesPacks: any;
 };
 function Profile() {
   const router = useRouter();
@@ -40,6 +44,13 @@ function Profile() {
     { enabled: userQuery.status === "success" }
   );
 
+  const RessourcePacksQuery = useQuery("getResourcePacks", () =>
+    getResourcePacks().then((res) => {
+      console.log("getResourcePacks");
+      console.log(res.data);
+      return res.data;
+    })
+  );
   const playlistsQuery = useQuery(
     `playlists-${id}`,
     () => getUserPlaylists(id as string).then((res) => res.data),
@@ -49,7 +60,8 @@ function Profile() {
   const profileParams = (
     user: any,
     releases: any,
-    playlists: any
+    playlists: any,
+    resourcesPacks: any
   ): ProfileParams => {
     return {
       user: {
@@ -62,6 +74,7 @@ function Profile() {
       releases,
       playlists,
       isMe: false,
+      resourcesPacks,
     };
   };
 
@@ -79,6 +92,8 @@ function Profile() {
         {...profileParams(
           userQuery.data,
           releasesQuery.data,
+
+          RessourcePacksQuery.data,
           playlistsQuery.data
         )}
       />

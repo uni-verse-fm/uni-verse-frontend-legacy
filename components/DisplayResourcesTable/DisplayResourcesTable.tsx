@@ -1,33 +1,38 @@
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { PlayerContext } from "../../common/contexts/PlayerContext";
 import { Track, Types } from "../../common/types";
 import { isoDateYear } from "../../utils/dateUtils";
-import ShowMoreMenu from "../ShowMoreMenu";
 import { imageSource } from "../../common/constants";
 import router from "next/router";
 import { Pages } from "../../common/types";
 
-const DisplayTracksTable = ({ tracks }) => {
+const DisplayResourcesTable = ({ resources }) => {
   const { dispatch } = useContext(PlayerContext);
 
-  const onClickTrack = (track: Track) => () => {
+  const onClickResource = (resource: Track) => () => {
+    {
+      /* 
     dispatch({
       type: Types.TrackPlay,
       payload: {
-        track: track,
+        track: resource,
       },
     });
+  */
+    }
   };
 
-  const onClickDisplayTrack = (track) => () => {
-    console.log("track");
-    console.log(track);
-    router.push({
+  const onClickDisplayResource = (resource) => () => {
+    {
+      /*
+        router.push({
       pathname: `/${Pages.Track}`,
-      query: { track: JSON.stringify(track) },
+      query: { track: JSON.stringify(resource) },
     });
+  */
+    }
   };
 
   return (
@@ -36,16 +41,15 @@ const DisplayTracksTable = ({ tracks }) => {
         <tr className="text-grn border-b mb-10 ">
           <td className="py-3 "></td>
           <td className="py-3 ml-24 ">
-            <h2 className="ml-3 "> Track</h2>
+            <h2 className="ml-3 "> Resource</h2>
           </td>
-
           <td className="py-3"></td>
         </tr>
       </thead>
       <tbody>
-        {tracks.map((track, index) => (
+        {resources?.map((resource, index) => (
           <tr
-            key={`${track.title}-${index}`}
+            key={`${resource.title}-${index}`}
             className="h-10 hover:bg-gry hover:bg-opacity-70  "
           >
             <td className="flex justify-center items-center mt-5  ">
@@ -53,17 +57,20 @@ const DisplayTracksTable = ({ tracks }) => {
                 <FontAwesomeIcon
                   className=" cursor-pointer hover:scale-[1.40] text-grn "
                   icon={faPlay}
-                  onClick={onClickTrack(track)}
+                  onClick={onClickResource(resource)}
                 />
               </div>
             </td>
 
-            <td className="cursor-pointer" onClick={onClickDisplayTrack(track)}>
+            <td
+              className="cursor-pointer"
+              onClick={onClickDisplayResource(resource)}
+            >
               <div className="flex flex-row">
                 <img
                   src={
-                    track?.release?.coverName
-                      ? imageSource + track?.release.coverName
+                    resource?.release?.coverName
+                      ? imageSource + resource?.release.coverName
                       : "/Playlist.png"
                   }
                   className="rounded-lg m-2"
@@ -72,20 +79,22 @@ const DisplayTracksTable = ({ tracks }) => {
                   alt="Track cover"
                 />
                 <div className="flex flex-col m-2 text-wht text-sm font-bold ">
-                  {track.title}
+                  {resource.title}
 
                   <div className="mt-2 text-gryf text-sm">
-                    {`${track.author?.username} - ft.${track.feats
-                      ?.map((feat) => ` ${feat.username}`)
-                      .join()}`}{" "}
-                    {isoDateYear(track.createdAt)}
+                    {resource.author?.username}{" "}
+                    {isoDateYear(resource.createdAt)}
                   </div>
                 </div>
               </div>
             </td>
-
             <td className="cursor-pointer">
-              <ShowMoreMenu track={track} />
+              <div className=" bg-opacity-30 bg-gry rounded-full  w-8 h-8 flex justify-center items-center hover:bg-opacity-100">
+                <FontAwesomeIcon
+                  className=" cursor-pointer hover:scale-[1.40] text-grn "
+                  icon={faDownload}
+                />
+              </div>
             </td>
           </tr>
         ))}
@@ -94,4 +103,4 @@ const DisplayTracksTable = ({ tracks }) => {
   );
 };
 
-export default DisplayTracksTable;
+export default DisplayResourcesTable;
