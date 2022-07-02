@@ -27,11 +27,15 @@ const updateResourcePack = (id, data) =>
 const deleteResourcePack = (id) =>
   axiosClient.delete(`${resourcePackEndpoint}/${id}`);
 
+  const getUserResourcePack = (id: string) =>
+  axiosClient.get(`${resourcePackEndpoint}/user/${id}`).then((res) => res.data);
+
 export {
   createResourcePack,
   getResourcePacks,
   getResourcePackByTitle,
   getResourcePackById,
+  getUserResourcePack,
   updateResourcePack,
   deleteResourcePack,
 };

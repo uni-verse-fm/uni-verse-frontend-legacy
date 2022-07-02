@@ -13,18 +13,14 @@ import Image from "next/image";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import { useState } from "react";
-import { useMutation } from "react-query";
-import { notify } from "../Notifications";
 import ConfirmDialogDelete from "../ConfirmDialogDelete";
 
-import router from "next/router";
 import { useSession } from "next-auth/react";
-import DisplayTracksTable from "../DisplayTracksTable";
 import { PlayerContext } from "../../common/contexts/PlayerContext";
 
-import { NotificationType, Pages, Types } from "../../common/types";
-import { isoDateYear } from "../../utils/dateUtils";
+import {  Types } from "../../common/types";
 import { isoDateToDateHour } from "../../utils/dateUtils";
+import DisplayResourcesTable from "../DisplayResourcesTable";
 
 const ResourcePack = (props) => {
   const { data: session } = useSession();
@@ -38,33 +34,17 @@ const ResourcePack = (props) => {
     })
   );
   const [ShowMoreInformations, setShowMoreInformations] = useState(false);
-  const handleShowMoreInformations = () => setShowMoreInformations(true);
+  const handleShowMoreInformations = () => 
+  {
+    setShowMoreInformations(true);
+    console.log("ressourcesPack");
+  }
   const handleCloseShowMoreInformations = () => setShowMoreInformations(false);
   const [showForm, setShowForm] = useState(false);
   const handleShowForm = () => setShowForm(true);
   const handleCloseDialog = () => setShowForm(false);
 
-  {
-    /*const handleConfirmDelete = () => {
-    mutate(getResourcePack.data._id);
-    handleCloseDialog();
-  };
-
-const { mutate, isLoading } = useMutation("deleteRelease", deleteRelease, {
-    onError: () => {
-      notify("Can not delete release", NotificationType.ERROR);
-    },
-    onSuccess: (res) => {
-      if (res.status !== 200) {
-        notify(res.data.message, NotificationType.ERROR);
-      } else {
-        const message = "Release deleted";
-        notify(message, NotificationType.SUCCESS);
-        router.replace(`/${Pages.Home}`);
-      }
-    },
-  });*/
-  }
+ 
 
   const onClickRelease = (release) => () => {
     dispatch({
@@ -89,7 +69,7 @@ const { mutate, isLoading } = useMutation("deleteRelease", deleteRelease, {
           </div>
         ) : (
           <>
-            <div className="ml-10 flex flex-row ">
+            <div className="flex flex-row mb-10">
               <div>
                 <Image
                   src={
@@ -134,7 +114,7 @@ const { mutate, isLoading } = useMutation("deleteRelease", deleteRelease, {
                 </div>
 
                 {getResourcePack.data?.author && (
-                  <h2 className="text-gry ">{getResourcePack.data.author}</h2>
+                  <h2 className="text-gry ">{getResourcePack.data.author.username}</h2>
                 )}
                 {ShowMoreInformations == false ? (
                   <h2 className="text-grn">
@@ -169,11 +149,7 @@ const { mutate, isLoading } = useMutation("deleteRelease", deleteRelease, {
               </div>
             </div>
             {getResourcePack.data?.resources.length ? (
-              <div className="flex justify-center items-center mt-10 text-lg">
-                <h1 className="text-grn whitespace-nowrap">
-                  {Messages.EMPTY_RESOURCES}
-                </h1>
-              </div>
+              <DisplayResourcesTable resources={getResourcePack.data.resources} />
             ) : (
               <div className="flex justify-center items-center mt-10 text-lg">
                 <h1 className="text-grn whitespace-nowrap">

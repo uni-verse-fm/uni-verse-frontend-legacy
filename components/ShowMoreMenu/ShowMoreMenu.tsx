@@ -17,7 +17,7 @@ const ShowMoreMenu = ({ track }) => {
     <Menu as="div" className="relative text-left h-full w-auto">
       <Menu.Button className="h-full w-auto p-2">
         <FontAwesomeIcon
-          className="cursor-pointer hover:scale-[1.40] hover:text-grn text-gry"
+          className="cursor-pointer hover:scale-[1.40] hover:text-grn text-grn"
           icon={faEllipsis}
         />
       </Menu.Button>
@@ -37,7 +37,7 @@ const ShowMoreMenu = ({ track }) => {
           {({ active }) => (
             <div
               className={`${
-                active ? "bg-opacity-25 text-md font-medium text-black bg-wht " : "text-sm"
+                active ?  "bg-grn bg-opacity-25 text-md": "text-sm"
               } group items-center px-2 py-2 rounded-b-md text-black font-medium`}
             >
               <button

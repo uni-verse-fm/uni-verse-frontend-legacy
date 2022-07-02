@@ -9,13 +9,7 @@ import Spinner from "../components/Spinner";
 import { adminLogin } from "../api/AdminAPI";
 import { me } from "../api/AuthAPI";
 import { ILogin } from "../common/types";
-
-import { getResourcePacks } from "../api/ResourcePackAPI";
-import { AxiosError } from "axios";
-import { notify } from "../components/Notifications";
-import { NotificationType, Pages } from "../common/types";
-import router from "next/router";
-
+import { getUserResourcePack } from "../api/ResourcePackAPI";
 import { getUserPlaylists } from "../api/PlaylistAPI";
 
 
@@ -39,18 +33,15 @@ function MyProfile(props) {
     { enabled: releasesQuery.status === "success" }
   );
 
+ 
+
   const resourcesPacksQuery = useQuery(
-    "getResourcePacks",
-    () => getResourcePacks(),
-    {
-      onError: (error: AxiosError) => {
-        if (error.response?.status === 401) {
-          notify(Messages.UNAUTHORIZED, NotificationType.ERROR);
-          router.replace(`/${Pages.Login}`);
-        }
-      },
-    }
+    "myResourcePacks",
+    () => getUserResourcePack((session.user as any).id),
+    { enabled: releasesQuery.status === "success" }
   );
+  
+
 
   return meQuery.status === "error" ? (
     <div className="flex justify-center items-center bg-drk w-full h-full">
