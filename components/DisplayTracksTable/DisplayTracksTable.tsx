@@ -9,7 +9,7 @@ import { imageSource } from "../../common/constants";
 import router from "next/router";
 import { Pages } from "../../common/types";
 
-const DisplayTracksTable = ({ tracks }) => {
+const DisplayTracksTable = ({ release }) => {
   const { dispatch } = useContext(PlayerContext);
 
   const onClickTrack = (track: Track) => () => {
@@ -22,11 +22,26 @@ const DisplayTracksTable = ({ tracks }) => {
   };
 
   const onClickDisplayTrack = (track) => () => {
-    console.log("track");
-    console.log(track);
+    const releaseTrack = {
+      coverName: release.coverName,
+      title: release.title,
+    };
+
+    const TrackToDisplay = {
+      title: track.title,
+      feats: track.feats,
+      fileName: track.fileName,
+      author: track.author,
+      release: releaseTrack,
+      views: track.views,
+      comments: track.comments,
+      id: track.id,
+      _id: track.id._id,
+    };
+
     router.push({
       pathname: `/${Pages.Track}`,
-      query: { track: JSON.stringify(track) },
+      query: { track: JSON.stringify(TrackToDisplay) },
     });
   };
 
@@ -43,7 +58,7 @@ const DisplayTracksTable = ({ tracks }) => {
         </tr>
       </thead>
       <tbody>
-        {tracks.map((track, index) => (
+        {release.tracks.map((track, index) => (
           <tr
             key={`${track.title}-${index}`}
             className="h-10 hover:bg-gry hover:bg-opacity-70  "
