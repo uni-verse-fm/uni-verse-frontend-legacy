@@ -193,6 +193,26 @@ export type Track = {
   _id?: string;
 } & ITrack;
 
+
+export type Resource = {
+  fileName: string;
+  previewFileName: string;
+  author: any;
+  resourcePack?: {
+    id?: string;
+    _id?: string;
+    coverName?: string;
+    title: string;
+    amount: number;
+    accessType:string;
+    priceId:string;
+  };
+  views?: number;
+  comments?: number;
+  id?: string;
+  _id?: string;
+} & IResource;
+
 export const enum SourceType {
   Playlist,
   Release,
@@ -249,6 +269,7 @@ export enum Pages {
   UserRelease = "UserRelease",
   UserResourcePack = "UserResourcePack",
   Track = "Track",
+  Resource="Resource",
   MyProfile = "MyProfile",
   Success = "Success",
   Error = "Error",
@@ -281,6 +302,7 @@ export enum Types {
   PlaylistPlay = "PLAY_PLAYLIST",
   ReleasePlay = "PLAY_RELEASE",
   TrackPlay = "PLAY_TRACK",
+  ResourcePlay = "PLAY_RESOURCE",
   RandomPlay = "PLAY_RANDOM",
   AddView = "ADD_VIEW",
 }

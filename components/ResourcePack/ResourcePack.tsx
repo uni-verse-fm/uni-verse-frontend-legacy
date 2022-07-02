@@ -151,7 +151,7 @@ const ResourcePack = (props) => {
             </div>
             {getResourcePack.data?.resources.length ? (
               <DisplayResourcesTable
-                resources={getResourcePack.data.resources}
+                resourcesPack={getResourcePack.data}
               />
             ) : (
               <div className="flex justify-center items-center mt-10 text-lg">

@@ -19,7 +19,7 @@ enum LikeDislike {
   Dislike,
 }
 
-const CreateComment = ({ idContent }) => {
+const CreateComment = ({ idContent, typeOfContent }) => {
   const [like, setLike] = useState(false);
   const [dislike, setDislike] = useState(false);
 
@@ -76,7 +76,7 @@ const CreateComment = ({ idContent }) => {
             contentId: idContent,
             isPositive: like,
             content: value.description,
-            typeOfContent: "Track",
+            typeOfContent: typeOfContent,
           };
 
           mutate(dataComment);

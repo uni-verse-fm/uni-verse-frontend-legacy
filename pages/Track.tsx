@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import ArtistTrack from "../components/ArtistTrack";
-import { Track as ITrack } from "../common/types";
+import { Track as ITrack, ModelType } from "../common/types";
 import Comments from "../components/Comments";
 
 function Track() {
@@ -19,7 +19,7 @@ function Track() {
       <div className="flex flex-col items-center justify-start h-full p-10">
         <div>
           <ArtistTrack track={parse(track)} />
-          <Comments idTrack={parse(track)?.id} />
+          <Comments idTrack={parse(track)?.id} typeOfContent= {ModelType.Track} />
         </div>
       </div>
     </div>

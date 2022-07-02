@@ -8,7 +8,7 @@ import { imageSource } from "../../common/constants";
 import router from "next/router";
 import { Pages } from "../../common/types";
 
-const DisplayResourcesTable = ({ resources }) => {
+const DisplayResourcesTable = ({ resourcesPack }) => {
   const { dispatch } = useContext(PlayerContext);
 
   const onClickResource = (resource: Track) => () => {
@@ -25,14 +25,31 @@ const DisplayResourcesTable = ({ resources }) => {
   };
 
   const onClickDisplayResource = (resource) => () => {
-    {
-      /*
-        router.push({
-      pathname: `/${Pages.Track}`,
-      query: { track: JSON.stringify(resource) },
+    console.log (resourcesPack);
+      let resourcespack= {
+        coverName:resourcesPack.coverName,
+        title: resourcesPack.title,
+      };
+  
+      let RessourceToDisplay  = {
+        title:resource.title,
+        fileName: resource.fileName,
+        author:  resource.author,
+        resourcespack: resourcespack,
+        views:resource.views,
+        comments:resource.comments,
+        id: resource.id,
+        _id:resource._id,
+      };
+
+console.log ("onClickDisplayResource");
+
+console.log (RessourceToDisplay);
+
+       router.push({
+      pathname: `/${Pages.Resource}`,
+      query: { resource: JSON.stringify(RessourceToDisplay) },
     });
-  */
-    }
   };
 
   return (
@@ -47,7 +64,7 @@ const DisplayResourcesTable = ({ resources }) => {
         </tr>
       </thead>
       <tbody>
-        {resources?.map((resource, index) => (
+        {resourcesPack.resources?.map((resource, index) => (
           <tr
             key={`${resource.title}-${index}`}
             className="h-10 hover:bg-gry hover:bg-opacity-70  "
@@ -69,8 +86,8 @@ const DisplayResourcesTable = ({ resources }) => {
               <div className="flex flex-row">
                 <img
                   src={
-                    resource?.release?.coverName
-                      ? imageSource + resource?.release.coverName
+                    resource?.resourcePack?.coverName
+                      ? imageSource + resource?.resourcePack.coverName
                       : "/Playlist.png"
                   }
                   className="rounded-lg m-2"

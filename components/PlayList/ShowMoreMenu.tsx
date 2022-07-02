@@ -39,6 +39,9 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
   };
 
   const onClickDisplayTrack = () => {
+   // console.log ("track");
+    //console.log (track);
+
     router.push({
       pathname: `/${Pages.Track}`,
       query: { track: JSON.stringify(track) },
@@ -57,20 +60,6 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
         />
       </Menu.Button>
       <Menu.Items className="hover-text-grn text-blck absolute right mt-2 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-        {isPage && (
-          <Menu.Item>
-            {({ active }) => (
-              <div
-                onClick={onClickDisplayTrack}
-                className={`${
-                  active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-                } group items-center px-2 py-2 font-semibold text-gryf`}
-              >
-                <button>View</button>
-              </div>
-            )}
-          </Menu.Item>
-        )}
         {session && (
           <div>
             {(session.user as any).id === playlist.owner?._id && (

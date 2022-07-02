@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
-  faClock,
   faTrashCan,
   faPen,
   faChevronDown,
@@ -83,13 +82,18 @@ const Playlist = ({
             <div className="flex flex-row ">
               <h2 className="text-grn text-2xl font-bold ">{playlist.title}</h2>
               <div className="flex flex-row items-end">
-                <h2 className="text-grn ml-5 items-end">
+               
+              {(playlist.tracks?.length>0) && (
+                 <h2 className="text-grn ml-5 items-end">
+              
                   <FontAwesomeIcon
                     className="cursor-pointer text-sm  hover:scale-[1.40] text-wht hover:text-grn"
                     icon={faPlay}
                     onClick={onClickPlaylist(playlist)}
                   />
+              
                 </h2>
+                  )}
               </div>
 
               {enableChange === "true" && (
@@ -146,7 +150,6 @@ const Playlist = ({
               </>
             )}
           </div>
-
           <div className="ml-5 ">
             {showUpdatPlayList && playlist && (
               <UpdatePlayListForm
@@ -163,10 +166,6 @@ const Playlist = ({
               <tr className="text-grn border-b mb-10">
                 <td className="py-3"></td>
                 <td className="py-3 ml-3">Track</td>
-
-                <td className="py-3">
-                  <FontAwesomeIcon className="ml-5 text-grn" icon={faClock} />
-                </td>
               </tr>
             </thead>
             <tbody>

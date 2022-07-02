@@ -7,16 +7,16 @@ import router from "next/router";
 import { notify } from "../Notifications";
 import { AxiosError } from "axios";
 import { getResourceComments } from "../../api/CommentAPI";
-import { ModelType, NotificationType, Pages } from "../../common/types";
+import {  NotificationType, Pages } from "../../common/types";
 import Comment from "../Comment";
 
-const Comments = ({ idTrack }) => {
+const Comments = ({ idTrack, typeOfContent }) => {
   const { status, data } = useQuery(
     `comments-${idTrack}`,
     () =>
       getResourceComments({
         contentId: idTrack,
-        typeOfContent: ModelType.Track,
+        typeOfContent: typeOfContent ,
       }).then((res) => res.data),
     {
       onSuccess: (res) => {
