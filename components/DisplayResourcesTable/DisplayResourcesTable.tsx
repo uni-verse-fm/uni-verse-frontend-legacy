@@ -25,28 +25,28 @@ const DisplayResourcesTable = ({ resourcesPack }) => {
   };
 
   const onClickDisplayResource = (resource) => () => {
-    console.log (resourcesPack);
-      let resourcespack= {
-        coverName:resourcesPack.coverName,
-        title: resourcesPack.title,
-      };
-  
-      let RessourceToDisplay  = {
-        title:resource.title,
-        fileName: resource.fileName,
-        author:  resource.author,
-        resourcespack: resourcespack,
-        views:resource.views,
-        comments:resource.comments,
-        id: resource.id,
-        _id:resource._id,
-      };
+    console.log(resourcesPack);
+    const resourcespack = {
+      coverName: resourcesPack.coverName,
+      title: resourcesPack.title,
+    };
 
-console.log ("onClickDisplayResource");
+    const RessourceToDisplay = {
+      title: resource.title,
+      fileName: resource.fileName,
+      author: resource.author,
+      resourcespack: resourcespack,
+      views: resource.views,
+      comments: resource.comments,
+      id: resource.id,
+      _id: resource._id,
+    };
 
-console.log (RessourceToDisplay);
+    console.log("onClickDisplayResource");
 
-       router.push({
+    console.log(RessourceToDisplay);
+
+    router.push({
       pathname: `/${Pages.Resource}`,
       query: { resource: JSON.stringify(RessourceToDisplay) },
     });

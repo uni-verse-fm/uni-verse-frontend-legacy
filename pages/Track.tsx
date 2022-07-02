@@ -19,7 +19,10 @@ function Track() {
       <div className="flex flex-col items-center justify-start h-full p-10">
         <div>
           <ArtistTrack track={parse(track)} />
-          <Comments idTrack={parse(track)?.id} typeOfContent= {ModelType.Track} />
+          <Comments
+            idTrack={parse(track)?.id}
+            typeOfContent={ModelType.Track}
+          />
         </div>
       </div>
     </div>

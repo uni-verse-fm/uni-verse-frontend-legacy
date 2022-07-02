@@ -7,7 +7,7 @@ import router from "next/router";
 import { notify } from "../Notifications";
 import { AxiosError } from "axios";
 import { getResourceComments } from "../../api/CommentAPI";
-import {  NotificationType, Pages } from "../../common/types";
+import { NotificationType, Pages } from "../../common/types";
 import Comment from "../Comment";
 
 const Comments = ({ idTrack, typeOfContent }) => {
@@ -16,7 +16,7 @@ const Comments = ({ idTrack, typeOfContent }) => {
     () =>
       getResourceComments({
         contentId: idTrack,
-        typeOfContent: typeOfContent ,
+        typeOfContent: typeOfContent,
       }).then((res) => res.data),
     {
       onSuccess: (res) => {

@@ -82,18 +82,15 @@ const Playlist = ({
             <div className="flex flex-row ">
               <h2 className="text-grn text-2xl font-bold ">{playlist.title}</h2>
               <div className="flex flex-row items-end">
-               
-              {(playlist.tracks?.length>0) && (
-                 <h2 className="text-grn ml-5 items-end">
-              
-                  <FontAwesomeIcon
-                    className="cursor-pointer text-sm  hover:scale-[1.40] text-wht hover:text-grn"
-                    icon={faPlay}
-                    onClick={onClickPlaylist(playlist)}
-                  />
-              
-                </h2>
-                  )}
+                {playlist.tracks?.length > 0 && (
+                  <h2 className="text-grn ml-5 items-end">
+                    <FontAwesomeIcon
+                      className="cursor-pointer text-sm  hover:scale-[1.40] text-wht hover:text-grn"
+                      icon={faPlay}
+                      onClick={onClickPlaylist(playlist)}
+                    />
+                  </h2>
+                )}
               </div>
 
               {enableChange === "true" && (

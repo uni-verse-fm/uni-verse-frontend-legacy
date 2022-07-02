@@ -193,7 +193,6 @@ export type Track = {
   _id?: string;
 } & ITrack;
 
-
 export type Resource = {
   fileName: string;
   previewFileName: string;
@@ -204,8 +203,8 @@ export type Resource = {
     coverName?: string;
     title: string;
     amount: number;
-    accessType:string;
-    priceId:string;
+    accessType: string;
+    priceId: string;
   };
   views?: number;
   comments?: number;
@@ -269,7 +268,7 @@ export enum Pages {
   UserRelease = "UserRelease",
   UserResourcePack = "UserResourcePack",
   Track = "Track",
-  Resource="Resource",
+  Resource = "Resource",
   MyProfile = "MyProfile",
   Success = "Success",
   Error = "Error",

@@ -22,23 +22,23 @@ const DisplayTracksTable = ({ release }) => {
   };
 
   const onClickDisplayTrack = (track) => () => {
-    let releaseTrack = {
-      coverName:release.coverName,
+    const releaseTrack = {
+      coverName: release.coverName,
       title: release.title,
     };
 
-    let TrackToDisplay  = {
-      title:track.title,
-      feats:track.feats,
+    const TrackToDisplay = {
+      title: track.title,
+      feats: track.feats,
       fileName: track.fileName,
-      author:  track.author,
+      author: track.author,
       release: releaseTrack,
-      views:track.views,
-      comments:track.comments,
+      views: track.views,
+      comments: track.comments,
       id: track.id,
-      _id:track.id._id,
+      _id: track.id._id,
     };
-    
+
     router.push({
       pathname: `/${Pages.Track}`,
       query: { track: JSON.stringify(TrackToDisplay) },

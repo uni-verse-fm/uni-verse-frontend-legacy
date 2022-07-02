@@ -6,17 +6,18 @@ import { PlayerContext } from "../../common/contexts/PlayerContext";
 import { Resource, Types } from "../../common/types";
 import CreateComment from "../CreateComment";
 
-
 const ArtistResource = ({ resource }) => {
   const { dispatch } = useContext(PlayerContext);
 
-const onClickResource = (resource: Resource) => () => {
-     {/* dispatch({
+  const onClickResource = (resource: Resource) => () => {
+    {
+      /* dispatch({
       type: Types.ResourcePlay,
       payload: {
         resource: resource,
       },
-    });*/}
+    });*/
+    }
   };
 
   return (
@@ -45,7 +46,6 @@ const onClickResource = (resource: Resource) => () => {
                 </div>
                 <div className="text-md font-bold text-grn mx-2">{`(ResourcesPack: ${resource?.resourcespack?.title})`}</div>
               </div>
-             
 
               <div className="text-grn ml-5">
                 <FontAwesomeIcon
