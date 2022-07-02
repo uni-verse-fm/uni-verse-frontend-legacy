@@ -43,15 +43,18 @@ const ResourcePack = (props) => {
   const handleShowForm = () => setShowForm(true);
   const handleCloseDialog = () => setShowForm(false);
 
-  const onClickRelease = (release) => () => {
+  {
+    /* const onClickResourcePack = (resourcePack) => () => {
     dispatch({
-      type: Types.ReleasePlay,
+      type: Types.resourcePackPlay,
       payload: {
-        tracks: release.tracks || [],
-        trackIndex: 0,
+        tracks: resourcePack.resources || [],
+        resourceIndex: 0,
       },
     });
   };
+  */
+  }
 
   return (
     <div>
@@ -87,7 +90,6 @@ const ResourcePack = (props) => {
                     <FontAwesomeIcon
                       className="cursor-pointer hover:scale-[1.40]  text-wht hover:text-grn"
                       icon={faPlay}
-                      onClick={onClickRelease(getResourcePack.data)}
                     />
                   </h2>
 
@@ -97,7 +99,7 @@ const ResourcePack = (props) => {
                         <FontAwesomeIcon
                           className="cursor-pointer ml-5 hover:scale-[1.40] hover:text-rd text-rd"
                           icon={faTrashCan}
-                          onClick={handleShowForm}
+                          //onClick={handleShowForm}
                         />
                       </h2>
                     </div>
