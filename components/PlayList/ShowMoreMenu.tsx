@@ -50,7 +50,7 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
 
   return (
     <Menu as="div" className="relative text-left h-full w-auto">
-    <Menu.Button className="h-full w-auto p-2">
+      <Menu.Button className="h-full w-auto p-2">
         <FontAwesomeIcon
           className="cursor-pointer hover:scale-[1.40] text-grn"
           icon={faEllipsis}

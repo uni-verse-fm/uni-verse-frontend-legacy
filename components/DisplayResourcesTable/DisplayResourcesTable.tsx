@@ -12,23 +12,27 @@ const DisplayResourcesTable = ({ resources }) => {
   const { dispatch } = useContext(PlayerContext);
 
   const onClickResource = (resource: Track) => () => {
- { /* 
+    {
+      /* 
     dispatch({
       type: Types.TrackPlay,
       payload: {
         track: resource,
       },
     });
-  */}  
+  */
+    }
   };
 
   const onClickDisplayResource = (resource) => () => {
-    { /*
+    {
+      /*
         router.push({
       pathname: `/${Pages.Track}`,
       query: { track: JSON.stringify(resource) },
     });
-  */}  
+  */
+    }
   };
 
   return (
@@ -58,7 +62,10 @@ const DisplayResourcesTable = ({ resources }) => {
               </div>
             </td>
 
-            <td className="cursor-pointer" onClick={onClickDisplayResource(resource)}>
+            <td
+              className="cursor-pointer"
+              onClick={onClickDisplayResource(resource)}
+            >
               <div className="flex flex-row">
                 <img
                   src={
@@ -75,19 +82,19 @@ const DisplayResourcesTable = ({ resources }) => {
                   {resource.title}
 
                   <div className="mt-2 text-gryf text-sm">
-                    {resource.author?.username} {isoDateYear(resource.createdAt)}
+                    {resource.author?.username}{" "}
+                    {isoDateYear(resource.createdAt)}
                   </div>
                 </div>
               </div>
             </td>
             <td className="cursor-pointer">
-            <div className=" bg-opacity-30 bg-gry rounded-full  w-8 h-8 flex justify-center items-center hover:bg-opacity-100">
+              <div className=" bg-opacity-30 bg-gry rounded-full  w-8 h-8 flex justify-center items-center hover:bg-opacity-100">
                 <FontAwesomeIcon
                   className=" cursor-pointer hover:scale-[1.40] text-grn "
                   icon={faDownload}
                 />
               </div>
-              
             </td>
           </tr>
         ))}

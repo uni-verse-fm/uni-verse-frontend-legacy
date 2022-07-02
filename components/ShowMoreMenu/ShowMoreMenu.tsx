@@ -37,7 +37,7 @@ const ShowMoreMenu = ({ track }) => {
           {({ active }) => (
             <div
               className={`${
-                active ?  "bg-grn bg-opacity-25 text-md": "text-sm"
+                active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
               } group items-center px-2 py-2 rounded-b-md text-black font-medium`}
             >
               <button

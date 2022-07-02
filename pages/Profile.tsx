@@ -13,7 +13,6 @@ import { getResourcePacks } from "../api/ResourcePackAPI";
 
 import { getUserPlaylists } from "../api/PlaylistAPI";
 
-
 type ProfileParams = {
   user: {
     id: string;
@@ -46,12 +45,12 @@ function Profile() {
   );
 
   const RessourcePacksQuery = useQuery("getResourcePacks", () =>
-  getResourcePacks().then((res) => {
-    console.log("getResourcePacks");
-    console.log(res.data);
-    return res.data;
-  })
-);
+    getResourcePacks().then((res) => {
+      console.log("getResourcePacks");
+      console.log(res.data);
+      return res.data;
+    })
+  );
   const playlistsQuery = useQuery(
     `playlists-${id}`,
     () => getUserPlaylists(id as string).then((res) => res.data),
@@ -63,7 +62,6 @@ function Profile() {
     releases: any,
     playlists: any,
     resourcesPacks: any
-
   ): ProfileParams => {
     return {
       user: {
@@ -97,16 +95,12 @@ function Profile() {
 
           RessourcePacksQuery.data,
           playlistsQuery.data
-
         )}
       />
-
-       
     </div>
   ) : (
     <div className="flex justify-center items-center bg-drk w-full h-full">
       <Spinner />
-
     </div>
   );
 }

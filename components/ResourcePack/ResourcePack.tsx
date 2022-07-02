@@ -18,7 +18,7 @@ import ConfirmDialogDelete from "../ConfirmDialogDelete";
 import { useSession } from "next-auth/react";
 import { PlayerContext } from "../../common/contexts/PlayerContext";
 
-import {  Types } from "../../common/types";
+import { Types } from "../../common/types";
 import { isoDateToDateHour } from "../../utils/dateUtils";
 import DisplayResourcesTable from "../DisplayResourcesTable";
 
@@ -34,17 +34,14 @@ const ResourcePack = (props) => {
     })
   );
   const [ShowMoreInformations, setShowMoreInformations] = useState(false);
-  const handleShowMoreInformations = () => 
-  {
+  const handleShowMoreInformations = () => {
     setShowMoreInformations(true);
     console.log("ressourcesPack");
-  }
+  };
   const handleCloseShowMoreInformations = () => setShowMoreInformations(false);
   const [showForm, setShowForm] = useState(false);
   const handleShowForm = () => setShowForm(true);
   const handleCloseDialog = () => setShowForm(false);
-
- 
 
   const onClickRelease = (release) => () => {
     dispatch({
@@ -114,7 +111,9 @@ const ResourcePack = (props) => {
                 </div>
 
                 {getResourcePack.data?.author && (
-                  <h2 className="text-gry ">{getResourcePack.data.author.username}</h2>
+                  <h2 className="text-gry ">
+                    {getResourcePack.data.author.username}
+                  </h2>
                 )}
                 {ShowMoreInformations == false ? (
                   <h2 className="text-grn">
@@ -149,7 +148,9 @@ const ResourcePack = (props) => {
               </div>
             </div>
             {getResourcePack.data?.resources.length ? (
-              <DisplayResourcesTable resources={getResourcePack.data.resources} />
+              <DisplayResourcesTable
+                resources={getResourcePack.data.resources}
+              />
             ) : (
               <div className="flex justify-center items-center mt-10 text-lg">
                 <h1 className="text-grn whitespace-nowrap">

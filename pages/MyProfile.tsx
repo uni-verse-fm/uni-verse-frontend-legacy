@@ -12,7 +12,6 @@ import { ILogin } from "../common/types";
 import { getUserResourcePack } from "../api/ResourcePackAPI";
 import { getUserPlaylists } from "../api/PlaylistAPI";
 
-
 function MyProfile(props) {
   const { data: session } = useSession();
 
@@ -33,15 +32,11 @@ function MyProfile(props) {
     { enabled: releasesQuery.status === "success" }
   );
 
- 
-
   const resourcesPacksQuery = useQuery(
     "myResourcePacks",
     () => getUserResourcePack((session.user as any).id),
     { enabled: releasesQuery.status === "success" }
   );
-  
-
 
   return meQuery.status === "error" ? (
     <div className="flex justify-center items-center bg-drk w-full h-full">

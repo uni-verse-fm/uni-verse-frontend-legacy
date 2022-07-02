@@ -1,4 +1,4 @@
-import { faTrashCan} from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import router from "next/router";
 import { notify } from "../Notifications";
@@ -10,15 +10,12 @@ import ConfirmDialogDelete from "../ConfirmDialogDelete";
 import { deleteComment } from "../../api/CommentAPI";
 import { isoDateToDateHour } from "../../utils/dateUtils";
 
-
 const Comment = ({ comment }) => {
   const { data: session } = useSession();
 
   const [showForm, setShowForm] = useState(false);
   const handleShowForm = () => setShowForm(true);
   const handleCloseDialog = () => setShowForm(false);
-
- 
 
   const handleConfirmDelete = () => {
     mutate(comment._id);

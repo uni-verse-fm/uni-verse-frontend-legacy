@@ -23,13 +23,11 @@ const PlaylistsModal = ({
   const [playlistIndex, setPlaylistIndex] = useState(undefined);
   const { data: session } = useSession();
 
-  console.debug ((session?.user as any)?.id);
+  console.debug((session?.user as any)?.id);
   const playlistsQuery = useQuery(
     "myPlaylists",
-    () =>
-    
-    getUserPlaylists((session?.user as any)?.id),
-    { enabled: Boolean((session?.user as any)?.id)}
+    () => getUserPlaylists((session?.user as any)?.id),
+    { enabled: Boolean((session?.user as any)?.id) }
   );
 
   const { mutate } = useMutation("deleteMyPlaylist", deletePlaylist, {

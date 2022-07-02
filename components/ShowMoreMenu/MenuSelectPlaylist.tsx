@@ -17,8 +17,6 @@ import {
 } from "../../common/types";
 import { useSession } from "next-auth/react";
 
-
-
 const MenuSelectPlayList = ({ track }) => {
   const { data: session } = useSession();
 

@@ -11,7 +11,10 @@ const ReleaseCard = (props) => {
         alt="playlist"
       />
       <h2 className="pt-1 pl-1 pb-2 text-segrn text-md"> {props.title} </h2>
-      <h1 className="pl-1 text-gry text-sm "> {props.author?.username} {isoDateYear(props.createdAt)}</h1>
+      <h1 className="pl-1 text-gry text-sm ">
+        {" "}
+        {props.author?.username} {isoDateYear(props.createdAt)}
+      </h1>
     </div>
   );
 };

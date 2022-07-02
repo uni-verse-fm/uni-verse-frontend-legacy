@@ -189,7 +189,7 @@ const ProfileScreen = ({
       </div>
 
       <h2 className="font-bold not-italic text-wht text-xl mt-10">
-        Populaires 
+        Populaires
       </h2>
 
       <div className="flex flex-row grow w-full h-auto">
@@ -211,14 +211,14 @@ const ProfileScreen = ({
 
       <div className="text-start justify-start items-start w-full h-full">
         <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5 ">
-          Releases 
+          Releases
         </h2>
         <div className="-ml-4 ">
           <ArtistReleases data={releases} />
         </div>
 
         <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5 ">
-          Playlists 
+          Playlists
         </h2>
 
         <div className="-ml-4 ">
@@ -232,7 +232,7 @@ const ProfileScreen = ({
         {user.id && (
           <div className="mb-5">
             <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5">
-              ResoucesPacks 
+              ResoucesPacks
             </h2>
             <div className="-ml-4 ">
               <ResourcesPacks data={resourcesPacks} />

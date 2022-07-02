@@ -22,8 +22,8 @@ const DisplayTracksTable = ({ tracks }) => {
   };
 
   const onClickDisplayTrack = (track) => () => {
-    console.log ("track");
-    console.log (track);
+    console.log("track");
+    console.log(track);
     router.push({
       pathname: `/${Pages.Track}`,
       query: { track: JSON.stringify(track) },
@@ -39,7 +39,6 @@ const DisplayTracksTable = ({ tracks }) => {
             <h2 className="ml-3 "> Track</h2>
           </td>
 
-         
           <td className="py-3"></td>
         </tr>
       </thead>
@@ -84,7 +83,7 @@ const DisplayTracksTable = ({ tracks }) => {
                 </div>
               </div>
             </td>
-          
+
             <td className="cursor-pointer">
               <ShowMoreMenu track={track} />
             </td>
