@@ -37,7 +37,6 @@ export const Messages = {
   EMPTY_TRACKS: "You have no tracks",
   EMPTY_RESOURCE_PACKS: "No resourcePack to display",
   EMPTY_RESOURCES: "You have no resources",
-  EMPTY_COMMENTS: "You have no comment",
   DISCONNECTED: "Disconnected",
   UNAUTHORIZED: "Unauthorized please login",
   DONATION_ERROR: "Sorry the donation couldn't be done",
