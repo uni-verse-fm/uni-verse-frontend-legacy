@@ -1,4 +1,4 @@
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faPlay,faDownload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext } from "react";
 import { imageSource } from "../../common/constants";
@@ -47,11 +47,17 @@ const ArtistResource = ({ resource }) => {
                 <div className="text-md font-bold text-grn mx-2">{`(ResourcesPack: ${resource?.resourcepack?.title})`}</div>
               </div>
 
-              <div className="text-grn ml-5">
+              <div className="ml-2 bg-opacity-30 bg-gry rounded-full w-8 h-8 flex justify-center items-center hover:bg-opacity-100">
                 <FontAwesomeIcon
-                  className="cursor-pointer hover:scale-[1.40] text-wht hover:text-grn fa-2xl"
+                  className="cursor-pointer hover:scale-[1.40] text-grn"
                   icon={faPlay}
                   onClick={onClickResource(resource)}
+                />
+              </div>
+              <div className="ml-2 bg-opacity-30 bg-gry rounded-full w-8 h-8 flex justify-center items-center hover:bg-opacity-100">
+                <FontAwesomeIcon
+                  className="cursor-pointer hover:scale-[1.40] text-grn"
+                  icon={faDownload}
                 />
               </div>
             </div>
