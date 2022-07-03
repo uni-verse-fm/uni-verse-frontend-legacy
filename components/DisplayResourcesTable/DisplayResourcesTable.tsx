@@ -29,13 +29,15 @@ const DisplayResourcesTable = ({ resourcesPack }) => {
     const resourcespack = {
       coverName: resourcesPack.coverName,
       title: resourcesPack.title,
+      _id: resourcesPack._id,
+      id: resourcesPack.id,
     };
 
     const RessourceToDisplay = {
       title: resource.title,
       fileName: resource.fileName,
       author: resource.author,
-      resourcespack: resourcespack,
+      resourcepack: resourcespack,
       views: resource.views,
       comments: resource.comments,
       id: resource.id,
