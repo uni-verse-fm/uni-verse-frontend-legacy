@@ -2,7 +2,6 @@ import { Messages } from "../../common/constants";
 import router from "next/router";
 import { styles } from "../PlayListsModal";
 import ResourcePackCard from "../ResourcePackCard";
-import Spinner from "../Spinner";
 import { Pages, NotificationType } from "../../common/types";
 import { getResourcePacks } from "../../api/ResourcePackAPI";
 import { AxiosError } from "axios";
@@ -37,13 +36,7 @@ const ResourcesPacks = (props) => {
         {props.data?.length ? (
           props.data.map((item, index) => (
             <div key={index} onClick={onClickDisplayResourcePack(item._id)}>
-              <ResourcePackCard
-                key={index}
-                title={item.title}
-                image={item.coverName}
-                year={isoDateYear(item.createdAt)}
-                defaultImageSrc={"/Playlist.png"}
-              />
+              <ResourcePackCard key={index} resourcePack={item} />
             </div>
           ))
         ) : (

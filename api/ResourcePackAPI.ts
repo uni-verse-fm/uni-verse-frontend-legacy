@@ -30,6 +30,26 @@ const deleteResourcePack = (id) =>
 const getUserResourcePack = (id: string) =>
   axiosClient.get(`${resourcePackEndpoint}/user/${id}`).then((res) => res.data);
 
+const downloadResourcePack = (packId: string, destId?: string) =>
+  axiosClient.get(
+    `${resourcePackEndpoint}/download/${packId}${
+      destId ? "?destId=" + destId : ""
+    }`,
+    { responseType: "blob" }
+  );
+
+const downloadResource = (
+  packId: string,
+  resourceId: string,
+  destId?: string
+) =>
+  axiosClient.get(
+    `${resourcePackEndpoint}/download/${packId}?resource=${resourceId}${
+      destId ? "?destId=" + destId : ""
+    }`,
+    { responseType: "blob" }
+  );
+
 const searchRecourcesPack = (text: string, { signal }) =>
   axiosClient
     .get(`${resourcePackEndpoint}/search?search=${text}`, {
@@ -46,4 +66,6 @@ export {
   updateResourcePack,
   deleteResourcePack,
   searchRecourcesPack,
+  downloadResourcePack,
+  downloadResource,
 };

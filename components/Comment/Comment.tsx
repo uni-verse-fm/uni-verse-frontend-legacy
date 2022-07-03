@@ -64,24 +64,14 @@ const Comment = ({ comment }) => {
         {isoDateToDateHour(comment.createdAt)}
       </div>
 
-      <div className="flex flex-row">
+      <div className="flex flex-row justify-between w-full">
         <div className="text-md font-normal not-italic text-wht mb-5">
           {comment.content}
         </div>
         {comment.isPositive == true ? (
-          <h2 className="ml-2">
-            <FontAwesomeIcon
-              className="cursor-pointer hover:scale-[1.40] hover:text-grn text-grn"
-              icon={faThumbsUp}
-            />
-          </h2>
+          <FontAwesomeIcon className="text-grn fa-xl" icon={faThumbsUp} />
         ) : (
-          <h2 className="ml-2">
-            <FontAwesomeIcon
-              className="cursor-pointer hover:scale-[1.40] hover:text-grn text-rd"
-              icon={faThumbsDown}
-            />
-          </h2>
+          <FontAwesomeIcon className="text-rd fa-xl" icon={faThumbsDown} />
         )}
       </div>
       <ConfirmDialogDelete

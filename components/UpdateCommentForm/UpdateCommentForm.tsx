@@ -53,8 +53,6 @@ const UpdateCommentForm = ({
               id: dataUpdate._id,
               data: dataToUpdate,
             };
-
-            console.log(dataForm);
             mutate(dataForm);
           }}
           render={({ values, errors, handleChange, handleBlur }) => {

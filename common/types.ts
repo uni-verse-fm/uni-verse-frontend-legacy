@@ -6,7 +6,7 @@ export interface IUsersList {
 }
 
 export interface ITrack {
-  file: File;
+  file?: File;
   title: string;
   feats: IFeat[];
 }
@@ -189,9 +189,21 @@ export type Track = {
   };
   views?: number;
   comments?: number;
+  title: string;
   id?: string;
   _id?: string;
-} & ITrack;
+  feats?: IFeat[];
+};
+
+export type Preview = {
+  fileName: string;
+  author: any;
+  views?: number;
+  comments?: number;
+  title: string;
+  id?: string;
+  _id?: string;
+};
 
 export type Resource = {
   fileName: string;
@@ -303,7 +315,7 @@ export enum Types {
   PlaylistPlay = "PLAY_PLAYLIST",
   ReleasePlay = "PLAY_RELEASE",
   TrackPlay = "PLAY_TRACK",
-  ResourcePlay = "PLAY_RESOURCE",
+  PreviewPlay = "PLAY_PREVIEW",
   RandomPlay = "PLAY_RANDOM",
   AddView = "ADD_VIEW",
 }
@@ -351,6 +363,9 @@ type PlayerPayload = {
   };
   [Types.TrackPlay]: {
     track: Track;
+  };
+  [Types.PreviewPlay]: {
+    track: Preview;
   };
   [Types.RandomPlay]: {
     tracks: Track[];

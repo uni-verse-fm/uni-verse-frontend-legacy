@@ -5,15 +5,13 @@ const authEndpoint = Endoints.Payments;
 
 export interface IDonate {
   amount: number;
+  donationProductId?: string;
   connectedAccountId?: string;
 }
 
 export interface IPurchase {
-  amount: number;
-  paymentMethodId?: string;
-  targetCustomerId: string;
-  productId: string;
-  saveCard?: boolean;
+  priceId: string;
+  connectedAccountId?: string;
 }
 
 export interface IAddCard {
@@ -23,7 +21,7 @@ export interface IAddCard {
 const donate = (data: IDonate) =>
   axiosClient.post(`${authEndpoint}/donate`, data);
 const purchase = (data: IPurchase) =>
-  axiosClient.post(`${authEndpoint}/charge`, data);
+  axiosClient.post(`${authEndpoint}/purshase`, data);
 const accountDetails = () => axiosClient.get(`${authEndpoint}/account/me`);
 
 export { donate, purchase, accountDetails };

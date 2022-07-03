@@ -152,7 +152,7 @@ const UploadResourcePackForm = ({ me }) => {
           title: value.title,
           description: value.description,
           accessType: value.accessType,
-          amount: value.amount,
+          amount: value.amount * 100,
           resources: value.resources.map((resource) => ({
             title: resource.title,
             originalFileName: resource.file.name,

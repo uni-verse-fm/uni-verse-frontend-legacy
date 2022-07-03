@@ -2,35 +2,51 @@ import { faDownload, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { PlayerContext } from "../../common/contexts/PlayerContext";
-import { Track, Types } from "../../common/types";
+import { Resource, Types } from "../../common/types";
 import { isoDateYear } from "../../utils/dateUtils";
 import { imageSource } from "../../common/constants";
 import router from "next/router";
 import { Pages } from "../../common/types";
+import { downloadResource } from "../../api/ResourcePackAPI";
 
-const DisplayResourcesTable = ({ resourcesPack }) => {
+const DisplayResourcesTable = ({ resourcePack, download }) => {
   const { dispatch } = useContext(PlayerContext);
 
-  const onClickResource = (resource: Track) => () => {
-    {
-      /* 
+  const onClickResource = (resource: Resource) => () => {
+    const preview = {
+      fileName: resource.previewFileName,
+      title: resource.title,
+      author: {
+        username: resourcePack.author.username,
+      },
+    };
     dispatch({
-      type: Types.TrackPlay,
+      type: Types.PreviewPlay,
       payload: {
-        track: resource,
+        track: preview,
       },
     });
-  */
-    }
+  };
+
+  const onDownloadResource = (resource: Resource) => {
+    let destId: string = undefined;
+    if (resourcePack.accessType === "donation") destId = resourcePack._id;
+    downloadResource(resourcePack._id, resource.id).then((response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "universe.mp3");
+      document.body.appendChild(link);
+      link.click();
+    });
   };
 
   const onClickDisplayResource = (resource) => () => {
-    console.log(resourcesPack);
     const resourcespack = {
-      coverName: resourcesPack.coverName,
-      title: resourcesPack.title,
-      _id: resourcesPack._id,
-      id: resourcesPack.id,
+      coverName: resourcePack.coverName,
+      title: resourcePack.title,
+      _id: resourcePack._id,
+      id: resourcePack.id,
     };
 
     const RessourceToDisplay = {
@@ -44,10 +60,6 @@ const DisplayResourcesTable = ({ resourcesPack }) => {
       _id: resource._id,
     };
 
-    console.log("onClickDisplayResource");
-
-    console.log(RessourceToDisplay);
-
     router.push({
       pathname: `/${Pages.Resource}`,
       query: { resource: JSON.stringify(RessourceToDisplay) },
@@ -60,26 +72,28 @@ const DisplayResourcesTable = ({ resourcesPack }) => {
         <tr className="text-grn border-b mb-10 ">
           <td className="py-3 "></td>
           <td className="py-3 ml-24 ">
-            <h2 className="ml-3 "> Resource</h2>
+            <h2 className="ml-3">Download</h2>
           </td>
           <td className="py-3"></td>
         </tr>
       </thead>
       <tbody>
-        {resourcesPack.resources?.map((resource, index) => (
+        {resourcePack.resources?.map((resource, index) => (
           <tr
             key={`${resource.title}-${index}`}
             className="h-10 hover:bg-gry hover:bg-opacity-70  "
           >
-            <td className="flex justify-center items-center mt-5  ">
-              <div className=" bg-opacity-30 bg-gry rounded-full  w-8 h-8 flex justify-center items-center hover:bg-opacity-100">
-                <FontAwesomeIcon
-                  className=" cursor-pointer hover:scale-[1.40] text-grn "
-                  icon={faPlay}
-                  onClick={onClickResource(resource)}
-                />
-              </div>
-            </td>
+            {resource.previewFileName && (
+              <td className="flex justify-center items-center mt-5  ">
+                <div className=" bg-opacity-30 bg-gry rounded-full  w-8 h-8 flex justify-center items-center hover:bg-opacity-100">
+                  <FontAwesomeIcon
+                    className=" cursor-pointer hover:scale-[1.40] text-grn "
+                    icon={faPlay}
+                    onClick={onClickResource(resource)}
+                  />
+                </div>
+              </td>
+            )}
 
             <td
               className="cursor-pointer"
@@ -107,14 +121,17 @@ const DisplayResourcesTable = ({ resourcesPack }) => {
                 </div>
               </div>
             </td>
-            <td className="cursor-pointer">
-              <div className=" bg-opacity-30 bg-gry rounded-full  w-8 h-8 flex justify-center items-center hover:bg-opacity-100">
-                <FontAwesomeIcon
-                  className=" cursor-pointer hover:scale-[1.40] text-grn "
-                  icon={faDownload}
-                />
-              </div>
-            </td>
+            {download && (
+              <td className="cursor-pointer">
+                <div className=" bg-opacity-30 bg-gry rounded-full  w-8 h-8 flex justify-center items-center hover:bg-opacity-100">
+                  <FontAwesomeIcon
+                    className=" cursor-pointer hover:scale-[1.40] text-grn "
+                    icon={faDownload}
+                    onClick={() => onDownloadResource(resource)}
+                  />
+                </div>
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

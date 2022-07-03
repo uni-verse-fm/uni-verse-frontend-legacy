@@ -38,7 +38,6 @@ const ProfileScreen = ({
   const [showForm, setShowForm] = useState(false);
 
   const handleShowForm = () => {
-    console.log("setShowForm à true");
     setShowForm(true);
   };
 
