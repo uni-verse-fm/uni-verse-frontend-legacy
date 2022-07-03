@@ -1,4 +1,8 @@
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrashCan,
+  faThumbsUp,
+  faThumbsDown,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import router from "next/router";
 import { notify } from "../Notifications";
@@ -59,10 +63,27 @@ const Comment = ({ comment }) => {
       <div className="text-sm font-normal not-italic  text-gry">
         {isoDateToDateHour(comment.createdAt)}
       </div>
-      <div className="text-md font-normal not-italic text-wht mb-5">
-        {comment.content}
-      </div>
 
+      <div className="flex flex-row">
+        <div className="text-md font-normal not-italic text-wht mb-5">
+          {comment.content}
+        </div>
+        {comment.isPositive == true ? (
+          <h2 className="ml-2">
+            <FontAwesomeIcon
+              className="cursor-pointer hover:scale-[1.40] hover:text-grn text-grn"
+              icon={faThumbsUp}
+            />
+          </h2>
+        ) : (
+          <h2 className="ml-2">
+            <FontAwesomeIcon
+              className="cursor-pointer hover:scale-[1.40] hover:text-grn text-rd"
+              icon={faThumbsDown}
+            />
+          </h2>
+        )}
+      </div>
       <ConfirmDialogDelete
         data-backdrop="static"
         data-keyboard="false"
