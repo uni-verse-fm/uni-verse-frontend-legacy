@@ -76,21 +76,28 @@ const UserDropDown = ({ user }) => {
             )}
           </Menu.Item>
         </Link>
-        <Link href={`/${Pages.MyProfile}`} passHref>
-          <Menu.Item>
-            {({ active }) => (
-              <div
-                className={`${
-                  active
-                    ? "bg-grn bg-opacity-25 text-md cursor-pointer"
-                    : "text-sm"
-                } group items-center px-2 py-2 font-semibold text-gryf`}
-              >
-                Earnings
-              </div>
-            )}
-          </Menu.Item>
-        </Link>
+        {user.accountId && (
+          <a
+            href="https://dashboard.stripe.com/test/dashboard"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <Menu.Item>
+              {({ active }) => (
+                <div
+                  className={`${
+                    active
+                      ? "bg-grn bg-opacity-25 text-md cursor-pointer"
+                      : "text-sm"
+                  } group items-center px-2 py-2 font-semibold text-gryf`}
+                >
+                  Earnings
+                </div>
+              )}
+            </Menu.Item>
+          </a>
+        )}
+
         <Menu.Item>
           {({ active }) => (
             <button
