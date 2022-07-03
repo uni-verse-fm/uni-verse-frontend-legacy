@@ -30,6 +30,13 @@ const deleteResourcePack = (id) =>
 const getUserResourcePack = (id: string) =>
   axiosClient.get(`${resourcePackEndpoint}/user/${id}`).then((res) => res.data);
 
+const searchRecourcesPack = (text: string, { signal }) =>
+  axiosClient
+    .get(`${resourcePackEndpoint}/search?search=${text}`, {
+      signal,
+    })
+    .then((res) => res.data);
+
 export {
   createResourcePack,
   getResourcePacks,
@@ -38,4 +45,5 @@ export {
   getUserResourcePack,
   updateResourcePack,
   deleteResourcePack,
+  searchRecourcesPack,
 };

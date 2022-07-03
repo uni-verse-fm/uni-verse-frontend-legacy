@@ -7,11 +7,11 @@ import { searchPlaylist } from "../../api/PlaylistAPI";
 import { searchRelease } from "../../api/ReleaseAPI";
 import { searchTrack } from "../../api/TrackAPI";
 import { searchUsers } from "../../api/UserAPI";
-import { searchResource } from "../../api/ResourceAPI";
+import { searchRecourcesPack } from "../../api/ResourcePackAPI";
 import router from "next/router";
 import { Pages } from "../../common/types";
 import TrackRow from "./TrackRow";
-import ResourceRow from "./ResourceRow";
+import ResourcesPackRow from "./ResourcesPackRow";
 import ReleaseRow from "./ReleaseRow";
 import PlaylistRow from "./PlaylistRow";
 
@@ -69,9 +69,9 @@ const SearchBar = ({ isConnected }) => {
     }
   );
 
-  const resourceQuery = useQuery(
-    ["searchResource", query],
-    ({ signal }) => searchResource(query, { signal }),
+  const resourcesPacksQuery = useQuery(
+    ["searchResourcesPacks", query],
+    ({ signal }) => searchRecourcesPack(query, { signal }),
     {
       enabled: Boolean(query),
     }
@@ -117,10 +117,10 @@ const SearchBar = ({ isConnected }) => {
     setQuery("");
   };
 
-  const onClickDisplayResource = (resource) => () => {
+  const onClickDisplayResourcesPack = (resourcesPack) => () => {
     router.push({
-      pathname: `/${Pages.Resource}`,
-      query: { resource: JSON.stringify(resource) },
+      pathname: `/${Pages.UserResourcePack}`,
+      query: { id: resourcesPack._id },
     });
     setQuery("");
   };
@@ -168,10 +168,10 @@ const SearchBar = ({ isConnected }) => {
                   )
                 }
               >
-                Resources
+                ResourcesPack
               </Tab>
               <Tab
-                key="Releases"
+                key="ResourcesPacks"
                 className={({ selected }) =>
                   classNames(
                     "w-full rounded-lg text-sm font-medium leading-5 text-grn text-lg",
@@ -233,13 +233,13 @@ const SearchBar = ({ isConnected }) => {
               </Tab.Panel>
               <Tab.Panel>
                 <ul className="divide-y divide-gray-100">
-                  {resourceQuery.status === "success" &&
-                    resourceQuery.data.map((resource, index) => (
-                      <li key={"resource-" + index} value={resource}>
-                        <ResourceRow
-                          resource={resource}
-                          onClickDisplayResource={onClickDisplayResource(
-                            resource
+                  {resourcesPacksQuery.status === "success" &&
+                    resourcesPacksQuery.data.map((resourcesPack, index) => (
+                      <li key={"resourcesPack-" + index} value={resourcesPack}>
+                        <ResourcesPackRow
+                          resourcesPack={resourcesPack}
+                          onClickDisplayResourcesPack={onClickDisplayResourcesPack(
+                            resourcesPack
                           )}
                         />
                       </li>
