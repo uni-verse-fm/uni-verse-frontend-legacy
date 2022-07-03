@@ -49,14 +49,14 @@ const ArtistResource = ({ resource }) => {
 
               <div className="ml-2 bg-opacity-30 bg-gry rounded-full w-8 h-8 flex justify-center items-center hover:bg-opacity-100">
                 <FontAwesomeIcon
-                  className="cursor-pointer hover:scale-[1.40] text-grn"
+                  className="cursor-pointer hover:scale-[1.40] hover:text-grn text-wht"
                   icon={faPlay}
                   onClick={onClickResource(resource)}
                 />
               </div>
               <div className="ml-2 bg-opacity-30 bg-gry rounded-full w-8 h-8 flex justify-center items-center hover:bg-opacity-100">
                 <FontAwesomeIcon
-                  className="cursor-pointer hover:scale-[1.40] text-grn"
+                  className="cursor-pointer hover:scale-[1.40] hover:text-grn text-wht"
                   icon={faDownload}
                 />
               </div>
