@@ -56,10 +56,8 @@ const Comments = ({ idTrack, typeOfContent }) => {
           ) : status === "success" ? (
             data.length ? (
               data.map((comment, index) => (
-                <div className="flex flex-col mb-3" key={index}>
-                  <div key={index}>
-                    <Comment comment={comment} />
-                  </div>
+                <div key={index} className="w-full">
+                  <Comment comment={comment} />
                 </div>
               ))
             ) : (
