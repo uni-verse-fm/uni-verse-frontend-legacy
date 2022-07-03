@@ -217,7 +217,7 @@ const SearchBar = ({ isConnected }) => {
               )}
             </Tab.List>
 
-            <Tab.Panels className="mt-2 bg-gry/70 backdrop-blur-md rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <Tab.Panels className="mt-2 bg-gry/70 backdrop-blur-md rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 h-96 overflow-y-auto focus:outline-none">
               <Tab.Panel>
                 <ul className="divide-y divide-gray-100">
                   {taskQuery.status === "success" &&

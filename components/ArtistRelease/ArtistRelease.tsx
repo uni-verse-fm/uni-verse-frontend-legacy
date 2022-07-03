@@ -6,9 +6,7 @@ import {
   faChevronDown,
   faChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { getReleaseById, deleteRelease } from "../../api/ReleaseAPI";
-import { useQuery } from "react-query";
-import Spinner from "../Spinner";
+import { deleteRelease } from "../../api/ReleaseAPI";
 import { imageSource, Messages } from "../../common/constants";
 import Image from "next/image";
 
@@ -25,16 +23,9 @@ import { PlayerContext } from "../../common/contexts/PlayerContext";
 import { NotificationType, Pages, Types } from "../../common/types";
 import { isoDateToDateHour } from "../../utils/dateUtils";
 
-const ArtistRelease = (props) => {
+const ArtistRelease = ({ release }) => {
   const { data: session } = useSession();
   const { dispatch } = useContext(PlayerContext);
-
-  const getRelease = useQuery("release", () =>
-    getReleaseById(props.index).then((res) => {
-      console.log(res.data);
-      return res.data;
-    })
-  );
 
   const [ShowMoreInformations, setShowMoreInformations] = useState(false);
   const handleShowMoreInformations = () => setShowMoreInformations(true);
@@ -45,7 +36,7 @@ const ArtistRelease = (props) => {
   const handleCloseDialog = () => setShowForm(false);
 
   const handleConfirmDelete = () => {
-    mutate(getRelease.data._id);
+    mutate(release._id);
     handleCloseDialog();
   };
 
@@ -76,101 +67,86 @@ const ArtistRelease = (props) => {
 
   return (
     <div className="Global bg-grey w-full h-full flex flex-col  ">
-      {getRelease.status === "loading" ? (
-        <div className="flex justify-center items-center mt-10">
-          <Spinner />
+      <div className=" flex flex-row mb-16 ">
+        <div>
+          <Image
+            src={
+              release.coverName
+                ? imageSource + release.coverName
+                : "/Playlist.png"
+            }
+            className="rounded mb-5"
+            width={150}
+            height={150}
+            alt="Release"
+          />
         </div>
-      ) : getRelease.status === "error" ? (
-        <div className="flex justify-center items-center mt-10">
-          <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
-        </div>
-      ) : (
-        <>
-          <div className=" flex flex-row mb-16 ">
-            <div>
-              <Image
-                src={
-                  getRelease.data.coverName
-                    ? imageSource + getRelease.data.coverName
-                    : "/Playlist.png"
-                }
-                className="rounded mb-5"
-                width={150}
-                height={150}
-                alt="Release"
+
+        <div className="ml-5 ">
+          <div className="flex flex-row mb-1">
+            <h2 className="text-grn text-xl font-bold ">
+              <FontAwesomeIcon
+                className="cursor-pointer hover:scale-[1.40]  text-wht hover:text-grn"
+                icon={faPlay}
+                onClick={onClickRelease(release)}
               />
-            </div>
-
-            <div className="ml-5 ">
-              <div className="flex flex-row mb-1">
-                <h2 className="text-grn text-xl font-bold ">
+            </h2>
+            {(session.user as any).id === release.author._id && (
+              <div className="flex flex-row">
+                <h2 className="text-grn text-xl">
                   <FontAwesomeIcon
-                    className="cursor-pointer hover:scale-[1.40]  text-wht hover:text-grn"
-                    icon={faPlay}
-                    onClick={onClickRelease(getRelease.data)}
+                    className="cursor-pointer ml-5 hover:scale-[1.40] hover:text-rd text-rd"
+                    icon={faTrashCan}
+                    onClick={handleShowForm}
                   />
-                </h2>
-                {(session.user as any).id === getRelease.data.author._id && (
-                  <div className="flex flex-row">
-                    <h2 className="text-grn text-xl">
-                      <FontAwesomeIcon
-                        className="cursor-pointer ml-5 hover:scale-[1.40] hover:text-rd text-rd"
-                        icon={faTrashCan}
-                        onClick={handleShowForm}
-                      />
-                    </h2>
-                  </div>
-                )}
-              </div>
-
-              <div className="flex flex-row ">
-                <h2 className="text-grn text-2xl font-bold ">
-                  {getRelease.data.title}
                 </h2>
               </div>
-
-              {getRelease.data?.author && (
-                <h2 className="text-gry ">{getRelease.data.author.username}</h2>
-              )}
-              {ShowMoreInformations == false ? (
-                <h2 className="text-grn">
-                  <FontAwesomeIcon
-                    className="cursor-pointer hover:scale-[1.40] hover:text-grn text-wht"
-                    icon={faChevronDown}
-                    onClick={handleShowMoreInformations}
-                  />
-                </h2>
-              ) : (
-                <h2 className="text-grn">
-                  <FontAwesomeIcon
-                    className="cursor-pointer hover:scale-[1.40] hover:text-grn text-grn"
-                    icon={faChevronUp}
-                    onClick={handleCloseShowMoreInformations}
-                  />
-                </h2>
-              )}
-
-              {getRelease.data?.description && ShowMoreInformations == true && (
-                <>
-                  <h2 className="text-wht ">{getRelease.data.description}</h2>
-                  <h2 className="text-gry text-xs">
-                    Created at : {isoDateToDateHour(getRelease.data.createdAt)}
-                  </h2>
-                </>
-              )}
-            </div>
+            )}
           </div>
 
-          {getRelease.data.tracks.length ? (
-            <DisplayTracksTable release={getRelease.data} />
-          ) : (
-            <div className="flex justify-center items-center mt-10 text-lg">
-              <h1 className="text-grn whitespace-nowrap">
-                {Messages.EMPTY_TRACKS}
-              </h1>
-            </div>
+          <div className="flex flex-row ">
+            <h2 className="text-grn text-2xl font-bold ">{release.title}</h2>
+          </div>
+          {release?.author && (
+            <h2 className="text-gry ">{release.author.username}</h2>
           )}
-        </>
+          {ShowMoreInformations == false ? (
+            <h2 className="text-grn">
+              <FontAwesomeIcon
+                className="cursor-pointer hover:scale-[1.40] hover:text-grn text-wht"
+                icon={faChevronDown}
+                onClick={handleShowMoreInformations}
+              />
+            </h2>
+          ) : (
+            <h2 className="text-grn">
+              <FontAwesomeIcon
+                className="cursor-pointer hover:scale-[1.40] hover:text-grn text-grn"
+                icon={faChevronUp}
+                onClick={handleCloseShowMoreInformations}
+              />
+            </h2>
+          )}
+
+          {release?.description && ShowMoreInformations == true && (
+            <>
+              <h2 className="text-wht ">{release.description}</h2>
+              <h2 className="text-gry text-xs">
+                Created at : {isoDateToDateHour(release.createdAt)}
+              </h2>
+            </>
+          )}
+        </div>
+      </div>
+
+      {release.tracks.length ? (
+        <DisplayTracksTable release={release} />
+      ) : (
+        <div className="flex justify-center items-center mt-10 text-lg">
+          <h1 className="text-grn whitespace-nowrap">
+            {Messages.EMPTY_TRACKS}
+          </h1>
+        </div>
       )}
 
       <ConfirmDialogDelete
