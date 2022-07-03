@@ -35,7 +35,7 @@ const DisplayResourcesTable = ({ resourcesPack }) => {
       title: resource.title,
       fileName: resource.fileName,
       author: resource.author,
-      resourcespack: resourcespack,
+      resourcepack: resourcespack,
       views: resource.views,
       comments: resource.comments,
       id: resource.id,

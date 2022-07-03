@@ -28,8 +28,8 @@ const ArtistResource = ({ resource }) => {
             <div className="flex flex-row items-end mb-1">
               <img
                 src={
-                  resource?.resourcespack?.coverName
-                    ? imageSource + resource?.resourcespack.coverName
+                  resource?.resourcepack?.coverName
+                    ? imageSource + resource?.resourcepack.coverName
                     : "/Playlist.png"
                 }
                 className="rounded-lg"
@@ -44,7 +44,7 @@ const ArtistResource = ({ resource }) => {
                 <div className="text-xl font-bold text-grn mx-2">
                   By {resource?.author?.username}
                 </div>
-                <div className="text-md font-bold text-grn mx-2">{`(ResourcesPack: ${resource?.resourcespack?.title})`}</div>
+                <div className="text-md font-bold text-grn mx-2">{`(ResourcesPack: ${resource?.resourcepack?.title})`}</div>
               </div>
 
               <div className="text-grn ml-5">

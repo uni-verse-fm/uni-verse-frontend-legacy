@@ -7,11 +7,14 @@ import { searchPlaylist } from "../../api/PlaylistAPI";
 import { searchRelease } from "../../api/ReleaseAPI";
 import { searchTrack } from "../../api/TrackAPI";
 import { searchUsers } from "../../api/UserAPI";
+import { searchResource } from "../../api/ResourceAPI";
 import router from "next/router";
 import { Pages } from "../../common/types";
 import TrackRow from "./TrackRow";
+import ResourceRow from "./ResourceRow";
 import ReleaseRow from "./ReleaseRow";
 import PlaylistRow from "./PlaylistRow";
+
 import UserRow from "./UserRow";
 
 function classNames(...classes) {
@@ -66,6 +69,14 @@ const SearchBar = ({ isConnected }) => {
     }
   );
 
+  const resourceQuery = useQuery(
+    ["searchResource", query],
+    ({ signal }) => searchResource(query, { signal }),
+    {
+      enabled: Boolean(query),
+    }
+  );
+
   const userQuery = useQuery(
     ["searchUsers", query],
     ({ signal }) => searchUsers(query, { signal }),
@@ -106,6 +117,14 @@ const SearchBar = ({ isConnected }) => {
     setQuery("");
   };
 
+
+  const onClickDisplayResource = (resource) => () => {
+    router.push({
+      pathname: `/${Pages.Resource}`,
+      query: { resource: JSON.stringify(resource) },
+    });
+    setQuery("");
+  };
   return (
     <div ref={ref} className="flex flex-col items-center">
       <div className="flex flex-row items-center xs:w-max w-full m-3 z-10 border rounded-full hover:ring-2 hover:ring-grn">
@@ -139,6 +158,20 @@ const SearchBar = ({ isConnected }) => {
                 Tracks
               </Tab>
               <Tab
+                key="Resources"
+                className={({ selected }) =>
+                  classNames(
+                    "w-full rounded-lg text-sm font-medium leading-5 text-grn text-lg",
+                    "focus:outline-none font-semibold",
+                    selected
+                      ? "bg-white text-drkgrn shadow"
+                      : "text-grn hover:bg-white/[0.12] hover:text-segrn"
+                  )
+                }
+              >
+                Resources
+              </Tab>
+              <Tab
                 key="Releases"
                 className={({ selected }) =>
                   classNames(
@@ -166,6 +199,7 @@ const SearchBar = ({ isConnected }) => {
               >
                 Playlists
               </Tab>
+           
               {isConnected && (
                 <Tab
                   key="Users"
@@ -193,6 +227,19 @@ const SearchBar = ({ isConnected }) => {
                         <TrackRow
                           track={track}
                           onClickDisplayTrack={onClickDisplayTrack(track)}
+                        />
+                      </li>
+                    ))}
+                </ul>
+              </Tab.Panel>
+              <Tab.Panel>
+                <ul className="divide-y divide-gray-100">
+                  {resourceQuery.status === "success" &&
+                    resourceQuery.data.map((resource, index) => (
+                      <li key={"resource-" + index} value={resource}>
+                        <ResourceRow
+                          resource={resource}
+                          onClickDisplayResource={onClickDisplayResource(resource)}
                         />
                       </li>
                     ))}
@@ -228,6 +275,7 @@ const SearchBar = ({ isConnected }) => {
                     ))}
                 </ul>
               </Tab.Panel>
+            
               <Tab.Panel>
                 <ul className="divide-y divide-gray-100">
                   {userQuery.status === "success" &&

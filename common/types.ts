@@ -283,6 +283,7 @@ export enum Endoints {
   Comments = "/comments",
   Payments = "/payments",
   Tracks = "/tracks",
+  Resources = "/resources",
   Views = "/views",
 }
 
