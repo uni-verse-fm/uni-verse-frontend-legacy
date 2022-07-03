@@ -219,7 +219,6 @@ const ResourcePack = ({ resourcePack, download }: IResourcePack) => {
           small={true}
           showModal={showForm}
           handleCloseDialog={handleCloseDialog}
-          //handleConfirmDelete={handleConfirmDelete}
           msg="Delete ResourcePack"
         />
       </div>
