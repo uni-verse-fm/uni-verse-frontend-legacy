@@ -6,6 +6,32 @@ import { Session } from "next-auth";
 import { adminLogin } from "../api/AdminAPI";
 import { ILogin } from "../common/types";
 import ResourcePack from "../components/ResourcePack";
+import { useQuery } from "react-query";
+import { getResourcePackById } from "../api/ResourcePackAPI";
+import Spinner from "../components/Spinner";
+import { Messages } from "../common/constants";
+import { getSumDonations, isOwnerProduct } from "../api/TransactionAPI";
+
+const allowDownload = (
+  donatedQuery: any,
+  boughtQuery: any,
+  resourcePack: any
+) => {
+    console.log(boughtQuery?.data)
+  if (
+    donatedQuery.status === "success" &&
+    parseInt(donatedQuery.data) > resourcePack.amount
+  ) {
+    return true;
+  } else if (boughtQuery.status === "success" && boughtQuery.data) {
+    
+    return true;
+  } else if (resourcePack.accessType === "free") {
+    return true;
+  } else {
+    return false;
+  }
+};
 
 function UserResourcePack() {
   const router = useRouter();
@@ -13,17 +39,56 @@ function UserResourcePack() {
     query: { id },
   } = router;
 
+  const { status, data } = useQuery(
+    `resourcePack-${id}`,
+    () => getResourcePackById(id as string).then((res) => res.data),
+    { enabled: Boolean(!!id) }
+  );
+
+  const boughtQuery = useQuery(
+    `bought-pack-${id}`,
+    () => isOwnerProduct(id as string).then((res) => res.data),
+    {
+      enabled: Boolean(
+        !!id && status === "success" && data?.accessType == "paid"
+      ),
+    }
+  );
+
+  const donatedQuery = useQuery(
+    `donated-pack-${id}`,
+    () => getSumDonations(id as string).then((res) => res.data),
+    {
+      enabled: Boolean(
+        !!id && status === "success" && data?.accessType == "donation"
+      ),
+    }
+  );
+
   return (
     <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden p-10">
       <div className="text-start justify-start items-start w-full h-full ">
-        <h1 className="text-xl font-bold not-italic text-grn mb-5 mt-10">
+        <h1 className="text-xl font-bold not-italic text-grn  mb-5 mt-10">
           ResourcePack
         </h1>
-        <ResourcePack
-          index={id}
-          handleClosePlaylistContent="{handleClosePlaylistContent}"
-          enableChange="false"
-        />
+        <div className="Global bg-grey w-full h-full flex flex-col">
+          {status === "loading" || status === "idle" ? (
+            <div className="flex justify-center items-center mt-10">
+              <Spinner />
+            </div>
+          ) : status === "error" ? (
+            <div className="flex justify-center items-center mt-10">
+              <h1 className="text-rd whitespace-nowrap">
+                {Messages.ERROR_LOAD}
+              </h1>
+            </div>
+          ) : (
+            <ResourcePack
+              resourcePack={data}
+              download={allowDownload(donatedQuery, boughtQuery, data)}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

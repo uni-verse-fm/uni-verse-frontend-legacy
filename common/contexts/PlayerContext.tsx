@@ -7,13 +7,17 @@ import React, {
   useRef,
 } from "react";
 import { addView } from "../../api/ViewsAPI";
-import { trackSource } from "../constants";
+import { previewSource, trackSource } from "../constants";
 import {
   InitialPlayerType,
   PlayerActions,
   ReducerPlayerType,
+  Track,
   Types,
 } from "../types";
+
+const getBaseUrl = (state) =>
+  state.tracks[0]?.release ? trackSource : previewSource;
 
 const initialState: ReducerPlayerType = {
   tracks: [],
@@ -37,6 +41,11 @@ export const playerReducer = (
         trackIndex: action.payload.trackIndex || 0,
       };
     case Types.TrackPlay:
+      return {
+        tracks: [action.payload.track],
+        trackIndex: 0,
+      };
+    case Types.PreviewPlay:
       return {
         tracks: [action.payload.track],
         trackIndex: 0,
@@ -77,7 +86,7 @@ const PlayerProvider: React.FC = ({ children }) => {
   const hasPrevious = () => (state.tracks ? currentTrackIndex - 1 >= 0 : false);
 
   const playByIndex = (index: number) => {
-    const newUrl = trackSource + state.tracks[index].fileName;
+    const newUrl = getBaseUrl(state) + state.tracks[index].fileName;
     setCurrentTrackIndex(index);
     if (sound.current?.src !== newUrl) sound.current.src = newUrl;
     sound.current.load();
@@ -91,10 +100,13 @@ const PlayerProvider: React.FC = ({ children }) => {
     hasPrevious() ? playByIndex(currentTrackIndex - 1) : playByIndex(0);
 
   const onEnded = () => {
-    hasNext() ? nextTrack() : "";
     const track = state.tracks[currentTrackIndex];
     const trackId = track?.id;
-    trackId && addView({ track: trackId, release: track?.release?.id });
+    hasNext() ? nextTrack() : "";
+    if ((track as Track).release) {
+      trackId &&
+        addView({ track: trackId, release: (track as Track)?.release?.id });
+    }
   };
 
   const onPlayPauseClick = () => {
@@ -138,7 +150,7 @@ const PlayerProvider: React.FC = ({ children }) => {
 
   const onTracksChange = (newTracks: any) => {
     if (sound.current) {
-      const newUrl = trackSource + newTracks[currentTrackIndex].fileName;
+      const newUrl = getBaseUrl(state) + newTracks[currentTrackIndex].fileName;
       sound.current.src = newUrl;
       sound.current.load();
       sound.current.play();

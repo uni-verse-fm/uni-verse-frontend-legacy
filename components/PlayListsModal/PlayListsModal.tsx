@@ -23,7 +23,6 @@ const PlaylistsModal = ({
   const [playlistIndex, setPlaylistIndex] = useState(undefined);
   const { data: session } = useSession();
 
-  console.debug((session?.user as any)?.id);
   const playlistsQuery = useQuery(
     "myPlaylists",
     () => getUserPlaylists((session?.user as any)?.id),

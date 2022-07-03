@@ -46,8 +46,6 @@ function Profile() {
 
   const RessourcePacksQuery = useQuery("getResourcePacks", () =>
     getResourcePacks().then((res) => {
-      console.log("getResourcePacks");
-      console.log(res.data);
       return res.data;
     })
   );

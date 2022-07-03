@@ -47,11 +47,7 @@ const ResetPasswordModal = (props) => {
             let dataForm: IResetPassword = {
               password: value.password,
             };
-            console.log(dataForm);
-            console.log("dataForm");
             mutate(dataForm);
-
-            //notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR);
           }}
         >
           {({ values, errors, handleChange, handleBlur }) => {

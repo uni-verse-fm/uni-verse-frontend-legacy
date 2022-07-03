@@ -8,9 +8,9 @@ const getSumDonations = (destId: string) =>
     .get(`${TransactionsEndpoint}/donation/${destId}`)
     .then((res) => res.data);
 
-const isOwnerProduct = (ProductId: string) =>
+const isOwnerProduct = (productId: string) =>
   axiosClient
-    .get(`${TransactionsEndpoint}/owner/${ProductId}`)
+    .get(`${TransactionsEndpoint}/owner/${productId}`)
     .then((res) => res.data);
 
 export { getSumDonations, isOwnerProduct };

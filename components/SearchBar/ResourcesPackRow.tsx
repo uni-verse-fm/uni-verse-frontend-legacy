@@ -1,9 +1,6 @@
-import { faEye, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
 import { imageSource } from "../../common/constants";
-import { PlayerContext } from "../../common/contexts/PlayerContext";
-import { Types } from "../../common/types";
 
 interface IResourcesPack {
   resourcesPack: any;
@@ -16,20 +13,6 @@ const ResourcesPackRow = ({
   onClickDisplayResourcesPack,
   disableHover,
 }: IResourcesPack) => {
-  const { dispatch } = useContext(PlayerContext);
-
-  const onClickResourcesPack = (resource) => () => {
-    {
-      /** dispatch({
-      type: Types.ResourcesPackPlay,
-      payload: {
-        resources: resourcesPack.resources || [],
-        resourceIndex: 0,
-      },
-    });*/
-    }
-  };
-
   return (
     <div
       className={`${
@@ -67,12 +50,6 @@ const ResourcesPackRow = ({
           )}
         </div>
       </div>
-
-      <FontAwesomeIcon
-        className="cursor-pointer mr-5 hover:scale-[1.40] text-grn fa-xl"
-        icon={faPlay}
-        onClick={onClickResourcesPack(resourcesPack)}
-      />
     </div>
   );
 };
