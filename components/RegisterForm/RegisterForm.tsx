@@ -62,11 +62,16 @@ const RegisterForm = () => {
     >
       {({ values, errors, handleChange, handleBlur }) => {
         return (
-          <Form className="flex justify-center rounded-md bg-white w-auto h-auto">
-            <div className="m-10 ml-12 mr-12">
-              <UploadImageDisplayer {...imageProps} />
+          <Form className="flex flex-col justify-center  w-auto h-auto">
+            <h1 className="text-xl font-bold not-italic text-grn">
+              Welcome to universe !
+            </h1>
+            <h2 className="font-medium not-italic text-gry mt-5 mb-5">
+              Create an account
+            </h2>
+            <div className=" p-12 bg-white rounded-md">
               <div className="flex items-start mb-5 flex-col w-64 h-16">
-                <label className="mb-2 text-sm">User Name</label>
+                <label className="mb-2 text-md font-bold">User Name</label>
                 <input
                   id="username"
                   name="username"
@@ -82,7 +87,7 @@ const RegisterForm = () => {
                 ) : null}
               </div>
               <div className="flex items-start mb-5 flex-col w-64 h-16">
-                <label className="mb-2 text-sm">Email</label>
+                <label className="mb-2 text-md font-bold">Email</label>
                 <input
                   id="email"
                   name="email"
@@ -98,7 +103,7 @@ const RegisterForm = () => {
                 ) : null}
               </div>
               <div className="flex items-start mb-5 flex-col w-64 h-16">
-                <label className="mb-2 text-sm">Password</label>
+                <label className="mb-2 text-md font-bold">Password</label>
                 <input
                   id="password"
                   name="password"
@@ -114,7 +119,7 @@ const RegisterForm = () => {
                 ) : null}
               </div>
               <div className="flex items-start mb-10 flex-col w-64 h-16">
-                <label className="mb-2 text-sm">Confirm your Password</label>
+                <label className="mb-2 text-md font-bold">Confirm your Password</label>
                 <input
                   id="passwordConfirmation"
                   name="passwordConfirmation"
