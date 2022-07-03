@@ -20,7 +20,7 @@ function Resource() {
         <div>
           <ArtistResource resource={parse(resource)} />
           <Comments
-            idTrack={parse(resource)?._id}
+            idTrack={parse(resource)?.id}
             typeOfContent={ModelType.Resource}
           />
         </div>

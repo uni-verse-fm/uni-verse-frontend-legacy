@@ -57,7 +57,7 @@ const ArtistResource = ({ resource }) => {
             </div>
           </div>
         </div>
-        <CreateComment idContent={resource?._id} typeOfContent="Resource" />
+        <CreateComment idContent={resource?.id} typeOfContent="Resource" />
       </div>
     </div>
   );
