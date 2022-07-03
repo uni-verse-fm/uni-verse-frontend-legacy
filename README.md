@@ -7,6 +7,8 @@ Ce projet est le site web de Uni-verse.
 
 Le site permet de téléverser et consulter les publications (`release`), de téléverser et télécharger les packs de ressources, de commenter les tracks avec des avis positifs ou négatifs, de rechercher du contenu, de créer des playlists, ou encore de donner aux utilsateurs ou à la plateforme.
 
+Actuellement, Uni-verse est en ligne à l'[addresse suivante](https://uni-verse.vagahbond.com).
+
 ## Structure du site web:
 
 ```mermaid
