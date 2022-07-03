@@ -1,4 +1,4 @@
-# Uni-verse Frontend
+# Site web Uni-verse
 
 Uni-verse est une plateforme de streaming audio conçue spécifiquement pour les producteurs de musique.
 Elle consiste en un site web, une application smartphone, et une API.
@@ -7,7 +7,7 @@ Ce projet est le site web de Uni-verse.
 
 Le site permet de téléverser et consulter les publications (`release`), de téléverser et télécharger les packs de ressources, de commenter les tracks avec des avis positifs ou négatifs, de rechercher du contenu, de créer des playlists, ou encore de donner aux utilsateurs ou à la plateforme.
 
-## Website structure:
+## Structure du site web:
 
 ```mermaid
 stateDiagram-v2
@@ -33,31 +33,31 @@ stateDiagram-v2
     Release --> Track
 ```
 
-### Homepage
+### Accueil
 ![](screenshots/homepage.png)
-### Login
+### Connexion
 ![](screenshots/login.png)
-### Signup
+### Inscription
 ![](screenshots/signup.png)
 ### Release
 ![](screenshots/release.png)
-### Upload release
+### Créer une release
 ![](screenshots/release-upload.png)
-### Resource pack
+### Pack de ressources
 ![](screenshots/resource-pack.png)
-### Upload Resource pack
+### Créer un pack de ressources
 ![](screenshots/resource-pack-upload.png)
 ### Playlists
 ![](screenshots/playlists.png)
 ### Playlist
 ![](screenshots/playlist.png)
-### Create Playlist
+### Créer Playlist
 ![](screenshots/playlist-create.png)
-### Search
+### Rechercher
 ![](screenshots/search.png)
-### User
+### Utilisateur
 ![](screenshots/user.png)
-### Dashboard
+### Tableau de bord
 ![](screenshots/dashboard.png)
 
 ## Stack technique
