@@ -117,7 +117,6 @@ const SearchBar = ({ isConnected }) => {
     setQuery("");
   };
 
-
   const onClickDisplayResource = (resource) => () => {
     router.push({
       pathname: `/${Pages.Resource}`,
@@ -199,7 +198,7 @@ const SearchBar = ({ isConnected }) => {
               >
                 Playlists
               </Tab>
-           
+
               {isConnected && (
                 <Tab
                   key="Users"
@@ -239,7 +238,9 @@ const SearchBar = ({ isConnected }) => {
                       <li key={"resource-" + index} value={resource}>
                         <ResourceRow
                           resource={resource}
-                          onClickDisplayResource={onClickDisplayResource(resource)}
+                          onClickDisplayResource={onClickDisplayResource(
+                            resource
+                          )}
                         />
                       </li>
                     ))}
@@ -275,7 +276,7 @@ const SearchBar = ({ isConnected }) => {
                     ))}
                 </ul>
               </Tab.Panel>
-            
+
               <Tab.Panel>
                 <ul className="divide-y divide-gray-100">
                   {userQuery.status === "success" &&

@@ -2,7 +2,7 @@ import { faComment, faEye, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { PlayerContext } from "../../common/contexts/PlayerContext";
-import { Resource,  Types } from "../../common/types";
+import { Resource, Types } from "../../common/types";
 import { imageSource } from "../../common/constants";
 
 interface IResourceRow {
@@ -11,17 +11,23 @@ interface IResourceRow {
   disableHover?: boolean;
 }
 
-const ResourceRow = ({ resource, onClickDisplayResource, disableHover }: IResourceRow) => {
+const ResourceRow = ({
+  resource,
+  onClickDisplayResource,
+  disableHover,
+}: IResourceRow) => {
   const { dispatch } = useContext(PlayerContext);
 
-  {/*const onClickResource = (resource: Resource) => () => {
+  {
+    /*const onClickResource = (resource: Resource) => () => {
     dispatch({
       type: Types.ResourcePlay,
       payload: {
         resource: resource,
       },
     });
-  };*/}
+  };*/
+  }
 
   return (
     <div
@@ -43,9 +49,9 @@ const ResourceRow = ({ resource, onClickDisplayResource, disableHover }: IResour
         />
 
         <div className="m-3">
-          <div className="text-sedrk text-lg">{`${resource.author?.username} - ${
-            resource.title}`}
-            </div>
+          <div className="text-sedrk text-lg">
+            {`${resource.author?.username} - ${resource.title}`}
+          </div>
           {!!resource.views && (
             <div className="text-grn text-sm">
               {resource.views}

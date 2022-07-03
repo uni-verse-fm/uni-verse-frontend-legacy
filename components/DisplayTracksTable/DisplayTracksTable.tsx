@@ -27,7 +27,6 @@ const DisplayTracksTable = ({ release }) => {
       title: release.title,
       id: release.id,
       _id: release._id,
-
     };
 
     const TrackToDisplay = {
