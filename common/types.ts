@@ -285,6 +285,7 @@ export enum Endoints {
   Tracks = "/tracks",
   Resources = "/resources",
   Views = "/views",
+  Transactions= "/transactions"
 }
 
 export type ActionMap<M extends { [index: string]: any }> = {
