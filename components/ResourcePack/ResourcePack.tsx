@@ -88,7 +88,7 @@ const ResourcePack = ({ resourcePack, download }: IResourcePack) => {
 
   const onPurchase = () => {
     purchaseMutation.mutate({
-      priceId: resourcePack.productId,
+      productId: resourcePack.productId,
       connectedAccountId: resourcePack.author.stripeAccountId,
     });
   };
