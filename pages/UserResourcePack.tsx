@@ -12,7 +12,6 @@ import Spinner from "../components/Spinner";
 import { Messages } from "../common/constants";
 import { getSumDonations, isOwnerProduct } from "../api/TransactionAPI";
 
-
 function UserResourcePack() {
   const router = useRouter();
   const {
@@ -50,7 +49,7 @@ function UserResourcePack() {
     ((donatedQuery.status === "success" &&
       parseInt(donatedQuery.data) > data.amount) ||
       (boughtQuery.status === "success" && boughtQuery.data) ||
-      (data.accessType === "free"));
+      data.accessType === "free");
 
   return (
     <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden p-10">
@@ -70,10 +69,7 @@ function UserResourcePack() {
               </h1>
             </div>
           ) : (
-            <ResourcePack
-              resourcePack={data}
-              download={allowDownloads}
-            />
+            <ResourcePack resourcePack={data} download={allowDownloads} />
           )}
         </div>
       </div>
