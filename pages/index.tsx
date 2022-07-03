@@ -106,7 +106,7 @@ export default function Home() {
     <div className="flex flex-col p-16 bg-drk w-full h-full overflow-y-scroll overflow-x-hidden z-0">
       <div className="flex flex-row grow w-full h-auto">
         <StatsWrapper query={weekHotTracksQuery} title="Week hot tracks">
-          {weekHotTracksQuery.data.map((track, index) => (
+          {weekHotTracksQuery.data?.map((track, index) => (
             <li key={"track-" + index} value={track}>
               <TrackRow
                 track={track}
@@ -117,7 +117,7 @@ export default function Home() {
           ))}
         </StatsWrapper>
         <StatsWrapper query={monthHotTracksQuery} title="Month hot tracks">
-          {monthHotTracksQuery.data.map((track, index) => (
+          {monthHotTracksQuery.data?.map((track, index) => (
             <li key={"track-" + index} value={track}>
               <TrackRow
                 track={track}
@@ -129,7 +129,7 @@ export default function Home() {
         </StatsWrapper>
 
         <StatsWrapper query={yearHotTracksQuery} title="Year hot tracks">
-          {yearHotTracksQuery.data.map((track, index) => (
+          {yearHotTracksQuery.data?.map((track, index) => (
             <li key={"track-" + index} value={track}>
               <TrackRow
                 track={track}
@@ -142,7 +142,7 @@ export default function Home() {
       </div>
       <div className="flex flex-row grow w-full h-auto">
         <StatsWrapper query={yearHotReleasesQuery} title="Year hot releases">
-          {yearHotReleasesQuery.data.map((release, index) => (
+          {yearHotReleasesQuery.data?.map((release, index) => (
             <li key={"release-" + index} value={release}>
               <ReleaseRow
                 release={release}
@@ -156,7 +156,7 @@ export default function Home() {
           query={monthHotCommentQuery}
           title="Month most commented tracks"
         >
-          {monthHotCommentQuery.data.map((track, index) => (
+          {monthHotCommentQuery.data?.map((track, index) => (
             <li key={"track-" + index} value={track}>
               <TrackRow
                 track={track}
