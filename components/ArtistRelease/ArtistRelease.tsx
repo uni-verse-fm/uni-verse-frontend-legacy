@@ -6,9 +6,7 @@ import {
   faChevronDown,
   faChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { getReleaseById, deleteRelease } from "../../api/ReleaseAPI";
-import { useQuery } from "react-query";
-import Spinner from "../Spinner";
+import { deleteRelease } from "../../api/ReleaseAPI";
 import { imageSource, Messages } from "../../common/constants";
 import Image from "next/image";
 
@@ -109,7 +107,6 @@ const ArtistRelease = ({ release }) => {
           <div className="flex flex-row ">
             <h2 className="text-grn text-2xl font-bold ">{release.title}</h2>
           </div>
-
           {release?.author && (
             <h2 className="text-gry ">{release.author.username}</h2>
           )}
@@ -121,6 +118,7 @@ const ArtistRelease = ({ release }) => {
                 onClick={handleShowMoreInformations}
               />
             </h2>
+
           ) : (
             <h2 className="text-grn">
               <FontAwesomeIcon
@@ -143,7 +141,7 @@ const ArtistRelease = ({ release }) => {
       </div>
 
       {release.tracks.length ? (
-        <DisplayTracksTable tracks={release.tracks} />
+        <DisplayTracksTable release={release} />
       ) : (
         <div className="flex justify-center items-center mt-10 text-lg">
           <h1 className="text-grn whitespace-nowrap">

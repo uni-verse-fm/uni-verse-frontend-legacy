@@ -93,7 +93,8 @@ const ResourcePack = (props) => {
                     />
                   </h2>
 
-                  {(session.user as any).id === getResourcePack.data.author && (
+                  {(session.user as any).id ===
+                    getResourcePack.data.author._id && (
                     <div className="flex flex-row">
                       <h2 className="text-grn text-xl">
                         <FontAwesomeIcon
@@ -150,9 +151,7 @@ const ResourcePack = (props) => {
               </div>
             </div>
             {getResourcePack.data?.resources.length ? (
-              <DisplayResourcesTable
-                resources={getResourcePack.data.resources}
-              />
+              <DisplayResourcesTable resourcesPack={getResourcePack.data} />
             ) : (
               <div className="flex justify-center items-center mt-10 text-lg">
                 <h1 className="text-grn whitespace-nowrap">
