@@ -17,7 +17,6 @@ const allowDownload = (
   boughtQuery: any,
   resourcePack: any
 ) => {
-  console.log(boughtQuery?.data);
   if (
     donatedQuery.status === "success" &&
     parseInt(donatedQuery.data) > resourcePack.amount
