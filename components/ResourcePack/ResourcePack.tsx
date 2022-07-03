@@ -88,7 +88,7 @@ const ResourcePack = ({ resourcePack, download }: IResourcePack) => {
 
   const onPurchase = () => {
     purchaseMutation.mutate({
-      priceId: resourcePack.productId,
+      productId: resourcePack.productId,
       connectedAccountId: resourcePack.author.stripeAccountId,
     });
   };
@@ -219,7 +219,6 @@ const ResourcePack = ({ resourcePack, download }: IResourcePack) => {
           small={true}
           showModal={showForm}
           handleCloseDialog={handleCloseDialog}
-          //handleConfirmDelete={handleConfirmDelete}
           msg="Delete ResourcePack"
         />
       </div>

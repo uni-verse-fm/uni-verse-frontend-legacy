@@ -10,7 +10,7 @@ export interface IDonate {
 }
 
 export interface IPurchase {
-  priceId: string;
+  productId: string;
   connectedAccountId?: string;
 }
 

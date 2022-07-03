@@ -69,58 +69,6 @@ export const ResourcesTable = (props: IResourcesTable) => (
                           index
                         )}
                       />
-                      {/* <div className="flex justify-center mt-2">
-                        <div>
-                          <label
-                            className={`${
-                              image ? "rounded-l-md" : "rounded-md"
-                            } px-4 border border-transparent shadow-sm text-md font-medium inline-block text-white bg-grn hover:bg-segrn`}
-                          >
-                            <span>Upload</span>
-                            <input
-                              id="image-upload"
-                              name="image-upload"
-                              type="file"
-                              accept={Extensions.audio.accept}
-                              onChange={handleImageChange}
-                              value=""
-                              className="sr-only"
-                            />
-                          </label>
-                        </div>
-                        {image && (
-                          <div>
-                            <button
-                              className="px-4 border border-transparent shadow-sm text-md font-medium rounded-r-md text-white bg-rd hover:bg-serd"
-                              onClick={() => handleDeleteFile()}
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                      {
-                        "////////////////////////////////////////////////////////////"
-                      }
-                      <label className="px-4 border border-transparent shadow-sm text-md font-medium inline-block rounded-md text-white bg-grn hover:bg-segrn mx-4">
-                        <span>
-                          Add resource
-                          <FontAwesomeIcon
-                            className="cursor-pointer hover:scale-[1.40] text-wht mx-2"
-                            icon={faPlus}
-                          />
-                        </span>
-                        <input
-                          id="resource-file"
-                          name="resource-file-upload"
-                          type="file"
-                          accept={Extensions.audio.accept}
-                          style={{ display: "none" }}
-                          onChange={() => ""}
-                          value=""
-                          className="sr-only"
-                        />
-                      </label> */}
                     </td>
                     <td>
                       <button

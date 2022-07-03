@@ -12,25 +12,6 @@ import Spinner from "../components/Spinner";
 import { Messages } from "../common/constants";
 import { getSumDonations, isOwnerProduct } from "../api/TransactionAPI";
 
-const allowDownload = (
-  donatedQuery: any,
-  boughtQuery: any,
-  resourcePack: any
-) => {
-  if (
-    donatedQuery.status === "success" &&
-    parseInt(donatedQuery.data) > resourcePack.amount
-  ) {
-    return true;
-  } else if (boughtQuery.status === "success" && boughtQuery.data) {
-    return true;
-  } else if (resourcePack.accessType === "free") {
-    return true;
-  } else {
-    return false;
-  }
-};
-
 function UserResourcePack() {
   const router = useRouter();
   const {
@@ -45,7 +26,7 @@ function UserResourcePack() {
 
   const boughtQuery = useQuery(
     `bought-pack-${id}`,
-    () => isOwnerProduct(id as string).then((res) => res.data),
+    () => isOwnerProduct(data.productId as string).then((res) => res),
     {
       enabled: Boolean(
         !!id && status === "success" && data?.accessType == "paid"
@@ -62,6 +43,13 @@ function UserResourcePack() {
       ),
     }
   );
+
+  const allowDownloads =
+    status === "success" &&
+    ((donatedQuery.status === "success" &&
+      parseInt(donatedQuery.data) > data.amount) ||
+      (boughtQuery.status === "success" && boughtQuery.data) ||
+      data.accessType === "free");
 
   return (
     <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden p-10">
@@ -81,10 +69,7 @@ function UserResourcePack() {
               </h1>
             </div>
           ) : (
-            <ResourcePack
-              resourcePack={data}
-              download={allowDownload(donatedQuery, boughtQuery, data)}
-            />
+            <ResourcePack resourcePack={data} download={allowDownloads} />
           )}
         </div>
       </div>
