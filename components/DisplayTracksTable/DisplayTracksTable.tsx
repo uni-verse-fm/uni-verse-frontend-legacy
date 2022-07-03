@@ -25,6 +25,9 @@ const DisplayTracksTable = ({ release }) => {
     const releaseTrack = {
       coverName: release.coverName,
       title: release.title,
+      id: release.id,
+      _id: release._id,
+
     };
 
     const TrackToDisplay = {
@@ -36,7 +39,7 @@ const DisplayTracksTable = ({ release }) => {
       views: track.views,
       comments: track.comments,
       id: track.id,
-      _id: track.id._id,
+      _id: track._id,
     };
 
     router.push({

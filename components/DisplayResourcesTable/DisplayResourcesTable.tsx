@@ -29,6 +29,8 @@ const DisplayResourcesTable = ({ resourcesPack }) => {
     const resourcespack = {
       coverName: resourcesPack.coverName,
       title: resourcesPack.title,
+      _id: resourcesPack._id,
+      id: resourcesPack.id,
     };
 
     const RessourceToDisplay = {
