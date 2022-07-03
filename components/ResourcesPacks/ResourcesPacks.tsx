@@ -36,10 +36,7 @@ const ResourcesPacks = (props) => {
         {props.data?.length ? (
           props.data.map((item, index) => (
             <div key={index} onClick={onClickDisplayResourcePack(item._id)}>
-              <ResourcePackCard
-                key={index}
-                resourcePack={item}
-              />
+              <ResourcePackCard key={index} resourcePack={item} />
             </div>
           ))
         ) : (

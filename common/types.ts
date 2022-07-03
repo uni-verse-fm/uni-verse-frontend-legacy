@@ -196,14 +196,14 @@ export type Track = {
 };
 
 export type Preview = {
-    fileName: string;
-    author: any;
-    views?: number;
-    comments?: number;
-    title: string;
-    id?: string;
-    _id?: string;
-  };
+  fileName: string;
+  author: any;
+  views?: number;
+  comments?: number;
+  title: string;
+  id?: string;
+  _id?: string;
+};
 
 export type Resource = {
   fileName: string;

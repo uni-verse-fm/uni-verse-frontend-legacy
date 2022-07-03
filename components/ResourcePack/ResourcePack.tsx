@@ -40,7 +40,7 @@ const ResourcePack = ({ resourcePack, download }: IResourcePack) => {
 
   const onDownloadResourcePack = async () => {
     let destId: string = undefined;
-    if(resourcePack.accessType === "donation") destId = resourcePack._id;
+    if (resourcePack.accessType === "donation") destId = resourcePack._id;
     await downloadResourcePack(resourcePack._id, destId).then((response) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
@@ -51,17 +51,21 @@ const ResourcePack = ({ resourcePack, download }: IResourcePack) => {
     });
   };
 
-  const purchaseMutation = useMutation(`purchace-${resourcePack._id}`, purchase, {
-    onError: () => {
-      notify(Messages.PURCHASE_ERROR, NotificationType.ERROR);
-    },
-    onSuccess: (res) => {
-      if (res.status !== 201) {
+  const purchaseMutation = useMutation(
+    `purchace-${resourcePack._id}`,
+    purchase,
+    {
+      onError: () => {
         notify(Messages.PURCHASE_ERROR, NotificationType.ERROR);
-      } 
-      window.location.href = res.data;
-    },
-  });
+      },
+      onSuccess: (res) => {
+        if (res.status !== 201) {
+          notify(Messages.PURCHASE_ERROR, NotificationType.ERROR);
+        }
+        window.location.href = res.data;
+      },
+    }
+  );
 
   const donateMutation = useMutation(`donate-${resourcePack._id}`, donate, {
     onError: () => {
@@ -70,7 +74,7 @@ const ResourcePack = ({ resourcePack, download }: IResourcePack) => {
     onSuccess: (res) => {
       if (res.status !== 201) {
         notify(Messages.PURCHASE_ERROR, NotificationType.ERROR);
-      } 
+      }
     },
   });
 
@@ -80,14 +84,14 @@ const ResourcePack = ({ resourcePack, download }: IResourcePack) => {
       donationProductId: resourcePack.user.donationProductId,
       connectedAccountId: resourcePack.author.stripeAccountId,
     });
-  }
+  };
 
   const onPurchase = () => {
     purchaseMutation.mutate({
       priceId: resourcePack.productId,
       connectedAccountId: resourcePack.author.stripeAccountId,
     });
-  }
+  };
 
   return (
     <div>

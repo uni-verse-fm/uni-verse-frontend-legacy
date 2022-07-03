@@ -31,11 +31,12 @@ const getUserResourcePack = (id: string) =>
   axiosClient.get(`${resourcePackEndpoint}/user/${id}`).then((res) => res.data);
 
 const downloadResourcePack = (packId: string, destId?: string) =>
-  axiosClient
-    .get(`${resourcePackEndpoint}/download/${packId}${
-        destId ? "?destId=" + destId : ""
-      }`,
-      { responseType: "blob" });
+  axiosClient.get(
+    `${resourcePackEndpoint}/download/${packId}${
+      destId ? "?destId=" + destId : ""
+    }`,
+    { responseType: "blob" }
+  );
 
 const downloadResource = (
   packId: string,

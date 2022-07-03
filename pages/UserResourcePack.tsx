@@ -17,14 +17,13 @@ const allowDownload = (
   boughtQuery: any,
   resourcePack: any
 ) => {
-    console.log(boughtQuery?.data)
+  console.log(boughtQuery?.data);
   if (
     donatedQuery.status === "success" &&
     parseInt(donatedQuery.data) > resourcePack.amount
   ) {
     return true;
   } else if (boughtQuery.status === "success" && boughtQuery.data) {
-    
     return true;
   } else if (resourcePack.accessType === "free") {
     return true;
