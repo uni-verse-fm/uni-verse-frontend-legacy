@@ -118,7 +118,6 @@ const ArtistRelease = ({ release }) => {
                 onClick={handleShowMoreInformations}
               />
             </h2>
-
           ) : (
             <h2 className="text-grn">
               <FontAwesomeIcon

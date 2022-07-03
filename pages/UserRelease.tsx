@@ -40,9 +40,7 @@ function UserRelease() {
               </h1>
             </div>
           ) : (
-            <ArtistRelease
-              release={data}
-            />
+            <ArtistRelease release={data} />
           )}
         </div>
       </div>

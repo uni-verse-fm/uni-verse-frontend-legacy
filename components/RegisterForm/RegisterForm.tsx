@@ -1,7 +1,6 @@
 import { Form, Formik } from "formik";
 import { Extensions, Messages } from "../../common/constants";
 import * as Yup from "yup";
-import UploadImageDisplayer from "../UploadImageDisplayer";
 import { notify } from "../Notifications";
 import { useMutation } from "react-query";
 import { register } from "../../api/AuthAPI";
@@ -119,7 +118,9 @@ const RegisterForm = () => {
                 ) : null}
               </div>
               <div className="flex items-start mb-10 flex-col w-64 h-16">
-                <label className="mb-2 text-md font-bold">Confirm your Password</label>
+                <label className="mb-2 text-md font-bold">
+                  Confirm your Password
+                </label>
                 <input
                   id="passwordConfirmation"
                   name="passwordConfirmation"
