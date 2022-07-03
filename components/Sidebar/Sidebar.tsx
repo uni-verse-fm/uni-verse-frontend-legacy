@@ -48,13 +48,13 @@ const Sidebar = ({ handleShowModal }) => {
                   />
                 </LinkWrapper>
               </Link>
-              <SideMenuEntry
+              {/* <SideMenuEntry
                 icon={faChartLine}
                 onClick={(_: any) =>
                   notify(Messages.NOT_IMPLEMENTED, NotificationType.ERROR)
                 }
                 title="Analytics"
-              />
+              /> */}
             </>
           )}
         </div>
