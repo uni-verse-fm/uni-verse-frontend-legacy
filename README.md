@@ -1,34 +1,136 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Site web Uni-verse
 
-## Getting Started
+Uni-verse est une plateforme de streaming audio conçue spécifiquement pour les producteurs de musique.
+Elle consiste en un site web, une application smartphone, et une API.
 
-First, run the development server:
+Ce projet est le site web de Uni-verse.
 
-```bash
-npm run dev
-# or
-yarn dev
+Le site permet de téléverser et consulter les publications (`release`), de téléverser et télécharger les packs de ressources, de commenter les tracks avec des avis positifs ou négatifs, de rechercher du contenu, de créer des playlists, ou encore de donner aux utilsateurs ou à la plateforme.
+
+Actuellement, Uni-verse est en ligne à l'[addresse suivante](https://uni-verse.vagahbond.com).
+
+## Structure du site web:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Homepage
+    [*] --> Login
+    [*] --> SignUp
+    [*] --> UploadRelease
+    [*] --> UploadResourcePack
+    [*] --> Donate
+    [*] --> Playlists
+    [*] --> Search
+    [*] --> Dashboard
+    Homepage --> Release
+    Homepage --> Track
+    Playlists --> CreatePlaylist
+    Playlists --> Track
+    Playlists --> Playlist
+    Search --> Track
+    Search --> Release
+    Search --> ResourcePack
+    Search --> User
+    Search --> Playlist
+    Release --> Track
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Accueil
+![](screenshots/homepage.png)
+### Connexion
+![](screenshots/login.png)
+### Inscription
+![](screenshots/signup.png)
+### Release
+![](screenshots/release.png)
+### Créer une release
+![](screenshots/release-upload.png)
+### Pack de ressources
+![](screenshots/resource-pack.png)
+### Créer un pack de ressources
+![](screenshots/resource-pack-upload.png)
+### Playlists
+![](screenshots/playlists.png)
+### Playlist
+![](screenshots/playlist.png)
+### Créer Playlist
+![](screenshots/playlist-create.png)
+### Rechercher
+![](screenshots/search.png)
+### Utilisateur
+![](screenshots/user.png)
+### Tableau de bord
+![](screenshots/dashboard.png)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Stack technique
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### Typescript
+Pour l'interface web de uni-verse, nous avons choisi d'utiliser NodeJS avec Typescript pour la maintenabilité.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### NextJS
+Le site de uni-verse repose sur un framework appelé [NextJS](https://nextjs.org/docs/getting-started) qui permet d'utiliser React en server-side rendering. L'interêt d'un tel choix est la rapidité du site, ainsi qu'un meilleur SEO, du fait que les pages sont en partie servies statiques.
+### TailwindCSS
+L'aspect css du site est gérée avec [TailwindCss](https://tailwindcss.com/docs/installation), qui permet d'ajouter efficacement des styles aux elements de la DOM avec des noms de classes, dans la même idée que Bootstrap.
 
-## Learn More
+### Fontawesome
+On utilise [FontAwesome](https://fontawesome.com/search?s=solid%2Cbrands) pour les icones à différents endroits du site, notament dans le lecteur de musique.
 
-To learn more about Next.js, take a look at the following resources:
+### Docker
+Ce produit est distribué par le biais d'une image [docker](https://www.docker.com/), construite dans une pipeline Github-Actions et publiée dans un registre privé docker.
+L'image docker permet de repliquer l'environnement dont Uni-verse a besoin en une seule commande, et de l'utiliser plus facilement sur le cloud.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### ESLint et Prettier
+Afin d'enforcer les conventions de codage, [Eslint](https://eslint.org/) et [Prettier](https://prettier.io/) ont été mis en place et intégré dans GitHub-Actions.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Kubernetes
+Un déploiement et un service dans ce répo permettent de déployer facilement ce site en production dans Kubernetes.
 
-## Deploy on Vercel
+### Github Actions
+Github-Actions est utilisé pour plusieur aspects du projet:
+1) Faire respecter les conventions de code en faisant tourner prettier et eslint sur chaque PR
+2) Faire tourner les tests sur chaque PR et chaque nouveau commit dans `main`
+3) Construire l'image docker et la publeir dans le registre privé à chaque release créée sur Github.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Contribuer
+
+### Environnement de développement
+Il est conseillé de faire tourner en local le site web avec `npm run dev`. Afin que le site fonctionne correctement, plusieur variables doivent être renseignées dans un fichier `.env.local`:
+
+```
+STRIPE_PUBLISHABLE_KEY=
+STRIPE_SECRET_KEY=
+REACT_APP_API_URL=
+GOOGLE_AUTH_CLIENT_ID=
+GOOGLE_AUTH_CLIENT_SECRET=
+SPOTIFY_AUTH_CLIENT_ID=
+SPOTIFY_AUTH_CLIENT_SECRET=
+JWT_SECRET=
+NEXTAUTH_URL=
+PORT=
+NEXT_PUBLIC_MAX_FILE_SIZE=
+NEXT_PUBLIC_MAX_IMAGE_SIZE=
+NEXT_PUBLIC_MINIO_URL=
+NEXT_PUBLIC_MAX_IMAGE_SIZE=
+NEXT_PUBLIC_MAX_FILE_SIZE=
+NEXT_PUBLIC_API_URL=
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+NEXT_PUBLIC_UNIVERSE_PRIVATE_KEY=
+NEXT_PUBLIC_STRIPE_PUBLIC_KEY=
+
+```
+
+Enfin, L'API doit être rendue disponible. Pour cela, se référer directrement à [la documentation de l'API.](https://github.com/uni-verse-fm/uni-verse-api).
+
+### Conventions de codage
+Les conventions de codage poussées par Prettier et ESLint sont basées sur les configurations recommendées directement par Nextjs. On peut les consulter [dans la documentation de NextJs](https://nextjs.org/docs/basic-features/eslint).
+
+Les règles prncipales à retenir sont que les variables doivent être en lowerCamelCase, ainsi que les fonctions. Eslint veille aussi aux imports et variables non utilisees.
+
+Si les conventions de codage ne sont pas respectées, une PR ne peut pas être mergée, car elle ne passera pas les testes de l'intégration continue.
+
+## Production
+
+Ce répos est prévu pour être mis en ligne à l'aide de Kuebrnetes.
+Une config,ap doit lui être mise à disposition afin de fournir les variables d'environnements montrées plus haut.
+Par ailleurs les variables préfixées par 'NEXT_PUBLIC_' doivent être présentes au moment du build de l'image docker. Cette condition est respectée dans Github-Actions, qui crée un fichier se servant des secrets et variables d'environnement de github pendant le build.
