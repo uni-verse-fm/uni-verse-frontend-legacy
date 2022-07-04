@@ -60,3 +60,5 @@ export const trackSource = `${config.minioUrl}/tracks/`;
 export const previewSource = `${config.minioUrl}/previews/`;
 
 export const imageSource = `${config.minioUrl}/images/`;
+
+export const spacesRegex = /\s+(?=([^"]*"[^"]*")*[^"]*$)/g;

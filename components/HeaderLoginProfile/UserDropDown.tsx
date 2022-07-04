@@ -75,7 +75,7 @@ const UserDropDown = ({ user }) => {
             )}
           </Menu.Item>
         </Link>
-        {user.accountId && (
+        {user.stripeAccountId && (
           <a
             href="https://dashboard.stripe.com/test/dashboard"
             target="_blank"

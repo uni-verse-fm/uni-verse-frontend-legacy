@@ -12,6 +12,7 @@ import {
   MAX_FILE_SIZE,
   MAX_IMAGE_SIZE,
   Messages,
+  spacesRegex,
 } from "../../common/constants";
 import {
   AccessType,
@@ -161,7 +162,11 @@ const UploadResourcePackForm = ({ me }) => {
           })),
         };
         var bodyFormData = new FormData();
-        bodyFormData.append("data", JSON.stringify(data).replace(/ /g, ""));
+        const stringData = JSON.stringify(data)
+          .replace(spacesRegex, "")
+          .replace(/\s+/g, " ");
+        bodyFormData.append("data", stringData);
+
         value.resources.forEach((resource) => {
           bodyFormData.append("resources", resource.file, resource.file.name);
           resource.previewFile;

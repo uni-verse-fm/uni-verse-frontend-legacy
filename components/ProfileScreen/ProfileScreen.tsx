@@ -179,7 +179,7 @@ const ProfileScreen = ({
               />
             </button>
           )}
-          {user.id && user.accountId && !isMe && (
+          {user.id && user.stripeAccountId && !isMe && (
             <button className="mt-4 text-md text-grn bg-wht rounded-full px-2 h-7 hover:bg-grn hover:text-wht hover:bg-opacity-25">
               <span>Donate</span>
             </button>

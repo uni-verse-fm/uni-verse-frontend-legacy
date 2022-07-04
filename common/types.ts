@@ -147,7 +147,7 @@ export interface IProfileScreen {
     id: string;
     username: string;
     email: string;
-    accountId?: string;
+    stripeAccountId?: string;
     image?: string;
   };
   releases: any;
