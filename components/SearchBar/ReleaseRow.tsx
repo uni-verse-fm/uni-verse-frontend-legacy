@@ -47,7 +47,7 @@ const ReleaseRow = ({
           src={
             release.coverName ? imageSource + release.coverName : "/profile.jpg"
           }
-          className="rounded-lg w-20 h-20"
+          className="rounded-lg object-cover w-20 h-20"
           alt="Release"
         />
         <div className="m-3">

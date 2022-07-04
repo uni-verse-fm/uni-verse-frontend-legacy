@@ -2,27 +2,9 @@ import { Messages } from "../../common/constants";
 import router from "next/router";
 import { styles } from "../PlayListsModal";
 import ResourcePackCard from "../ResourcePackCard";
-import { Pages, NotificationType } from "../../common/types";
-import { getResourcePacks } from "../../api/ResourcePackAPI";
-import { AxiosError } from "axios";
-import { notify } from "../Notifications";
-import { useQuery } from "react-query";
-import { isoDateYear } from "../../utils/dateUtils";
+import { Pages } from "../../common/types";
 
-const ResourcesPacks = (props) => {
-  const { data, status } = useQuery(
-    "getResourcePacks",
-    () => getResourcePacks(),
-    {
-      onError: (error: AxiosError) => {
-        if (error.response?.status === 401) {
-          notify(Messages.UNAUTHORIZED, NotificationType.ERROR);
-          router.replace(`/${Pages.Login}`);
-        }
-      },
-    }
-  );
-
+const ResourcesPacks = ({ packs }) => {
   const onClickDisplayResourcePack = (idResourcePack) => () => {
     router.push({
       pathname: `/${Pages.UserResourcePack}`,
@@ -33,8 +15,8 @@ const ResourcesPacks = (props) => {
   return (
     <div className="w-full text-wht">
       <div className={styles.wrapper}>
-        {props.data?.length ? (
-          props.data.map((item, index) => (
+        {packs?.length ? (
+          packs.map((item, index) => (
             <div key={index} onClick={onClickDisplayResourcePack(item._id)}>
               <ResourcePackCard key={index} resourcePack={item} />
             </div>

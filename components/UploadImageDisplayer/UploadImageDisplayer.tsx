@@ -32,9 +32,9 @@ const UploadImageDisplayer = (props) => {
               ? URL.createObjectURL(image)
               : props.profilePicture || props.defaultImageSrc
           }
-          className={`md:mx-auto rounded-xl h-${props.size || 56} w-${
+          className={`md:mx-auto object-cover rounded-xl h-${
             props.size || 56
-          } rounded-lg`}
+          } w-${props.size || 56} rounded-lg`}
           alt="image to upload"
         />
       </div>

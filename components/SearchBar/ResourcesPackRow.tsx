@@ -29,7 +29,7 @@ const ResourcesPackRow = ({
               ? imageSource + resourcesPack.coverName
               : "/profile.jpg"
           }
-          className="rounded-lg m-2 w-20 h-20"
+          className="rounded-lg object-cover m-2 w-20 h-20"
           alt="resourcesPack"
         />
         <div className="m-3">

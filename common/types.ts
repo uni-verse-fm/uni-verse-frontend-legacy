@@ -150,11 +150,10 @@ export interface IProfileScreen {
     stripeAccountId?: string;
     image?: string;
   };
-  releases: any;
-  resourcesPacks: any;
-
-  playlists: any;
-
+  releases: any[];
+  resourcesPacks: any[];
+  hotTracks: any[];
+  playlists: any[];
   isMe?: boolean;
 }
 

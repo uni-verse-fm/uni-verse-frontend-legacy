@@ -8,6 +8,9 @@ const hotTracks = (params: HotViews) => () =>
     )
     .then((response) => response.data);
 
+const artistHotTracks = (id: string) =>
+  axiosClient.get(`${Endoints.Views}/user/${id}`);
+
 const hotReleases = (params: HotViews) => () =>
   axiosClient
     .get(
@@ -19,4 +22,4 @@ const addView = async (payload: AddView) => {
   await axiosAdminClient.post(`${Endoints.Views}`, payload);
 };
 
-export { hotTracks, hotReleases, addView };
+export { hotTracks, hotReleases, addView, artistHotTracks };

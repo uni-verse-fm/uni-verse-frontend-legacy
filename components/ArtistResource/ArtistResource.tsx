@@ -32,7 +32,7 @@ const ArtistResource = ({ resource }) => {
                     ? imageSource + resource?.resourcepack.coverName
                     : "/Playlist.png"
                 }
-                className="rounded-lg"
+                className="rounded-lg object-cover"
                 width={200}
                 height={200}
                 alt="Resource cover"
