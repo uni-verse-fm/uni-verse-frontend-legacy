@@ -189,7 +189,7 @@ const ProfileScreen = ({
               ResoucesPacks
             </h2>
             <div className="-ml-4 ">
-              <ResourcesPacks data={resourcesPacks} />
+              <ResourcesPacks packs={resourcesPacks} />
             </div>
           </div>
         )}

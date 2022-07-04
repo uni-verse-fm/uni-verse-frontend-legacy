@@ -1,6 +1,7 @@
 import React from "react";
 
 import { imageSource } from "../../common/constants";
+import { isoDateYear } from "../../utils/dateUtils";
 
 const ResourcePackCard = ({ resourcePack }) => {
   return (
@@ -19,7 +20,7 @@ const ResourcePackCard = ({ resourcePack }) => {
         {resourcePack.title}{" "}
       </h2>
       <h1 className="pl-1 text-gry text-sm ">
-        {resourcePack.author?.username}
+        {resourcePack.author?.username} {isoDateYear(resourcePack.createdAt)}
       </h1>
     </div>
   );
