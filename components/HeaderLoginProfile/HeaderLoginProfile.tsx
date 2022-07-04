@@ -1,13 +1,10 @@
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { Pages } from "../../common/types";
 import UserDropDown from "./UserDropDown";
 
-const HeaderLoginProfile = () => {
-  const { data: session } = useSession();
-
-  return session ? (
-    <UserDropDown user={session?.user} />
+const HeaderLoginProfile = ({ user }) => {
+  return user ? (
+    <UserDropDown user={user} />
   ) : (
     <div className="top-0 right-0 flex mt-3">
       <div
