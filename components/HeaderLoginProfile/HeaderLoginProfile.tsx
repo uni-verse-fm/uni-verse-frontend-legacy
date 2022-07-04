@@ -7,6 +7,11 @@ const HeaderLoginProfile = ({ user }) => {
     <UserDropDown user={user} />
   ) : (
     <div className="top-0 right-0 flex mt-3">
+        <div
+        className={`text-md font-medium rounded-full text-white bg-grn hover:bg-segrn h-8 px-3 mx-1 pt-1`}
+      >
+        <Link href={`/${Pages.LicencePage}`}>LICENSE</Link>
+      </div>
       <div
         className={`text-md font-medium rounded-full text-white bg-grn hover:bg-segrn h-8 px-3 mx-1 pt-1`}
       >
