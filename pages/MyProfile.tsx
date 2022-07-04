@@ -46,7 +46,7 @@ function MyProfile(props) {
     releasesQuery.status === "loading" ||
     playlistsQuery.status === "loading" ||
     resourcesPacksQuery.status === "loading" ? (
-    <div className="flex justify-center items-center  bg-drk w-full h-full">
+    <div className="flex justify-center items-center bg-drk w-full h-full">
       <Spinner />
     </div>
   ) : session.user ? (
