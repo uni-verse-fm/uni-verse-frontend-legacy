@@ -196,7 +196,7 @@ export default NextAuth({
           username: token.username,
           email: token.email,
           id: token.id,
-          accountId: token.accountId,
+          stripeAccountId: token.stripeAccountId,
           profilePicture: token.profilePicture,
         },
       };

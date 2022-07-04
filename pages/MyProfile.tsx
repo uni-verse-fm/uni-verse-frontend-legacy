@@ -55,7 +55,7 @@ function MyProfile(props) {
         id: meQuery.data.id,
         username: meQuery.data.username,
         email: meQuery.data.email,
-        accountId: meQuery.data.accountId,
+        stripeAccountId: meQuery.data.stripeAccountId,
         profilePicture: meQuery.data.profilePicture,
       }}
       releases={releasesQuery.data}

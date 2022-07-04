@@ -19,7 +19,7 @@ type ProfileParams = {
     username: string;
     email: string;
     profilePicture?: string;
-    accountId?: string;
+    stripeAccountId?: string;
   };
   releases: any;
   playlists: any;
@@ -67,7 +67,7 @@ function Profile() {
         username: user.username,
         email: user.email,
         profilePicture: user.profilePicture,
-        accountId: user.accountId,
+        stripeAccountId: user.stripeAccountId,
       },
       releases,
       playlists,
