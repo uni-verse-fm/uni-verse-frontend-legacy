@@ -9,7 +9,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { downloadResourcePack } from "../../api/ResourcePackAPI";
 import { imageSource, Messages } from "../../common/constants";
-import Image from "next/image";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import { useState } from "react";
@@ -99,15 +98,13 @@ const ResourcePack = ({ resourcePack, download }: IResourcePack) => {
         <>
           <div className="flex flex-row mb-10">
             <div className="flex flex-col gap-2">
-              <Image
+              <img
                 src={
                   resourcePack.coverName
                     ? imageSource + resourcePack.coverName
                     : "/Playlist.png"
                 }
-                className="rounded mb-5"
-                width={150}
-                height={150}
+                className="rounded-xl h-48 w-48"
                 alt="ResourcePack"
               />
               {!download && resourcePack.accessType === "donation" && (

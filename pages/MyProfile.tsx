@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery } from "react-query";
+import { dehydrate, QueryClient, useQuery } from "react-query";
 import { getSession, GetSessionParams, useSession } from "next-auth/react";
 import { getUserReleases } from "../api/ReleaseAPI";
 import { Session } from "next-auth";
@@ -21,20 +21,20 @@ function MyProfile(props) {
   });
 
   const releasesQuery = useQuery(
-    "myReleases",
-    () => getUserReleases((session.user as any).id),
+    "my-releases",
+    () => getUserReleases((session.user as any).id).then((res) => res.data),
     { initialData: props.releases, enabled: meQuery.status === "success" }
   );
 
   const playlistsQuery = useQuery(
-    "myPlaylists",
-    () => getUserPlaylists((session.user as any).id),
+    "my-playlists",
+    () => getUserPlaylists((session.user as any).id).then((res) => res.data),
     { enabled: releasesQuery.status === "success" }
   );
 
   const resourcesPacksQuery = useQuery(
-    "myResourcePacks",
-    () => getUserResourcePack((session.user as any).id),
+    "my-resource-packs",
+    () => getUserResourcePack((session.user as any).id).then((res) => res.data),
     { enabled: releasesQuery.status === "success" }
   );
 
@@ -42,7 +42,10 @@ function MyProfile(props) {
     <div className="flex justify-center items-center bg-drk w-full h-full">
       <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
     </div>
-  ) : meQuery.status === "loading" ? (
+  ) : meQuery.status === "loading" ||
+    releasesQuery.status === "loading" ||
+    playlistsQuery.status === "loading" ||
+    resourcesPacksQuery.status === "loading" ? (
     <div className="flex justify-center items-center  bg-drk w-full h-full">
       <Spinner />
     </div>
@@ -69,6 +72,9 @@ function MyProfile(props) {
 
 export async function getServerSideProps(context: GetSessionParams) {
   const session: Session = await getSession(context);
+  const id = (session.user as any)?.id;
+  const queryClient = new QueryClient();
+
   const payload: ILogin = {
     email: process.env.UNIVERSE_EMAIL,
     password: process.env.UNIVERSE_PASSWORD,
@@ -76,6 +82,16 @@ export async function getServerSideProps(context: GetSessionParams) {
   const adminRefreshToken = await adminLogin(payload).then(
     (response) => response.adminRefreshToken
   );
+  await queryClient.prefetchQuery("me", me);
+
+  await queryClient.prefetchQuery("my-releases", () => getUserReleases(id));
+
+  await queryClient.prefetchQuery("my-playlists", () => getUserPlaylists(id));
+
+  await queryClient.prefetchQuery("my-resource-packs", () =>
+    getUserResourcePack(id)
+  );
+
   if (!session) {
     return {
       redirect: {
@@ -89,6 +105,7 @@ export async function getServerSideProps(context: GetSessionParams) {
     props: {
       session,
       adminRefreshToken,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 }

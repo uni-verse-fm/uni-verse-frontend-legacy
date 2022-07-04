@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Menu } from "@headlessui/react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -36,7 +35,7 @@ const UserDropDown = ({ user }) => {
     <Menu as="div" className="text-left h-full w-auto z-50">
       <Menu.Button className="h-full w-auto p-2">
         {user?.profilePicture ? (
-          <Image
+          <img
             src={imageSource + user.profilePicture}
             alt="Uni-verse user avatar"
             className="rounded-full"

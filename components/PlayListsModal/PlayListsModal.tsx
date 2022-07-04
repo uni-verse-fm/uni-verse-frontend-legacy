@@ -24,8 +24,8 @@ const PlaylistsModal = ({
   const { data: session } = useSession();
 
   const playlistsQuery = useQuery(
-    "myPlaylists",
-    () => getUserPlaylists((session?.user as any)?.id),
+    "my-playlists",
+    () => getUserPlaylists((session?.user as any)?.id).then((res) => res.data),
     { enabled: Boolean((session?.user as any)?.id) }
   );
 

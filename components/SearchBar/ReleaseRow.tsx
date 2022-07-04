@@ -4,7 +4,6 @@ import { useContext } from "react";
 import { imageSource } from "../../common/constants";
 import { PlayerContext } from "../../common/contexts/PlayerContext";
 import { Types } from "../../common/types";
-import Image from "next/image";
 
 const countReleaseViews = (tracks: any[]) => {
   const length = tracks.length;
@@ -48,9 +47,7 @@ const ReleaseRow = ({
           src={
             release.coverName ? imageSource + release.coverName : "/profile.jpg"
           }
-          className="rounded-lg"
-          width={80}
-          height={80}
+          className="rounded-lg w-20 h-20"
           alt="Release"
         />
         <div className="m-3">

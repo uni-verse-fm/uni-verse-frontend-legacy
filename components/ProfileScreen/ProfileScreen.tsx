@@ -161,7 +161,7 @@ const ProfileScreen = ({
                   ? imageSource + user.profilePicture
                   : imageProps.defaultImageSrc
               }
-              className={`md:mx-auto object-contain h-56 w-56 rounded-lg`}
+              className={`md:mx-auto h-56 w-56 rounded-xl`}
               alt="image to upload"
             />
           )}
