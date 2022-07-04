@@ -17,13 +17,18 @@ import {
 } from "../types";
 
 const getBaseUrl = (state) =>
-  state.tracks[0]?.release ? trackSource : previewSource;
+  state.type === PlayType.TRACK ? trackSource : previewSource;
 
 const initialState: ReducerPlayerType = {
   tracks: [],
   trackIndex: 0,
   className: "mt-auto",
 };
+
+enum PlayType {
+  TRACK = "track",
+  PREVIEW = "preview",
+}
 
 export const playerReducer = (
   state: ReducerPlayerType,
@@ -33,26 +38,31 @@ export const playerReducer = (
     case Types.PlaylistPlay:
       return {
         ...action.payload,
+        type: PlayType.TRACK,
         trackIndex: action.payload.trackIndex || 0,
       };
     case Types.ReleasePlay:
       return {
         ...action.payload,
+        type: PlayType.TRACK,
         trackIndex: action.payload.trackIndex || 0,
       };
     case Types.TrackPlay:
       return {
         tracks: [action.payload.track],
+        type: PlayType.TRACK,
         trackIndex: 0,
       };
     case Types.PreviewPlay:
       return {
         tracks: [action.payload.track],
+        type: PlayType.PREVIEW,
         trackIndex: 0,
       };
     case Types.RandomPlay:
       return {
         tracks: action.payload.tracks,
+        type: PlayType.TRACK,
       };
     default:
       return state;

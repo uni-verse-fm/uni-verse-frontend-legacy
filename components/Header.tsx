@@ -22,7 +22,7 @@ const Header = () => {
         <SearchBar isConnected={session} />
       </div>
       <div className="flex flex-row-reverse col-start-6 col-end-7">
-        <HeaderLoginProfile />
+        <HeaderLoginProfile user={session?.user} />
         {session && <DonateDropDown />}
       </div>
     </header>
