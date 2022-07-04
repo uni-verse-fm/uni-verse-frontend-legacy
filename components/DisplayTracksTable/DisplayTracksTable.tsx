@@ -83,7 +83,7 @@ const DisplayTracksTable = ({ release }) => {
                       ? imageSource + track?.release.coverName
                       : "/Playlist.png"
                   }
-                  className="rounded-lg m-2"
+                  className="rounded-lg object-cover m-2"
                   width={50}
                   height={50}
                   alt="Track cover"

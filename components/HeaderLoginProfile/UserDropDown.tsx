@@ -38,7 +38,7 @@ const UserDropDown = ({ user }) => {
           <img
             src={imageSource + user.profilePicture}
             alt="Uni-verse user avatar"
-            className="rounded-full"
+            className="rounded-full object-cover"
             width={42}
             height={42}
             defaultValue="/profile.jpg"

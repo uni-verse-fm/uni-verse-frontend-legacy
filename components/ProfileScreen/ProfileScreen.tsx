@@ -7,12 +7,10 @@ import {
   Extensions,
   imageSource,
   MAX_IMAGE_SIZE,
-  Messages,
 } from "../../common/constants";
 import { IProfileScreen, NotificationType } from "../../common/types";
 import ArtistReleases from "../ArtistReleases";
 import ResourcesPacks from "../ResourcesPacks";
-import DisplayTracksTable from "../DisplayTracksTable";
 import { notify } from "../Notifications";
 import Playlists from "../PLaylists";
 import UploadImageDisplayer from "../UploadImageDisplayer";
@@ -32,6 +30,7 @@ const ProfileScreen = ({
   releases,
   isMe,
   resourcesPacks,
+  hotTracks,
   playlists,
 }: IProfileScreen) => {
   const router = useRouter();
@@ -53,52 +52,6 @@ const ProfileScreen = ({
       query: { track: JSON.stringify(track) },
     });
   };
-
-  {
-    /** A remplacer par getPopularTracks */
-  }
-  let tracks = [
-    {
-      title: " track N°1",
-      author: {
-        username: " nmedjoub",
-      },
-      createdAt: "2022-01-01",
-      duration: "2:33",
-    },
-    {
-      title: " track N°2",
-      author: {
-        username: " nmedjoub",
-      },
-      createdAt: "2022-01-01",
-      duration: "2:33",
-    },
-    {
-      title: " track N°2",
-      author: {
-        username: " nmedjoub",
-      },
-      createdAt: "2022-01-01",
-      duration: "2:33",
-    },
-    {
-      title: " track N°3",
-      author: {
-        username: " nmedjoub",
-      },
-      createdAt: "2022-01-01",
-      duration: "2:33",
-    },
-    {
-      title: " track N°4",
-      author: {
-        username: " nmedjoub",
-      },
-      createdAt: "2022-01-01",
-      duration: "2:33",
-    },
-  ];
 
   const { mutate } = useMutation("uploadProfilePicture", changeProfilePicture, {
     onError: () => {
@@ -161,7 +114,7 @@ const ProfileScreen = ({
                   ? imageSource + user.profilePicture
                   : imageProps.defaultImageSrc
               }
-              className={`md:mx-auto h-56 w-56 rounded-xl`}
+              className={`md:mx-auto object-cover h-56 w-56 rounded-xl`}
               alt="image to upload"
             />
           )}
@@ -187,26 +140,28 @@ const ProfileScreen = ({
         </div>
       </div>
 
-      <h2 className="font-bold not-italic text-wht text-xl mt-10">
-        Populaires
-      </h2>
-
-      <div className="flex flex-row grow w-full h-auto">
-        <div className="grow m-2 rounded-xl">
-          <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-fakeBlr shadow-lg">
-            {tracks.length &&
-              tracks.map((track, index) => (
-                <li key={index}>
-                  <TrackRow
-                    track={track as any}
-                    onClickDisplayTrack={onClickDisplayTrack(track as any)}
-                    disableHover={true}
-                  />
-                </li>
-              ))}
-          </ul>
-        </div>
-      </div>
+      {hotTracks.length > 0 && (
+        <>
+          <h2 className="font-bold not-italic text-wht text-xl mt-10">
+            Populaires
+          </h2>
+          <div className="flex flex-row grow w-full h-auto">
+            <div className="grow m-2 rounded-xl">
+              <ul className="mt-2 divide-y divide-gray-100 rounded-lg bg-fakeBlr shadow-lg">
+                {hotTracks.map((track, index) => (
+                  <li key={index}>
+                    <TrackRow
+                      track={track as any}
+                      onClickDisplayTrack={onClickDisplayTrack(track as any)}
+                      disableHover={true}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </>
+      )}
 
       <div className="text-start justify-start items-start w-full h-full">
         <h2 className="font-bold not-italic text-wht text-xl mt-10 mb-5 ">

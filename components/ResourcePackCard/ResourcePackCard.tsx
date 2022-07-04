@@ -6,7 +6,7 @@ const ResourcePackCard = ({ resourcePack }) => {
   return (
     <div className="cursor-pointer rounded-lg hover:scale-[1.03] mb-1 p-2 bg-opacity-50 bg-gry hover:bg-gry hover:bg-opacity-70">
       <img
-        className="md:container md:mx-auto rounded-lg w-full h-28"
+        className="md:container object-cover md:mx-auto rounded-lg w-full h-28"
         src={
           resourcePack.coverName
             ? imageSource + resourcePack.coverName

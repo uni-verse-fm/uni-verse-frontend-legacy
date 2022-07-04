@@ -74,7 +74,7 @@ const ArtistRelease = ({ release }) => {
                 ? imageSource + release.coverName
                 : "/Playlist.png"
             }
-            className="rounded-xl w-48 h-48"
+            className="rounded-xl object-cover w-48 h-48"
             width={150}
             height={150}
             alt="Release"

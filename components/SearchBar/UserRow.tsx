@@ -13,7 +13,7 @@ const UserRow = ({ user, onClickDisplayUser }) => {
               ? imageSource + user.profilePicture
               : "/profile.jpg"
           }
-          className="rounded-lg m-2 w-20 h-20"
+          className="rounded-lg object-cover m-2 w-20 h-20"
           alt="User image"
         />
         <div className="text-grn text-md m-4">

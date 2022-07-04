@@ -11,6 +11,7 @@ import { me } from "../api/AuthAPI";
 import { ILogin } from "../common/types";
 import { getUserResourcePack } from "../api/ResourcePackAPI";
 import { getUserPlaylists } from "../api/PlaylistAPI";
+import { artistHotTracks } from "../api/ViewsAPI";
 
 function MyProfile(props) {
   const { data: session } = useSession();
@@ -38,12 +39,19 @@ function MyProfile(props) {
     { enabled: releasesQuery.status === "success" }
   );
 
+  const myHotTracks = useQuery(
+    "my-hot-tracks",
+    () => artistHotTracks((session.user as any).id).then((res) => res.data),
+    { enabled: releasesQuery.status === "success" }
+  );
+
   return meQuery.status === "error" ? (
     <div className="flex justify-center items-center bg-drk w-full h-full">
       <h1 className="text-rd whitespace-nowrap">{Messages.ERROR_LOAD}</h1>
     </div>
   ) : meQuery.status === "loading" ||
     releasesQuery.status === "loading" ||
+    myHotTracks.status === "loading" ||
     playlistsQuery.status === "loading" ||
     resourcesPacksQuery.status === "loading" ? (
     <div className="flex justify-center items-center bg-drk w-full h-full">
@@ -59,6 +67,7 @@ function MyProfile(props) {
         profilePicture: meQuery.data.profilePicture,
       }}
       releases={releasesQuery.data}
+      hotTracks={myHotTracks.data}
       resourcesPacks={resourcesPacksQuery.data}
       playlists={playlistsQuery.data}
       isMe={true}
@@ -91,6 +100,8 @@ export async function getServerSideProps(context: GetSessionParams) {
   await queryClient.prefetchQuery("my-resource-packs", () =>
     getUserResourcePack(id)
   );
+
+  await queryClient.prefetchQuery("my-hot-tracks", () => artistHotTracks(id));
 
   if (!session) {
     return {

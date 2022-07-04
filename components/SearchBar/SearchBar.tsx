@@ -168,7 +168,7 @@ const SearchBar = ({ isConnected }) => {
                   )
                 }
               >
-                ResourcesPack
+                Resource-packs
               </Tab>
               <Tab
                 key="ResourcesPacks"
