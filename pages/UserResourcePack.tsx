@@ -59,11 +59,11 @@ function UserResourcePack() {
         </h1>
         <div className="Global bg-grey w-full h-full flex flex-col">
           {status === "loading" || status === "idle" ? (
-            <div className="flex justify-center items-center mt-10">
+            <div className="flex justify-center items-center h-full">
               <Spinner />
             </div>
           ) : status === "error" ? (
-            <div className="flex justify-center items-center mt-10">
+            <div className="flex justify-center items-center h-full">
               <h1 className="text-rd whitespace-nowrap">
                 {Messages.ERROR_LOAD}
               </h1>
