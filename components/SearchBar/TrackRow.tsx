@@ -36,9 +36,7 @@ const TrackRow = ({ track, onClickDisplayTrack, disableHover }: ITrackRow) => {
               ? imageSource + track?.release.coverName
               : "/Playlist.png"
           }
-          className="rounded-lg"
-          width={80}
-          height={80}
+          className="rounded-lg w-20 h-20"
           alt="Track cover"
         />
 

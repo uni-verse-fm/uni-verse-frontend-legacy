@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext } from "react";
 import { imageSource } from "../../common/constants";
 import { PlayerContext } from "../../common/contexts/PlayerContext";
-import { Resource, Types } from "../../common/types";
+import { Resource } from "../../common/types";
 import CreateComment from "../CreateComment";
 
 const ArtistResource = ({ resource }) => {

@@ -28,7 +28,7 @@ const deleteResourcePack = (id) =>
   axiosClient.delete(`${resourcePackEndpoint}/${id}`);
 
 const getUserResourcePack = (id: string) =>
-  axiosClient.get(`${resourcePackEndpoint}/user/${id}`).then((res) => res.data);
+  axiosClient.get(`${resourcePackEndpoint}/user/${id}`);
 
 const downloadResourcePack = (packId: string, destId?: string) =>
   axiosClient.get(

@@ -22,7 +22,7 @@ const MenuSelectPlayList = ({ track }) => {
 
   const { status, data } = useQuery(
     "my-playlists",
-    () => getUserPlaylists((session?.user as any).id),
+    () => getUserPlaylists((session?.user as any).id).then((res) => res.data),
     {
       onError: (error: AxiosError) => {
         if (error.response?.status === 401) {

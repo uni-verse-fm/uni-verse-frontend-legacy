@@ -8,7 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { deleteRelease } from "../../api/ReleaseAPI";
 import { imageSource, Messages } from "../../common/constants";
-import Image from "next/image";
 
 import { useState } from "react";
 import { useMutation } from "react-query";
@@ -69,13 +68,13 @@ const ArtistRelease = ({ release }) => {
     <div className="Global bg-grey w-full h-full flex flex-col  ">
       <div className=" flex flex-row mb-16 ">
         <div>
-          <Image
+          <img
             src={
               release.coverName
                 ? imageSource + release.coverName
                 : "/Playlist.png"
             }
-            className="rounded mb-5"
+            className="rounded-xl w-48 h-48"
             width={150}
             height={150}
             alt="Release"

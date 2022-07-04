@@ -9,7 +9,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { Messages } from "../../common/constants";
-import Image from "next/image";
 import { useState } from "react";
 import UpdatePlayListForm from "../UpdatePlaylistForm";
 import ConfirmDialogDelete from "../ConfirmDialogDelete/ConfirmDialogDelete";
@@ -70,11 +69,9 @@ const Playlist = ({
       <>
         <div className="ml-10 flex flex-row mb-10 ">
           <div>
-            <Image
-              src={playlist.image || "/Playlist.png"}
-              className="rounded mb-5"
-              width={150}
-              height={150}
+            <img
+              src={"/Playlist.png"}
+              className="rounded-xl mb-5 w-48 h-48"
               alt="playlist"
             />
           </div>
