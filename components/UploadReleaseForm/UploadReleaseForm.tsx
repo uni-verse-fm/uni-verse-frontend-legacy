@@ -10,6 +10,7 @@ import {
   MAX_FILE_SIZE,
   MAX_IMAGE_SIZE,
   Messages,
+  spacesRegex,
 } from "../../common/constants";
 import { NotificationType, Pages, UniVerseError } from "../../common/types";
 import { notify } from "../Notifications";
@@ -93,7 +94,6 @@ const UploadReleaseForm = ({ myId }) => {
           })),
         };
         var bodyFormData = new FormData();
-        const spacesRegex = /\s+(?=([^"]*"[^"]*")*[^"]*$)/g;
         const stringData = JSON.stringify(data)
           .replace(spacesRegex, "")
           .replace(/\s+/g, " ");
