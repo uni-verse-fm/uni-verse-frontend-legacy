@@ -50,7 +50,7 @@ const MenuSelectPlayList = ({ track }) => {
 
   const onClickRelease = (playlist) => () => {
     let dataToUpdate: IUpdatePlaylistTrack = {
-      trackId: track.id,
+      trackId: track?.id,
       action: "ADD",
     };
 
