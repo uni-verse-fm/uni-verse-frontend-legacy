@@ -3,6 +3,7 @@ import {
   faList,
   faRecordVinyl,
   faFileWaveform,
+  faFile,
 } from "@fortawesome/free-solid-svg-icons";
 import SideMenuEntry from "./SideMenuEntry";
 import Player from "../Player";
@@ -44,6 +45,9 @@ const Sidebar = ({ handleShowModal }) => {
             </Link>
           </>
         )}
+        <Link href={`/${Pages.LicencePage}`} passHref>
+          <SideMenuEntry icon={faFile} title="Terms and conditions" />
+        </Link>
       </div>
       <Player />
     </div>
