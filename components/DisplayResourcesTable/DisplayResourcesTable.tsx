@@ -57,7 +57,6 @@ const DisplayResourcesTable = ({ resourcePack, download }) => {
       resourcePack: resourcespack,
       comments: resource.comments,
       download,
-
       id: resource.id,
       _id: resource._id,
     };
