@@ -18,13 +18,7 @@ const ArtistReleases = (props) => {
         {props.data?.length ? (
           props.data.map((item, index) => (
             <div key={index} onClick={onClickDisplayRelease(item._id)}>
-              <ReleaseCard
-                key={index}
-                title={item.title}
-                image={item.coverName}
-                year={isoDateYear(item.createdAt)}
-                defaultImageSrc={"/Playlist.png"}
-              />
+              <ReleaseCard release={item} key={index} />
             </div>
           ))
         ) : (

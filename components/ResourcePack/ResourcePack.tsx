@@ -104,7 +104,7 @@ const ResourcePack = ({ resourcePack, download }: IResourcePack) => {
                     ? imageSource + resourcePack.coverName
                     : "/Playlist.png"
                 }
-                className="rounded-xl h-48 w-48"
+                className="rounded-xl object-cover h-48 w-48"
                 alt="ResourcePack"
               />
               {!download && resourcePack.accessType === "donation" && (

@@ -34,7 +34,7 @@ const ArtistTrack = ({ track }) => {
                     ? imageSource + track?.release.coverName
                     : "/Playlist.png"
                 }
-                className="rounded-lg"
+                className="rounded-lg object-cover"
                 width={200}
                 height={200}
                 alt="Track cover"

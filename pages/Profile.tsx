@@ -9,9 +9,10 @@ import Spinner from "../components/Spinner";
 import { Messages } from "../common/constants";
 import { getUserReleases } from "../api/ReleaseAPI";
 
-import { getResourcePacks } from "../api/ResourcePackAPI";
+import { getUserResourcePack } from "../api/ResourcePackAPI";
 
 import { getUserPlaylists } from "../api/PlaylistAPI";
+import { artistHotTracks } from "../api/ViewsAPI";
 
 type ProfileParams = {
   user: {
@@ -21,10 +22,11 @@ type ProfileParams = {
     profilePicture?: string;
     stripeAccountId?: string;
   };
-  releases: any;
-  playlists: any;
+  releases: any[];
+  playlists: any[];
+  hotTracks: any[];
   isMe: false;
-  resourcesPacks: any;
+  resourcesPacks: any[];
 };
 function Profile() {
   const router = useRouter();
@@ -44,22 +46,30 @@ function Profile() {
     { enabled: userQuery.status === "success" }
   );
 
-  const RessourcePacksQuery = useQuery("getResourcePacks", () =>
-    getResourcePacks().then((res) => {
-      return res.data;
-    })
+  const RessourcePacksQuery = useQuery(
+    `resource-pack-${id}`,
+    () => getUserResourcePack(id as string).then((res) => res.data),
+    { enabled: releasesQuery.status === "success" }
   );
+
+  const hotTracks = useQuery(
+    `hot-tracks-${id}`,
+    () => artistHotTracks(id as string).then((res) => res.data),
+    { enabled: RessourcePacksQuery.status === "success" }
+  );
+
   const playlistsQuery = useQuery(
     `playlists-${id}`,
     () => getUserPlaylists(id as string).then((res) => res.data),
-    { enabled: releasesQuery.status === "success" }
+    { enabled: hotTracks.status === "success" }
   );
 
   const profileParams = (
     user: any,
-    releases: any,
-    playlists: any,
-    resourcesPacks: any
+    releases: any[],
+    playlists: any[],
+    resourcesPacks: any[],
+    hotTracks: any[]
   ): ProfileParams => {
     return {
       user: {
@@ -73,6 +83,7 @@ function Profile() {
       playlists,
       isMe: false,
       resourcesPacks,
+      hotTracks,
     };
   };
 
@@ -90,9 +101,9 @@ function Profile() {
         {...profileParams(
           userQuery.data,
           releasesQuery.data,
-
+          playlistsQuery.data,
           RessourcePacksQuery.data,
-          playlistsQuery.data
+          hotTracks.data
         )}
       />
     </div>
