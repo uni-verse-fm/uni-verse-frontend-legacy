@@ -65,12 +65,10 @@ const MenuSelectPlayList = ({ track }) => {
   return (
     <Menu as="div" className="relative text-left h-full w-auto">
       <Menu.Button className="h-full text-left font-medium text-blk w-auto">
-
-         <FontAwesomeIcon
-                  className=" cursor-pointer hover:scale-[1.40] hover:text-grn text-wht "
-                  icon={faPlus}
-                />
-
+        <FontAwesomeIcon
+          className=" cursor-pointer hover:scale-[1.40] hover:text-grn text-wht "
+          icon={faPlus}
+        />
       </Menu.Button>
       <Menu.Items className="absolute hover-text-grn text-black mt-2 divide-y divide-gray-100 rounded-md bg-wht w-32">
         {status === "success" &&
