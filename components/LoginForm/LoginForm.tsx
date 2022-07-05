@@ -34,7 +34,7 @@ const LoginForm = (props: ILoginForm) => {
                     name="email"
                     type="email"
                     placeholder="Enter your email"
-                    className="text-sm bg-drk w-full h-full text-white pl-2 rounded-md placeholder-gry p-2"
+                    className="text-sm bg-drk w-full h-16 text-white pl-2 rounded-md placeholder-gry p-2"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.email}
