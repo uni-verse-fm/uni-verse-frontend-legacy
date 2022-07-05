@@ -23,7 +23,7 @@ const MenuSelectPlayList = ({ track }) => {
 
   const { status, data } = useQuery(
     "my-playlists",
-    () => getUserPlaylists((session?.user as any).id).then((res) => res.data),
+    () => getUserPlaylists((session?.user as any)?.id).then((res) => res.data),
     {
       onError: (error: AxiosError) => {
         if (error.response?.status === 401) {
@@ -31,7 +31,7 @@ const MenuSelectPlayList = ({ track }) => {
           router.replace(`/${Pages.Login}`);
         }
       },
-      enabled: Boolean((session?.user as any).id),
+      enabled: Boolean((session?.user as any)?.id),
     }
   );
   const { mutate } = useMutation("updatePlaylist", updatePlaylist, {
@@ -55,7 +55,7 @@ const MenuSelectPlayList = ({ track }) => {
     };
 
     let dataForm: IUpdatePayload = {
-      id: playlist._id,
+      id: playlist?._id,
       data: dataToUpdate,
     };
 
