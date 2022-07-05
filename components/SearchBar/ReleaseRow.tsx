@@ -8,7 +8,7 @@ import { Types } from "../../common/types";
 const countReleaseViews = (tracks: any[]) => {
   const length = tracks.length;
   const totalViews = tracks
-    .map((track) => parseInt(track.views))
+    .map((track) => parseInt(track?.views))
     .reduce((previousValue, value) => previousValue + value);
   return Math.floor(totalViews / length);
 };
@@ -30,7 +30,7 @@ const ReleaseRow = ({
     dispatch({
       type: Types.ReleasePlay,
       payload: {
-        tracks: release.tracks || [],
+        tracks: release?.tracks || [],
         trackIndex: 0,
       },
     });
@@ -45,27 +45,29 @@ const ReleaseRow = ({
       <div onClick={onClickDisplayRelease} className="flex items-center grow">
         <img
           src={
-            release.coverName ? imageSource + release.coverName : "/profile.jpg"
+            release?.coverName
+              ? imageSource + release?.coverName
+              : "/Playlist.png"
           }
           className="rounded-lg object-cover w-20 h-20"
           alt="Release"
         />
         <div className="m-3">
-          <div className="text-sedrk text-md">
-            {`${release.title} by ${release.author?.username}`}
+          <div className="text-mdrk text-md">
+            {`${release?.title} by ${release?.author?.username}`}
           </div>
-          {!release.views && (
+          {!release?.views && (
             <div className="text-grn text-sm">
-              {countReleaseViews(release.tracks)}
+              {countReleaseViews(release?.tracks)}
               <FontAwesomeIcon
                 className="cursor-pointer mx-2 hover:scale-[1.40] text-grnfa-sm fa-xs"
                 icon={faEye}
               />
             </div>
           )}
-          {!!release.views && (
+          {!!release?.views && (
             <div className="text-grn text-sm">
-              {release.views / (release.tracks?.length || 1)}
+              {release?.views / (release?.tracks?.length || 1)}
               <FontAwesomeIcon
                 className="cursor-pointer mx-2 hover:scale-[1.40] text-grnfa-sm fa-xs"
                 icon={faEye}

@@ -4,15 +4,15 @@ import { Resource as IResource, ModelType } from "../common/types";
 import Comments from "../components/Comments";
 import ArtistResource from "../components/ArtistResource";
 
+const parse = (resource: string | string[]): IResource | undefined =>
+  resource && JSON.parse(resource as string);
+
 function Resource() {
   const router = useRouter();
 
   const {
     query: { resource },
   } = router;
-
-  const parse = (resource: string | string[]): IResource | undefined =>
-    resource && JSON.parse(resource as string);
 
   return (
     <div className="bg-drk w-auto h-full overflow-y-scroll overflow-x-hidden">

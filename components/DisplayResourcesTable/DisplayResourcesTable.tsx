@@ -14,10 +14,10 @@ const DisplayResourcesTable = ({ resourcePack, download }) => {
 
   const onClickResource = (resource: Resource) => () => {
     const preview = {
-      fileName: resource.previewFileName,
-      title: resource.title,
+      fileName: resource?.previewFileName,
+      title: resource?.title,
       author: {
-        username: resourcePack.author.username,
+        username: resourcePack?.author?.username,
       },
     };
     dispatch({
@@ -30,8 +30,8 @@ const DisplayResourcesTable = ({ resourcePack, download }) => {
 
   const onDownloadResource = (resource: Resource) => {
     let destId: string = undefined;
-    if (resourcePack.accessType === "donation") destId = resourcePack._id;
-    downloadResource(resourcePack._id, resource.id).then((response) => {
+    if (resourcePack?.accessType === "donation") destId = resourcePack?._id;
+    downloadResource(resourcePack?._id, resource?.id).then((response) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -42,22 +42,21 @@ const DisplayResourcesTable = ({ resourcePack, download }) => {
   };
 
   const onClickDisplayResource = (resource) => () => {
-    const resourcespack = {
-      coverName: resourcePack.coverName,
-      title: resourcePack.title,
-      _id: resourcePack._id,
-      id: resourcePack.id,
-    };
-
     const RessourceToDisplay = {
-      title: resource.title,
-      fileName: resource.fileName,
-      author: resource.author,
-      resourcepack: resourcespack,
-      views: resource.views,
-      comments: resource.comments,
-      id: resource.id,
-      _id: resource._id,
+      title: resource?.title,
+      fileName: resource?.fileName,
+      previewFileName: resource?.previewFileName,
+      author: resource?.author,
+      resourcePack: {
+        coverName: resourcePack?.coverName,
+        title: resourcePack?.title,
+        _id: resourcePack?._id,
+        id: resourcePack?.id,
+      },
+      comments: resource?.comments,
+      download,
+      id: resource?.id,
+      _id: resource?._id,
     };
 
     router.push({
@@ -78,12 +77,12 @@ const DisplayResourcesTable = ({ resourcePack, download }) => {
         </tr>
       </thead>
       <tbody>
-        {resourcePack.resources?.map((resource, index) => (
+        {resourcePack?.resources?.map((resource, index) => (
           <tr
-            key={`${resource.title}-${index}`}
+            key={`${resource?.title}-${index}`}
             className="h-10 hover:bg-gry hover:bg-opacity-70  "
           >
-            {resource.previewFileName && (
+            {resource?.previewFileName && (
               <td className="flex justify-center items-center mt-5  ">
                 <div className=" bg-opacity-30 bg-gry rounded-full  w-8 h-8 flex justify-center items-center hover:bg-opacity-100">
                   <FontAwesomeIcon
@@ -103,7 +102,7 @@ const DisplayResourcesTable = ({ resourcePack, download }) => {
                 <img
                   src={
                     resource?.resourcePack?.coverName
-                      ? imageSource + resource?.resourcePack.coverName
+                      ? imageSource + resource?.resourcePack?.coverName
                       : "/Playlist.png"
                   }
                   className="rounded-lg object-cover m-2"
@@ -112,11 +111,11 @@ const DisplayResourcesTable = ({ resourcePack, download }) => {
                   alt="Track cover"
                 />
                 <div className="flex flex-col m-2 text-wht text-sm font-bold ">
-                  {resource.title}
+                  {resource?.title}
 
                   <div className="mt-2 text-gryf text-sm">
-                    {resource.author?.username}{" "}
-                    {isoDateYear(resource.createdAt)}
+                    {resource?.author?.username}{" "}
+                    {isoDateYear(resource?.createdAt)}
                   </div>
                 </div>
               </div>

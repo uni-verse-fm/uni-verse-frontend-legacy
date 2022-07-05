@@ -104,7 +104,7 @@ const SearchBar = ({ isConnected }) => {
   const onClickDisplayRelease = (release) => () => {
     router.push({
       pathname: `/${Pages.UserRelease}`,
-      query: { id: release._id },
+      query: { id: release?._id },
     });
     setQuery("");
   };

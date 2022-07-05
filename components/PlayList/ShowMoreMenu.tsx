@@ -34,7 +34,7 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
   const onClickDisplayUser = () => {
     router.push({
       pathname: `/${Pages.Profile}`,
-      query: { id: track.author._id },
+      query: { id: track?.author._id },
     });
   };
 
@@ -44,6 +44,7 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
       query: { track: JSON.stringify(track) },
     });
   };
+
   const refresh = () => {
     if (isPage) router.reload();
   };
@@ -68,7 +69,7 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
                     } group items-center px-2 py-2 font-semibold text-gryf`}
                     onClick={(_: any) => {
                       let dataToUpdate: IUpdatePlaylistTrack = {
-                        trackId: track.id,
+                        trackId: track?.id,
                         action: "REMOVE",
                       };
                       let dataForm: IUpdatePayload = {

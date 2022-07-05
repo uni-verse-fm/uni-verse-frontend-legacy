@@ -8,6 +8,7 @@ import ShowMoreMenu from "../ShowMoreMenu";
 import { imageSource } from "../../common/constants";
 import router from "next/router";
 import { Pages } from "../../common/types";
+import { TrackText } from "../SearchBar/TrackRow";
 
 const DisplayTracksTable = ({ release }) => {
   const { dispatch } = useContext(PlayerContext);
@@ -23,22 +24,23 @@ const DisplayTracksTable = ({ release }) => {
 
   const onClickDisplayTrack = (track) => () => {
     const releaseTrack = {
-      coverName: release.coverName,
-      title: release.title,
-      id: release.id,
-      _id: release._id,
+      coverName: release?.coverName,
+      title: release?.title,
+      id: release?.id,
+      _id: release?._id,
     };
 
     const TrackToDisplay = {
-      title: track.title,
-      feats: track.feats,
-      fileName: track.fileName,
-      author: track.author,
+      title: track?.title,
+      feats: track?.feats,
+      fileName: track?.fileName,
+      author: track?.author,
       release: releaseTrack,
-      views: track.views,
-      comments: track.comments,
-      id: track.id,
-      _id: track._id,
+      views: track?.views,
+      comments: track?.comments,
+      isPlagia: track?.isPlagia,
+      id: track?.id,
+      _id: track?._id,
     };
 
     router.push({
@@ -60,9 +62,9 @@ const DisplayTracksTable = ({ release }) => {
         </tr>
       </thead>
       <tbody>
-        {release.tracks.map((track, index) => (
+        {release?.tracks.map((track, index) => (
           <tr
-            key={`${track.title}-${index}`}
+            key={`${track?.title}-${index}`}
             className="h-10 hover:bg-gry hover:bg-opacity-70  "
           >
             <td className="flex justify-center items-center mt-5  ">
@@ -80,7 +82,7 @@ const DisplayTracksTable = ({ release }) => {
                 <img
                   src={
                     track?.release?.coverName
-                      ? imageSource + track?.release.coverName
+                      ? imageSource + track?.release?.coverName
                       : "/Playlist.png"
                   }
                   className="rounded-lg object-cover m-2"
@@ -88,15 +90,14 @@ const DisplayTracksTable = ({ release }) => {
                   height={50}
                   alt="Track cover"
                 />
-                <div className="flex flex-col m-2 text-wht text-sm font-bold ">
-                  {track.title}
-
+                <div className="flex flex-row items-center m-2 text-wht text-sm font-bold ">
                   <div className="mt-2 text-gryf text-sm">
-                    {`${track.author?.username} - ft.${track.feats
-                      ?.map((feat) => ` ${feat.username}`)
-                      .join()}`}{" "}
-                    {isoDateYear(track.createdAt)}
+                    <TrackText track={track} />
+                    {isoDateYear(track?.createdAt)}
                   </div>
+                  {track?.isPlagia && (
+                    <h1 className="text-rd text-semibold mx-2">plagiarism</h1>
+                  )}
                 </div>
               </div>
             </td>

@@ -191,6 +191,7 @@ export type Track = {
   title: string;
   id?: string;
   _id?: string;
+  isPlagia?: boolean;
   feats?: IFeat[];
 };
 

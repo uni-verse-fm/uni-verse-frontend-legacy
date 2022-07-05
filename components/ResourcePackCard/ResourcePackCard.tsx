@@ -9,18 +9,18 @@ const ResourcePackCard = ({ resourcePack }) => {
       <img
         className="md:container object-cover md:mx-auto rounded-lg w-full h-28"
         src={
-          resourcePack.coverName
-            ? imageSource + resourcePack.coverName
+          resourcePack?.coverName
+            ? imageSource + resourcePack?.coverName
             : "/Playlist.png"
         }
         alt="resource packs"
       />
       <h2 className="pt-1 pl-1 pb-2 text-segrn text-md">
         {" "}
-        {resourcePack.title}{" "}
+        {resourcePack?.title}{" "}
       </h2>
       <h1 className="pl-1 text-gry text-sm ">
-        {resourcePack.author?.username} {isoDateYear(resourcePack.createdAt)}
+        {resourcePack?.author?.username} {isoDateYear(resourcePack?.createdAt)}
       </h1>
     </div>
   );

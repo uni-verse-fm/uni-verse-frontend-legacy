@@ -14,7 +14,6 @@ export const ResourcesTable = (props: IResourcesTable) => (
           <th />
           <th>Order</th>
           <th>Title</th>
-          <th>Name</th>
           <th>Preview File</th>
           <th />
         </tr>
@@ -47,16 +46,6 @@ export const ResourcesTable = (props: IResourcesTable) => (
                         id={index}
                         item={resource}
                         onBlur={props.handleResourceTitleChange(
-                          resource,
-                          index
-                        )}
-                      />
-                    </td>
-                    <td>
-                      <InputFileName
-                        id={index}
-                        item={resource}
-                        onBlur={props.handleResourceFileNameChange(
                           resource,
                           index
                         )}

@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { ITracksTable } from "../../common/types";
 import { InputFeats } from "./InputFeats";
-import { InputFileName } from "./InputFileName";
 import { InputTitle } from "./InputTitle";
 
 export const TracksTable = (props: ITracksTable) => (
@@ -14,7 +13,6 @@ export const TracksTable = (props: ITracksTable) => (
           <th />
           <th>Order</th>
           <th>Title</th>
-          <th>Name</th>
           <th>feats</th>
           <th />
         </tr>
@@ -47,13 +45,6 @@ export const TracksTable = (props: ITracksTable) => (
                         id={index}
                         track={track}
                         onBlur={props.handleTrackTitleChange(track, index)}
-                      />
-                    </td>
-                    <td>
-                      <InputFileName
-                        id={index}
-                        track={track}
-                        onBlur={props.handleTrackFileNameChange(track, index)}
                       />
                     </td>
                     <td>

@@ -39,8 +39,8 @@ const ResourcePack = ({ resourcePack, download }: IResourcePack) => {
 
   const onDownloadResourcePack = async () => {
     let destId: string = undefined;
-    if (resourcePack.accessType === "donation") destId = resourcePack._id;
-    await downloadResourcePack(resourcePack._id, destId).then((response) => {
+    if (resourcePack?.accessType === "donation") destId = resourcePack?._id;
+    await downloadResourcePack(resourcePack?._id, destId).then((response) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -51,7 +51,7 @@ const ResourcePack = ({ resourcePack, download }: IResourcePack) => {
   };
 
   const purchaseMutation = useMutation(
-    `purchace-${resourcePack._id}`,
+    `purchace-${resourcePack?._id}`,
     purchase,
     {
       onError: () => {
@@ -66,7 +66,7 @@ const ResourcePack = ({ resourcePack, download }: IResourcePack) => {
     }
   );
 
-  const donateMutation = useMutation(`donate-${resourcePack._id}`, donate, {
+  const donateMutation = useMutation(`donate-${resourcePack?._id}`, donate, {
     onError: () => {
       notify(Messages.PURCHASE_ERROR, NotificationType.ERROR);
     },
@@ -79,16 +79,16 @@ const ResourcePack = ({ resourcePack, download }: IResourcePack) => {
 
   const onDonate = () => {
     donateMutation.mutate({
-      amount: resourcePack.amount,
-      donationProductId: resourcePack.user.donationProductId,
-      connectedAccountId: resourcePack.author.stripeAccountId,
+      amount: resourcePack?.amount,
+      donationProductId: resourcePack?.user?.donationProductId,
+      connectedAccountId: resourcePack?.author?.stripeAccountId,
     });
   };
 
   const onPurchase = () => {
     purchaseMutation.mutate({
-      productId: resourcePack.productId,
-      connectedAccountId: resourcePack.author.stripeAccountId,
+      productId: resourcePack?.productId,
+      connectedAccountId: resourcePack?.author.stripeAccountId,
     });
   };
 
@@ -100,17 +100,17 @@ const ResourcePack = ({ resourcePack, download }: IResourcePack) => {
             <div className="flex flex-col gap-2">
               <img
                 src={
-                  resourcePack.coverName
-                    ? imageSource + resourcePack.coverName
+                  resourcePack?.coverName
+                    ? imageSource + resourcePack?.coverName
                     : "/Playlist.png"
                 }
                 className="rounded-xl object-cover h-48 w-48"
                 alt="ResourcePack"
               />
-              {!download && resourcePack.accessType === "donation" && (
+              {!download && resourcePack?.accessType === "donation" && (
                 <div>
                   <h1 className="text-md text-grn text-center p-2 justify-self-center">
-                    {resourcePack.amount}$ minimum <br /> donations
+                    {resourcePack?.amount}$ minimum <br /> donations
                   </h1>
                   <button className="" onClick={onDonate}>
                     <div className="flex flex-row items-center justify-center text-sm text-grn border-2 border-grn rounded-full hover:border-white hover:text-white h-8 px-2 py-auto">
@@ -123,7 +123,7 @@ const ResourcePack = ({ resourcePack, download }: IResourcePack) => {
                   </button>
                 </div>
               )}
-              {!download && resourcePack.accessType === "paid" && (
+              {!download && resourcePack?.accessType === "paid" && (
                 <button className="w-full" onClick={onPurchase}>
                   <div className="flex flex-row items-center justify-center text-sm text-grn border-2 border-grn rounded-full hover:border-white hover:text-white h-8 px-2 py-auto">
                     <FontAwesomeIcon
@@ -147,8 +147,8 @@ const ResourcePack = ({ resourcePack, download }: IResourcePack) => {
                     />
                   )}
                 </h2>
-                {(session?.user as any)?.id === resourcePack.author._id &&
-                  resourcePack.accessType === "free" && (
+                {(session?.user as any)?.id === resourcePack?.author._id &&
+                  resourcePack?.accessType === "free" && (
                     <div className="flex flex-row">
                       <h2 className="text-grn text-xl">
                         <FontAwesomeIcon
@@ -162,12 +162,12 @@ const ResourcePack = ({ resourcePack, download }: IResourcePack) => {
 
               <div className="flex flex-row ">
                 <h2 className="text-grn text-2xl font-bold ">
-                  {resourcePack.title}
+                  {resourcePack?.title}
                 </h2>
               </div>
 
               {resourcePack?.author && (
-                <h2 className="text-gry ">{resourcePack.author.username}</h2>
+                <h2 className="text-gry ">{resourcePack?.author.username}</h2>
               )}
               {ShowMoreInformations == false ? (
                 <h2 className="text-grn">
@@ -189,15 +189,15 @@ const ResourcePack = ({ resourcePack, download }: IResourcePack) => {
 
               {resourcePack?.description && ShowMoreInformations == true && (
                 <>
-                  <h2 className="text-wht ">{resourcePack.description}</h2>
+                  <h2 className="text-wht ">{resourcePack?.description}</h2>
                   <h2 className="text-gry text-xs">
-                    Created at : {isoDateToDateHour(resourcePack.createdAt)}
+                    Created at : {isoDateToDateHour(resourcePack?.createdAt)}
                   </h2>
                 </>
               )}
             </div>
           </div>
-          {resourcePack.resources?.length > 0 ? (
+          {resourcePack?.resources?.length > 0 ? (
             <DisplayResourcesTable
               resourcePack={resourcePack}
               download={download}

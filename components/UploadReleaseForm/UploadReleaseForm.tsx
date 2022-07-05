@@ -87,10 +87,10 @@ const UploadReleaseForm = ({ myId }) => {
           title: value.title,
           description: value.description,
           tracks: value.tracks.map((track) => ({
-            title: track.title,
-            originalFileName: track.file.name,
+            title: track?.title,
+            originalFileName: track?.file?.name,
             author: myId,
-            feats: track.feats,
+            feats: track?.feats,
           })),
         };
         var bodyFormData = new FormData();
@@ -99,7 +99,7 @@ const UploadReleaseForm = ({ myId }) => {
           .replace(/\s+/g, " ");
         bodyFormData.append("data", stringData);
         value.tracks.forEach((track) =>
-          bodyFormData.append("tracks", track.file, track.file.name)
+          bodyFormData.append("tracks", track?.file, track?.file.name)
         );
         value.image &&
           bodyFormData.append("cover", value.image, value.image.name);

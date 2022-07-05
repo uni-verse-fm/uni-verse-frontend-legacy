@@ -8,13 +8,15 @@ const ReleaseCard = ({ release }) => {
       <img
         className="md:container object-cover md:mx-auto rounded-lg w-full h-28"
         src={
-          release.coverName ? imageSource + release.coverName : "/Playlist.png"
+          release?.coverName
+            ? imageSource + release?.coverName
+            : "/Playlist.png"
         }
         alt="playlist"
       />
-      <h2 className="pt-1 pl-1 pb-2 text-segrn text-md">{release.title}</h2>
+      <h2 className="pt-1 pl-1 pb-2 text-segrn text-md">{release?.title}</h2>
       <h1 className="pl-1 text-gry text-sm ">
-        {release.author?.username} {isoDateYear(release.createdAt)}
+        {release?.author?.username} {isoDateYear(release?.createdAt)}
       </h1>
     </div>
   );
