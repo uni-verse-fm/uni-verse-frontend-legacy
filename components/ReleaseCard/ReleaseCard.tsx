@@ -8,7 +8,9 @@ const ReleaseCard = ({ release }) => {
       <img
         className="md:container object-cover md:mx-auto rounded-lg w-full h-28"
         src={
-          release?.coverName ? imageSource + release?.coverName : "/Playlist.png"
+          release?.coverName
+            ? imageSource + release?.coverName
+            : "/Playlist.png"
         }
         alt="playlist"
       />
