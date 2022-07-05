@@ -37,9 +37,12 @@ const TrackRow = ({ track, onClickDisplayTrack, disableHover }: ITrackRow) => {
     <div
       className={`${
         !disableHover && "hover:text-lg"
-      } hover:bg-grn hover:bg-opacity-10 rounded-lg text-md group items-center p-2 font-semibold text-gryf flex items-center justify-between cursor-pointer`}
+      } hover:bg-grn hover:bg-opacity-10 rounded-lg group items-center p-2 text-gryf flex items-center justify-between cursor-pointer`}
     >
-      <div onClick={onClickDisplayTrack} className="flex items-center grow">
+      <div
+        onClick={onClickDisplayTrack}
+        className="flex items-center grow text-md font-semibold"
+      >
         <img
           src={
             track?.release?.coverName
@@ -74,11 +77,16 @@ const TrackRow = ({ track, onClickDisplayTrack, disableHover }: ITrackRow) => {
           )}
         </div>
       </div>
-      <FontAwesomeIcon
-        className="cursor-pointer mr-5 hover:scale-[1.40] text-grn text-md fa-xl"
-        icon={faPlay}
-        onClick={onClickTrack(track)}
-      />
+      <div className="flex flex-row gap-4">
+        {track.isPlagia && (
+          <h1 className="text-rd text-semibold">plagiarism</h1>
+        )}
+        <FontAwesomeIcon
+          className="cursor-pointer mr-5 hover:scale-[1.40] text-grn text-md fa-xl"
+          icon={faPlay}
+          onClick={onClickTrack(track)}
+        />
+      </div>
     </div>
   );
 };

@@ -9,7 +9,9 @@ import CreateComment from "../CreateComment";
 import MenuSelectPlaylist from "./MenuSelectPlaylist";
 
 export const featsToString = (feats: any[]) =>
-  feats.length > 0 ? "feat. " + feats.map((feat) => feat.username).join(",") : "";
+  feats.length > 0
+    ? "feat. " + feats.map((feat) => feat.username).join(", ")
+    : "";
 
 const ArtistTrack = ({ track }) => {
   const { dispatch } = useContext(PlayerContext);
@@ -44,6 +46,9 @@ const ArtistTrack = ({ track }) => {
                 <div className="text-3xl font-bold text-white mx-2">
                   {track?.title}
                 </div>
+                {track.isPlagia && (
+                  <h1 className="text-rd text-semibold mx-2">plagiarism</h1>
+                )}
                 <div className="text-xl font-bold text-grn mx-2">
                   By {track?.author?.username}
                 </div>

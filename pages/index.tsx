@@ -97,7 +97,7 @@ export default function Home() {
 
   const onClickDisplayRelease = (release: any) => () => {
     router.push({
-      pathname: `/${Pages.Track}`,
+      pathname: `/${Pages.UserRelease}`,
       query: { track: JSON.stringify(release) },
     });
   };

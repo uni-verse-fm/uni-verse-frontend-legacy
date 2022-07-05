@@ -44,6 +44,7 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
       query: { track: JSON.stringify(track) },
     });
   };
+  
   const refresh = () => {
     if (isPage) router.reload();
   };

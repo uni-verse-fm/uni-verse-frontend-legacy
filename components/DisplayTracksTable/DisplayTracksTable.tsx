@@ -8,6 +8,7 @@ import ShowMoreMenu from "../ShowMoreMenu";
 import { imageSource } from "../../common/constants";
 import router from "next/router";
 import { Pages } from "../../common/types";
+import { TrackText } from "../SearchBar/TrackRow";
 
 const DisplayTracksTable = ({ release }) => {
   const { dispatch } = useContext(PlayerContext);
@@ -37,6 +38,7 @@ const DisplayTracksTable = ({ release }) => {
       release: releaseTrack,
       views: track.views,
       comments: track.comments,
+      isPlagia: track.isPlagia,
       id: track.id,
       _id: track._id,
     };
@@ -88,15 +90,14 @@ const DisplayTracksTable = ({ release }) => {
                   height={50}
                   alt="Track cover"
                 />
-                <div className="flex flex-col m-2 text-wht text-sm font-bold ">
-                  {track.title}
-
+                <div className="flex flex-row items-center m-2 text-wht text-sm font-bold ">
                   <div className="mt-2 text-gryf text-sm">
-                    {`${track.author?.username} - ft.${track.feats
-                      ?.map((feat) => ` ${feat.username}`)
-                      .join()}`}{" "}
+                    <TrackText track={track} />
                     {isoDateYear(track.createdAt)}
                   </div>
+                  {track.isPlagia && (
+                    <h1 className="text-rd text-semibold mx-2">plagiarism</h1>
+                  )}
                 </div>
               </div>
             </td>
