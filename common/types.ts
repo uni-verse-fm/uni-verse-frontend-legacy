@@ -273,6 +273,7 @@ export enum Pages {
   UploadRelease = "UploadRelease",
   UploadResourcePack = "UploadResourcePack",
   Login = "Login",
+  LicencePage = "LicencePage",
   SignUp = "SignUp",
   Profile = "Profile",
   UserPlaylist = "UserPlaylist",
