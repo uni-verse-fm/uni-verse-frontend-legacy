@@ -9,7 +9,7 @@ import CreateComment from "../CreateComment";
 import MenuSelectPlaylist from "./MenuSelectPlaylist";
 
 export const featsToString = (feats: any[]) =>
-  feats && "feat. " + feats.map((feat) => feat.username).join(",");
+  feats.length > 0 ? "feat. " + feats.map((feat) => feat.username).join(",") : "";
 
 const ArtistTrack = ({ track }) => {
   const { dispatch } = useContext(PlayerContext);
@@ -35,7 +35,7 @@ const ArtistTrack = ({ track }) => {
                     ? imageSource + track?.release.coverName
                     : "/Playlist.png"
                 }
-                className="rounded-lg object-cover"
+                className="rounded-lg object-cover w-56 h-56"
                 width={200}
                 height={200}
                 alt="Track cover"

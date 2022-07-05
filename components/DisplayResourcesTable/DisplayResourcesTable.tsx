@@ -52,10 +52,12 @@ const DisplayResourcesTable = ({ resourcePack, download }) => {
     const RessourceToDisplay = {
       title: resource.title,
       fileName: resource.fileName,
+      previewFileName: resource.previewFileName,
       author: resource.author,
-      resourcepack: resourcespack,
-      views: resource.views,
+      resourcePack: resourcespack,
       comments: resource.comments,
+      download,
+
       id: resource.id,
       _id: resource._id,
     };

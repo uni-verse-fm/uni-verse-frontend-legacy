@@ -81,7 +81,7 @@ function MyProfile(props) {
 
 export async function getServerSideProps(context: GetSessionParams) {
   const session: Session = await getSession(context);
-  const id = (session.user as any)?.id;
+  const id = (session?.user as any)?.id;
   const queryClient = new QueryClient();
 
   const payload: ILogin = {
