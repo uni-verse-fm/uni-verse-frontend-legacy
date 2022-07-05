@@ -162,6 +162,7 @@ const PlayerProvider: React.FC = ({ children }) => {
     if (sound.current) {
       const newUrl = getBaseUrl(state) + newTracks[currentTrackIndex].fileName;
       sound.current.src = newUrl;
+      sound.current.pause();
       sound.current.load();
       sound.current.play();
     }
@@ -183,11 +184,11 @@ const PlayerProvider: React.FC = ({ children }) => {
     <PlayerContext.Provider
       value={{
         state: {
-          tracks: state.tracks,
+          tracks: state?.tracks || [],
           trackIndex: currentTrackIndex,
           trackInfo: {
-            title: state.tracks?.[currentTrackIndex]?.title,
-            author: state.tracks?.[currentTrackIndex]?.author.username,
+            title: state?.tracks?.[currentTrackIndex]?.title,
+            author: state?.tracks?.[currentTrackIndex]?.author.username,
           },
           playerState: {
             position,
