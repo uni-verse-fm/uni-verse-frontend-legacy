@@ -6,6 +6,7 @@ import { imageSource } from "../../common/constants";
 import { PlayerContext } from "../../common/contexts/PlayerContext";
 import { Track, Types } from "../../common/types";
 import CreateComment from "../CreateComment";
+import MenuSelectPlaylist from "./MenuSelectPlaylist"
 
 export const featsToString = (feats: any[]) =>
   feats && "feat. " + feats.map((feat) => feat.username).join(",");
@@ -62,10 +63,7 @@ const ArtistTrack = ({ track }) => {
                 />
               </div>
               <div className="ml-2 bg-opacity-30 bg-gry rounded-full w-8 h-8 flex justify-center items-center hover:bg-opacity-100">
-                <FontAwesomeIcon
-                  className=" cursor-pointer hover:scale-[1.40] hover:text-grn text-wht "
-                  icon={faPlus}
-                />
+              <MenuSelectPlaylist track={track} />
               </div>
             </div>
           </div>

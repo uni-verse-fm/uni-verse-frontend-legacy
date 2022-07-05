@@ -29,7 +29,7 @@ const Playlists = ({
     <div className="h-full">
       {modalDisplay && (
         <div className="items-start mt-10 mb-5 ml-6 text-grn text-lg">
-          Playlists :
+          Playlists 
         </div>
       )}
 

@@ -9,6 +9,7 @@ import { imageSource } from "../../common/constants";
 import router from "next/router";
 import { Pages } from "../../common/types";
 
+
 const DisplayTracksTable = ({ release }) => {
   const { dispatch } = useContext(PlayerContext);
 
