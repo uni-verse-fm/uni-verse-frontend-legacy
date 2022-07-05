@@ -1,6 +1,7 @@
 import { Menu } from "@headlessui/react";
 import { getUserPlaylists } from "../../api/PlaylistAPI";
-
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { notify } from "../Notifications";
 import { useMutation } from "react-query";
 import router from "next/router";
@@ -22,7 +23,7 @@ const MenuSelectPlayList = ({ track }) => {
 
   const { status, data } = useQuery(
     "my-playlists",
-    () => getUserPlaylists((session?.user as any).id).then((res) => res.data),
+    () => getUserPlaylists((session?.user as any)?.id).then((res) => res.data),
     {
       onError: (error: AxiosError) => {
         if (error.response?.status === 401) {
@@ -30,10 +31,9 @@ const MenuSelectPlayList = ({ track }) => {
           router.replace(`/${Pages.Login}`);
         }
       },
-      enabled: Boolean((session?.user as any).id),
+      enabled: Boolean((session?.user as any)?.id),
     }
   );
-
   const { mutate } = useMutation("updatePlaylist", updatePlaylist, {
     onError: () => {
       notify("Can not add track to playlist", NotificationType.ERROR);
@@ -50,12 +50,12 @@ const MenuSelectPlayList = ({ track }) => {
 
   const onClickRelease = (playlist) => () => {
     let dataToUpdate: IUpdatePlaylistTrack = {
-      trackId: track.id,
+      trackId: track?.id,
       action: "ADD",
     };
 
     let dataForm: IUpdatePayload = {
-      id: playlist._id,
+      id: playlist?._id,
       data: dataToUpdate,
     };
 
@@ -65,9 +65,12 @@ const MenuSelectPlayList = ({ track }) => {
   return (
     <Menu as="div" className="relative text-left h-full w-auto">
       <Menu.Button className="h-full text-left font-medium text-blk w-auto">
-        Add to a playlist
+        <FontAwesomeIcon
+          className=" cursor-pointer hover:scale-[1.40] hover:text-grn text-wht "
+          icon={faPlus}
+        />
       </Menu.Button>
-      <Menu.Items className="absolute hover-text-grn text-black mt-2 divide-y divide-gray-100 rounded-md bg-wht">
+      <Menu.Items className="absolute hover-text-grn text-black mt-2 divide-y divide-gray-100 rounded-md bg-wht w-32">
         {status === "success" &&
           data.map((playlist, index) => (
             <Menu.Item key={index}>
