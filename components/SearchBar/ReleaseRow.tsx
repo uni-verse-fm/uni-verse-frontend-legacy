@@ -45,7 +45,9 @@ const ReleaseRow = ({
       <div onClick={onClickDisplayRelease} className="flex items-center grow">
         <img
           src={
-            release.coverName ? imageSource + release.coverName : "/Playlist.png"
+            release.coverName
+              ? imageSource + release.coverName
+              : "/Playlist.png"
           }
           className="rounded-lg object-cover w-20 h-20"
           alt="Release"
