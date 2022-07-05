@@ -195,7 +195,7 @@ const Playlist = ({
                         {isoDateYear(track.createdAt)}
                       </div>
                     </div>
-                    {track.isPlagia && (
+                    {track?.isPlagia && (
                       <h1 className="text-rd text-semibold">plagiarism</h1>
                     )}
                   </div>

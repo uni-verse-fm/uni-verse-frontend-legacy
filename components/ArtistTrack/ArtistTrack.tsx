@@ -46,7 +46,7 @@ const ArtistTrack = ({ track }) => {
                 <div className="text-3xl font-bold text-white mx-2">
                   {track?.title}
                 </div>
-                {track.isPlagia && (
+                {track?.isPlagia && (
                   <h1 className="text-rd text-semibold mx-2">plagiarism</h1>
                 )}
                 <div className="text-xl font-bold text-grn mx-2">

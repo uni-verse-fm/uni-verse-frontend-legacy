@@ -38,7 +38,7 @@ const DisplayTracksTable = ({ release }) => {
       release: releaseTrack,
       views: track.views,
       comments: track.comments,
-      isPlagia: track.isPlagia,
+      isPlagia: track?.isPlagia,
       id: track.id,
       _id: track._id,
     };
@@ -95,7 +95,7 @@ const DisplayTracksTable = ({ release }) => {
                     <TrackText track={track} />
                     {isoDateYear(track.createdAt)}
                   </div>
-                  {track.isPlagia && (
+                  {track?.isPlagia && (
                     <h1 className="text-rd text-semibold mx-2">plagiarism</h1>
                   )}
                 </div>

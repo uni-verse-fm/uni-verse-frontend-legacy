@@ -78,7 +78,7 @@ const TrackRow = ({ track, onClickDisplayTrack, disableHover }: ITrackRow) => {
         </div>
       </div>
       <div className="flex flex-row gap-4">
-        {track.isPlagia && (
+        {track?.isPlagia && (
           <h1 className="text-rd text-semibold">plagiarism</h1>
         )}
         <FontAwesomeIcon
