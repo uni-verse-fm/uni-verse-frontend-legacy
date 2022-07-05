@@ -155,9 +155,9 @@ const UploadResourcePackForm = ({ me }) => {
           accessType: value.accessType,
           amount: value.amount * 100,
           resources: value.resources.map((resource) => ({
-            title: resource.title,
-            originalFileName: resource.file.name,
-            previewFileName: resource.previewFile?.name,
+            title: resource?.title,
+            originalFileName: resource?.file.name,
+            previewFileName: resource?.previewFile?.name,
             author: me._id,
           })),
         };
@@ -168,16 +168,16 @@ const UploadResourcePackForm = ({ me }) => {
         bodyFormData.append("data", stringData);
 
         value.resources.forEach((resource) => {
-          bodyFormData.append("resources", resource.file, resource.file.name);
-          resource.previewFile;
+          bodyFormData.append("resources", resource?.file, resource?.file.name);
+          resource?.previewFile;
         });
         value.resources.forEach(
           (resource: IResource) =>
             resource.previewFile &&
             bodyFormData.append(
               "previews",
-              resource.previewFile,
-              resource.previewFile.name
+              resource?.previewFile,
+              resource?.previewFile.name
             )
         );
         value.image &&

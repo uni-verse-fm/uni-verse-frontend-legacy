@@ -50,7 +50,7 @@ const UploadTracksListDisplayer = (props) => {
         ...tracks.slice(0, index),
         {
           ...track,
-          file: new File([track.file], event.target.value),
+          file: new File([track?.file], event.target.value),
         },
         ...tracks.slice(index + 1),
       ];
@@ -61,13 +61,13 @@ const UploadTracksListDisplayer = (props) => {
   const handleAddTrackFeat =
     (track: ITrack, index: number) => (feat: IFeat) => {
       let newTracks: ITrack[] = tracks;
-      if (track.feats.filter((f) => f.id === feat.id).length === 0) {
+      if (track?.feats.filter((f) => f.id === feat.id).length === 0) {
         newTracks = [
           ...tracks.slice(0, index),
           {
             ...track,
             feats: [
-              ...track.feats,
+              ...track?.feats,
               { id: feat.id, username: feat.username, email: feat.email },
             ],
           },
@@ -85,8 +85,8 @@ const UploadTracksListDisplayer = (props) => {
         {
           ...track,
           feats: [
-            ...track.feats.slice(0, featIndex),
-            ...track.feats.slice(featIndex + 1),
+            ...track?.feats.slice(0, featIndex),
+            ...track?.feats.slice(featIndex + 1),
           ],
         },
         ...tracks.slice(index + 1),

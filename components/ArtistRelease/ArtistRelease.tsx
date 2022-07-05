@@ -35,7 +35,7 @@ const ArtistRelease = ({ release }) => {
   const handleCloseDialog = () => setShowForm(false);
 
   const handleConfirmDelete = () => {
-    mutate(release._id);
+    mutate(release?._id);
     handleCloseDialog();
   };
 
@@ -58,7 +58,7 @@ const ArtistRelease = ({ release }) => {
     dispatch({
       type: Types.ReleasePlay,
       payload: {
-        tracks: release.tracks || [],
+        tracks: release?.tracks || [],
         trackIndex: 0,
       },
     });
@@ -70,8 +70,8 @@ const ArtistRelease = ({ release }) => {
         <div>
           <img
             src={
-              release.coverName
-                ? imageSource + release.coverName
+              release?.coverName
+                ? imageSource + release?.coverName
                 : "/Playlist.png"
             }
             className="rounded-xl object-cover w-48 h-48"
@@ -90,7 +90,7 @@ const ArtistRelease = ({ release }) => {
                 onClick={onClickRelease(release)}
               />
             </h2>
-            {(session.user as any).id === release.author._id && (
+            {(session.user as any).id === release?.author._id && (
               <div className="flex flex-row">
                 <h2 className="text-grn text-xl">
                   <FontAwesomeIcon
@@ -104,10 +104,10 @@ const ArtistRelease = ({ release }) => {
           </div>
 
           <div className="flex flex-row ">
-            <h2 className="text-grn text-2xl font-bold ">{release.title}</h2>
+            <h2 className="text-grn text-2xl font-bold ">{release?.title}</h2>
           </div>
           {release?.author && (
-            <h2 className="text-gry ">{release.author.username}</h2>
+            <h2 className="text-gry ">{release?.author.username}</h2>
           )}
           {ShowMoreInformations == false ? (
             <h2 className="text-grn">
@@ -129,16 +129,16 @@ const ArtistRelease = ({ release }) => {
 
           {release?.description && ShowMoreInformations == true && (
             <>
-              <h2 className="text-wht ">{release.description}</h2>
+              <h2 className="text-wht ">{release?.description}</h2>
               <h2 className="text-gry text-xs">
-                Created at : {isoDateToDateHour(release.createdAt)}
+                Created at : {isoDateToDateHour(release?.createdAt)}
               </h2>
             </>
           )}
         </div>
       </div>
 
-      {release.tracks.length ? (
+      {release?.tracks.length ? (
         <DisplayTracksTable release={release} />
       ) : (
         <div className="flex justify-center items-center mt-10 text-lg">

@@ -181,7 +181,7 @@ const Playlist = ({
                     <img
                       src={
                         track?.release?.coverName
-                          ? imageSource + track?.release.coverName
+                          ? imageSource + track?.release?.coverName
                           : "/Playlist.png"
                       }
                       className="rounded-lg object-cover m-2"
@@ -192,7 +192,7 @@ const Playlist = ({
                     <div className="flex flex-col m-2 text-wht text-sm font-bold ">
                       <div className="mt-2 text-sedrk text-black text-sm">
                         <TrackText track={track} />
-                        {isoDateYear(track.createdAt)}
+                        {isoDateYear(track?.createdAt)}
                       </div>
                     </div>
                     {track?.isPlagia && (

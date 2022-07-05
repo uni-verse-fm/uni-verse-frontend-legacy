@@ -12,8 +12,8 @@ const ArtistResource = ({ resource }) => {
 
   const onClickResource = (resource: Resource) => () => {
     const preview = {
-      fileName: resource.previewFileName,
-      title: resource.title,
+      fileName: resource?.previewFileName,
+      title: resource?.title,
       author: {
         username: resource?.author?.username,
       },
@@ -28,9 +28,9 @@ const ArtistResource = ({ resource }) => {
 
   const onDownloadResource = (resource: Resource) => {
     let destId: string = undefined;
-    if (resource.resourcePack?.accessType === "donation")
-      destId = resource.author.stripeAccountId;
-    downloadResource(resource.resourcePack?._id, resource.id).then(
+    if (resource?.resourcePack?.accessType === "donation")
+      destId = resource?.author?.stripeAccountId;
+    downloadResource(resource?.resourcePack?._id, resource?.id).then(
       (response) => {
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement("a");
@@ -50,8 +50,8 @@ const ArtistResource = ({ resource }) => {
             <div className="flex flex-row items-end mb-1">
               <img
                 src={
-                  resource?.resourcepack?.coverName
-                    ? imageSource + resource?.resourcepack.coverName
+                  resource?.resourcePack?.coverName
+                    ? imageSource + resource?.resourcePack?.coverName
                     : "/Playlist.png"
                 }
                 className="rounded-lg object-cover w-56 h-56"
@@ -69,7 +69,7 @@ const ArtistResource = ({ resource }) => {
                 <div className="text-md font-bold text-grn mx-2">{`(ResourcesPack: ${resource?.resourcePack?.title})`}</div>
               </div>
 
-              {resource.previewFileName && (
+              {resource?.previewFileName && (
                 <div className="ml-2 bg-opacity-30 bg-gry rounded-full w-8 h-8 flex justify-center items-center hover:bg-opacity-100">
                   <FontAwesomeIcon
                     className="cursor-pointer hover:scale-[1.40] hover:text-grn text-wht"
@@ -79,7 +79,7 @@ const ArtistResource = ({ resource }) => {
                 </div>
               )}
 
-              {resource.download && (
+              {resource?.download && (
                 <div className="ml-2 bg-opacity-30 bg-gry rounded-full w-8 h-8 flex justify-center items-center hover:bg-opacity-100">
                   <FontAwesomeIcon
                     className="cursor-pointer hover:scale-[1.40] hover:text-grn text-wht"

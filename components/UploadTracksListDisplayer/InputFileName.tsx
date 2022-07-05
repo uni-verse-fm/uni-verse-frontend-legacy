@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 
 export const InputFileName = ({ id, track, onBlur }) => {
-  const [name, setName] = useState(track.file.name);
+  const [name, setName] = useState(track?.file.name);
 
   useEffect(() => {
-    setName(track.file.name);
+    setName(track?.file.name);
   }, [track]);
 
   const onChange = (event) => {

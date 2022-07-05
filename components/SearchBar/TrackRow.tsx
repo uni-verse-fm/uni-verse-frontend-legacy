@@ -13,11 +13,11 @@ interface ITrackRow {
 
 export const TrackText = ({ track }) => {
   const feats =
-    track.feats?.length > 0
-      ? `(ft. ${track.feats.map((feat) => feat.username).join(", ")})`
+    track?.feats?.length > 0
+      ? `(ft. ${track?.feats.map((feat) => feat.username).join(", ")})`
       : "";
   return (
-    <div className="w-fit overflow-hidden max-w-xs ease-in-out">{`${track.author?.username} - ${track.title} ${feats}`}</div>
+    <div className="w-fit overflow-hidden max-w-xs ease-in-out">{`${track?.author?.username} - ${track?.title} ${feats}`}</div>
   );
 };
 
@@ -46,7 +46,7 @@ const TrackRow = ({ track, onClickDisplayTrack, disableHover }: ITrackRow) => {
         <img
           src={
             track?.release?.coverName
-              ? imageSource + track?.release.coverName
+              ? imageSource + track?.release?.coverName
               : "/Playlist.png"
           }
           className="rounded-lg object-cover w-20 h-20"
@@ -57,18 +57,18 @@ const TrackRow = ({ track, onClickDisplayTrack, disableHover }: ITrackRow) => {
           <div className="text-mdrk text-lg">
             <TrackText track={track} />
           </div>
-          {!!track.views && (
+          {!!track?.views && (
             <div className="text-grn text-sm">
-              {track.views}
+              {track?.views}
               <FontAwesomeIcon
                 className="cursor-pointer mx-2 hover:scale-[1.40] text-grnfa-sm fa-xs"
                 icon={faEye}
               />
             </div>
           )}
-          {!!track.comments && (
+          {!!track?.comments && (
             <div className="text-grn text-sm">
-              {track.comments}
+              {track?.comments}
               <FontAwesomeIcon
                 className="cursor-pointer mx-2 hover:scale-[1.40] text-grnfa-sm fa-xs"
                 icon={faComment}

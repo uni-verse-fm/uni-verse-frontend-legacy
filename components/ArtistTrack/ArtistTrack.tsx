@@ -34,7 +34,7 @@ const ArtistTrack = ({ track }) => {
               <img
                 src={
                   track?.release?.coverName
-                    ? imageSource + track?.release.coverName
+                    ? imageSource + track?.release?.coverName
                     : "/Playlist.png"
                 }
                 className="rounded-lg object-cover w-56 h-56"
@@ -56,7 +56,7 @@ const ArtistTrack = ({ track }) => {
               </div>
               {track?.feats?.length > 0 && (
                 <div className="text-md font-bold text-grn mx-2">{`${featsToString(
-                  track.feats
+                  track?.feats
                 )}`}</div>
               )}
 
