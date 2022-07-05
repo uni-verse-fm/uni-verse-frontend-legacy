@@ -11,6 +11,16 @@ interface ITrackRow {
   disableHover?: boolean;
 }
 
+export const TrackText = ({ track }) => {
+  const feats =
+    track.feats?.length > 0
+      ? `(ft. ${track.feats.map((feat) => feat.username).join(", ")})`
+      : "";
+  return (
+    <div className="w-fit overflow-hidden max-w-xs ease-in-out">{`${track.author?.username} - ${track.title} ${feats}`}</div>
+  );
+};
+
 const TrackRow = ({ track, onClickDisplayTrack, disableHover }: ITrackRow) => {
   const { dispatch } = useContext(PlayerContext);
 
@@ -41,9 +51,9 @@ const TrackRow = ({ track, onClickDisplayTrack, disableHover }: ITrackRow) => {
         />
 
         <div className="m-3">
-          <div className="text-sedrk text-lg">{`${track.author?.username} - ${
-            track.title
-          } ft.${track.feats?.map((feat) => ` ${feat.username}`).join()}`}</div>
+          <div className="text-mdrk text-lg">
+            <TrackText track={track} />
+          </div>
           {!!track.views && (
             <div className="text-grn text-sm">
               {track.views}

@@ -26,6 +26,11 @@ const PlaylistRow = ({ playlist, onClickDisplayPlaylist }) => {
         onClick={onClickDisplayPlaylist(playlist)}
         className="flex items-center grow text-grn text-md"
       >
+        <img
+          src="/Playlist.png"
+          className="rounded-lg object-cover w-20 h-20 mr-2"
+          alt="Release"
+        />
         {playlist.title}
       </div>
       <FontAwesomeIcon

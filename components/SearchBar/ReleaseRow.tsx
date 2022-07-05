@@ -51,7 +51,7 @@ const ReleaseRow = ({
           alt="Release"
         />
         <div className="m-3">
-          <div className="text-sedrk text-md">
+          <div className="text-mdrk text-md">
             {`${release.title} by ${release.author?.username}`}
           </div>
           {!release.views && (

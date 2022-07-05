@@ -33,7 +33,7 @@ const ResourcesPackRow = ({
           alt="resourcesPack"
         />
         <div className="m-3">
-          <div className="text-sedrk text-md">
+          <div className="text-mdrk text-md">
             {`${resourcesPack.title} by ${resourcesPack.author?.username}`}
           </div>
 

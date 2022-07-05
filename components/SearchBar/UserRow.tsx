@@ -17,7 +17,7 @@ const UserRow = ({ user, onClickDisplayUser }) => {
           alt="User image"
         />
         <div className="text-grn text-md m-4">
-          <div className="text-drk text-xl">{user.username}</div>
+          <div className="text-mdrk text-xl">{user.username}</div>
           <div className="text-grn text-md">{user.email}</div>
         </div>
       </div>
