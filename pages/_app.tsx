@@ -49,7 +49,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                         </a>
                       );
                     return (
-                      <div className={"flex flex-col h-screen w-screen overflow-hidden"}>
+                      <div
+                        className={
+                          "flex flex-col h-screen w-screen overflow-hidden"
+                        }
+                      >
                         <div className="sticky top-0">
                           <Header />
                         </div>
