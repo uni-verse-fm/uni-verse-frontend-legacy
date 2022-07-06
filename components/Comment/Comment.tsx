@@ -50,7 +50,7 @@ const Comment = ({ comment }) => {
 
         {session && (
           <div>
-            {(session.user as any).id === comment.owner._id && (
+            {(session?.user as any).id === comment.owner._id && (
               <FontAwesomeIcon
                 className="cursor-pointer ml-5 text-rd text-xs hover:scale-[1.40] hover:text-rd"
                 icon={faTrashCan}

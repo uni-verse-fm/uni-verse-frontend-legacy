@@ -23,25 +23,26 @@ function MyProfile(props) {
 
   const releasesQuery = useQuery(
     "my-releases",
-    () => getUserReleases((session.user as any).id).then((res) => res.data),
+    () => getUserReleases((session?.user as any).id).then((res) => res.data),
     { initialData: props.releases, enabled: meQuery.status === "success" }
   );
 
   const playlistsQuery = useQuery(
     "my-playlists",
-    () => getUserPlaylists((session.user as any).id).then((res) => res.data),
+    () => getUserPlaylists((session?.user as any).id).then((res) => res.data),
     { enabled: releasesQuery.status === "success" }
   );
 
   const resourcesPacksQuery = useQuery(
     "my-resource-packs",
-    () => getUserResourcePack((session.user as any).id).then((res) => res.data),
+    () =>
+      getUserResourcePack((session?.user as any).id).then((res) => res.data),
     { enabled: releasesQuery.status === "success" }
   );
 
   const myHotTracks = useQuery(
     "my-hot-tracks",
-    () => artistHotTracks((session.user as any).id).then((res) => res.data),
+    () => artistHotTracks((session?.user as any).id).then((res) => res.data),
     { enabled: releasesQuery.status === "success" }
   );
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import Playlist from "../PlayList";
 import Playlists from "../PLaylists";
@@ -21,28 +21,38 @@ const PlaylistsModal = ({
   handleHidecreatePlaylistIndex,
 }) => {
   const [playlistIndex, setPlaylistIndex] = useState(undefined);
+  const [playlist, setPlaylist] = useState(undefined);
+
   const { data: session } = useSession();
 
   const playlistsQuery = useQuery(
     "my-playlists",
     () => getUserPlaylists((session?.user as any)?.id).then((res) => res.data),
-    { enabled: Boolean((session?.user as any)?.id) }
+    { enabled: Boolean((session?.user as any)?.id && showModal) }
   );
 
-  const { mutate } = useMutation("deleteMyPlaylist", deletePlaylist, {
-    onError: () => {
-      notify("Can not delete playlist", NotificationType.ERROR);
-    },
-    onSuccess: async (res) => {
-      if (res.status !== 200) {
-        notify(res.data.message, NotificationType.ERROR);
-      } else {
-        const message = "PlayList deleted";
-        notify(message, NotificationType.SUCCESS);
+  const { mutate, isSuccess } = useMutation(
+    "deleteMyPlaylist",
+    deletePlaylist,
+    {
+      onError: () => {
+        notify("Can not delete playlist", NotificationType.ERROR);
+      },
+      onSuccess: async (res) => {
+        if (res.status !== 200) {
+          notify(res.data.message, NotificationType.ERROR);
+        } else {
+          const message = "Playlist deleted";
+          notify(message, NotificationType.SUCCESS);
+        }
         await playlistsQuery.refetch();
-      }
-    },
-  });
+      },
+    }
+  );
+
+  useEffect(() => {
+    playlistsQuery.data && setPlaylist(playlistsQuery.data[playlistIndex]);
+  }, [playlistsQuery.data, playlistIndex, isSuccess]);
 
 
   const refreshPlaylist =  () => {
@@ -83,7 +93,7 @@ const PlaylistsModal = ({
         Number.isInteger(playlistIndex) ? (
           <div className="w-full h-full">
             <Playlist
-              playlist={playlistsQuery.data[playlistIndex]}
+              playlist={playlist}
               handleClosePlaylistContent={handleHidePlaylistContent}
               handleDelete={onDeletePlaylist}
               enableChange="true"
