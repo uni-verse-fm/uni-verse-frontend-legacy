@@ -54,9 +54,7 @@ const PlaylistsModal = ({
     playlistsQuery.data && setPlaylist(playlistsQuery.data[playlistIndex]);
   }, [playlistsQuery.data, playlistIndex, isSuccess]);
 
-
-  const refreshPlaylist =  () => {
-    console.log ("refreshPlaylists")
+  const refreshPlaylist = () => {
     playlistsQuery.refetch();
   };
 
@@ -99,7 +97,6 @@ const PlaylistsModal = ({
               enableChange="true"
               isPage={false}
               refreshPlaylist={refreshPlaylist}
-
             />
           </div>
         ) : (

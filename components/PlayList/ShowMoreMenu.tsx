@@ -29,7 +29,6 @@ const ShowMoreMenu = ({ track, playlist, isPage, refreshPlaylist }) => {
         notify(message, NotificationType.SUCCESS);
         refresh();
         refreshPlaylist;
-        
       }
     },
   });
