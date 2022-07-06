@@ -35,7 +35,8 @@ function MyProfile(props) {
 
   const resourcesPacksQuery = useQuery(
     "my-resource-packs",
-    () => getUserResourcePack((session?.user as any).id).then((res) => res.data),
+    () =>
+      getUserResourcePack((session?.user as any).id).then((res) => res.data),
     { enabled: releasesQuery.status === "success" }
   );
 

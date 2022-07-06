@@ -49,6 +49,9 @@ const ArtistTrack = ({ track }) => {
                 {track?.isPlagia && (
                   <h1 className="text-rd text-semibold mx-2">plagiarism</h1>
                 )}
+                {track?.isFeatsWaiting && (
+                  <h1 className="text-rd text-semibold mx-2">feat X</h1>
+                )}
                 <div className="text-xl font-bold text-grn mx-2">
                   By {track?.author?.username}
                 </div>
