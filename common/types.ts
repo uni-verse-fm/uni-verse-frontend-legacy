@@ -192,6 +192,7 @@ export type Track = {
   id?: string;
   _id?: string;
   isPlagia?: boolean;
+  isFeatsWaiting?: boolean;
   feats?: IFeat[];
 };
 

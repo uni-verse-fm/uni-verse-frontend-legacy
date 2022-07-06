@@ -8,6 +8,7 @@ import { useMutation } from "react-query";
 import { imageSource, Messages } from "../../common/constants";
 import { signOut } from "next-auth/react";
 import { NotificationType, Pages } from "../../common/types";
+import ShowRequests from "../FeatRequestsMenu/FeatRequestsMenu";
 
 const UserDropDown = ({ user }) => {
   const { mutate } = useMutation("logout", logout, {
@@ -50,7 +51,6 @@ const UserDropDown = ({ user }) => {
           />
         )}
       </Menu.Button>
-
       <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-gry/60 backdrop-blur-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
         {user && (
           <Menu.Item>
@@ -71,6 +71,36 @@ const UserDropDown = ({ user }) => {
                 } group items-center px-2 py-2 font-semibold text-gryf`}
               >
                 Dashboard
+              </div>
+            )}
+          </Menu.Item>
+        </Link>
+        <Link href={`/${Pages.MyProfile}`} passHref>
+          <Menu.Item>
+            {({ active }) => (
+              <div
+                className={`${
+                  active
+                    ? "bg-grn bg-opacity-25 text-md cursor-pointer"
+                    : "text-sm"
+                } group items-center px-2 py-2 font-semibold text-gryf`}
+              >
+                <ShowRequests isSent={true} />
+              </div>
+            )}
+          </Menu.Item>
+        </Link>
+        <Link href={`/${Pages.MyProfile}`} passHref>
+          <Menu.Item>
+            {({ active }) => (
+              <div
+                className={`${
+                  active
+                    ? "bg-grn bg-opacity-25 text-md cursor-pointer"
+                    : "text-sm"
+                } group items-center px-2 py-2 font-semibold text-gryf`}
+              >
+                <ShowRequests isSent={false} />
               </div>
             )}
           </Menu.Item>
@@ -96,7 +126,6 @@ const UserDropDown = ({ user }) => {
             </Menu.Item>
           </a>
         )}
-
         <Menu.Item>
           {({ active }) => (
             <button

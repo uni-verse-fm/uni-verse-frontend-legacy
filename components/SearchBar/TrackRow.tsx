@@ -81,6 +81,9 @@ const TrackRow = ({ track, onClickDisplayTrack, disableHover }: ITrackRow) => {
         {track?.isPlagia && (
           <h1 className="text-rd text-semibold">plagiarism</h1>
         )}
+        {track?.isFeatsWaiting && (
+          <h1 className="text-rd text-semibold mx-2">feat X</h1>
+        )}
         <FontAwesomeIcon
           className="cursor-pointer mr-5 hover:scale-[1.40] text-grn text-md fa-xl"
           icon={faPlay}
