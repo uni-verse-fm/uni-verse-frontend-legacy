@@ -73,11 +73,6 @@ export default function Home() {
     hotTracks(monthHotTracksParams)
   );
 
-  const yearHotReleasesQuery = useQuery(
-    "year-hot-releases",
-    hotReleases(yearHotReleasesParams)
-  );
-
   const yearHotTracksQuery = useQuery(
     "year-hot-tracks",
     hotTracks(monthHotTracksParams)
@@ -141,17 +136,6 @@ export default function Home() {
         </StatsWrapper>
       </div>
       <div className="flex flex-row grow w-full h-auto">
-        <StatsWrapper query={yearHotReleasesQuery} title="Year hot releases">
-          {yearHotReleasesQuery.data?.map((release, index) => (
-            <li key={"release-" + index} value={release}>
-              <ReleaseRow
-                release={release}
-                onClickDisplayRelease={onClickDisplayRelease(release)}
-                disableHover={true}
-              />
-            </li>
-          ))}
-        </StatsWrapper>
         <StatsWrapper
           query={monthHotCommentQuery}
           title="Month most commented tracks"

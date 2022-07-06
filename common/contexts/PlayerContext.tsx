@@ -113,10 +113,7 @@ const PlayerProvider: React.FC = ({ children }) => {
     const track = state.tracks[currentTrackIndex];
     const trackId = track?.id;
     hasNext() ? nextTrack() : "";
-    if ((track as Track).release) {
-      trackId &&
-        addView({ track: trackId, release: (track as Track)?.release?.id });
-    }
+    trackId && addView({ track: trackId });
   };
 
   const onPlayPauseClick = () => {
@@ -124,14 +121,6 @@ const PlayerProvider: React.FC = ({ children }) => {
       playing ? sound.current.pause() : sound.current.play();
     }
   };
-
-  useEffect(() => {
-    return sound
-      ? () => {
-          sound.current = undefined;
-        }
-      : undefined;
-  }, []);
 
   useEffect(() => {
     const element = sound.current;

@@ -394,7 +394,6 @@ export enum ModelType {
 
 export interface AddView {
   track: string;
-  release: string;
   user?: string;
 }
 export interface HotViews {
