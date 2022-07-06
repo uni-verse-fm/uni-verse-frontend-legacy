@@ -4,10 +4,16 @@ import { Endoints } from "../common/types";
 const FeatRequestsEndpoint = Endoints.Transactions;
 
 const findSentRequestId = () =>
-  axiosClient.get(`${FeatRequestsEndpoint}/sent`).then((res) => res.data).then((res) => res.data);
+  axiosClient
+    .get(`${FeatRequestsEndpoint}/sent`)
+    .then((res) => res.data)
+    .then((res) => res.data);
 
 const findRecievedRequestId = () =>
-  axiosClient.get(`${FeatRequestsEndpoint}/received`).then((res) => res.data).then((res) => res.data);
+  axiosClient
+    .get(`${FeatRequestsEndpoint}/received`)
+    .then((res) => res.data)
+    .then((res) => res.data);
 
 const acceptRequest = (requestId: string) =>
   axiosClient.post(`${FeatRequestsEndpoint}/accept/${requestId}`);
