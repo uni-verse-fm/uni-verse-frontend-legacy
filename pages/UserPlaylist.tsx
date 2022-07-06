@@ -43,7 +43,7 @@ function UserPlaylist() {
   const onDeletePlaylist = (playlistId: string) => {
     mutate(playlistId);
   };
-
+  const refreshPlaylist = () => {};
   return (
     <div className="bg-drk w-full h-full flex flex-col overflow-y-scroll overflow-x-hidden">
       <div className="text-start  justify-start items-start w-full h-full ">
@@ -68,6 +68,7 @@ function UserPlaylist() {
               handleDelete={onDeletePlaylist}
               enableChange="false"
               isPage={true}
+              refreshPlaylist={refreshPlaylist}
             />
           )}
         </div>

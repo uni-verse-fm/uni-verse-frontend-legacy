@@ -12,6 +12,7 @@ import { PlayerProvider } from "../common/contexts/PlayerContext";
 import { SessionProvider } from "next-auth/react";
 import { AxiosProvider } from "../common/contexts/AxiosContext";
 import { config } from "../config";
+import Device from "../Device";
 
 const stripePromise = loadStripe(config.stripePubKey);
 
@@ -49,7 +50,17 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                       <div className="flex flex-col h-full w-full ">
                         {/* Allows having that sweet rounded corner */}
                         <div className="w-full h-full rounded-tl-md overflow-hidden">
-                          <Component {...pageProps} />
+                          <Device>
+                            {({ isMobile }) => {
+                              if (isMobile)
+                                return (
+                                  <div className="flex w-full h-full items-center justify-center text-grn text-xl">
+                                    https://cloud.vagahbond.com/s/e8TwnLsirNyMtTo{" "}
+                                  </div>
+                                );
+                              return <Component {...pageProps} />;
+                            }}
+                          </Device>
                         </div>
                       </div>
                     </div>

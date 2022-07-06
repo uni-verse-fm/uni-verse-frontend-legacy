@@ -39,6 +39,7 @@ const DisplayTracksTable = ({ release }) => {
       views: track?.views,
       comments: track?.comments,
       isPlagia: track?.isPlagia,
+      isFeatsWaiting: track?.isFeatsWaiting,
       id: track?.id,
       _id: track?._id,
     };
@@ -97,6 +98,9 @@ const DisplayTracksTable = ({ release }) => {
                   </div>
                   {track?.isPlagia && (
                     <h1 className="text-rd text-semibold mx-2">plagiarism</h1>
+                  )}
+                  {track?.isFeatsWaiting && (
+                    <h1 className="text-rd text-semibold mx-2">feat X</h1>
                   )}
                 </div>
               </div>

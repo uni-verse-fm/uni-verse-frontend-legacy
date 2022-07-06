@@ -192,6 +192,7 @@ export type Track = {
   id?: string;
   _id?: string;
   isPlagia?: boolean;
+  isFeatsWaiting?: boolean;
   feats?: IFeat[];
 };
 
@@ -299,6 +300,7 @@ export enum Endoints {
   Resources = "/resources",
   Views = "/views",
   Transactions = "/transactions",
+  FeatRequests = "/feat-requests",
 }
 
 export type ActionMap<M extends { [index: string]: any }> = {
