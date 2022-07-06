@@ -31,20 +31,24 @@ const PlaylistsModal = ({
     { enabled: Boolean((session?.user as any)?.id && showModal) }
   );
 
-  const { mutate, isSuccess  } = useMutation("deleteMyPlaylist", deletePlaylist, {
-    onError: () => {
-      notify("Can not delete playlist", NotificationType.ERROR);
-    },
-    onSuccess: async (res) => {
-      if (res.status !== 200) {
-        notify(res.data.message, NotificationType.ERROR);
-      } else {
-        const message = "Playlist deleted";
-        notify(message, NotificationType.SUCCESS);
-      }
-      await playlistsQuery.refetch();
-    },
-  });
+  const { mutate, isSuccess } = useMutation(
+    "deleteMyPlaylist",
+    deletePlaylist,
+    {
+      onError: () => {
+        notify("Can not delete playlist", NotificationType.ERROR);
+      },
+      onSuccess: async (res) => {
+        if (res.status !== 200) {
+          notify(res.data.message, NotificationType.ERROR);
+        } else {
+          const message = "Playlist deleted";
+          notify(message, NotificationType.SUCCESS);
+        }
+        await playlistsQuery.refetch();
+      },
+    }
+  );
 
   useEffect(() => {
     playlistsQuery.data && setPlaylist(playlistsQuery.data[playlistIndex]);
