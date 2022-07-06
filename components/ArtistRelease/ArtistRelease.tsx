@@ -90,7 +90,7 @@ const ArtistRelease = ({ release }) => {
                 onClick={onClickRelease(release)}
               />
             </h2>
-            {(session.user as any).id === release?.author._id && (
+            {(session?.user as any).id === release?.author._id && (
               <div className="flex flex-row">
                 <h2 className="text-grn text-xl">
                   <FontAwesomeIcon

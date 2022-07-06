@@ -15,7 +15,7 @@ const ResetPasswordModal = (props) => {
       if (res.status !== 201) {
         notify(res.data.message, NotificationType.ERROR);
       } else {
-        props.handleCloseResetPasswordModal();
+        props.handleCloseDialog();
         const message = "Password changed successfully";
         notify(message, NotificationType.SUCCESS);
       }
