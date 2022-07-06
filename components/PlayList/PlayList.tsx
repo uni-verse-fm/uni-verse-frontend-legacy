@@ -59,7 +59,7 @@ const Playlist = ({
     dispatch({
       type: Types.ReleasePlay,
       payload: {
-        tracks: playlist.tracks || [],
+        tracks: playlist?.tracks || [],
         trackIndex: 0,
       },
     });
@@ -77,9 +77,9 @@ const Playlist = ({
         </div>
         <div className="ml-5 items-end mt-2">
           <div className="flex flex-row ">
-            <h2 className="text-grn text-2xl font-bold ">{playlist.title}</h2>
+            <h2 className="text-grn text-2xl font-bold ">{playlist?.title}</h2>
             <div className="flex flex-row items-end">
-              {playlist.tracks?.length > 0 && (
+              {playlist?.tracks?.length > 0 && (
                 <h2 className="text-grn ml-5 items-end">
                   <FontAwesomeIcon
                     className="cursor-pointer text-sm  hover:scale-[1.40] text-wht hover:text-grn"
@@ -109,7 +109,7 @@ const Playlist = ({
               </div>
             )}
           </div>
-          <h2 className="text-gry  ">{playlist.owner?.username}</h2>
+          <h2 className="text-gry">{playlist?.owner?.username}</h2>
 
           {ShowMoreInformations == false ? (
             <h2 className="text-grn">
@@ -133,11 +133,11 @@ const Playlist = ({
               <h2 className="text-gry text-xs text-wht "> Created at : </h2>
               <h2 className="text-gry text-xs ">
                 {" "}
-                {isoDateToDateHour(playlist.createdAt)}{" "}
+                {isoDateToDateHour(playlist?.createdAt)}{" "}
               </h2>
               <h2 className="text-gry text-xs text-wht ">Last modified at :</h2>
               <h2 className="text-gry text-xs ">
-                {isoDateToDateHour(playlist.createdAt)}
+                {isoDateToDateHour(playlist?.createdAt)}
               </h2>
             </>
           )}
@@ -152,7 +152,7 @@ const Playlist = ({
           )}
         </div>
       </div>
-      {playlist.tracks?.length ? (
+      {playlist?.tracks?.length > 0 ? (
         <table className=" ml-10 mr-10 text-gry text-sm rounded-lg bg-gry bg-opacity-50 ">
           <thead>
             <tr className="text-grn border-b mb-10">
@@ -161,7 +161,7 @@ const Playlist = ({
             </tr>
           </thead>
           <tbody>
-            {playlist.tracks.map((track, index: number) => (
+            {playlist?.tracks.map((track, index: number) => (
               <tr
                 key={index}
                 className="h-10 cursor-pointer hover:bg-gry hover:bg-opacity-70 "
