@@ -44,9 +44,14 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                   {({ isMobile }) => {
                     if (isMobile)
                       return (
-                        <a className="flex w-full h-full items-center justify-center text-grn text-xl">
-                          https://cloud.vagahbond.com/s/e8TwnLsirNyMtTo{" "}
-                        </a>
+                        <div className="flex w-full h-full items-center justify-center text-grn text-xl">
+                          <a
+                            href="https://cloud.vagahbond.com/s/e8TwnLsirNyMtTo"
+                            className="justify-center mt-4 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-grn hover:bg-segrn"
+                          >
+                            Dowload APK
+                          </a>
+                        </div>
                       );
                     return (
                       <div
