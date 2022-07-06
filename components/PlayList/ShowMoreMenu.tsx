@@ -2,7 +2,7 @@ import { Menu } from "@headlessui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { notify } from "../Notifications";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { updatePlaylist } from "../../api/PlaylistAPI";
 import { useSession } from "next-auth/react";
 import {
@@ -15,18 +15,18 @@ import { Pages } from "../../common/types";
 
 const ShowMoreMenu = ({ track, playlist, isPage }) => {
   const { data: session } = useSession();
+  const queryClient = useQueryClient();
 
   const { mutate } = useMutation("updatePlaylist", updatePlaylist, {
     onError: () => {
       notify("Can not remove track from playlist", NotificationType.ERROR);
     },
-    onSuccess: (res) => {
-      if (res.status !== 200) {
-        notify(res.data.message, NotificationType.ERROR);
-      } else {
+    onSuccess: async (res) => {
+      if (res.status === 200) {
         const message = "Track removed from your plalist successfully";
         notify(message, NotificationType.SUCCESS);
         refresh();
+        await queryClient.refetchQueries(`my-playlists`);
       }
     },
   });
@@ -60,7 +60,7 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
       <Menu.Items className="hover-text-grn text-blck absolute right mt-2 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
         {session && (
           <div>
-            {(session.user as any).id === playlist.owner?._id && (
+            {(session?.user as any).id === playlist.owner?._id && (
               <Menu.Item>
                 {({ active }) => (
                   <div
