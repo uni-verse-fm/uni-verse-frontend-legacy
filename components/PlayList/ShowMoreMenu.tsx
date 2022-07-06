@@ -13,7 +13,7 @@ import {
 import router from "next/router";
 import { Pages } from "../../common/types";
 
-const ShowMoreMenu = ({ track, playlist, isPage }) => {
+const ShowMoreMenu = ({ track, playlist, isPage, refreshPlaylist }) => {
   const { data: session } = useSession();
 
   const { mutate } = useMutation("updatePlaylist", updatePlaylist, {
@@ -24,9 +24,11 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
       if (res.status !== 200) {
         notify(res.data.message, NotificationType.ERROR);
       } else {
-        const message = "Track removed from your plalist successfully";
+        const message = "Track removed from your playlist successfully";
         notify(message, NotificationType.SUCCESS);
         refresh();
+        refreshPlaylist;
+        
       }
     },
   });

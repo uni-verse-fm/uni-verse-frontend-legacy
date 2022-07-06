@@ -44,6 +44,12 @@ const PlaylistsModal = ({
     },
   });
 
+
+  const refreshPlaylist =  () => {
+    console.log ("refreshPlaylists")
+    playlistsQuery.refetch();
+  };
+
   const onDeletePlaylist = (playlistId: string) => {
     mutate(playlistId);
   };
@@ -82,6 +88,8 @@ const PlaylistsModal = ({
               handleDelete={onDeletePlaylist}
               enableChange="true"
               isPage={false}
+              refreshPlaylist={refreshPlaylist}
+
             />
           </div>
         ) : (
