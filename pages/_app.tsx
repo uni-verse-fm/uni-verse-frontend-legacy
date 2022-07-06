@@ -40,32 +40,40 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           <SessionProvider session={session}>
             <AxiosProvider adminRefreshToken={pageProps.adminRefreshToken}>
               <PlayerProvider>
-                <div className={"flex flex-col h-screen overflow-hidden"}>
-                  <div className="sticky top-0">
-                    <Header />
-                  </div>
-                  <div className="flex flex-grow h-full overflow-hidden">
-                    <div className="flex flex-row bg-gry w-full overflow-hidden">
-                      <Sidebar handleShowModal={handleShowPlaylistsModal} />
-                      <div className="flex flex-col h-full w-full ">
-                        {/* Allows having that sweet rounded corner */}
-                        <div className="w-full h-full rounded-tl-md overflow-hidden">
-                          <Device>
-                            {({ isMobile }) => {
-                              if (isMobile)
-                                return (
-                                  <div className="flex w-full h-full items-center justify-center text-grn text-xl">
-                                    https://cloud.vagahbond.com/s/e8TwnLsirNyMtTo{" "}
-                                  </div>
-                                );
-                              return <Component {...pageProps} />;
-                            }}
-                          </Device>
+                <Device>
+                  {({ isMobile }) => {
+                    if (isMobile)
+                      return (
+                        <a className="flex w-full h-full items-center justify-center text-grn text-xl">
+                          https://cloud.vagahbond.com/s/e8TwnLsirNyMtTo{" "}
+                        </a>
+                      );
+                    return (
+                      <div
+                        className={
+                          "flex flex-col h-screen w-screen overflow-hidden"
+                        }
+                      >
+                        <div className="sticky top-0">
+                          <Header />
+                        </div>
+                        <div className="flex flex-grow h-full overflow-hidden">
+                          <div className="flex flex-row bg-gry w-full overflow-hidden">
+                            <Sidebar
+                              handleShowModal={handleShowPlaylistsModal}
+                            />
+                            <div className="flex flex-col h-full w-full ">
+                              {/* Allows having that sweet rounded corner */}
+                              <div className="w-full h-full rounded-tl-md overflow-hidden">
+                                <Component {...pageProps} />
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
+                    );
+                  }}
+                </Device>
 
                 <Notifications />
                 <PlaylistsModal
