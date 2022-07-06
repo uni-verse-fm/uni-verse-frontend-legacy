@@ -66,45 +66,41 @@ const UserDropDown = ({ user }) => {
               <div
                 className={`${
                   active
-                    ? "bg-grn bg-opacity-25 text-md cursor-pointer"
-                    : "text-sm"
-                } group items-center px-2 py-2 font-semibold text-gryf`}
+                    ? "bg-grn text-gryf bg-opacity-25 text-md cursor-pointer"
+                    : "text-sm text-grn"
+                } group items-center px-2 py-2 font-semibold`}
               >
                 Dashboard
               </div>
             )}
           </Menu.Item>
         </Link>
-        <Link href={`/${Pages.MyProfile}`} passHref>
-          <Menu.Item>
-            {({ active }) => (
-              <div
-                className={`${
-                  active
-                    ? "bg-grn bg-opacity-25 text-md cursor-pointer"
-                    : "text-sm"
-                } group items-center px-2 py-2 font-semibold text-gryf`}
-              >
-                <ShowRequests isSent={true} />
-              </div>
-            )}
-          </Menu.Item>
-        </Link>
-        <Link href={`/${Pages.MyProfile}`} passHref>
-          <Menu.Item>
-            {({ active }) => (
-              <div
-                className={`${
-                  active
-                    ? "bg-grn bg-opacity-25 text-md cursor-pointer"
-                    : "text-sm"
-                } group items-center px-2 py-2 font-semibold text-gryf`}
-              >
-                <ShowRequests isSent={false} />
-              </div>
-            )}
-          </Menu.Item>
-        </Link>
+        <Menu.Item>
+          {({ active }) => (
+            <div
+              className={`${
+                active
+                  ? "bg-grn text-gryf bg-opacity-25 text-md cursor-pointer"
+                  : "text-sm text-grn"
+              } group items-center px-2 py-2 font-semibold text-gryf`}
+            >
+              <ShowRequests isSent={true} />
+            </div>
+          )}
+        </Menu.Item>
+        <Menu.Item>
+          {({ active }) => (
+            <div
+              className={`${
+                active
+                  ? "bg-grn bg-opacity-25 text-md cursor-pointer"
+                  : "text-sm"
+              } group items-center px-2 py-2 font-semibold text-gryf`}
+            >
+              <ShowRequests isSent={false} />
+            </div>
+          )}
+        </Menu.Item>
         {user.stripeAccountId && (
           <a
             href="https://dashboard.stripe.com/test/dashboard"
@@ -116,9 +112,9 @@ const UserDropDown = ({ user }) => {
                 <div
                   className={`${
                     active
-                      ? "bg-grn bg-opacity-25 text-md cursor-pointer"
-                      : "text-sm"
-                  } group items-center px-2 py-2 font-semibold text-gryf`}
+                      ? "bg-grn bg-opacity-25 text-md cursor-pointer text-gryf"
+                      : "text-sm text-grn"
+                  } group items-center px-2 py-2 font-semibold border-t-2 border-divide-gray-100`}
                 >
                   Earnings
                 </div>

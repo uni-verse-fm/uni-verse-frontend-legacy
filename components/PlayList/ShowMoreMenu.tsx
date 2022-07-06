@@ -13,7 +13,7 @@ import {
 import router from "next/router";
 import { Pages } from "../../common/types";
 
-const ShowMoreMenu = ({ track, playlist, isPage }) => {
+const ShowMoreMenu = ({ track, playlist, isPage, refreshPlaylist }) => {
   const { data: session } = useSession();
   const queryClient = useQueryClient();
 
@@ -21,12 +21,14 @@ const ShowMoreMenu = ({ track, playlist, isPage }) => {
     onError: () => {
       notify("Can not remove track from playlist", NotificationType.ERROR);
     },
-    onSuccess: async (res) => {
-      if (res.status === 200) {
-        const message = "Track removed from your plalist successfully";
+    onSuccess: (res) => {
+      if (res.status !== 200) {
+        notify(res.data.message, NotificationType.ERROR);
+      } else {
+        const message = "Track removed from your playlist successfully";
         notify(message, NotificationType.SUCCESS);
         refresh();
-        await queryClient.refetchQueries(`my-playlists`);
+        refreshPlaylist;
       }
     },
   });

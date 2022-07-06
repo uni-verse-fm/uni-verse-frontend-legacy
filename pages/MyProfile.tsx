@@ -18,7 +18,7 @@ function MyProfile(props) {
 
   const meQuery = useQuery("me", () => me().then((res) => res.data), {
     enabled: Boolean(session?.user),
-    initialData: { ...session.user },
+    initialData: { ...session?.user },
   });
 
   const releasesQuery = useQuery(
@@ -58,7 +58,7 @@ function MyProfile(props) {
     <div className="flex justify-center items-center bg-drk w-full h-full">
       <Spinner />
     </div>
-  ) : session.user ? (
+  ) : session?.user ? (
     <ProfileScreen
       user={{
         id: meQuery.data.id,

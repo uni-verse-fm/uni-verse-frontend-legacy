@@ -54,9 +54,9 @@ const PlaylistsModal = ({
     playlistsQuery.data && setPlaylist(playlistsQuery.data[playlistIndex]);
   }, [playlistsQuery.data, playlistIndex, isSuccess]);
 
-  useEffect(() => {
-    playlistsQuery.data && setPlaylist(playlistsQuery.data[playlistIndex]);
-  }, [playlistsQuery.data, playlistIndex, isSuccess]);
+  const refreshPlaylist = () => {
+    playlistsQuery.refetch();
+  };
 
   const onDeletePlaylist = (playlistId: string) => {
     mutate(playlistId);
@@ -96,6 +96,7 @@ const PlaylistsModal = ({
               handleDelete={onDeletePlaylist}
               enableChange="true"
               isPage={false}
+              refreshPlaylist={refreshPlaylist}
             />
           </div>
         ) : (

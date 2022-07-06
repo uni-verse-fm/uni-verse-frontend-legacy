@@ -11,7 +11,7 @@ import { useMutation, useQuery } from "react-query";
 import { notify } from "../Notifications";
 import {
   acceptRequest,
-  findRecievedRequestId,
+  findReceivedRequestId,
   findSentRequestId,
   refuseRequest,
 } from "../../api/FeatRequestsAPI ";
@@ -30,12 +30,12 @@ const ShowRequests = ({ isSent }: IShowFeatRequests) => {
         router.replace(`/${Pages.Login}`);
       }
     },
-    enabled: Boolean(isSent),
+    enabled: isSent,
   });
 
   const receivedRequestQuery = useQuery(
     "received-requests",
-    findRecievedRequestId,
+    findReceivedRequestId,
     {
       onError: (error: AxiosError) => {
         if (error.response?.status === 401) {
@@ -43,7 +43,7 @@ const ShowRequests = ({ isSent }: IShowFeatRequests) => {
           router.replace(`/${Pages.Login}`);
         }
       },
-      enabled: Boolean(!isSent),
+      enabled: !isSent,
     }
   );
 
@@ -78,24 +78,21 @@ const ShowRequests = ({ isSent }: IShowFeatRequests) => {
   });
 
   return (
-    <Menu as="div" className="relative text-left h-full w-auto">
-      <Menu.Button className="h-full w-auto p-2">
-        <FontAwesomeIcon
-          className="cursor-pointer hover:scale-[1.40] hover:text-grn text-grn"
-          icon={faEllipsis}
-        />
+    <Menu as="div" className="text-left h-full w-auto text-grn">
+      <Menu.Button className="h-full w-full text-left font-semibold text-grn hover:text-gryf">
         {isSent ? "Sent requests" : "Received requests"}
       </Menu.Button>
-      <Menu.Items className="bg-wht bg-opacity-80 z-10 absolute w-auto h-auto divide-y divide-gray-100 rounded-md">
+      <Menu.Items className="origin-top-right left-0 absolute bg-fakeBlr z-10 h-auto divide-y divide-gray-100 rounded-md">
         {isSent &&
           sentRequestQuery.status === "success" &&
+          sentRequestQuery.data?.length > 0 &&
           sentRequestQuery.data.map((request, index) => (
             <Menu.Item key={index}>
               {({ active }) => (
                 <div
                   className={`${
-                    active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-                  } group items-center px-2 py-2 font-semibold`}
+                    active && "bg-grn bg-opacity-25 text-gryf"
+                  } group items-center px-2 py-2 font-semibold text-md`}
                 >
                   <div>
                     {request?.dest.username} - {request?.track.title}
@@ -107,24 +104,27 @@ const ShowRequests = ({ isSent }: IShowFeatRequests) => {
 
         {!isSent &&
           receivedRequestQuery.status === "success" &&
+          receivedRequestQuery.data?.length > 0 &&
           receivedRequestQuery.data.map((request, index) => (
             <Menu.Item key={index}>
               {({ active }) => (
                 <div
                   className={`${
-                    active ? "bg-grn bg-opacity-25 text-md" : "text-sm"
-                  } flex flex-row gap-2 items-center px-2 py-2 font-semibold`}
+                    active && "bg-grn bg-opacity-25"
+                  } flex flex-row gap-2 items-center px-2 py-2 font-semibold text-md`}
                 >
                   <div>
-                    {request?.dest.username} - {request?.track.title}
+                    {request?.user.username} - {request?.track.title}
                   </div>
                   <FontAwesomeIcon
                     icon={faCircleXmark}
-                    onClick={() => acceptMutation.mutate(request?._id)}
+                    onClick={() => refuseMutation.mutate(request?._id)}
+                    className="text-rd cursor-pointer fa-xl"
                   />
                   <FontAwesomeIcon
                     icon={faCircleCheck}
-                    onClick={() => refuseMutation.mutate(request?._id)}
+                    onClick={() => acceptMutation.mutate(request?._id)}
+                    className="text-grn cursor-pointer fa-xl"
                   />
                 </div>
               )}

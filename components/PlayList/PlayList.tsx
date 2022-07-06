@@ -25,6 +25,7 @@ const Playlist = ({
   handleDelete,
   enableChange,
   isPage,
+  refreshPlaylist,
 }) => {
   const { dispatch } = useContext(PlayerContext);
 
@@ -209,6 +210,7 @@ const Playlist = ({
                     track={track}
                     playlist={playlist}
                     isPage={isPage}
+                    refreshPlaylist={refreshPlaylist}
                   />
                 </td>
               </tr>

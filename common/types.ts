@@ -300,6 +300,7 @@ export enum Endoints {
   Resources = "/resources",
   Views = "/views",
   Transactions = "/transactions",
+  FeatRequests = "/feat-requests",
 }
 
 export type ActionMap<M extends { [index: string]: any }> = {
