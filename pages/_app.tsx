@@ -55,7 +55,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                               if (isMobile)
                                 return (
                                   <div className="flex w-full h-full items-center justify-center text-grn text-xl">
-                                    My Mobile View
+                                    https://cloud.vagahbond.com/s/e8TwnLsirNyMtTo{" "}
                                   </div>
                                 );
                               return <Component {...pageProps} />;
