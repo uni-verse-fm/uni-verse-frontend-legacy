@@ -4,6 +4,7 @@ import {
   faRecordVinyl,
   faFileWaveform,
   faFile,
+  faMessage
 } from "@fortawesome/free-solid-svg-icons";
 import SideMenuEntry from "./SideMenuEntry";
 import Player from "../Player";
@@ -35,14 +36,22 @@ const Sidebar = ({ handleShowModal }) => {
                 <SideMenuEntry icon={faRecordVinyl} title="Upload release" />
               </LinkWrapper>
             </Link>
+
             <Link href={`/${Pages.UploadResourcePack}`} passHref>
               <LinkWrapper>
                 <SideMenuEntry
                   icon={faFileWaveform}
                   title="Upload sample or preset"
                 />
+              </LinkWrapper> 
+            </Link>
+
+            <Link href={`/${Pages.LicencePage}`} passHref>
+              <LinkWrapper>
+                <SideMenuEntry icon={faMessage} title="Messages" />
               </LinkWrapper>
             </Link>
+
           </>
         )}
         <Link href={`/${Pages.LicencePage}`} passHref>
@@ -53,5 +62,4 @@ const Sidebar = ({ handleShowModal }) => {
     </div>
   );
 };
-
 export default Sidebar;
