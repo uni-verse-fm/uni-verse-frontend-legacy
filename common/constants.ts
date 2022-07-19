@@ -45,7 +45,7 @@ export const Messages = {
   PURCHASE_SUCCESS: "Thank you for your purchase",
   EMPTY_FUZZY_RESULT: "No results with those specifications",
   EMPTY_COMMENTS: "No comments",
-  EMPTY_CONTACTS: "No contacts",
+  EMPTY_CONTACTS: "No  contacts",
 };
 
 export const headers = {
