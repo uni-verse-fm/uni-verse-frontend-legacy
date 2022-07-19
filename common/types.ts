@@ -164,6 +164,11 @@ export interface ICreateComment {
   typeOfContent: string;
 }
 
+export interface ICreateMessage {
+  dest: string;
+  content: string;
+}
+
 export interface IUpdateCommentData {
   contentId: string;
   isPositive: Boolean;
@@ -285,6 +290,8 @@ export enum Pages {
   Resource = "Resource",
   MyProfile = "MyProfile",
   Success = "Success",
+  UserMessages = "UserMessages",
+  UserContacts = "UserContacts",
   Error = "Error",
 }
 
@@ -301,6 +308,7 @@ export enum Endoints {
   Views = "/views",
   Transactions = "/transactions",
   FeatRequests = "/feat-requests",
+  Messages = "/messages",
 }
 
 export type ActionMap<M extends { [index: string]: any }> = {

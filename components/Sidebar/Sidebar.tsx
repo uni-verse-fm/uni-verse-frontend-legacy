@@ -4,6 +4,7 @@ import {
   faRecordVinyl,
   faFileWaveform,
   faFile,
+  faMessage,
 } from "@fortawesome/free-solid-svg-icons";
 import SideMenuEntry from "./SideMenuEntry";
 import Player from "../Player";
@@ -14,7 +15,6 @@ import LinkWrapper from "./LinkWrapper";
 
 const Sidebar = ({ handleShowModal }) => {
   const { data: session } = useSession();
-
   return (
     <div className="w-64 sm:relative bg-gry flex-col hidden sm:flex">
       <div className="mt-6 flex flex-col">
@@ -35,12 +35,19 @@ const Sidebar = ({ handleShowModal }) => {
                 <SideMenuEntry icon={faRecordVinyl} title="Upload release" />
               </LinkWrapper>
             </Link>
+
             <Link href={`/${Pages.UploadResourcePack}`} passHref>
               <LinkWrapper>
                 <SideMenuEntry
                   icon={faFileWaveform}
                   title="Upload sample or preset"
                 />
+              </LinkWrapper>
+            </Link>
+
+            <Link href={`/${Pages.UserContacts}`} passHref>
+              <LinkWrapper>
+                <SideMenuEntry icon={faMessage} title="Messages" />
               </LinkWrapper>
             </Link>
           </>
@@ -53,5 +60,4 @@ const Sidebar = ({ handleShowModal }) => {
     </div>
   );
 };
-
 export default Sidebar;
