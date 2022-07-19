@@ -15,10 +15,10 @@ export const Extensions = {
     accept: "audio/*",
   },
 };
-
 export const Messages = {
   TITLE: "Must be 15 characters or less",
   DESCRIPTION: "Must be at least 5 characters or less",
+  MSG: "too large",
   USERNAME: "Must be 15 characters or less",
   INVALID_EMAIL: "Invalid email format",
   NO_PASSWORD: "No password provided.",
@@ -45,6 +45,7 @@ export const Messages = {
   PURCHASE_SUCCESS: "Thank you for your purchase",
   EMPTY_FUZZY_RESULT: "No results with those specifications",
   EMPTY_COMMENTS: "No comments",
+  EMPTY_CONTACTS: "No contacts",
 };
 
 export const headers = {

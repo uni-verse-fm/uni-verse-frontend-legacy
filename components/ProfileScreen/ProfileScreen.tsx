@@ -18,6 +18,7 @@ import ResetPasswordModal from "../ResetPasswordModal";
 import TrackRow from "../SearchBar/TrackRow";
 import { Pages, Track } from "../../common/types";
 import { useRouter } from "next/router";
+import SendMessage from "../SendMessage";
 
 const imageProps = {
   defaultImageSrc: "/profile.jpg",
@@ -39,12 +40,15 @@ const ProfileScreen = ({
   const handleShowForm = () => {
     setShowForm(true);
   };
-
-  const [isValid, setIsValid] = useState(true);
-
   const handleCloseResetPasswordModal = () => {
     setShowForm(false);
   };
+
+  const [showFormSendMessage, setShowFormSendMessage] = useState(false);
+  const handleShowFormSendMessage = () => setShowFormSendMessage(true);
+  const handleCloseFormSendMessage = () => setShowFormSendMessage(false);
+
+  const [isValid, setIsValid] = useState(true);
 
   const onClickDisplayTrack = (track: Track) => () => {
     router.push({
@@ -118,7 +122,6 @@ const ProfileScreen = ({
               alt="image to upload"
             />
           )}
-
           {!isValid ? <div className="text-rd">File is too large</div> : null}
           {user.id && isMe && (
             <button
@@ -137,9 +140,16 @@ const ProfileScreen = ({
               <span>Donate</span>
             </button>
           )}
+          {user.id && !isMe && (
+            <button
+              onClick={handleShowFormSendMessage}
+              className="mt-4 text-md text-grn bg-wht rounded-full px-2 h-7 hover:bg-grn hover:text-wht hover:bg-opacity-25"
+            >
+              <span>Contact</span>
+            </button>
+          )}
         </div>
       </div>
-
       {hotTracks.length > 0 && (
         <>
           <h2 className="font-bold not-italic text-wht text-xl mt-10">
@@ -197,6 +207,11 @@ const ProfileScreen = ({
       <ResetPasswordModal
         showModal={showForm}
         handleCloseDialog={handleCloseResetPasswordModal}
+      />
+      <SendMessage
+        showModal={showFormSendMessage}
+        handleCloseDialog={handleCloseFormSendMessage}
+        dest={user.id}
       />
     </div>
   );
