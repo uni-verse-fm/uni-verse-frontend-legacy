@@ -23,7 +23,7 @@ const ListMessages = ({ messages }) => {
             className="h-10 hover:bg-gry hover:bg-opacity-70  "
           >
             <td className="flex justify-center items-center mt-5 ">
-              {(session?.user as any).id === message.user?._id ? (
+              {(session?.user as any)?.id === message.user?._id ? (
                 <div className=" bg-opacity-30 bg-gry rounded-full  w-8 h-8 flex justify-center items-center hover:bg-opacity-100">
                   <FontAwesomeIcon className=" text-grn " icon={faUpLong} />
                 </div>

@@ -65,7 +65,7 @@ const ArtistRelease = ({ release }) => {
   };
 
   return (
-    <div className="Global bg-grey w-full h-full flex flex-col  ">
+    <div className="Global bg-grey w-full h-full flex flex-col">
       <div className=" flex flex-row mb-16 ">
         <div>
           <img

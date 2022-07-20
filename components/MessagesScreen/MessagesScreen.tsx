@@ -50,22 +50,30 @@ const MessagesScreen = ({ idContact }) => {
           icon={faMessage}
         />
       </div>
-      <div
-        className=" bg-opacity-30 bg-gry rounded-full  w-8 h-8 mb-4 flex justify-center items-center hover:bg-opacity-100"
-        onClick={handleShowFormSendMessage}
-      >
-        <FontAwesomeIcon
-          className=" cursor-pointer hover:scale-[1.40] text-grn "
-          icon={faPlus}
-        />
-      </div>
-      <ListMessages messages={messageQuery.data} />
+      {(messageQuery.data?.length as number) > 0 ? (
+        <>
+          <div
+            className=" bg-opacity-30 bg-gry rounded-full  w-8 h-8 mb-4 flex justify-center items-center hover:bg-opacity-100"
+            onClick={handleShowFormSendMessage}
+          >
+            <FontAwesomeIcon
+              className=" cursor-pointer hover:scale-[1.40] text-grn "
+              icon={faPlus}
+            />
+          </div>
+          <ListMessages messages={messageQuery.data} />
 
-      <SendMessage
-        showModal={showFormSendMessage}
-        handleCloseDialog={handleCloseFormSendMessage}
-        dest={idContact}
-      />
+          <SendMessage
+            showModal={showFormSendMessage}
+            handleCloseDialog={handleCloseFormSendMessage}
+            dest={idContact}
+          />
+        </>
+      ) : (
+        <div className="flex justify-center items-center mt-10 text-lg">
+          <h1 className="text-rd whitespace-nowrap">Can not load data</h1>
+        </div>
+      )}
     </div>
   );
 };
