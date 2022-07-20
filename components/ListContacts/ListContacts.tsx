@@ -41,7 +41,7 @@ const ListContacts = ({ contacts }) => {
                   src={
                     contact?.dest?.profilePicture
                       ? imageSource + contact?.dest?.profilePicture
-                      : "/Playlist.png"
+                      : "/profile.jpg"
                   }
                   className="rounded-lg object-cover m-2"
                   width={50}
