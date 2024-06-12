@@ -1,4 +1,5 @@
-# Site web Uni-verse
+# This is the old version of uni-verse's frontend, which is being re-written in Svelte. 
+# Please rather check [the rewrite](https://github.com/uni-verse-fm/uni-verse-frontend)
 
 Uni-verse est une plateforme de streaming audio conçue spécifiquement pour les producteurs de musique.
 Elle consiste en un site web, une application smartphone, et une API.
